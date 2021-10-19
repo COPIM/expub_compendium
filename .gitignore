@@ -1,0 +1,3 @@
+web/app/__pycache__/
+web/app/db.sqlite
+.env.dev
