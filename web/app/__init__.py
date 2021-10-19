@@ -32,4 +32,8 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    # blueprint for tools parts of app
+    from .tool import tool as tool_blueprint
+    app.register_blueprint(tool_blueprint)
+
     return app
