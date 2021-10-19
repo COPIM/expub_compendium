@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  web:
+    build: ./web
+    container_name: python
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./web:/code
+    env_file:
+      - ./.env.dev
