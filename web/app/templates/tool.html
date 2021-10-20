@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{% block title %} {{ tool['name'] }} {% endblock %}</h2>
+    <span class="badge badge-primary">{{ tool['created'] }}</span>
+    <p>{{ tool['description'] }}</p>
+{% endblock %}

@@ -1,7 +1,17 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h1 class="title">
-  Welcome, {{ name }}!
-</h1>
+    <h1>{% block title %} Tools {% endblock %}</h1>
+    {% for tool in tools %}
+        <a href="{{ url_for('tool.show_tool', tool_id=tool['id']) }}">
+            <h2>{{ tool['name'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ tool['created'] }}</span>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('tool.edit_tool', tool_id=tool['id']) }}">
+            <span class="badge badge-warning">Edit</span>
+        </a>
+        {% endif %}
+        <hr>
+    {% endfor %}
 {% endblock %}
