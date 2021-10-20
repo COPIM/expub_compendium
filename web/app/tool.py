@@ -4,13 +4,13 @@ from .models import Tool
 from werkzeug.exceptions import abort
 from . import db
 
+tool = Blueprint('tool', __name__)
+
 def get_tool(tool_id):
     tool = Tool.query.filter_by(id=tool_id).first()
     if tool is None:
         abort(404)
     return tool
-
-tool = Blueprint('tool', __name__)
 
 @tool.route('/tools')
 def get_tools():

@@ -1,4 +1,3 @@
 flask
-requests
 flask-sqlalchemy
 flask-login

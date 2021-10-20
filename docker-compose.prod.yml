@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  web:
+    build: ./web
+    container_name: python
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./web:/code
+    env_file:
+      - ./.env.prod
+
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: unless-stopped
+    env_file:
+      - ./.env.prod
+    volumes:
+      dbdata:/var/lib/mysql
+    command: '--default-authentication-plugin=mysql_native_password'
