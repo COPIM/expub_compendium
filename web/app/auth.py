@@ -1,3 +1,12 @@
+# @name: auth.py
+# @version: 0.1
+# @creation_date: 2021-10-20
+# @license: The MIT License <https://opensource.org/licenses/MIT>
+# @author: Simon Bowie <ad7588@coventry.ac.uk>
+# @purpose: auth route for authorisation functions like logging in, signing up, and logging out
+# @acknowledgements:
+# https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
+
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required
@@ -6,6 +15,7 @@ from . import db
 
 auth = Blueprint('auth', __name__)
 
+# routes for login page
 @auth.route('/login')
 def login():
     return render_template('login.html')
@@ -16,6 +26,7 @@ def login_post():
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
+    # SQLAlchemy query to get user data based on their email
     user = User.query.filter_by(email=email).first()
 
     # check if the user actually exists
@@ -28,6 +39,7 @@ def login_post():
     login_user(user, remember=remember)
     return redirect(url_for('main.profile'))
 
+# routes for signup page
 @auth.route('/signup')
 def signup():
     return render_template('signup.html')
@@ -53,6 +65,7 @@ def signup_post():
 
     return redirect(url_for('auth.login'))
 
+# route for logout function
 @auth.route('/logout')
 @login_required
 def logout():

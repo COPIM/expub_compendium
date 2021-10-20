@@ -1,3 +1,13 @@
+# @name: __init__.py
+# @version: 0.1
+# @creation_date: 2021-10-20
+# @license: The MIT License <https://opensource.org/licenses/MIT>
+# @author: Simon Bowie <ad7588@coventry.ac.uk>
+# @purpose: Initialises the app, SQLAlchemy, and configuration variables
+# @acknowledgements:
+# https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
+# Config stuff adapted from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -9,6 +19,7 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
+    # get config variables from OS environment variables: set in env file passed through Docker Compose
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 
