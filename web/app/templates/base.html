@@ -43,8 +43,8 @@
             </li>
             {% if current_user.is_authenticated %}
             <li class="nav-item">
-                <a href="{{ url_for('tool.create_tool') }}" class="nav-link">
-                    Add tool
+                <a href="{{ url_for('create.create_resource') }}" class="nav-link">
+                    Add resource
                 </a>
             </li>
             {% endif %}

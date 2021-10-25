@@ -48,4 +48,8 @@ def create_app():
     from .tool import tool as tool_blueprint
     app.register_blueprint(tool_blueprint)
 
+    # blueprint for create parts of app
+    from .create import create as create_blueprint
+    app.register_blueprint(create_blueprint)
+
     return app
