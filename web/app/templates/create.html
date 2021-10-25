@@ -3,22 +3,22 @@
 {% block content %}
 <h1>{% block title %} Add a New Tool, Example, or Practice {% endblock %}</h1>
         <form method="POST" action="/create" id="resource">
-            <div class="form-group">
+            <div class="mb-3 mt-3">
               <label for="cars">Type</label>
-              <select id="type" name="type" form="resource">
+              <select class="form-select" id="type" name="type" form="resource">
                   <option value="tool">Tool</option>
                   <option value="example">Example</option>
                   <option value="practice">Practice</option>
               </select>
             </div>
-            <div class="form-group">
+            <div class="mb-3 mt-3">
                 <label for="name">Name</label>
                 <input class="form-control" type="text" name="name" placeholder="Name" autofocus="">
             </div>
 
-            <div class="form-group">
+            <div class="mb-3 mt-3">
                 <label for="description">Description</label>
-                <textarea class="form-control" type="text" name="description" placeholder="Description" autofocus=""></textarea>
+                <textarea class="form-control" rows="4" type="text" name="description" placeholder="Description" autofocus=""></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
