@@ -9,11 +9,16 @@
 # Bootstrap 5.1.3: https://getbootstrap.com/
 */
 
+body {
+  font-family: 'Lato', sans-serif !important;
+}
+
 main > .container {
   padding: 60px 15px 0;
 }
 
 .carousel-control-next,
-.carousel-control-prev {
+.carousel-control-prev,
+.carousel-indicators {
     filter: invert(100%);
 }
