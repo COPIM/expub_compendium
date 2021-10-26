@@ -2,9 +2,41 @@
 
 {% block content %}
 <h1 class="mt-5">
-  COPIM online toolkit
+  Vestibulum leo ligula
 </h1>
-<h2 class="subtitle">
-  testing online toolkit site
-</h2>
+<p>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus varius, justo a iaculis porta, ipsum nibh suscipit orci, at lobortis quam orci ac orci. In non consectetur ipsum. Suspendisse sodales tempor ullamcorper. Fusce placerat magna a nulla scelerisque, cursus accumsan quam tempus. Integer ac nulla sit amet nibh pulvinar porttitor non non leo. Nam a leo erat. Aliquam erat volutpat. Vestibulum quis diam sem.
+</p>
+
+<!-- Carousel -->
+<div id="tool_carousel" class="carousel slide" data-bs-ride="carousel">
+
+  <!-- Indicators/dots -->
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#tool_carousel" data-bs-slide-to="0" class="active"></button>
+    <button type="button" data-bs-target="#tool_carousel" data-bs-slide-to="1"></button>
+    <button type="button" data-bs-target="#tool_carousel" data-bs-slide-to="2"></button>
+  </div>
+
+  <!-- The slideshow/carousel -->
+  <div class="carousel-inner">
+    <div class="carousel-item active text-center">
+      Tool 1
+    </div>
+    <div class="carousel-item text-center">
+      Tool 2
+    </div>
+    <div class="carousel-item text-center">
+      Tool 3
+    </div>
+  </div>
+
+  <!-- Left and right controls/icons -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#tool_carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#tool_carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
 {% endblock %}
