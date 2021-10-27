@@ -11,6 +11,9 @@
 
 body {
   font-family: 'Lato', sans-serif !important;
+  min-height: 400px;
+  margin-bottom: 100px;
+  clear: both;
 }
 
 main > .container {

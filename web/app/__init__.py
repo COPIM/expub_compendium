@@ -14,9 +14,10 @@ from flask_login import LoginManager
 from flask_moment import Moment
 import os
 
-# init SQLAlchemy so we can use it later in our models
+# initiate SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
 
+# initiate Moment for datetime functions
 moment = Moment()
 
 def create_app():
@@ -45,7 +46,7 @@ def create_app():
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
 
-    # blueprint for non-auth parts of app
+    # blueprint for main parts of app
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 

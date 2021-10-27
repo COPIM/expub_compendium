@@ -4,25 +4,37 @@
 <h1>{% block title %} Add a New Tool, Example, or Practice {% endblock %}</h1>
         <form method="POST" action="/create" id="resource">
             <div class="mb-3 mt-3">
-              <label for="cars">Type</label>
-              <select class="form-select" id="type" name="type" form="resource">
+              <label for="type">Type</label>
+              <select class="form-select" id="resource_type" name="resource_type" form="resource">
+                  <option selected="selected">Please choose</option>
                   <option value="tool">Tool</option>
                   <option value="example">Example</option>
                   <option value="practice">Practice</option>
               </select>
             </div>
+            <div id="resource_type_Tool" class="resource_type_input">
             <div class="mb-3 mt-3">
-                <label for="name">Name</label>
-                <input class="form-control" type="text" name="name" placeholder="Name" autofocus="">
+                <label for="name">Tool name</label>
+                <input class="form-control" type="text" name="name" placeholder="Tool name" autofocus="">
             </div>
 
             <div class="mb-3 mt-3">
-                <label for="description">Description</label>
-                <textarea class="form-control" rows="4" type="text" name="description" placeholder="Description" autofocus=""></textarea>
+                <label for="description">Tool description</label>
+                <textarea class="form-control" rows="4" type="text" name="description" placeholder="Tool description" autofocus=""></textarea>
+            </div>
+            </div>
+            <div id="resource_type_Example" class="resource_type_input">
+            <div class="mb-3 mt-3">
+                <label for="name">Example name</label>
+                <input class="form-control" type="text" name="name" placeholder="Example name" autofocus="">
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="description">Example description</label>
+                <textarea class="form-control" rows="4" type="text" name="description" placeholder="Example description" autofocus=""></textarea>
+            </div>
             </div>
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    </div>
-</div>
 {% endblock %}
