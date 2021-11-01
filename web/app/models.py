@@ -24,6 +24,15 @@ class Tool(db.Model):
     created = db.Column(db.DateTime, default=datetime.utcnow)
     name = db.Column(db.Text)
     description = db.Column(db.Text)
+    project_url = db.Column(db.Text)
+    repository_url = db.Column(db.Text)
+    platform_status = db.Column(db.Text)
+    expertise = db.Column(db.Text)
+    self_host_expertise = db.Column(db.Text)
+    ingest = db.Column(db.Text)
+    output = db.Column(db.Text)
+    saas = db.Column(db.Text)
+    dependencies = db.Column(db.Text)
 
 # table for examples
 class Example(db.Model):

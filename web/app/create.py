@@ -22,9 +22,18 @@ create = Blueprint('create', __name__)
 @login_required
 def create_resource():
     if request.method == 'POST':
-        if request.form.get('type') == 'tool':
+        if request.form.get('resource_type') == 'tool':
             name = request.form.get('name')
             description = request.form.get('description')
+            project_url = request.form.get('project_url')
+            repository_url = request.form.get('repository_url')
+            platform_status = request.form.get('platform_status')
+            expertise = request.form.get('expertise')
+            self_host_expertise = request.form.get('self_host_expertise')
+            ingest = request.form.get('ingest')
+            output = request.form.get('output')
+            saas = request.form.get('saas')
+            dependencies = request.form.get('dependencies')
 
             if not name:
                 flash('Name is required!')
@@ -36,13 +45,13 @@ def create_resource():
                     return redirect(url_for('create.create'))
 
                 # create a new tool with the form data
-                new_tool = Tool(name=name, description=description)
+                new_tool = Tool(name=name, description=description, project_url=project_url, repository_url=repository_url, platform_status=platform_status, expertise=expertise, self_host_expertise=self_host_expertise, ingest=ingest, output=output, saas=saas, dependencies=dependencies)
 
                 # add the new tool to the database
                 db.session.add(new_tool)
                 db.session.commit()
 
-        elif request.form.get('type') == 'example':
+        elif request.form.get('resource_type') == 'example':
             name = request.form.get('name')
             description = request.form.get('description')
 
@@ -62,7 +71,7 @@ def create_resource():
                 db.session.add(new_example)
                 db.session.commit()
 
-        elif request.form.get('type') == 'practice':
+        elif request.form.get('resource_type') == 'practice':
             name = request.form.get('name')
             description = request.form.get('description')
 

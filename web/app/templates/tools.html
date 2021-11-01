@@ -23,7 +23,7 @@
                 </a>
             </div>
             <div class="card-body">
-                <span class="badge bg-secondary">{{ tool['created'] }}</span>
+                <span class="badge bg-secondary">{{ tool['created'].strftime("%Y-%m-%d %H:%M") }} UTC</span>
                 {% if current_user.is_authenticated %}
                 <a href="{{ url_for('tool.edit_tool', tool_id=tool['id']) }}">
                     <span class="badge bg-warning">Edit</span>

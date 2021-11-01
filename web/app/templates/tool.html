@@ -15,17 +15,97 @@
                             Created:
                         </th>
                         <td>
-                            {{ tool['created'] }}
+                            {{ tool['created'].strftime("%Y-%m-%d %H:%M") }} UTC
                         </td>
                     </tr>
                     <tr>
-                      <th>
-                          Description:
-                      </th>
-                      <td>
-                          {{ tool['description'] }}
-                      </td>
-                  </tr>
+                        <th>
+                            Description:
+                        </th>
+                        <td>
+                            {{ tool['description'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Project page:
+                        </th>
+                        <td>
+                            {{ tool['project_url'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Code repository:
+                        </th>
+                        <td>
+                            {{ tool['repository_url'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Stand-alone or platform?:
+                        </th>
+                        <td>
+                            {{ tool['platform_status'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Expertise required:
+                        </th>
+                        <td>
+                            {{ tool['expertise'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Expertise required to self-host:
+                        </th>
+                        <td>
+                            {{ tool['self_host_expertise'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Import / ingest:
+                        </th>
+                        <td>
+                            {{ tool['ingest'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Output formats:
+                        </th>
+                        <td>
+                            {{ tool['output'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            SAAS?:
+                        </th>
+                        <td>
+                            {{ tool['saas'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Community-hosted examples:
+                        </th>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Technical dependencies:
+                        </th>
+                        <td>
+                            {{ tool['dependencies'] }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
