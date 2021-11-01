@@ -6,6 +6,13 @@
             <h1 class="text-center">{% block title %} {{ tool['name'] }} {% endblock %}</h1>
         </div>
     </div>
+    {% if current_user.is_authenticated %}
+    <div class="row text-center py-3">
+        <a href="{{ url_for('tool.edit_tool', tool_id=tool['id']) }}">
+            <span class="badge bg-warning">Edit</span>
+        </a>
+    </div>
+    {% endif %}
     <div class="row">
         <div class="col">
             <table class="table table-hover">
