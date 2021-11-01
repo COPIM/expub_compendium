@@ -23,24 +23,14 @@
 
   <!-- The slideshow/carousel -->
   <div class="carousel-inner">
-    <div class="carousel-item active text-center">
-      <h2>Tool 1</h2>
+    {% for tool in tools %}
+    <div class="carousel-item {% if loop.index == 1 %} active {% endif %} text-center">
+      <h2>{{ tool['name'] }}</h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus varius, justo a iaculis porta, ipsum nibh suscipit orci, at lobortis quam orci ac orci. In non consectetur ipsum. Suspendisse sodales tempor ullamcorper.
+        {{tool['description']|truncate(200) }}
       </p>
     </div>
-    <div class="carousel-item text-center">
-      <h2>Tool 2</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus varius, justo a iaculis porta, ipsum nibh suscipit orci, at lobortis quam orci ac orci. In non consectetur ipsum. Suspendisse sodales tempor ullamcorper.
-      </p>
-    </div>
-    <div class="carousel-item text-center">
-      <h2>Tool 3</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus varius, justo a iaculis porta, ipsum nibh suscipit orci, at lobortis quam orci ac orci. In non consectetur ipsum. Suspendisse sodales tempor ullamcorper.
-      </p>
-    </div>
+    {% endfor %}
   </div>
 
   <!-- Left and right controls/icons -->

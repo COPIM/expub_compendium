@@ -10,13 +10,15 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from . import db
+from .models import Tool
 
 main = Blueprint('main', __name__)
 
 # route for index page
 @main.route('/')
 def index():
-    return render_template('index.html')
+    tools = Tool.query.limit(3)
+    return render_template('index.html', tools=tools)
 
 # route for profile page
 @main.route('/profile')
