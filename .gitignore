@@ -1,3 +1,4 @@
 web/app/__pycache__/
 web/app/db.sqlite
 .env.prod
+.DS_Store
