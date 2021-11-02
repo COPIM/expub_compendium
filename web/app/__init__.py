@@ -26,7 +26,8 @@ def create_app():
     # get config variables from OS environment variables: set in env file passed through Docker Compose
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = 'False'
+    app.config['SQLALCHEMY_ECHO'] = False
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db.init_app(app)
 
