@@ -3,12 +3,13 @@ services:
   web:
     build: ./web
     container_name: python
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./web:/code
+    expose:
+      - 5000
     env_file:
       - ./.env.prod
+    depends_on:
+      - db
+    command: gunicorn --workers=3 --bind 0.0.0.0:5000 "app:create_app()"
 
   db:
     image: mariadb:latest
@@ -17,5 +18,19 @@ services:
     env_file:
       - ./.env.prod
     volumes:
-      dbdata:/var/lib/mysql
+      - dbdata:/var/lib/mysql
     command: '--default-authentication-plugin=mysql_native_password'
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "1337:80"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+    depends_on:
+      - web
+
+volumes:
+  dbdata:
