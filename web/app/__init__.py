@@ -56,6 +56,14 @@ def create_app():
     from .tool import tool as tool_blueprint
     app.register_blueprint(tool_blueprint)
 
+    # blueprint for example parts of app
+    from .example import example as example_blueprint
+    app.register_blueprint(example_blueprint)
+
+    # blueprint for practice parts of app
+    from .practice import practice as practice_blueprint
+    app.register_blueprint(practice_blueprint)
+
     # blueprint for create parts of app
     from .create import create as create_blueprint
     app.register_blueprint(create_blueprint)

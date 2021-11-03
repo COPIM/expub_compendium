@@ -49,6 +49,16 @@
                     Tools
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ url_for('example.get_examples') }}" class="nav-link">
+                    Examples
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('practice.get_practices') }}" class="nav-link">
+                    Practices
+                </a>
+            </li>
             {% if current_user.is_authenticated %}
             <li class="nav-item">
                 <a href="{{ url_for('create.create_resource') }}" class="nav-link">
