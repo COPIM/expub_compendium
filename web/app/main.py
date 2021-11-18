@@ -25,3 +25,8 @@ def index():
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
+
+# route for test page
+@main.route('/test')
+def test():
+    return render_template('test.html')

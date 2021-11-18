@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+
+.collapse_text {
+  padding: 0 18px;
+  background-color: #f1f1f1;
+}
+
+</style>
+
+<h2>Collapsible text</h2>
+
+<b>HackMD</b>'s online writing environment supports practices of <a data-bs-toggle="collapse" href="#collapse_editing" role="button" aria-expanded="false" aria-controls="collapse_editing">collaborative editing</a>, <a data-bs-toggle="collapse" href="#collapse_writing" role="button" aria-expanded="false" aria-controls="collapse_writing">collaborative writing</a>, and <a data-bs-toggle="collapse" href="#collapse_versioning" role="button" aria-expanded="false" aria-controls="collapse_versioning">versioning</a>.
+
+<div class="collapse collapse_text" id="collapse_editing">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<div class="collapse collapse_text" id="collapse_writing">
+  <p>Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<div class="collapse collapse_text" id="collapse_versioning">
+  <p>Versioning text goes here.</p>
+</div>
+
+<br><br>
+
+<h2>Tooltips</h2>
+
+<b>HackMD</b>'s online writing environment supports practices of <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">collaborative editing</a>, <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">collaborative writing</a>, and <a href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Versioning text goes here.">versioning</a>.
+
+<br><br>
+
+<h2>Popover</h2>
+
+<b>HackMD</b>'s online writing environment supports practices of <a href="#" data-bs-toggle="popover" title="collaborative editing description" data-bs-content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">collaborative editing</a>, <a href="#" data-bs-toggle="popover" title="collaborative writing description" data-bs-content="Exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.">collaborative writing</a>, and <a href="#" data-bs-toggle="popover" title="versioning description" data-bs-content="Versioning text goes here.">collaborative editing</a>versioning</a>.
+
+{% endblock %}
