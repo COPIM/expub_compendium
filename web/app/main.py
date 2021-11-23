@@ -12,7 +12,6 @@ from flask_login import login_required, current_user
 from . import db
 from .models import Tool
 from sqlalchemy.sql import func
-from sqlalchemy.orm import load_only
 
 main = Blueprint('main', __name__)
 
