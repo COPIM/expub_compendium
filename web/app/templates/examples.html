@@ -29,7 +29,7 @@
                 <span class="badge bg-secondary">{{ example['created'].strftime("%Y-%m-%d %H:%M") }} UTC</span>
                 {% if current_user.is_authenticated %}
                 <a href="{{ url_for('example.edit_example', example_id=example['id']) }}">
-                    <span class="badge bg-warning">Edit</span>
+                    <span class="badge bg-dark">Edit</span>
                 </a>
                 {% endif %}
             </div>
