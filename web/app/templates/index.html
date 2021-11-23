@@ -2,43 +2,41 @@
 
 {% block content %}
 <h1>
-  Heading
+  Short intro title
 </h1>
 <p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus varius, justo a iaculis porta, ipsum nibh suscipit orci, at lobortis quam orci ac orci. In non consectetur ipsum. Suspendisse sodales tempor ullamcorper. Fusce placerat magna a nulla scelerisque, cursus accumsan quam tempus. Integer ac nulla sit amet nibh pulvinar porttitor non non leo. Nam a leo erat. Aliquam erat volutpat. Vestibulum quis diam sem.
+  Books bind people and practices together, holding relations, opening the world. Experimental books push what the book container can hold... <a href="">more</a>
 </p>
+<h1>
+  Essay title
+</h1>
 <p>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus varius, justo a iaculis porta, ipsum nibh suscipit orci, at lobortis quam orci ac orci. In non consectetur ipsum. Suspendisse sodales tempor ullamcorper. Fusce placerat magna a nulla scelerisque, cursus accumsan quam tempus. Integer ac nulla sit amet nibh pulvinar porttitor non non leo. Nam a leo erat. Aliquam erat volutpat. Vestibulum quis diam sem.
+  The UnBound Binds kit weaves some some ingredients for the making of experimental books into a non-linear how-to guide... <a href="">more</a>
+</p>
+<hr>
+<p>
+  Browse random ingredients, search or explore typology, books, tools, practices, sensitivities and publishers
 </p>
 
-<!-- Carousel -->
-<div id="tool_carousel" class="carousel slide mt-5" data-bs-ride="carousel">
-
-  <!-- Indicators/dots -->
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#tool_carousel" data-bs-slide-to="0" class="active"></button>
-    <button type="button" data-bs-target="#tool_carousel" data-bs-slide-to="1"></button>
-    <button type="button" data-bs-target="#tool_carousel" data-bs-slide-to="2"></button>
-  </div>
-
-  <!-- The slideshow/carousel -->
-  <div class="carousel-inner">
-    {% for tool in tools %}
-    <div class="carousel-item {% if loop.index == 1 %} active {% endif %} text-center">
-      <h2>{{ tool['name'] }}</h2>
-      <p>
-        {{tool['description']|truncate(200) }}
-      </p>
+<div class="row">
+{% for tool in tools %}
+    <div class="col-md-4 col-sm-6 py-3">
+    <div class="card text-dark bg-info mb-3">
+        <div class="card-body">
+            <a href="{{ url_for('tool.show_tool', tool_id=tool['id']) }}">
+                <h3 class="card-title text-center text-dark">{{ tool['name'] }}</h3>
+            </a>
+            <p class="card-text">
+                {{ tool['description']|truncate(100) }}
+            </p>
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('tool.edit_tool', tool_id=tool['id']) }}">
+                <span class="badge bg-warning">Edit</span>
+            </a>
+            {% endif %}
+        </div>
     </div>
-    {% endfor %}
-  </div>
-
-  <!-- Left and right controls/icons -->
-  <button class="carousel-control-prev" type="button" data-bs-target="#tool_carousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#tool_carousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </button>
+    </div>
+{% endfor %}
 </div>
 {% endblock %}
