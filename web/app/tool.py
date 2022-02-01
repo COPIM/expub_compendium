@@ -50,15 +50,14 @@ def edit_tool(tool_id):
             tool = Tool.query.get(tool_id)
             tool.name = name
             tool.description = description
-            tool.project_url = project_url
-            tool.repository_url = repository_url
-            tool.platform_status = platform_status
-            tool.expertise = expertise
-            tool.self_host_expertise = self_host_expertise
-            tool.ingest = ingest
-            tool.output = output
-            tool.saas = saas
+            tool.projectUrl = project_url
+            tool.repositoryUrl = repository_url
             tool.dependencies = dependencies
+            tool.expertiseToUse = expertise
+            tool.expertiseToHost = self_host_expertise
+            tool.ingestFormats = ingest
+            tool.outputFormats = output
+            tool.status = status
             db.session.commit()
             return redirect(url_for('tool.get_tools'))
 
