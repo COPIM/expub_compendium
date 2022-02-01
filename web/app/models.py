@@ -34,8 +34,8 @@ class Tool(db.Model):
     saas = db.Column(db.Text)
     dependencies = db.Column(db.Text)
 
-# table for examples
-class Example(db.Model):
+# table for books
+class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
     created = db.Column(db.DateTime, default=datetime.utcnow)
     name = db.Column(db.Text)

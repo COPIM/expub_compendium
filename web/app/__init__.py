@@ -56,9 +56,9 @@ def create_app():
     from .tool import tool as tool_blueprint
     app.register_blueprint(tool_blueprint)
 
-    # blueprint for example parts of app
-    from .example import example as example_blueprint
-    app.register_blueprint(example_blueprint)
+    # blueprint for book parts of app
+    from .book import book as book_blueprint
+    app.register_blueprint(book_blueprint)
 
     # blueprint for practice parts of app
     from .practice import practice as practice_blueprint

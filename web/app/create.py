@@ -10,7 +10,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Tool
-from .models import Example
+from .models import Book
 from .models import Practice
 from werkzeug.exceptions import abort
 from . import db
@@ -51,24 +51,24 @@ def create_resource():
                 db.session.add(new_tool)
                 db.session.commit()
 
-        elif request.form.get('resource_type') == 'example':
+        elif request.form.get('resource_type') == 'book':
             name = request.form.get('name')
             description = request.form.get('description')
 
             if not name:
                 flash('Name is required!')
             else:
-                example = Example.query.filter_by(name=name).first() # if this returns an example, then the name already exists in database
+                example = Book.query.filter_by(name=name).first() # if this returns a book, then the name already exists in database
 
-                if example: # if an example is found, we want to redirect back to create page
-                    flash('Example with same name already exists')
+                if example: # if a book is found, we want to redirect back to create page
+                    flash('Book with same name already exists')
                     return redirect(url_for('create.create'))
 
-                # create a new example with the form data
-                new_example = Example(name=name, description=description)
+                # create a new book with the form data
+                new_book = Book(name=name, description=description)
 
-                # add the new example to the database
-                db.session.add(new_example)
+                # add the new book to the database
+                db.session.add(new_book)
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'practice':
