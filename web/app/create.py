@@ -25,15 +25,14 @@ def create_resource():
         if request.form.get('resource_type') == 'tool':
             name = request.form.get('name')
             description = request.form.get('description')
-            project_url = request.form.get('project_url')
-            repository_url = request.form.get('repository_url')
-            platform_status = request.form.get('platform_status')
-            expertise = request.form.get('expertise')
-            self_host_expertise = request.form.get('self_host_expertise')
-            ingest = request.form.get('ingest')
-            output = request.form.get('output')
-            saas = request.form.get('saas')
+            projectUrl = request.form.get('projectUrl')
+            repositoryUrl = request.form.get('repositoryUrl')
+            expertiseToUse = request.form.get('expertiseToUse')
+            expertiseToHost = request.form.get('expertiseToHost')
             dependencies = request.form.get('dependencies')
+            ingestFormats = request.form.get('ingestFormats')
+            outputFormats = request.form.get('outputFormats')
+            status = request.form.get('status')
 
             if not name:
                 flash('Name is required!')
@@ -45,30 +44,10 @@ def create_resource():
                     return redirect(url_for('create.create'))
 
                 # create a new tool with the form data
-                new_tool = Tool(name=name, description=description, project_url=project_url, repository_url=repository_url, platform_status=platform_status, expertise=expertise, self_host_expertise=self_host_expertise, ingest=ingest, output=output, saas=saas, dependencies=dependencies)
+                new_tool = Tool(name=name, description=description, projectUrl=projectUrl, repositoryUrl=repositoryUrl, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status)
 
                 # add the new tool to the database
                 db.session.add(new_tool)
-                db.session.commit()
-
-        elif request.form.get('resource_type') == 'book':
-            name = request.form.get('name')
-            description = request.form.get('description')
-
-            if not name:
-                flash('Name is required!')
-            else:
-                example = Book.query.filter_by(name=name).first() # if this returns a book, then the name already exists in database
-
-                if example: # if a book is found, we want to redirect back to create page
-                    flash('Book with same name already exists')
-                    return redirect(url_for('create.create'))
-
-                # create a new book with the form data
-                new_book = Book(name=name, description=description)
-
-                # add the new book to the database
-                db.session.add(new_book)
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'practice':
@@ -89,6 +68,106 @@ def create_resource():
 
                 # add the new practice to the database
                 db.session.add(new_practice)
+                db.session.commit()
+
+        elif request.form.get('resource_type') == 'sensitivity':
+            name = request.form.get('name')
+            description = request.form.get('description')
+
+            if not name:
+                flash('Name is required!')
+            else:
+                sensitivity = Sensitivty.query.filter_by(name=name).first() # if this returns a sensitivity, then the name already exists in database
+
+                if sensitivity: # if a sensitivity is found, we want to redirect back to create page
+                    flash('Sensitivity with same name already exists')
+                    return redirect(url_for('create.create'))
+
+                # create a new sensitivity with the form data
+                new_sensitivity = Sensitivity(name=name, description=description)
+
+                # add the new sensitivity to the database
+                db.session.add(new_sensitivity)
+                db.session.commit()
+
+        elif request.form.get('resource_type') == 'typology':
+            name = request.form.get('name')
+            description = request.form.get('description')
+
+            if not name:
+                flash('Name is required!')
+            else:
+                typology = Typology.query.filter_by(name=name).first() # if this returns a typology, then the name already exists in database
+
+                if typology: # if a typology is found, we want to redirect back to create page
+                    flash('Typology with same name already exists')
+                    return redirect(url_for('create.create'))
+
+                # create a new typology with the form data
+                new_typology = Typology(name=name, description=description)
+
+                # add the new typology to the database
+                db.session.add(new_typology)
+                db.session.commit()
+
+        elif request.form.get('resource_type') == 'publisher':
+            name = request.form.get('name')
+            description = request.form.get('description')
+            publisherUrl = request.form.get('publisherUrl')
+
+            if not name:
+                flash('Name is required!')
+            else:
+                publisher = Publisher.query.filter_by(name=name).first() # if this returns a publisher, then the name already exists in database
+
+                if publisher: # if a publisher is found, we want to redirect back to create page
+                    flash('Publisher with same name already exists')
+                    return redirect(url_for('create.create'))
+
+                # create a new publisher with the form data
+                new_publisher = Publisher(name=name, description=description, publisherUrl=publisherUrl)
+
+                # add the new publisher to the database
+                db.session.add(new_publisher)
+                db.session.commit()
+
+        elif request.form.get('resource_type') == 'book':
+            name = request.form.get('name')
+            description = request.form.get('description')
+
+            if not name:
+                flash('Name is required!')
+            else:
+                book = Book.query.filter_by(name=name).first() # if this returns a book, then the name already exists in database
+
+                if book: # if a book is found, we want to redirect back to create page
+                    flash('Book with same name already exists')
+                    return redirect(url_for('create.create'))
+
+                # create a new book with the form data
+                new_book = Book(name=name, description=description)
+
+                # add the new book to the database
+                db.session.add(new_book)
+                db.session.commit()
+
+        elif request.form.get('resource_type') == 'reference':
+            zoteroUrl = request.form.get('zoteroUrl')
+
+            if not zoteroUrl:
+                flash('Zotero URL is required!')
+            else:
+                reference = Reference.query.filter_by(zoteroUrl=zoteroUrl).first() # if this returns a reference, then the name already exists in database
+
+                if reference: # if a reference is found, we want to redirect back to create page
+                    flash('Reference with same URL already exists')
+                    return redirect(url_for('create.create'))
+
+                # create a new reference with the form data
+                new_reference = Reference(zoteroUrl=zoteroUrl)
+
+                # add the new reference to the database
+                db.session.add(new_reference)
                 db.session.commit()
 
     return render_template('create.html')

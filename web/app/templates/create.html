@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Add a New Tool, Example, or Practice {% endblock %}</h1>
+<h1>{% block title %} Add a New Resource{% endblock %}</h1>
         <form method="POST" action="/create" id="resource">
             <div class="mb-3 mt-3">
               <label for="type">Type</label>
               <select class="form-select" id="resource_type" name="resource_type" form="resource">
                   <option selected="selected">Please choose</option>
                   <option value="tool">Tool</option>
-                  <option value="example">Example</option>
                   <option value="practice">Practice</option>
+                  <option value="sensitivity">Sensitivity</option>
+                  <option value="typology">Typology</option>
+                  <option value="workflow">Workflow</option>
+                  <option value="publisher">Publisher</option>
+                  <option value="book">Book</option>
+                  <option value="reference">Reference</option>
+
               </select>
             </div>
             <div id="resource_type_tool" class="resource_type_input" style="display: none;">
@@ -24,59 +30,43 @@
                 </div>
 
                 <div class="mb-3 mt-3">
-                    <label for="project_url">Project URL</label>
-                    <input class="form-control" type="text" name="project_url" placeholder="Project URL" autofocus="">
+                    <label for="projectUrl">Project URL</label>
+                    <input class="form-control" type="text" name="projectUrl" placeholder="Project URL" autofocus="">
                 </div>
 
                 <div class="mb-3 mt-3">
-                    <label for="repository_url">Repository URL</label>
-                    <input class="form-control" type="text" name="repository_url" placeholder="Repository URL" autofocus="">
+                    <label for="repositoryUrl">Repository URL</label>
+                    <input class="form-control" type="text" name="repositoryUrl" placeholder="Repository URL" autofocus="">
                 </div>
 
                 <div class="mb-3 mt-3">
-                    <label for="platform_status">Stand-alone or platform?</label>
-                    <input class="form-control" type="text" name="platform_status" placeholder="Stand-alone or platform?" autofocus="">
+                    <label for="expertiseToUse">Expertise required to use</label>
+                    <input class="form-control" type="text" name="expertiseToUse" placeholder="Expertise required to use" autofocus="">
                 </div>
 
                 <div class="mb-3 mt-3">
-                    <label for="expertise">Expertise required</label>
-                    <input class="form-control" type="text" name="expertise" placeholder="Expertise required" autofocus="">
-                </div>
-
-                <div class="mb-3 mt-3">
-                    <label for="self_host_expertise">Expertise required to self-host</label>
-                    <input class="form-control" type="text" name="self_host_expertise" placeholder="Expertise required to self-host" autofocus="">
-                </div>
-
-                <div class="mb-3 mt-3">
-                    <label for="ingest">Import / ingest</label>
-                    <input class="form-control" type="text" name="ingest" placeholder="Import / ingest" autofocus="">
-                </div>
-
-                <div class="mb-3 mt-3">
-                    <label for="output">Output formats</label>
-                    <input class="form-control" type="text" name="output" placeholder="Output formats" autofocus="">
-                </div>
-
-                <div class="mb-3 mt-3">
-                    <label for="saas">SAAS?</label>
-                    <input class="form-control" type="text" name="saas" placeholder="SAAS?" autofocus="">
+                    <label for="expertiseToHost">Expertise required to self-host</label>
+                    <input class="form-control" type="text" name="expertiseToHost" placeholder="Expertise required to self-host" autofocus="">
                 </div>
 
                 <div class="mb-3 mt-3">
                     <label for="dependencies">Technical dependencies</label>
                     <input class="form-control" type="text" name="dependencies" placeholder="Technical dependencies" autofocus="">
                 </div>
-            </div>
-            <div id="resource_type_example" class="resource_type_input" style="display: none;">
+
                 <div class="mb-3 mt-3">
-                    <label for="name">Example name</label>
-                    <input class="form-control" type="text" name="name" placeholder="Example name" autofocus="">
+                    <label for="ingestFormats">Import / ingest formats</label>
+                    <input class="form-control" type="text" name="ingestFormats" placeholder="Import / ingest formats" autofocus="">
                 </div>
 
                 <div class="mb-3 mt-3">
-                    <label for="description">Example description</label>
-                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Example description" autofocus=""></textarea>
+                    <label for="outputFormats">Output formats</label>
+                    <input class="form-control" type="text" name="outputFormats" placeholder="Output formats" autofocus="">
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="status">Platform status</label>
+                    <input class="form-control" type="text" name="status" placeholder="Platform status" autofocus="">
                 </div>
             </div>
             <div id="resource_type_practice" class="resource_type_input" style="display: none;">
@@ -90,7 +80,63 @@
                     <textarea class="form-control" rows="4" type="text" name="description" placeholder="Practice description" autofocus=""></textarea>
                 </div>
             </div>
+            <div id="resource_type_sensitivity" class="resource_type_input" style="display: none;">
+                <div class="mb-3 mt-3">
+                    <label for="name">Sensitivity name</label>
+                    <input class="form-control" type="text" name="name" placeholder="Sensitivity name" autofocus="">
+                </div>
 
+                <div class="mb-3 mt-3">
+                    <label for="description">Sensitivity description</label>
+                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Sensitivity description" autofocus=""></textarea>
+                </div>
+            </div>
+            <div id="resource_type_typology" class="resource_type_input" style="display: none;">
+                <div class="mb-3 mt-3">
+                    <label for="name">Typology name</label>
+                    <input class="form-control" type="text" name="name" placeholder="Typology name" autofocus="">
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="description">Typology description</label>
+                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Typology description" autofocus=""></textarea>
+                </div>
+            </div>
+            <div id="resource_type_workflow" class="resource_type_input" style="display: none;">
+            </div>
+            <div id="resource_type_publisher" class="resource_type_input" style="display: none;">
+                <div class="mb-3 mt-3">
+                    <label for="name">Publisher name</label>
+                    <input class="form-control" type="text" name="name" placeholder="Publisher name" autofocus="">
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="description">Publisher description</label>
+                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Publisher description" autofocus=""></textarea>
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="publisherUrl">Publisher URL</label>
+                    <input class="form-control" type="text" name="publisherUrl" placeholder="Publisher URL" autofocus="">
+                </div>
+            </div>
+            <div id="resource_type_book" class="resource_type_input" style="display: none;">
+                <div class="mb-3 mt-3">
+                    <label for="name">Book name</label>
+                    <input class="form-control" type="text" name="name" placeholder="Book name" autofocus="">
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="description">Book description</label>
+                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Book description" autofocus=""></textarea>
+                </div>
+            </div>
+            <div id="resource_type_reference" class="resource_type_input" style="display: none;">
+                <div class="mb-3 mt-3">
+                    <label for="zoteroUrl">Zotero URL</label>
+                    <input class="form-control" type="text" name="zoteroUrl" placeholder="Zotero URL" autofocus="">
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary mb-3">Submit</button>
         </form>
 {% endblock %}
