@@ -38,7 +38,7 @@
                             Project page:
                         </th>
                         <td>
-                            {{ tool['project_url'] }}
+                            {{ tool['projectUrl'] }}
                         </td>
                     </tr>
                     <tr>
@@ -46,23 +46,15 @@
                             Code repository:
                         </th>
                         <td>
-                            {{ tool['repository_url'] }}
+                            {{ tool['repositoryUrl'] }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            Stand-alone or platform?:
+                            Expertise required to use:
                         </th>
                         <td>
-                            {{ tool['platform_status'] }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Expertise required:
-                        </th>
-                        <td>
-                            {{ tool['expertise'] }}
+                            {{ tool['expertiseToUse'] }}
                         </td>
                     </tr>
                     <tr>
@@ -70,39 +62,7 @@
                             Expertise required to self-host:
                         </th>
                         <td>
-                            {{ tool['self_host_expertise'] }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Import / ingest:
-                        </th>
-                        <td>
-                            {{ tool['ingest'] }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Output formats:
-                        </th>
-                        <td>
-                            {{ tool['output'] }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            SAAS?:
-                        </th>
-                        <td>
-                            {{ tool['saas'] }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            Community-hosted examples:
-                        </th>
-                        <td>
-
+                            {{ tool['expertiseToHost'] }}
                         </td>
                     </tr>
                     <tr>
@@ -111,6 +71,30 @@
                         </th>
                         <td>
                             {{ tool['dependencies'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Import / ingest formats:
+                        </th>
+                        <td>
+                            {{ tool['ingestFormats'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Output formats:
+                        </th>
+                        <td>
+                            {{ tool['outputFormats'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Platform status:
+                        </th>
+                        <td>
+                            {{ tool['status'] }}
                         </td>
                     </tr>
                 </tbody>

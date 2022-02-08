@@ -40,11 +40,6 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
             <li class="nav-item">
-                <a href="{{ url_for('book.get_books') }}" class="nav-link">
-                    Books
-                </a>
-            </li>
-            <li class="nav-item">
                 <a href="{{ url_for('tool.get_tools') }}" class="nav-link">
                     Tools
                 </a>
@@ -55,13 +50,33 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url_for('main.index') }}" class="nav-link">
+                <a href="{{ url_for('sensitivity.get_sensitivities') }}" class="nav-link">
                     Sensitivities
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ url_for('main.index') }}" class="nav-link">
+                <a href="{{ url_for('typology.get_typologies') }}" class="nav-link">
+                    Typologies
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('workflow.get_workflows') }}" class="nav-link">
+                    Workflows
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('publisher.get_publishers') }}" class="nav-link">
                     Publishers
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('book.get_books') }}" class="nav-link">
+                    Books
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ url_for('reference.get_references') }}" class="nav-link">
+                    References
                 </a>
             </li>
             {% if current_user.is_authenticated %}
