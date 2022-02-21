@@ -10,8 +10,13 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Tool
-from .models import Book
 from .models import Practice
+from .models import Sensitivity
+from .models import Typology
+from .models import Workflow
+from .models import Publisher
+from .models import Book
+from .models import Reference
 from werkzeug.exceptions import abort
 from . import db
 
@@ -23,7 +28,7 @@ create = Blueprint('create', __name__)
 def create_resource():
     if request.method == 'POST':
         if request.form.get('resource_type') == 'tool':
-            name = request.form.get('name')
+            name = request.form.get('tool_name')
             description = request.form.get('description')
             projectUrl = request.form.get('projectUrl')
             repositoryUrl = request.form.get('repositoryUrl')
@@ -41,7 +46,7 @@ def create_resource():
 
                 if tool: # if a tool is found, we want to redirect back to create page
                     flash('Tool with same name already exists')
-                    return redirect(url_for('create.create'))
+                    return redirect(url_for('create.create_resource'))
 
                 # create a new tool with the form data
                 new_tool = Tool(name=name, description=description, projectUrl=projectUrl, repositoryUrl=repositoryUrl, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status)
@@ -51,7 +56,7 @@ def create_resource():
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'practice':
-            name = request.form.get('name')
+            name = request.form.get('practice_name')
             description = request.form.get('description')
 
             if not name:
@@ -61,7 +66,7 @@ def create_resource():
 
                 if practice: # if a practice is found, we want to redirect back to create page
                     flash('Practice with same name already exists')
-                    return redirect(url_for('create.create'))
+                    return redirect(url_for('create.create_resource'))
 
                 # create a new practice with the form data
                 new_practice = Practice(name=name, description=description)
@@ -71,17 +76,17 @@ def create_resource():
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'sensitivity':
-            name = request.form.get('name')
+            name = request.form.get('sensitivity_name')
             description = request.form.get('description')
 
             if not name:
                 flash('Name is required!')
             else:
-                sensitivity = Sensitivty.query.filter_by(name=name).first() # if this returns a sensitivity, then the name already exists in database
+                sensitivity = Sensitivity.query.filter_by(name=name).first() # if this returns a sensitivity, then the name already exists in database
 
                 if sensitivity: # if a sensitivity is found, we want to redirect back to create page
                     flash('Sensitivity with same name already exists')
-                    return redirect(url_for('create.create'))
+                    return redirect(url_for('create.create_resource'))
 
                 # create a new sensitivity with the form data
                 new_sensitivity = Sensitivity(name=name, description=description)
@@ -91,7 +96,7 @@ def create_resource():
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'typology':
-            name = request.form.get('name')
+            name = request.form.get('typology_name')
             description = request.form.get('description')
 
             if not name:
@@ -101,7 +106,7 @@ def create_resource():
 
                 if typology: # if a typology is found, we want to redirect back to create page
                     flash('Typology with same name already exists')
-                    return redirect(url_for('create.create'))
+                    return redirect(url_for('create.create_resource'))
 
                 # create a new typology with the form data
                 new_typology = Typology(name=name, description=description)
@@ -111,7 +116,7 @@ def create_resource():
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'publisher':
-            name = request.form.get('name')
+            name = request.form.get('publisher_name')
             description = request.form.get('description')
             publisherUrl = request.form.get('publisherUrl')
 
@@ -122,7 +127,7 @@ def create_resource():
 
                 if publisher: # if a publisher is found, we want to redirect back to create page
                     flash('Publisher with same name already exists')
-                    return redirect(url_for('create.create'))
+                    return redirect(url_for('create.create_resource'))
 
                 # create a new publisher with the form data
                 new_publisher = Publisher(name=name, description=description, publisherUrl=publisherUrl)
@@ -132,7 +137,7 @@ def create_resource():
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'book':
-            name = request.form.get('name')
+            name = request.form.get('book_name')
             description = request.form.get('description')
 
             if not name:
@@ -142,7 +147,7 @@ def create_resource():
 
                 if book: # if a book is found, we want to redirect back to create page
                     flash('Book with same name already exists')
-                    return redirect(url_for('create.create'))
+                    return redirect(url_for('create.create_resource'))
 
                 # create a new book with the form data
                 new_book = Book(name=name, description=description)
@@ -161,7 +166,7 @@ def create_resource():
 
                 if reference: # if a reference is found, we want to redirect back to create page
                     flash('Reference with same URL already exists')
-                    return redirect(url_for('create.create'))
+                    return redirect(url_for('create.create_resource'))
 
                 # create a new reference with the form data
                 new_reference = Reference(zoteroUrl=zoteroUrl)
