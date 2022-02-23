@@ -110,6 +110,7 @@
     <div class="row">
     {% for resource in resources %}
         <div class="col-md-4 col-sm-6 py-3">
+        {% if resource['type'] == 'practice' %}
         <div class="card text-dark bg-warning mb-3">
             <div class="card-body">
                 <a href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}">
@@ -120,6 +121,7 @@
                 </p>
             </div>
         </div>
+        {% endif %}
         </div>
     {% endfor %}
     </div>
