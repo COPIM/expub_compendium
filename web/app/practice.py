@@ -9,7 +9,7 @@
 
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Practice
+from .models import Resource
 from werkzeug.exceptions import abort
 from . import db
 
@@ -17,7 +17,7 @@ practice = Blueprint('practice', __name__)
 
 # function to retrieve data about a single practice from the database
 def get_practice(practice_id):
-    practice = Practice.query.filter_by(id=practice_id).first()
+    practice = Resource.query.filter_by(id=practice_id).first()
     if practice is None:
         abort(404)
     return practice
@@ -25,7 +25,7 @@ def get_practice(practice_id):
 # route for displaying all practices in database
 @practice.route('/practices')
 def get_practices():
-    practices = Practice.query
+    practices = Resource.query.filter_by(type='practice')
     return render_template('practices.html', practices=practices)
 
 # route for displaying a single practice based on the ID in the database
@@ -47,20 +47,20 @@ def edit_practice(practice_id):
         if not name:
             flash('Name is required!')
         else:
-            practice = Practice.query.get(practice_id)
+            practice = Resource.query.get(practice_id)
             practice.name = name
             practice.description = description
             db.session.commit()
             return redirect(url_for('practice.get_practices'))
 
-    return render_template('edit.html', practice=practice)
+    return render_template('edit.html', resource=practice)
 
 # route for function to delete a single practice from the edit page
 @practice.route('/practices/<int:practice_id>/delete', methods=('POST',))
 @login_required
 def delete_practice(practice_id):
     practice = get_practice(practice_id)
-    deletion = Practice.query.get(practice_id)
+    deletion = Resource.query.get(practice_id)
     db.session.delete(deletion)
     db.session.commit()
     flash('Successfully deleted!')

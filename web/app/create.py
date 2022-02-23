@@ -9,14 +9,8 @@
 
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from .models import Tool
-from .models import Practice
-from .models import Sensitivity
-from .models import Typology
-from .models import Workflow
-from .models import Publisher
-from .models import Book
-from .models import Reference
+from .models import Resource
+from .models import Relationships
 from werkzeug.exceptions import abort
 from . import db
 
@@ -28,6 +22,7 @@ create = Blueprint('create', __name__)
 def create_resource():
     if request.method == 'POST':
         if request.form.get('resource_type') == 'tool':
+            type = 'tool'
             name = request.form.get('tool_name')
             description = request.form.get('description')
             projectUrl = request.form.get('projectUrl')
@@ -38,45 +33,56 @@ def create_resource():
             ingestFormats = request.form.get('ingestFormats')
             outputFormats = request.form.get('outputFormats')
             status = request.form.get('status')
-            practice_id = request.form.get('linked_practice_id')
 
             if not name:
                 flash('Name is required!')
             else:
-                tool = Tool.query.filter_by(name=name).first() # if this returns a tool, then the name already exists in database
+                tool = Resource.query.filter_by(type='tool').filter_by(name=name).first() # if this returns a tool, then the name already exists in database
 
                 if tool: # if a tool is found, we want to redirect back to create page
                     flash('Tool with same name already exists')
                     return redirect(url_for('create.create_resource'))
 
                 # create a new tool with the form data
-                new_tool = Tool(name=name, description=description, projectUrl=projectUrl, repositoryUrl=repositoryUrl, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status, practice_id=practice_id)
+                new_tool = Resource(type=type, name=name, description=description, projectUrl=projectUrl, repositoryUrl=repositoryUrl, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status)
 
                 # add the new tool to the database
                 db.session.add(new_tool)
                 db.session.commit()
 
+                if request.form.get('linked_practice_id'):
+                    tool = Resource.query.filter_by(type='tool').filter_by(name=name).first()
+                    first_resource_id = tool.id
+                    second_resource_id = request.form.get('linked_practice_id')
+                    new_relationship = Relationships(first_resource_id=first_resource_id, second_resource_id=second_resource_id)
+
+                    # add the new relationship to the database
+                    db.session.add(new_relationship)
+                    db.session.commit()
+
         elif request.form.get('resource_type') == 'practice':
+            type = 'practice'
             name = request.form.get('practice_name')
             description = request.form.get('description')
 
             if not name:
                 flash('Name is required!')
             else:
-                practice = Practice.query.filter_by(name=name).first() # if this returns a practice, then the name already exists in database
+                practice = Resource.query.filter_by(type='practice').filter_by(name=name).first() # if this returns a practice, then the name already exists in database
 
                 if practice: # if a practice is found, we want to redirect back to create page
                     flash('Practice with same name already exists')
                     return redirect(url_for('create.create_resource'))
 
                 # create a new practice with the form data
-                new_practice = Practice(name=name, description=description)
+                new_practice = Resource(type=type, name=name, description=description)
 
                 # add the new practice to the database
                 db.session.add(new_practice)
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'sensitivity':
+            type = 'sensitivity'
             name = request.form.get('sensitivity_name')
             description = request.form.get('description')
 
@@ -90,13 +96,14 @@ def create_resource():
                     return redirect(url_for('create.create_resource'))
 
                 # create a new sensitivity with the form data
-                new_sensitivity = Sensitivity(name=name, description=description)
+                new_sensitivity = Resource(type=type, name=name, description=description)
 
                 # add the new sensitivity to the database
                 db.session.add(new_sensitivity)
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'typology':
+            type = 'typology'
             name = request.form.get('typology_name')
             description = request.form.get('description')
 
@@ -110,13 +117,14 @@ def create_resource():
                     return redirect(url_for('create.create_resource'))
 
                 # create a new typology with the form data
-                new_typology = Typology(name=name, description=description)
+                new_typology = Resource(type=type, name=name, description=description)
 
                 # add the new typology to the database
                 db.session.add(new_typology)
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'publisher':
+            type = 'publisher'
             name = request.form.get('publisher_name')
             description = request.form.get('description')
             publisherUrl = request.form.get('publisherUrl')
@@ -131,13 +139,14 @@ def create_resource():
                     return redirect(url_for('create.create_resource'))
 
                 # create a new publisher with the form data
-                new_publisher = Publisher(name=name, description=description, publisherUrl=publisherUrl)
+                new_publisher = Resource(type=type, name=name, description=description, publisherUrl=publisherUrl)
 
                 # add the new publisher to the database
                 db.session.add(new_publisher)
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'book':
+            type = 'book'
             name = request.form.get('book_name')
             description = request.form.get('description')
 
@@ -151,13 +160,14 @@ def create_resource():
                     return redirect(url_for('create.create_resource'))
 
                 # create a new book with the form data
-                new_book = Book(name=name, description=description)
+                new_book = Resource(type=type, name=name, description=description)
 
                 # add the new book to the database
                 db.session.add(new_book)
                 db.session.commit()
 
         elif request.form.get('resource_type') == 'reference':
+            type = 'reference'
             zoteroUrl = request.form.get('zoteroUrl')
 
             if not zoteroUrl:
@@ -170,11 +180,11 @@ def create_resource():
                     return redirect(url_for('create.create_resource'))
 
                 # create a new reference with the form data
-                new_reference = Reference(zoteroUrl=zoteroUrl)
+                new_reference = Resource(type=type, zoteroUrl=zoteroUrl)
 
                 # add the new reference to the database
                 db.session.add(new_reference)
                 db.session.commit()
 
-    practice_dropdown = Practice.query
+    practice_dropdown = Resource.query.filter_by(type='practice')
     return render_template('create.html', practice_dropdown=practice_dropdown)

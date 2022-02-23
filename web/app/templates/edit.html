@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Edit "{{ tool['name'] }}" {% endblock %}</h1>
+<h1>{% block title %} Edit "{{ resource['name'] }}" {% endblock %}</h1>
 
 <form method="post">
     <div class="mb-3 mt-3">
         <label for="name">Name</label>
-        <input type="text" name="name" placeholder="Tool name"
+        <input type="text" name="name" placeholder="Name"
                class="form-control"
-               value="{{ request.form['name'] or tool['name'] }}">
+               value="{{ request.form['name'] or resource['name'] }}">
         </input>
     </div>
 
     <div class="mb-3 mt-3">
         <label for="description">Description</label>
-        <textarea name="description" placeholder="Tool description"
-                  class="form-control">{{ request.form['description'] or tool['description'] }}</textarea>
+        <textarea name="description" placeholder="Description"
+                  class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
     </div>
     <div class="mb-3 mt-3">
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -23,9 +23,11 @@
 </form>
 <hr>
 
-<form action="{{ url_for('tool.delete_tool', tool_id=tool['id']) }}" method="POST">
-    <input type="submit" value="Delete Tool"
+{% if resource['type'] == 'tool' %}
+<form action="{{ url_for('tool.delete_tool', tool_id=resource['id']) }}" method="POST">
+    <input type="submit" value="Delete"
             class="btn btn-danger btn-sm"
             onclick="return confirm('Are you sure you want to delete this tool?')">
 </form>
+{% endif %}
 {% endblock %}

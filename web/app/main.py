@@ -10,7 +10,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from . import db
-from .models import Tool
+from .models import Resource
 from sqlalchemy.sql import func
 
 main = Blueprint('main', __name__)
@@ -18,7 +18,7 @@ main = Blueprint('main', __name__)
 # route for index page
 @main.route('/')
 def index():
-    tools = Tool.query.order_by(func.random()).limit(5).all()
+    tools = Resource.query.filter_by(type='tool').order_by(func.random()).limit(5).all()
     return render_template('index.html', tools=tools)
 
 # route for profile page
