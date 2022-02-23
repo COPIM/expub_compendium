@@ -41,8 +41,8 @@ class Resource(db.Model):
     zoteroUrl = db.Column(db.Text)
 
 # table for relationships
-class Relationships(db.Model):
-    __tablename__ = 'Relationships'
+class Relationship(db.Model):
+    __tablename__ = 'Relationship'
 
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
     first_resource_id = db.Column(db.Integer)

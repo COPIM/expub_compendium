@@ -10,7 +10,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Resource
-from .models import Relationships
+from .models import Relationship
 from werkzeug.exceptions import abort
 from . import db
 
@@ -54,7 +54,7 @@ def create_resource():
                     tool = Resource.query.filter_by(type='tool').filter_by(name=name).first()
                     first_resource_id = tool.id
                     second_resource_id = request.form.get('linked_practice_id')
-                    new_relationship = Relationships(first_resource_id=first_resource_id, second_resource_id=second_resource_id)
+                    new_relationship = Relationship(first_resource_id=first_resource_id, second_resource_id=second_resource_id)
 
                     # add the new relationship to the database
                     db.session.add(new_relationship)
