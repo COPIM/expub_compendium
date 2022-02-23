@@ -38,6 +38,7 @@ def create_resource():
             ingestFormats = request.form.get('ingestFormats')
             outputFormats = request.form.get('outputFormats')
             status = request.form.get('status')
+            practice_id = request.form.get('linked_practice_id')
 
             if not name:
                 flash('Name is required!')
@@ -49,7 +50,7 @@ def create_resource():
                     return redirect(url_for('create.create_resource'))
 
                 # create a new tool with the form data
-                new_tool = Tool(name=name, description=description, projectUrl=projectUrl, repositoryUrl=repositoryUrl, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status)
+                new_tool = Tool(name=name, description=description, projectUrl=projectUrl, repositoryUrl=repositoryUrl, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status, practice_id=practice_id)
 
                 # add the new tool to the database
                 db.session.add(new_tool)
@@ -175,4 +176,5 @@ def create_resource():
                 db.session.add(new_reference)
                 db.session.commit()
 
-    return render_template('create.html')
+    practice_dropdown = Practice.query
+    return render_template('create.html', practice_dropdown=practice_dropdown)

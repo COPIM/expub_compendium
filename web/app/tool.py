@@ -10,6 +10,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Tool
+from .models import Practice
 from werkzeug.exceptions import abort
 from . import db
 
@@ -22,6 +23,11 @@ def get_tool(tool_id):
         abort(404)
     return tool
 
+# function to retrieve linked practices
+def get_practice(practice_id):
+    practice = Practice.query.filter_by(id=practice_id).first()
+    return practice
+
 # route for displaying all tools in database
 @tool.route('/tools')
 def get_tools():
@@ -32,7 +38,8 @@ def get_tools():
 @tool.route('/tools/<int:tool_id>')
 def show_tool(tool_id):
     tool = get_tool(tool_id)
-    return render_template('tool.html', tool=tool)
+    practice = get_practice(tool.practice_id)
+    return render_template('tool.html', tool=tool, practice=practice)
 
 # route for editing a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>/edit', methods=('GET', 'POST'))
@@ -58,6 +65,7 @@ def edit_tool(tool_id):
             tool.ingestFormats = ingest
             tool.outputFormats = output
             tool.status = status
+            tool.practice_id = practice_id
             db.session.commit()
             return redirect(url_for('tool.get_tools'))
 

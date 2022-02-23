@@ -68,6 +68,16 @@
                     <label for="status">Platform status</label>
                     <input class="form-control" type="text" name="status" placeholder="Platform status" autofocus="">
                 </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="linked_practice_id">Linked practices</label>
+                    <select class="form-select" aria-label="Linked practices" name="linked_practice_id">
+                      <option selected>Select a linked practice</option>
+                      {% for practice_dropdown in practice_dropdown %}
+                        <option value="{{ practice_dropdown['id'] }}">{{ practice_dropdown['name'] }}</option>
+                      {% endfor %}
+                    </select>
+                </div>
             </div>
             <div id="resource_type_practice" class="resource_type_input" style="display: none;">
                 <div class="mb-3 mt-3">

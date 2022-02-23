@@ -101,4 +101,25 @@
             </table>
         </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center">Linked practices:</h2>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-4 col-sm-6 py-3">
+        <div class="card text-dark bg-warning mb-3">
+            <div class="card-body">
+                <a href="{{ url_for('practice.show_practice', practice_id=practice['id']) }}">
+                    <h3 class="card-title text-center text-dark">{{ practice['name'] }}</h3>
+                </a>
+                <p class="card-text">
+                    {{ practice['description']|truncate(100) }}
+                </p>
+            </div>
+        </div>
+        </div>
+
+    </div>
 {% endblock %}
