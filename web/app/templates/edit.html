@@ -17,6 +17,66 @@
         <textarea name="description" placeholder="Description"
                   class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
     </div>
+
+    {% if resource['type'] == 'tool' %}
+    <div class="mb-3 mt-3">
+        <label for="projectUrl">Project URL</label>
+        <input type="text" name="projectUrl" placeholder="Project URL"
+               class="form-control"
+               value="{{ request.form['projectUrl'] or resource['projectUrl'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="repositoryUrl">Repository URL</label>
+        <input type="text" name="repositoryUrl" placeholder="Repository URL"
+               class="form-control"
+               value="{{ request.form['repositoryUrl'] or resource['repositoryUrl'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="expertiseToUse">Expertise required to use</label>
+        <input type="text" name="expertiseToUse" placeholder="Expertise required to use"
+               class="form-control"
+               value="{{ request.form['expertiseToUse'] or resource['expertiseToUse'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="expertiseToHost">Expertise required to host</label>
+        <input type="text" name="expertiseToHost" placeholder="Expertise required to host"
+               class="form-control"
+               value="{{ request.form['expertiseToHost'] or resource['expertiseToHost'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="dependencies">Technical dependencies</label>
+        <input type="text" name="dependencies" placeholder="Technical dependencies"
+               class="form-control"
+               value="{{ request.form['dependencies'] or resource['dependencies'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="ingestFormats">Import / ingest formats</label>
+        <input type="text" name="ingestFormats" placeholder="Import / ingest formats"
+               class="form-control"
+               value="{{ request.form['ingestFormats'] or resource['ingestFormats'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="outputFormats">Output formats</label>
+        <input type="text" name="outputFormats" placeholder="Output formats"
+               class="form-control"
+               value="{{ request.form['outputFormats'] or resource['outputFormats'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="status">Platform status</label>
+        <input type="text" name="status" placeholder="Platform status"
+               class="form-control"
+               value="{{ request.form['status'] or resource['status'] }}">
+        </input>
+    </div>
+    {% endif %}
+
     <div class="mb-3 mt-3">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>

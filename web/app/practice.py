@@ -1,5 +1,4 @@
 # @name: practice.py
-# @version: 0.1
 # @creation_date: 2021-11-03
 # @license: The MIT License <https://opensource.org/licenses/MIT>
 # @author: Simon Bowie <ad7588@coventry.ac.uk>
@@ -10,17 +9,11 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Resource
+from .resources import *
 from werkzeug.exceptions import abort
 from . import db
 
 practice = Blueprint('practice', __name__)
-
-# function to retrieve data about a single practice from the database
-def get_practice(practice_id):
-    practice = Resource.query.filter_by(id=practice_id).first()
-    if practice is None:
-        abort(404)
-    return practice
 
 # route for displaying all practices in database
 @practice.route('/practices')
@@ -31,14 +24,15 @@ def get_practices():
 # route for displaying a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
-    practice = get_practice(practice_id)
-    return render_template('practice.html', practice=practice)
+    practice = get_resource(practice_id)
+    resources = get_linked_resources(practice_id)
+    return render_template('practice.html', practice=practice, resources=resources)
 
 # route for editing a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit_practice(practice_id):
-    practice = get_practice(practice_id)
+    practice = get_resource(practice_id)
 
     if request.method == 'POST':
         name = request.form['name']
@@ -59,9 +53,5 @@ def edit_practice(practice_id):
 @practice.route('/practices/<int:practice_id>/delete', methods=('POST',))
 @login_required
 def delete_practice(practice_id):
-    practice = get_practice(practice_id)
-    deletion = Resource.query.get(practice_id)
-    db.session.delete(deletion)
-    db.session.commit()
-    flash('Successfully deleted!')
+    delete_resource(practice_id)
     return redirect(url_for('practice.get_practices'))

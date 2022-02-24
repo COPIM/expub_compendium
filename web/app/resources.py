@@ -1,5 +1,4 @@
 # @name: resources.py
-# @version: 0.1
 # @creation_date: 2022-02-23
 # @license: The MIT License <https://opensource.org/licenses/MIT>
 # @author: Simon Bowie <ad7588@coventry.ac.uk>

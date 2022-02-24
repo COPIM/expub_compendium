@@ -1,5 +1,4 @@
 # @name: main.py
-# @version: 0.1
 # @creation_date: 2021-10-20
 # @license: The MIT License <https://opensource.org/licenses/MIT>
 # @author: Simon Bowie <ad7588@coventry.ac.uk>

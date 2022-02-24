@@ -1,5 +1,4 @@
 # @name: tool.py
-# @version: 0.1
 # @creation_date: 2021-10-20
 # @license: The MIT License <https://opensource.org/licenses/MIT>
 # @author: Simon Bowie <ad7588@coventry.ac.uk>
@@ -38,6 +37,14 @@ def edit_tool(tool_id):
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
+        projectUrl = request.form.get('projectUrl')
+        repositoryUrl = request.form.get('repositoryUrl')
+        expertiseToUse = request.form.get('expertiseToUse')
+        expertiseToHost = request.form.get('expertiseToHost')
+        dependencies = request.form.get('dependencies')
+        ingestFormats = request.form.get('ingestFormats')
+        outputFormats = request.form.get('outputFormats')
+        status = request.form.get('status')
 
         if not name:
             flash('Name is required!')
@@ -45,14 +52,14 @@ def edit_tool(tool_id):
             tool = Resource.query.get(tool_id)
             tool.name = name
             tool.description = description
-            # tool.projectUrl = project_url
-            # tool.repositoryUrl = repository_url
-            # tool.dependencies = dependencies
-            # tool.expertiseToUse = expertise
-            # tool.expertiseToHost = self_host_expertise
-            # tool.ingestFormats = ingest
-            # tool.outputFormats = output
-            # tool.status = status
+            tool.projectUrl = projectUrl
+            tool.repositoryUrl = repositoryUrl
+            tool.dependencies = dependencies
+            tool.expertiseToUse = expertiseToUse
+            tool.expertiseToHost = expertiseToHost
+            tool.ingestFormats = ingestFormats
+            tool.outputFormats = outputFormats
+            tool.status = status
             db.session.commit()
             return redirect(url_for('tool.get_tools'))
 
