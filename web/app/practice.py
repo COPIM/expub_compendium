@@ -19,14 +19,14 @@ practice = Blueprint('practice', __name__)
 @practice.route('/practices')
 def get_practices():
     practices = Resource.query.filter_by(type='practice')
-    return render_template('practices.html', practices=practices)
+    return render_template('resources.html', resources=practices, type='practice')
 
 # route for displaying a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
     practice = get_resource(practice_id)
-    resources = get_linked_resources(practice_id)
-    return render_template('practice.html', practice=practice, resources=resources)
+    links = get_linked_resources(practice_id)
+    return render_template('resource.html', resource=practice, links=links)
 
 # route for editing a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>/edit', methods=('GET', 'POST'))

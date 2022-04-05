@@ -19,14 +19,14 @@ tool = Blueprint('tool', __name__)
 @tool.route('/tools')
 def get_tools():
     tools = Resource.query.filter_by(type='tool')
-    return render_template('tools.html', tools=tools)
+    return render_template('resources.html', resources=tools, type='tool')
 
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')
 def show_tool(tool_id):
     tool = get_resource(tool_id)
-    resources = get_linked_resources(tool_id)
-    return render_template('tool.html', tool=tool, resources=resources)
+    links = get_linked_resources(tool_id)
+    return render_template('resource.html', resource=tool, links=links)
 
 # route for editing a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>/edit', methods=('GET', 'POST'))
@@ -37,14 +37,14 @@ def edit_tool(tool_id):
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
-        projectUrl = request.form.get('projectUrl')
-        repositoryUrl = request.form.get('repositoryUrl')
-        expertiseToUse = request.form.get('expertiseToUse')
-        expertiseToHost = request.form.get('expertiseToHost')
-        dependencies = request.form.get('dependencies')
-        ingestFormats = request.form.get('ingestFormats')
-        outputFormats = request.form.get('outputFormats')
-        status = request.form.get('status')
+        projectUrl = request.form['projectUrl']
+        repositoryUrl = request.form['repositoryUrl']
+        expertiseToUse = request.form['expertiseToUse']
+        expertiseToHost = request.form['expertiseToHost']
+        dependencies = request.form['dependencies']
+        ingestFormats = request.form['ingestFormats']
+        outputFormats = request.form['outputFormats']
+        status = request.form['status']
 
         if not name:
             flash('Name is required!')
