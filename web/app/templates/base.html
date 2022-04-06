@@ -123,6 +123,9 @@
 
     <!-- Begin page content -->
     <main class="flex-shrink-0">
+      <div class="layer-bg w-100">
+        <img class="img-fluid w-100" src="{{ url_for('static',filename='images/dots-bg.png') }}" alt="bg-shape">
+      </div>
       <div class="container">
           {% with messages = get_flashed_messages() %}
           {% if messages %}
