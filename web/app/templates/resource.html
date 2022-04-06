@@ -135,6 +135,18 @@
     <div class="row">
     {% for link in links %}
         <div class="col-md-4 col-sm-6 py-3">
+        {% if link['type'] == 'tool' %}
+        <div class="card text-dark bg-tool mb-3">
+            <div class="card-body">
+                <a href="{{ url_for('tool.show_tool', tool_id=link['id']) }}">
+                    <h3 class="card-title text-center text-dark">{{ link['name'] }}</h3>
+                </a>
+                <p class="card-text">
+                    {{ link['description']|truncate(100) }}
+                </p>
+            </div>
+        </div>
+        {% endif %}
         {% if link['type'] == 'practice' %}
         <div class="card text-dark bg-practice mb-3">
             <div class="card-body">

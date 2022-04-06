@@ -21,11 +21,19 @@ def get_resource(resource_id):
 
 # function to retrieve linked resources
 def get_linked_resources(resource_id):
-    relationships = Relationship.query.filter_by(first_resource_id=resource_id).first()
+    relationships = Relationship.query.filter_by(first_resource_id=resource_id).all()
     if relationships:
-        resource_id = relationships.second_resource_id
-        resources = Resource.query.filter_by(id=resource_id).all()
-        return resources
+        for relationship in relationships:
+            resource_id = relationship.second_resource_id
+            links = Resource.query.filter_by(id=resource_id).all()
+            return links
+    else:
+        relationships = Relationship.query.filter_by(second_resource_id=resource_id).all()
+        if relationships:
+            for relationship in relationships:
+                resource_id = relationship.first_resource_id
+                links = Resource.query.filter_by(id=resource_id).all()
+                return links
 
 # function to delete a single resource
 def delete_resource(resource_id):
