@@ -49,15 +49,16 @@ def create_resource():
                 db.session.add(new_tool)
                 db.session.commit()
 
-                if request.form.get('linked_practice_id'):
-                    tool = Resource.query.filter_by(type='tool').filter_by(name=name).first()
-                    first_resource_id = tool.id
-                    second_resource_id = request.form.get('linked_practice_id')
-                    new_relationship = Relationship(first_resource_id=first_resource_id, second_resource_id=second_resource_id)
+                if request.form.getlist('linked_resources'):
+                    for linked_resource in request.form.getlist('linked_resources'):
+                        tool = Resource.query.filter_by(type='tool').filter_by(name=name).first()
+                        first_resource_id = tool.id
+                        second_resource_id = linked_resource
+                        new_relationship = Relationship(first_resource_id=first_resource_id, second_resource_id=second_resource_id)
 
-                    # add the new relationship to the database
-                    db.session.add(new_relationship)
-                    db.session.commit()
+                        # add the new relationship to the database
+                        db.session.add(new_relationship)
+                        db.session.commit()
 
         elif request.form.get('resource_type') == 'practice':
             type = 'practice'

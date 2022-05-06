@@ -23,17 +23,19 @@ def get_resource(resource_id):
 def get_linked_resources(resource_id):
     relationships = Relationship.query.filter_by(first_resource_id=resource_id).all()
     if relationships:
+        links = []
         for relationship in relationships:
-            resource_id = relationship.second_resource_id
-            links = Resource.query.filter_by(id=resource_id).all()
-            return links
+             resource_id = relationship.second_resource_id
+             links.extend(Resource.query.filter_by(id=resource_id).all())
+        return links
     else:
         relationships = Relationship.query.filter_by(second_resource_id=resource_id).all()
         if relationships:
+            links = []
             for relationship in relationships:
                 resource_id = relationship.first_resource_id
-                links = Resource.query.filter_by(id=resource_id).all()
-                return links
+                links.extend(Resource.query.filter_by(id=resource_id).all())
+            return links
 
 # function to delete a single resource
 def delete_resource(resource_id):
