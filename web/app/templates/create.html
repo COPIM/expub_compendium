@@ -71,13 +71,14 @@
 
                 <div class="mb-3 mt-3">
                     <label for="linked_practice_id">Linked resources</label>
-                    <!--<select class="form-select" aria-label="Linked practices" name="linked_practice_id" multiple="multiple" id="linked_practice_id">-->
+                </div>
+                <div class="mb-3 mt-3">
                     <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
-                      <optgroup label="Practices">
-                      {% for practice_dropdown in practice_dropdown %}
-                        <option value="{{ practice_dropdown['id'] }}">{{ practice_dropdown['name'] }}</option>
+                      {% for resource_dropdown in resource_dropdown %}
+                        {% if resource_dropdown['type'] != 'tool' %}
+                          <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                        {% endif %}
                       {% endfor %}
-                      </optgroup>
                     </select>
                 </div>
             </div>

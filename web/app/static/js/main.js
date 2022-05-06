@@ -6,7 +6,6 @@
 # @author: Simon Bowie <ad7588@coventry.ac.uk>
 # @purpose: JavaScript functions for various functions
 # @acknowledgements:
-# https://stackoverflow.com/questions/67942546/bootstrap-5-select-dropdown-with-the-multiple-attribute-collapsed
 */
 
 // Dynamic HTML forms based on dropdown menu

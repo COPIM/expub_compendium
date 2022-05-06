@@ -33,6 +33,8 @@ def show_tool(tool_id):
 @login_required
 def edit_tool(tool_id):
     tool = get_resource(tool_id)
+    resource_dropdown = Resource.query
+    links = get_linked_resources(tool_id)
 
     if request.method == 'POST':
         name = request.form['name']
@@ -45,6 +47,7 @@ def edit_tool(tool_id):
         ingestFormats = request.form['ingestFormats']
         outputFormats = request.form['outputFormats']
         status = request.form['status']
+        linked_resource = request.form.getlist('linked_resources')
 
         if not name:
             flash('Name is required!')
@@ -61,9 +64,18 @@ def edit_tool(tool_id):
             tool.outputFormats = outputFormats
             tool.status = status
             db.session.commit()
+            if linked_resource:
+                for linked_resource in request.form.getlist('linked_resources'):
+                    first_resource_id = tool_id
+                    second_resource_id = linked_resource
+                    new_relationship = Relationship(first_resource_id=first_resource_id, second_resource_id=second_resource_id)
+
+                    # add the new relationship to the database
+                    db.session.add(new_relationship)
+                    db.session.commit()
             return redirect(url_for('tool.get_tools'))
 
-    return render_template('edit.html', resource=tool)
+    return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, links=links)
 
 # route for function to delete a single tool from the edit page
 @tool.route('/tools/<int:tool_id>/delete', methods=('POST',))

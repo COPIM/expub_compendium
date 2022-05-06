@@ -186,5 +186,5 @@ def create_resource():
                 db.session.add(new_reference)
                 db.session.commit()
 
-    practice_dropdown = Resource.query.filter_by(type='practice')
-    return render_template('create.html', practice_dropdown=practice_dropdown)
+    resource_dropdown = Resource.query
+    return render_template('create.html', resource_dropdown=resource_dropdown)

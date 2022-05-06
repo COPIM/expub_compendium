@@ -75,6 +75,19 @@
                value="{{ request.form['status'] or resource['status'] }}">
         </input>
     </div>
+    <div class="mb-3 mt-3">
+        <label for="linked_practice_id">Linked resources</label>
+    </div>
+    <div class="mb-3 mt-3">
+      {{ links }}
+        <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
+          {% for resource_dropdown in resource_dropdown %}
+            {% if resource_dropdown['type'] != 'tool' %}
+              <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+    </div>
     {% endif %}
 
     <div class="mb-3 mt-3">
