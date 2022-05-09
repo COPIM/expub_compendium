@@ -33,10 +33,13 @@ def show_practice(practice_id):
 @login_required
 def edit_practice(practice_id):
     practice = get_resource(practice_id)
+    resource_dropdown = Resource.query
+    links = get_linked_resources(practice_id)
 
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
+        linked_resources = request.form.getlist('linked_resources')
 
         if not name:
             flash('Name is required!')
@@ -45,9 +48,14 @@ def edit_practice(practice_id):
             practice.name = name
             practice.description = description
             db.session.commit()
+            if linked_resources:
+                for linked_resource in request.form.getlist('linked_resources'):
+                    link = Resource.query.get(linked_resource)
+                    if link not in links:
+                        add_linked_resource(practice_id, linked_resource)
             return redirect(url_for('practice.get_practices'))
 
-    return render_template('edit.html', resource=practice)
+    return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, links=links)
 
 # route for function to delete a single practice from the edit page
 @practice.route('/practices/<int:practice_id>/delete', methods=('POST',))

@@ -20,22 +20,38 @@ def get_resource(resource_id):
     return resource
 
 # function to retrieve linked resources
-def get_linked_resources(resource_id):
-    relationships = Relationship.query.filter_by(first_resource_id=resource_id).all()
+def get_linked_resources(primary_id):
+    relationships = Relationship.query.filter_by(first_resource_id=primary_id).all()
+    links = []
     if relationships:
         links = []
         for relationship in relationships:
-             resource_id = relationship.second_resource_id
-             links.extend(Resource.query.filter_by(id=resource_id).all())
+             secondary_id = relationship.second_resource_id
+             links.extend(Resource.query.filter_by(id=secondary_id).all())
+        secondary_relationships = Relationship.query.filter_by(second_resource_id=primary_id).all()
+        if secondary_relationships:
+            for relationship in secondary_relationships:
+                primary_id = relationship.first_resource_id
+                links.extend(Resource.query.filter_by(id=primary_id).all())
         return links
     else:
-        relationships = Relationship.query.filter_by(second_resource_id=resource_id).all()
+        relationships = Relationship.query.filter_by(second_resource_id=primary_id).all()
         if relationships:
             links = []
             for relationship in relationships:
-                resource_id = relationship.first_resource_id
-                links.extend(Resource.query.filter_by(id=resource_id).all())
+                primary_id = relationship.first_resource_id
+                links.extend(Resource.query.filter_by(id=primary_id).all())
             return links
+
+# function to add a relationship to a linked resource
+def add_linked_resource(resource_id, linked_resource_id):
+    first_resource_id = resource_id
+    second_resource_id = linked_resource_id
+    new_relationship = Relationship(first_resource_id=first_resource_id, second_resource_id=second_resource_id)
+
+    # add the new relationship to the database
+    db.session.add(new_relationship)
+    db.session.commit()
 
 # function to delete a single resource
 def delete_resource(resource_id):
