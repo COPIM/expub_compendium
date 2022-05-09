@@ -79,11 +79,14 @@
         <label for="linked_practice_id">Linked resources</label>
     </div>
     <div class="mb-3 mt-3">
-      {{ links }}
         <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
           {% for resource_dropdown in resource_dropdown %}
             {% if resource_dropdown['type'] != 'tool' %}
-              <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+              {% if resource_dropdown in links %}
+                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+              {% else %}
+                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+              {% endif %}
             {% endif %}
           {% endfor %}
         </select>
