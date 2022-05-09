@@ -21,11 +21,11 @@ def get_resource(resource_id):
 
 # function to retrieve linked resources
 def get_linked_resources(primary_id):
-    relationships = Relationship.query.filter_by(first_resource_id=primary_id).all()
+    primary_relationships = Relationship.query.filter_by(first_resource_id=primary_id).all()
     links = []
-    if relationships:
+    if primary_relationships:
         links = []
-        for relationship in relationships:
+        for relationship in primary_relationships:
              secondary_id = relationship.second_resource_id
              links.extend(Resource.query.filter_by(id=secondary_id).all())
         secondary_relationships = Relationship.query.filter_by(second_resource_id=primary_id).all()
@@ -35,10 +35,10 @@ def get_linked_resources(primary_id):
                 links.extend(Resource.query.filter_by(id=primary_id).all())
         return links
     else:
-        relationships = Relationship.query.filter_by(second_resource_id=primary_id).all()
-        if relationships:
+        secondary_relationships = Relationship.query.filter_by(second_resource_id=primary_id).all()
+        if secondary_relationships:
             links = []
-            for relationship in relationships:
+            for relationship in secondary_relationships:
                 primary_id = relationship.first_resource_id
                 links.extend(Resource.query.filter_by(id=primary_id).all())
             return links
