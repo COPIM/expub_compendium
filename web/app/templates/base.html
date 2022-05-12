@@ -33,13 +33,12 @@
     <header>
       <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-md navbar-light sticky-top">
-        <div class="container-fluid">
           <a class="navbar-brand" href="{{ url_for('main.index')}}">ExPub Compendium</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ms-auto">
               <li class="nav-item">
                   <a href="{{ url_for('main.about') }}" class="nav-link">
                       About
@@ -100,7 +99,6 @@
             {% endif %}
             </ul>
           </div>
-        </div>
     </nav>
     </header>
 
