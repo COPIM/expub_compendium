@@ -30,3 +30,8 @@ def profile():
 @main.route('/test')
 def test():
     return render_template('test.html')
+
+# route for about page
+@main.route('/about')
+def about():
+    return render_template('about.html')

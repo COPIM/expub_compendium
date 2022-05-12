@@ -2,20 +2,31 @@
 
 {% block content %}
 <h1>
-  Short intro title
+  ExPub Compendium
 </h1>
 <p>
-  Books bind people and practices together, holding relations, opening the world. Experimental books push what the book container can hold... <a href="">more</a>
+  The Experimental Publishing Compendium is for authors, designers, publishers, institutions and technologist who challenge, push and redefine the shape, form and rationale of scholarly works. The compendium offers a catalogues of <a href="{{ url_for('tool.get_tools') }}">tools</a>, <a href="{{ url_for('practice.get_practices') }}">practices</a>, <a href="{{ url_for('publisher.get_publishers') }}">publishers</a>, and <a href="{{ url_for('book.get_books') }}">books</a> to inspire experimental scholarly works.
 </p>
-<h1>
-  Essay title
-</h1>
+<h2>
+  How to use the compendium
+</h2>
 <p>
-  The Experimental Publishing Compendium weaves some some ingredients for the making of experimental books into a non-linear how-to guide... <a href="">more</a>
+  The compendium catalogues potential ingredients for the making of experimental publications.
+</p>
+<ul>
+    <li>Under <a href="{{ url_for('tool.get_tools') }}">Tools</a> you’ll find mostly software that supports experimental publication from collective writing to the annotation and remix of published texts.</li>
+    <li><a href="{{ url_for('practice.get_practices') }}">Practices</a> provide inspiration for experimental book making.</li>
+    <li><a href="{{ url_for('book.get_books') }}">Books</a> and <a href="{{ url_for('publisher.get_publishers') }}">publishers</a> provides examples of experimental books and those who publish them.</li>
+</ul>
+<p>
+Each item is cross linked so that a practice will take you to relevant tools or examples and vice versa.
+</p>
+<p>
+The selection is tentative, reflecting the knowledge and biases of the contributors of current and previous versions. If you want to submit or edit anything in the catalogue please do so by doing XXthisXXX.
 </p>
 <hr>
 <p>
-  Browse random ingredients, search or explore typology, books, tools, practices, sensitivities and publishers
+  Browse from this selection of random tools, search or explore books, tools, practices, and publishers.
 </p>
 
 <div class="row">

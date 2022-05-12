@@ -59,18 +59,6 @@ def create_app():
     from .practice import practice as practice_blueprint
     app.register_blueprint(practice_blueprint)
 
-    # blueprint for sensitivity parts of app
-    from .sensitivity import sensitivity as sensitivity_blueprint
-    app.register_blueprint(sensitivity_blueprint)
-
-    # blueprint for typology parts of app
-    from .typology import typology as typology_blueprint
-    app.register_blueprint(typology_blueprint)
-
-    # blueprint for workflow parts of app
-    from .workflow import workflow as workflow_blueprint
-    app.register_blueprint(workflow_blueprint)
-
     # blueprint for publisher parts of app
     from .publisher import publisher as publisher_blueprint
     app.register_blueprint(publisher_blueprint)
@@ -78,10 +66,6 @@ def create_app():
     # blueprint for book parts of app
     from .book import book as book_blueprint
     app.register_blueprint(book_blueprint)
-
-    # blueprint for reference parts of app
-    from .reference import reference as reference_blueprint
-    app.register_blueprint(reference_blueprint)
 
     # blueprint for create parts of app
     from .create import create as create_blueprint

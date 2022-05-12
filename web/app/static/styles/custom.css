@@ -44,6 +44,14 @@ p {
   font-family: Lato, sans-serif
 }
 
+ul {
+  font-weight: 400;
+  color: #000000;
+  font-size: 15px;
+  line-height: 1.8;
+  font-family: Lato, sans-serif;
+}
+
 h1,
 h2,
 h3,

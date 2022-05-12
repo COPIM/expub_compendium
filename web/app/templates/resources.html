@@ -4,13 +4,7 @@
     <div class="row">
         <div class="col-12 text-center">
             <h1>{% block title %}
-              {% if (type == 'sensitivity') %}
-                {{ type|capitalize|replace("ty", "ties") }}
-              {% elif (type == 'typology') %}
-                {{ type|capitalize|replace("gy", "gies") }}
-              {% else %}
-                {{ type|capitalize + 's' }}
-              {% endif %}
+              {{ type|capitalize + 's' }}
               {% endblock %}
             </h1>
         </div>

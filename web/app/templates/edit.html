@@ -111,6 +111,19 @@
     </div>
     {% endif %}
 
+    {% if links %}
+    <div class="mb-3 mt-3">
+        <label for="linked_practice_id">Remove linked resources</label>
+    </div>
+    <div class="mb-3 mt-3">
+        <select name="remove_linked_resources" id="remove_linked_resources" aria-label="Remove linked resources" class="selectpicker" data-live-search="true" multiple>
+          {% for link in links %}
+            <option value="{{ link['id'] }}">{{ link['name'] }}</option>
+          {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+
     <div class="mb-3 mt-3">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
