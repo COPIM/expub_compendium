@@ -12,7 +12,7 @@ from flask_login import login_user, logout_user, login_required
 from .models import User
 from . import db
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__, subdomain="toolkit")
 
 # routes for login page
 @auth.route('/login')
