@@ -20,7 +20,8 @@ db = SQLAlchemy()
 moment = Moment()
 
 def create_app():
-    app = Flask(__name__)
+    app = Flask(__name__, subdomain_matching=True)
+    app.config['SERVER_NAME'] = os.environ.get('SERVER_NAME')
 
     # get config variables from OS environment variables: set in env file passed through Docker Compose
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
