@@ -68,11 +68,13 @@ def edit_tool(tool_id):
             if linked_resources:
                 for linked_resource in linked_resources:
                     link = Resource.query.get(linked_resource)
-                    if link not in links:
+                    if links and link not in links:
                         add_linked_resource(tool_id, linked_resource)
-            #if remove_linked_resources:
-            #    for remove_linked_resource in remove_linked_resources:
-            #        delete_relationship(tool_id, remove_linked_resource)
+                    elif not links:
+                        add_linked_resource(tool_id, linked_resource)
+            if remove_linked_resources:
+                for remove_linked_resource in remove_linked_resources:
+                    delete_relationship(tool_id, remove_linked_resource)
             return redirect(url_for('tool.get_tools'))
 
     return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, links=links)
