@@ -62,7 +62,7 @@ def delete_resource(resource_id):
 
 # function to delete a single relationship
 def delete_relationship(first_resource_id, second_resource_id):
-    relation = Relationship.query.filter_by(first_resource_id=first_resource_id).first()
+    relation = Relationship.query.filter((Relationship.first_resource_id == first_resource_id) & (Relationship.second_resource_id == second_resource_id)).first()
     deletion = Relationship.query.get(relation.id)
     db.session.delete(deletion)
     db.session.commit()

@@ -49,9 +49,11 @@ def edit_practice(practice_id):
             practice.description = description
             db.session.commit()
             if linked_resources:
-                for linked_resource in request.form.getlist('linked_resources'):
+                for linked_resource in linked_resources:
                     link = Resource.query.get(linked_resource)
-                    if link not in links:
+                    if links and link not in links:
+                        add_linked_resource(practice_id, linked_resource)
+                    elif not links:
                         add_linked_resource(practice_id, linked_resource)
             return redirect(url_for('practice.get_practices'))
 
