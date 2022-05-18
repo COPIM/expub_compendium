@@ -83,7 +83,7 @@
           {% for resource_dropdown in resource_dropdown %}
             {% if resource_dropdown['type'] != 'tool' %}
               {% if links and resource_dropdown in links %}
-                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+                <option value="" selected>{{ resource_dropdown['name'] }}</option>
               {% else %}
                 <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
               {% endif %}

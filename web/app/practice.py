@@ -40,6 +40,7 @@ def edit_practice(practice_id):
         name = request.form['name']
         description = request.form['description']
         linked_resources = request.form.getlist('linked_resources')
+        remove_linked_resources = request.form.getlist('remove_linked_resources')
 
         if not name:
             flash('Name is required!')
@@ -55,6 +56,9 @@ def edit_practice(practice_id):
                         add_linked_resource(practice_id, linked_resource)
                     elif not links:
                         add_linked_resource(practice_id, linked_resource)
+            if remove_linked_resources:
+                for remove_linked_resource in remove_linked_resources:
+                    delete_relationship(practice_id, remove_linked_resource)
             return redirect(url_for('practice.get_practices'))
 
     return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, links=links)
