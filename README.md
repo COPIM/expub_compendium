@@ -4,6 +4,7 @@ The online toolkit will build on this review of tools to present a resource for 
 
 For creating database and user in production:
 
+`docker-compose exec -it db mysql -u root -p`
 `CREATE DATABASE toolkit;`
 `CREATE USER 'flask'@'%' IDENTIFIED BY '[PASSWORD]';`
 `GRANT CREATE, INSERT, UPDATE, SELECT, DELETE ON toolkit.* TO 'flask'@'%';`
