@@ -11,6 +11,7 @@ from flask_login import login_required, current_user
 from . import db
 from .models import Resource
 from sqlalchemy.sql import func
+import markdown
 
 main = Blueprint('main', __name__)
 
@@ -18,7 +19,10 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     tools = Resource.query.filter_by(type='tool').order_by(func.random()).limit(5).all()
-    return render_template('index.html', tools=tools)
+    with open('content/home.md', 'r') as f:
+        text = f.read()
+        text = markdown.markdown(text)
+    return render_template('index.html', text=text, tools=tools)
 
 # route for profile page
 @main.route('/profile')
@@ -34,4 +38,7 @@ def test():
 # route for about page
 @main.route('/about')
 def about():
-    return render_template('about.html')
+    with open('content/about.md', 'r') as f:
+        text = f.read()
+        text = markdown.markdown(text)
+    return render_template('about.html', text=text)
