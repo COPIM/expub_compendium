@@ -13,6 +13,7 @@ from .models import Relationship
 from .resources import *
 from werkzeug.exceptions import abort
 from . import db
+import os
 
 create = Blueprint('create', __name__)
 

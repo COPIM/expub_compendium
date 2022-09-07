@@ -12,6 +12,7 @@ from .models import Resource
 from .resources import *
 from werkzeug.exceptions import abort
 from . import db
+import os
 
 book = Blueprint('book', __name__)
 
