@@ -45,7 +45,7 @@ def edit_publisher(publisher_id):
             publisher.name = name
             publisher.description = description
             db.session.commit()
-            return redirect(url_for('publisher.get_publishers'))
+            return redirect(url_for('publisher.get_publishers',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
     return render_template('edit.html', resource=publisher)
 
@@ -54,4 +54,4 @@ def edit_publisher(publisher_id):
 @login_required
 def delete_publisher(publisher_id):
     delete_resource(publisher_id)
-    return redirect(url_for('publisher.get_publishers'))
+    return redirect(url_for('publisher.get_publishers',_external=True,_scheme=os.environ.get('SSL_SCHEME')))

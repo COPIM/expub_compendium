@@ -75,7 +75,7 @@ def edit_tool(tool_id):
             if remove_linked_resources:
                 for remove_linked_resource in remove_linked_resources:
                     delete_relationship(tool_id, remove_linked_resource)
-            return redirect(url_for('tool.get_tools'))
+            return redirect(url_for('tool.get_tools',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
     return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, links=links)
 
@@ -84,4 +84,4 @@ def edit_tool(tool_id):
 @login_required
 def delete_tool(tool_id):
     delete_resource(tool_id)
-    return redirect(url_for('tool.get_tools'))
+    return redirect(url_for('tool.get_tools',_external=True,_scheme=os.environ.get('SSL_SCHEME')))

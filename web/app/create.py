@@ -41,7 +41,7 @@ def create_resource():
 
                 if tool: # if a tool is found, we want to redirect back to create page
                     flash('Tool with same name already exists')
-                    return redirect(url_for('create.create_resource'))
+                    return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
                 # create a new tool with the form data
                 new_tool = Resource(type=type, name=name, description=description, projectUrl=projectUrl, repositoryUrl=repositoryUrl, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status)
@@ -67,7 +67,7 @@ def create_resource():
 
                 if practice: # if a practice is found, we want to redirect back to create page
                     flash('Practice with same name already exists')
-                    return redirect(url_for('create.create_resource'))
+                    return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
                 # create a new practice with the form data
                 new_practice = Resource(type=type, name=name, description=description)
@@ -89,7 +89,7 @@ def create_resource():
 
                 if publisher: # if a publisher is found, we want to redirect back to create page
                     flash('Publisher with same name already exists')
-                    return redirect(url_for('create.create_resource'))
+                    return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
                 # create a new publisher with the form data
                 new_publisher = Resource(type=type, name=name, description=description, publisherUrl=publisherUrl)
@@ -110,7 +110,7 @@ def create_resource():
 
                 if book: # if a book is found, we want to redirect back to create page
                     flash('Book with same name already exists')
-                    return redirect(url_for('create.create_resource'))
+                    return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
                 # create a new book with the form data
                 new_book = Resource(type=type, name=name, description=description)

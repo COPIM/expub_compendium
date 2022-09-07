@@ -59,7 +59,7 @@ def edit_practice(practice_id):
             if remove_linked_resources:
                 for remove_linked_resource in remove_linked_resources:
                     delete_relationship(practice_id, remove_linked_resource)
-            return redirect(url_for('practice.get_practices'))
+            return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
     return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, links=links)
 
@@ -68,4 +68,4 @@ def edit_practice(practice_id):
 @login_required
 def delete_practice(practice_id):
     delete_resource(practice_id)
-    return redirect(url_for('practice.get_practices'))
+    return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))

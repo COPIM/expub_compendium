@@ -45,7 +45,7 @@ def edit_book(book_id):
             book.name = name
             book.description = description
             db.session.commit()
-            return redirect(url_for('book.get_books'))
+            return redirect(url_for('book.get_books',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
     return render_template('edit.html', resource=book)
 
@@ -54,4 +54,4 @@ def edit_book(book_id):
 @login_required
 def delete_book(book_id):
     delete_resource(book_id)
-    return redirect(url_for('book.get_books'))
+    return redirect(url_for('book.get_books',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
