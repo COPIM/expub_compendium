@@ -17,20 +17,20 @@ import os
 tool = Blueprint('tool', __name__)
 
 # route for displaying all tools in database
-@tool.route('/tools/')
+@tool.route('/tools')
 def get_tools():
     tools = Resource.query.filter_by(type='tool')
     return render_template('resources.html', resources=tools, type='tool')
 
 # route for displaying a single tool based on the ID in the database
-@tool.route('/tools/<int:tool_id>/')
+@tool.route('/tools/<int:tool_id>')
 def show_tool(tool_id):
     tool = get_resource(tool_id)
     links = get_linked_resources(tool_id)
     return render_template('resource.html', resource=tool, links=links)
 
 # route for editing a single tool based on the ID in the database
-@tool.route('/tools/<int:tool_id>/edit/', methods=('GET', 'POST'))
+@tool.route('/tools/<int:tool_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit_tool(tool_id):
     tool = get_resource(tool_id)
@@ -81,7 +81,7 @@ def edit_tool(tool_id):
     return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, links=links)
 
 # route for function to delete a single tool from the edit page
-@tool.route('/tools/<int:tool_id>/delete/', methods=('POST',))
+@tool.route('/tools/<int:tool_id>/delete', methods=('POST',))
 @login_required
 def delete_tool(tool_id):
     delete_resource(tool_id)

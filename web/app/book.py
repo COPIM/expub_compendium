@@ -17,20 +17,20 @@ import os
 book = Blueprint('book', __name__)
 
 # route for displaying all books in database
-@book.route('/books/')
+@book.route('/books')
 def get_books():
     books = Resource.query.filter_by(type='book')
     return render_template('resources.html', resources=books, type='book')
 
 # route for displaying a single book based on the ID in the database
-@book.route('/books/<int:book_id>/')
+@book.route('/books/<int:book_id>')
 def show_book(book_id):
     book = get_resource(book_id)
     links = get_linked_resources(book_id)
     return render_template('resource.html', resource=book, links=links)
 
 # route for editing a single book based on the ID in the database
-@book.route('/books/<int:book_id>/edit/', methods=('GET', 'POST'))
+@book.route('/books/<int:book_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit_book(book_id):
     book = get_resource(book_id)
@@ -51,7 +51,7 @@ def edit_book(book_id):
     return render_template('edit.html', resource=book)
 
 # route for function to delete a single book from the edit page
-@book.route('/books/<int:book_id>/delete/', methods=('POST',))
+@book.route('/books/<int:book_id>/delete', methods=('POST',))
 @login_required
 def delete_book(book_id):
     delete_resource(book_id)

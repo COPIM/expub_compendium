@@ -17,20 +17,20 @@ import os
 publisher = Blueprint('publisher', __name__)
 
 # route for displaying all publishers in database
-@publisher.route('/publishers/')
+@publisher.route('/publishers')
 def get_publishers():
     publishers = Resource.query.filter_by(type='publisher')
     return render_template('resources.html', resources=publishers, type='publisher')
 
 # route for displaying a single publisher based on the ID in the database
-@publisher.route('/publishers/<int:publisher_id>/')
+@publisher.route('/publishers/<int:publisher_id>')
 def show_publisher(publisher_id):
     publisher = get_resource(publisher_id)
     links = get_linked_resources(publisher_id)
     return render_template('resource.html', resource=publisher, links=links)
 
 # route for editing a single publisher based on the ID in the database
-@publisher.route('/publishers/<int:publisher_id>/edit/', methods=('GET', 'POST'))
+@publisher.route('/publishers/<int:publisher_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit_publisher(publisher_id):
     publisher = get_resource(publisher_id)
@@ -51,7 +51,7 @@ def edit_publisher(publisher_id):
     return render_template('edit.html', resource=publisher)
 
 # route for function to delete a single publisher from the edit page
-@publisher.route('/publishers/<int:publisher_id>/delete/', methods=('POST',))
+@publisher.route('/publishers/<int:publisher_id>/delete', methods=('POST',))
 @login_required
 def delete_publisher(publisher_id):
     delete_resource(publisher_id)

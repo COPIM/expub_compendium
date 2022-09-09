@@ -16,11 +16,11 @@ import os
 auth = Blueprint('auth', __name__)
 
 # routes for login page
-@auth.route('/login/')
+@auth.route('/login')
 def login():
     return render_template('login.html')
 
-@auth.route('/login/', methods=['POST'])
+@auth.route('/login', methods=['POST'])
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
@@ -40,11 +40,11 @@ def login_post():
     return redirect(url_for('main.profile',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
 # routes for signup page
-@auth.route('/signup/')
+@auth.route('/signup')
 def signup():
     return render_template('signup.html')
 
-@auth.route('/signup/', methods=['POST'])
+@auth.route('/signup', methods=['POST'])
 def signup_post():
     email = request.form.get('email')
     name = request.form.get('name')
@@ -66,7 +66,7 @@ def signup_post():
     return redirect(url_for('auth.login',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
 # route for logout function
-@auth.route('/logout/')
+@auth.route('/logout')
 @login_required
 def logout():
     logout_user()
