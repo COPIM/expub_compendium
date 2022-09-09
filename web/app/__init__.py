@@ -28,6 +28,8 @@ def create_app():
     app.config['SQLALCHEMY_ECHO'] = False
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+    app.url_map.strict_slashes = False
+
     db.init_app(app)
 
     login_manager = LoginManager()
