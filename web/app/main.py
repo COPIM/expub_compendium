@@ -25,18 +25,18 @@ def index():
     return render_template('index.html', text=text, tools=tools)
 
 # route for profile page
-@main.route('/profile')
+@main.route('/profile/')
 @login_required
 def profile():
     return render_template('profile.html', name=current_user.name)
 
 # route for test page
-@main.route('/test')
+@main.route('/test/')
 def test():
     return render_template('test.html')
 
 # route for about page
-@main.route('/about')
+@main.route('/about/')
 def about():
     with open('content/about.md', 'r') as f:
         text = f.read()

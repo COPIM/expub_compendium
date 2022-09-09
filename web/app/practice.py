@@ -17,20 +17,20 @@ import os
 practice = Blueprint('practice', __name__)
 
 # route for displaying all practices in database
-@practice.route('/practices')
+@practice.route('/practices/')
 def get_practices():
     practices = Resource.query.filter_by(type='practice')
     return render_template('resources.html', resources=practices, type='practice')
 
 # route for displaying a single practice based on the ID in the database
-@practice.route('/practices/<int:practice_id>')
+@practice.route('/practices/<int:practice_id>/')
 def show_practice(practice_id):
     practice = get_resource(practice_id)
     links = get_linked_resources(practice_id)
     return render_template('resource.html', resource=practice, links=links)
 
 # route for editing a single practice based on the ID in the database
-@practice.route('/practices/<int:practice_id>/edit', methods=('GET', 'POST'))
+@practice.route('/practices/<int:practice_id>/edit/', methods=('GET', 'POST'))
 @login_required
 def edit_practice(practice_id):
     practice = get_resource(practice_id)
@@ -65,7 +65,7 @@ def edit_practice(practice_id):
     return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, links=links)
 
 # route for function to delete a single practice from the edit page
-@practice.route('/practices/<int:practice_id>/delete', methods=('POST',))
+@practice.route('/practices/<int:practice_id>/delete/', methods=('POST',))
 @login_required
 def delete_practice(practice_id):
     delete_resource(practice_id)

@@ -18,7 +18,7 @@ import os
 create = Blueprint('create', __name__)
 
 # route for creating a new resource
-@create.route('/create', methods=('GET', 'POST'))
+@create.route('/create/', methods=('GET', 'POST'))
 @login_required
 def create_resource():
     if request.method == 'POST':
