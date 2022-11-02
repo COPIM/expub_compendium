@@ -4,3 +4,5 @@ web/app/__pycache__/
 .DS_Store
 instance
 database_functions_live.sh
+old_database_schema
+db_exports
