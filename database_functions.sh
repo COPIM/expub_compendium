@@ -106,7 +106,7 @@ while getopts ":hleicv" flag; do
         CSV_table_import
         exit;;
       \?) # Invalid option
-        echo "Error: Invalid option"
+        Help
         exit;;
    esac
 done
