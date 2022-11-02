@@ -75,6 +75,12 @@ IMPORT_SQL_FILENAME=toolkit_db.sql
 EXPORT_CSV_DIRECTORY="./db_exports"
 CSV_FILENAME=$2`date +"%Y%m%d"`
 
+# error message for no flags
+if (( $# == 0 )); then
+    Help
+    exit 1
+fi
+
 # Get the options
 while getopts ":hleicv" flag; do
    case $flag in
