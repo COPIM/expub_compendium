@@ -1,5 +1,6 @@
 web/app/__pycache__/
-web/app/db.sqlite
 .env.prod
 .env.dev
 .DS_Store
+instance
+database_functions_live.sh

@@ -9,6 +9,10 @@ For creating database and user in production:
 `CREATE USER 'flask'@'%' IDENTIFIED BY '[PASSWORD]';`
 `GRANT CREATE, INSERT, UPDATE, SELECT, DELETE ON toolkit.* TO 'flask'@'%';`
 
+## Legacy instructions:
+
+The following is no longer required in Flask-SQLAlchemy 3. See https://stackoverflow.com/questions/73968584/flask-sqlalchemy-db-create-all-got-an-unexpected-keyword-argument-app
+
 To build the database run:
 
 `docker exec -it python python`
