@@ -8,7 +8,7 @@
 # https://www.redhat.com/sysadmin/arguments-options-bash-scripts
 
 ############################################################
-# Subprograms                                              #
+# subprograms                                              #
 ############################################################
 License()
 {
@@ -32,8 +32,8 @@ Help()
    echo "h     Print this Help."
    echo "e     Export whole database."
    echo "i     Import whole database."
-   echo "c     Export single table as CSV."
-   echo "v     Import CSV file to table."
+   echo "c     Export single table as tab-delimited txt."
+   echo "v     Import tab-delimited txt file to table."
    echo
 }
 
@@ -47,24 +47,24 @@ Import()
   docker exec -i $CONTAINER mysql -u $USERNAME -p$PASSWORD $DATABASE < $IMPORT_SQL_DIRECTORY/$IMPORT_SQL_FILENAME
 }
 
-CSV_table_export()
+Table_export()
 {
-  docker exec -it $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE --batch -e 'SELECT * FROM $TABLE'" > $EXPORT_CSV_DIRECTORY/$CSV_FILENAME.txt
+  docker exec -it $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE --batch -e 'SELECT * FROM $TABLE'" > $EXPORT_TXT_DIRECTORY/$EXPORT_TXT_FILENAME.txt
 }
 
-CSV_table_import()
+Table_import()
 {
-  docker cp $IMPORT_CSV_FILE $CONTAINER:/tmp/import_file
+  docker cp $IMPORT_TXT_FILE $CONTAINER:/tmp/import_file
 
   docker exec -i $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE -e 'LOAD DATA LOCAL INFILE '\''/tmp/import_file'\'' REPLACE INTO TABLE $TABLE FIELDS TERMINATED BY '\''\t'\'' LINES TERMINATED BY '\''\n'\'' IGNORE 1 ROWS;'"
 }
 ############################################################
 ############################################################
-# Main program                                             #
+# main program                                             #
 ############################################################
 ############################################################
 
-# Set variables
+# set variables
 CONTAINER=mariadb
 DATABASE=toolkit
 USERNAME=xxxxxxxx
@@ -72,8 +72,8 @@ PASSWORD=xxxxxxxx
 EXPORT_SQL_FILENAME=toolkit_db_
 IMPORT_SQL_DIRECTORY="/Users/ad7588/Downloads"
 IMPORT_SQL_FILENAME=toolkit_db.sql
-EXPORT_CSV_DIRECTORY="./db_exports"
-CSV_FILENAME=$2`date +"%Y%m%d"`
+EXPORT_TXT_DIRECTORY="./db_exports"
+EXPORT_TXT_FILENAME=$2`date +"%Y%m%d"`
 
 # error message for no flags
 if (( $# == 0 )); then
@@ -81,7 +81,7 @@ if (( $# == 0 )); then
     exit 1
 fi
 
-# Get the options
+# get the options
 while getopts ":hleicv" flag; do
    case $flag in
       l) # display License
@@ -96,15 +96,29 @@ while getopts ":hleicv" flag; do
       i) # import database from file
         Import
         exit;;
-      c) # export single table as CSV
-        TABLE=$2
-        CSV_table_export
-        exit;;
-      v) # import single CSV to table
-        TABLE=$2
-        IMPORT_CSV_FILE=$3
-        CSV_table_import
-        exit;;
+      c) # export single table as tab-delimited txt
+        if [ -z "$2" ]
+        then
+          echo "-c requires a table name as an argument"
+          echo
+          echo "Syntax: database_functions.sh -c [table name]"
+        else
+          TABLE=$2
+          Table_export
+          exit 1
+        fi;;
+      v) # import single tab-delimited txt to table
+        if [ -z "$2" ] || [ -z "$3" ]
+        then
+          echo "-v requires a table name as an argument and the file to be imported"
+          echo
+          echo "Syntax: database_functions.sh -v [table name] [file]"
+        else
+          TABLE=$2
+          IMPORT_TXT_FILE=$3
+          Table_import
+          exit 1
+        fi;;
       \?) # Invalid option
         Help
         exit;;
