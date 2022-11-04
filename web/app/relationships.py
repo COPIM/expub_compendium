@@ -51,3 +51,16 @@ def delete_relationship(main_id, for_deletion_id):
     deletion = Relationship.query.get(relation.id)
     db.session.delete(deletion)
     db.session.commit()
+    
+# logic for editing relationships 
+def edit_relationships(resource_id, linked_resources, remove_linked_resources, existing_relationships):
+    if linked_resources:
+        for linked_resource in linked_resources:
+            link = Resource.query.get(linked_resource)
+            if existing_relationships and link not in existing_relationships:
+                add_relationship(resource_id, linked_resource)
+            elif not existing_relationships:
+                add_relationship(resource_id, linked_resource)
+    if remove_linked_resources:
+        for remove_linked_resource in remove_linked_resources:
+            delete_relationship(resource_id, remove_linked_resource)

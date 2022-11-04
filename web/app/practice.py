@@ -49,16 +49,8 @@ def edit_practice(practice_id):
             linked_resources = request.form.getlist('linked_resources')
             remove_linked_resources = request.form.getlist('remove_linked_resources')
 
-            if linked_resources:
-                for linked_resource in linked_resources:
-                    link = Resource.query.get(linked_resource)
-                    if existing_relationships and link not in existing_relationships:
-                        add_relationship(practice_id, linked_resource)
-                    elif not existing_relationships:
-                        add_relationship(practice_id, linked_resource)
-            if remove_linked_resources:
-                for remove_linked_resource in remove_linked_resources:
-                    delete_relationship(practice_id, remove_linked_resource)
+            edit_relationships(practice_id, linked_resources, remove_linked_resources, existing_relationships)
+
             return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
     return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, links=existing_relationships)
