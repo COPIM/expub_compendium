@@ -45,9 +45,7 @@ Export()
 
 Import()
 {
-  docker cp $IMPORT_SQL_FILE $CONTAINER:/tmp/import_file
-  
-  docker exec -i $CONTAINER mysql -u $USERNAME -p$PASSWORD $DATABASE < /tmp/import_file
+  docker exec -i $CONTAINER mysql -u $USERNAME -p$PASSWORD $DATABASE < $IMPORT_SQL_FILE
 }
 
 Table_export()
