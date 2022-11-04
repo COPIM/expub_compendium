@@ -27,8 +27,12 @@ def create_resource():
             type = 'tool'
             name = request.form.get('tool_name')
             description = request.form.get('description')
+            developer = request.form.get('developer')
+            developerUrl = request.form.get('developerUrl')
             projectUrl = request.form.get('projectUrl')
             repositoryUrl = request.form.get('repositoryUrl')
+            license = request.form.get('license')
+            scriptingLanguage = request.form.get('scriptingLanguage')
             expertiseToUse = request.form.get('expertiseToUse')
             expertiseToHost = request.form.get('expertiseToHost')
             dependencies = request.form.get('dependencies')
@@ -46,7 +50,7 @@ def create_resource():
                     return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
                 # create a new tool with the form data
-                new_tool = Resource(type=type, name=name, description=description, projectUrl=projectUrl, repositoryUrl=repositoryUrl, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status)
+                new_tool = Resource(type=type, name=name, description=description, developer=developer, developerUrl=developerUrl, projectUrl=projectUrl, repositoryUrl=repositoryUrl, license=license, scriptingLanguage=scriptingLanguage, expertiseToUse=expertiseToUse, expertiseToHost=expertiseToHost, dependencies=dependencies, ingestFormats=ingestFormats, outputFormats=outputFormats, status=status)
 
                 # add the new tool to the database
                 db.session.add(new_tool)

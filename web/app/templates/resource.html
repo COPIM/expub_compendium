@@ -37,6 +37,7 @@
                             {{ resource['created'].strftime("%Y-%m-%d %H:%M") }} UTC
                         </td>
                     </tr>
+                    {% if resource['description'] %}
                     <tr>
                         <th>
                             Description:
@@ -45,6 +46,41 @@
                             {{ resource['description'] }}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if resource['developer'] %}
+                    <tr>
+                        <th>
+                            Developer
+                        </th>
+                        <td>
+                            {% if resource['developerUrl'] %}
+                              <a href="{{ resource['developerUrl'] }}">{{ resource['developer'] }}</a>
+                            {% else %}
+                              {{ resource['developer'] }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if resource['license'] %}
+                    <tr>
+                        <th>
+                            Software license:
+                        </th>
+                        <td>
+                            {{ resource['license'] }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if resource['scriptingLanguage'] %}
+                    <tr>
+                        <th>
+                            Software language(s):
+                        </th>
+                        <td>
+                            {{ resource['scriptingLanguage'] }}
+                        </td>
+                    </tr>
+                    {% endif %}
                     {% if resource['projectUrl'] %}
                     <tr>
                         <th>

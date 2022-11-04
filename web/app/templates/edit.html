@@ -2,8 +2,6 @@
 
 {% block content %}
 
-{{linked_resources}}
-
 <h1>{% block title %} Edit "{{ resource['name'] }}" {% endblock %}</h1>
 
 <form method="post">
@@ -23,6 +21,20 @@
 
     {% if resource['type'] == 'tool' %}
     <div class="mb-3 mt-3">
+        <label for="developer">Developer</label>
+        <input type="text" name="developer" placeholder="Developer"
+               class="form-control"
+               value="{{ request.form['developer'] or resource['developer'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="developerUrl">Developer URL</label>
+        <input type="text" name="developerUrl" placeholder="Developer URL"
+               class="form-control"
+               value="{{ request.form['developerUrl'] or resource['developerUrl'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
         <label for="projectUrl">Project URL</label>
         <input type="text" name="projectUrl" placeholder="Project URL"
                class="form-control"
@@ -34,6 +46,20 @@
         <input type="text" name="repositoryUrl" placeholder="Repository URL"
                class="form-control"
                value="{{ request.form['repositoryUrl'] or resource['repositoryUrl'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="license">Software license</label>
+        <input type="text" name="license" placeholder="Software license"
+               class="form-control"
+               value="{{ request.form['license'] or resource['license'] }}">
+        </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="scriptingLanguage">Software language(s)</label>
+        <input type="text" name="scriptingLanguage" placeholder="Software language(s)"
+               class="form-control"
+               value="{{ request.form['scriptingLanguage'] or resource['scriptingLanguage'] }}">
         </input>
     </div>
     <div class="mb-3 mt-3">
@@ -145,6 +171,13 @@
     <input type="submit" value="Delete"
             class="btn btn-danger btn-sm"
             onclick="return confirm('Are you sure you want to delete this practice?')">
+</form>
+{% endif %}
+{% if resource['type'] == 'publisher' %}
+<form action="{{ url_for('publisher.delete_publisher', publisher_id=resource['id']) }}" method="POST">
+    <input type="submit" value="Delete"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Are you sure you want to delete this publisher?')">
 </form>
 {% endif %}
 {% endblock %}

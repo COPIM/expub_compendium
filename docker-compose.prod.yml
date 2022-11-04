@@ -5,6 +5,8 @@ services:
     container_name: python
     expose:
       - 5000
+    volumes:
+      - ./web:/code
     env_file:
       - ./.env.prod
     depends_on:

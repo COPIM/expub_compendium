@@ -29,6 +29,10 @@
                 <a href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}">
                     <h3 class="card-title text-center text-dark">{{ resource['name'] }}</h3>
                 </a>
+                {% elif resource['type'] == 'publisher' %}
+                <a href="{{ url_for('publisher.show_publisher', publisher_id=resource['id']) }}">
+                    <h3 class="card-title text-center text-dark">{{ resource['name'] }}</h3>
+                </a>
                 {% endif %}
                 <p class="card-text">
                     {{ resource['description']|truncate(100) }}
@@ -38,9 +42,12 @@
                   <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
                       <span class="badge bg-dark">Edit</span>
                   </a>
-                  {% endif %}
-                  {% if resource['type'] == 'practice' %}
+                  {% elif resource['type'] == 'practice' %}
                   <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
+                      <span class="badge bg-dark">Edit</span>
+                  </a>
+                  {% elif resource['type'] == 'publisher' %}
+                  <a href="{{ url_for('publisher.edit_publisher', publisher_id=resource['id']) }}">
                       <span class="badge bg-dark">Edit</span>
                   </a>
                   {% endif %}

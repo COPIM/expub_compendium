@@ -41,8 +41,12 @@ def edit_tool(tool_id):
     if request.method == 'POST':
         name = request.form['name']
         description = request.form['description']
+        developer = request.form['developer']
+        developerUrl = request.form['developerUrl']
         projectUrl = request.form['projectUrl']
         repositoryUrl = request.form['repositoryUrl']
+        license = request.form['license']
+        scriptingLanguage = request.form['scriptingLanguage']
         expertiseToUse = request.form['expertiseToUse']
         expertiseToHost = request.form['expertiseToHost']
         dependencies = request.form['dependencies']
@@ -58,8 +62,12 @@ def edit_tool(tool_id):
             tool = Resource.query.get(tool_id)
             tool.name = name
             tool.description = description
+            tool.developer = developer
+            tool.developerUrl = developerUrl
             tool.projectUrl = projectUrl
             tool.repositoryUrl = repositoryUrl
+            tool.license = license
+            tool.scriptingLanguage = scriptingLanguage
             tool.dependencies = dependencies
             tool.expertiseToUse = expertiseToUse
             tool.expertiseToHost = expertiseToHost

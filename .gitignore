@@ -2,7 +2,7 @@ web/app/__pycache__/
 .env.prod
 .env.dev
 .DS_Store
-instance
 database_functions_live.sh
 old_database_schema
 db_exports
+db_imports

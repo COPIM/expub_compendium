@@ -9,3 +9,16 @@ services:
       - ./web:/code
     env_file:
       - ./.env.dev
+      
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: unless-stopped
+    env_file:
+      - ./.env.dev
+    volumes:
+      - dbdata:/var/lib/mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+
+volumes:
+  dbdata:
