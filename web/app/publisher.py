@@ -10,6 +10,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Resource
 from .resources import *
+from .relationships import *
 from werkzeug.exceptions import abort
 from . import db
 import os
@@ -26,7 +27,7 @@ def get_publishers():
 @publisher.route('/publishers/<int:publisher_id>')
 def show_publisher(publisher_id):
     publisher = get_resource(publisher_id)
-    links = get_linked_resources(publisher_id)
+    links = get_relationships(publisher_id)
     return render_template('resource.html', resource=publisher, links=links)
 
 # route for editing a single publisher based on the ID in the database

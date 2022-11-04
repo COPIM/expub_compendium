@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{{linked_resources}}
+
     <div class="row">
         <div class="col">
             <h1 class="text-center">{% block title %} {{ resource['name'] }} {% endblock %}</h1>

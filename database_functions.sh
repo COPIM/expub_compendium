@@ -26,7 +26,7 @@ Help()
    # Display Help
    echo "This script performs database functions for the ExPub Compendium"
    echo
-   echo "Syntax: database_functions.sh [-l|h|e|i|c]"
+   echo "Syntax: database_functions.sh [-l|h|e|i|c|v|d]"
    echo "options:"
    echo "l     Print the MIT License notification."
    echo "h     Print this Help."
@@ -34,6 +34,7 @@ Help()
    echo "i     Import whole database."
    echo "c     Export single table as tab-delimited txt."
    echo "v     Import tab-delimited txt file to table."
+   echo "d     Drop table."
    echo
 }
 
@@ -58,6 +59,11 @@ Table_import()
 
   docker exec -i $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE -e 'LOAD DATA LOCAL INFILE '\''/tmp/import_file'\'' REPLACE INTO TABLE $TABLE FIELDS TERMINATED BY '\''\t'\'' LINES TERMINATED BY '\''\n'\'' IGNORE 1 ROWS;'"
 }
+
+Drop_table()
+{
+  docker exec -i $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE -e 'DROP TABLE IF EXISTS $TABLE;'"
+}
 ############################################################
 ############################################################
 # main program                                             #
@@ -67,8 +73,8 @@ Table_import()
 # set variables
 CONTAINER=mariadb
 DATABASE=toolkit
-USERNAME=xxxxxxxx
-PASSWORD=xxxxxxxx
+USERNAME=xxxxxxxxx
+PASSWORD=xxxxxxxxx
 EXPORT_SQL_FILENAME=toolkit_db_
 IMPORT_SQL_DIRECTORY="/Users/ad7588/Downloads"
 IMPORT_SQL_FILENAME=toolkit_db.sql
@@ -82,7 +88,7 @@ if (( $# == 0 )); then
 fi
 
 # get the options
-while getopts ":hleicv" flag; do
+while getopts ":hleicvd" flag; do
    case $flag in
       l) # display License
         License
@@ -119,6 +125,17 @@ while getopts ":hleicv" flag; do
           Table_import
           exit 1
         fi;;
+      d) # drop table
+      if [ -z "$2" ]
+      then
+        echo "-d requires a table name as an argument"
+        echo
+        echo "Syntax: database_functions.sh -d [table name]"
+      else
+        TABLE=$2
+        Drop_table
+        exit 1
+      fi;;
       \?) # Invalid option
         Help
         exit;;

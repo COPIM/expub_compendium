@@ -11,6 +11,7 @@ from flask_login import login_required, current_user
 from .models import Resource
 from .models import Relationship
 from .resources import *
+from .relationships import *
 from werkzeug.exceptions import abort
 from . import db
 import os
@@ -54,7 +55,7 @@ def create_resource():
                 if request.form.getlist('linked_resources'):
                     for linked_resource in request.form.getlist('linked_resources'):
                         tool = Resource.query.filter_by(type='tool').filter_by(name=name).first()
-                        add_linked_resource(tool.id, linked_resource)
+                        add_relationship(tool.id, linked_resource)
 
         elif request.form.get('resource_type') == 'practice':
             type = 'practice'

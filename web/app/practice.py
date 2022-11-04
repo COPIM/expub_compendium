@@ -10,6 +10,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Resource
 from .resources import *
+from .relationships import *
 from werkzeug.exceptions import abort
 from . import db
 import os
@@ -26,7 +27,7 @@ def get_practices():
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
     practice = get_resource(practice_id)
-    links = get_linked_resources(practice_id)
+    links = get_relationships(practice_id)
     return render_template('resource.html', resource=practice, links=links)
 
 # route for editing a single practice based on the ID in the database
@@ -35,7 +36,7 @@ def show_practice(practice_id):
 def edit_practice(practice_id):
     practice = get_resource(practice_id)
     resource_dropdown = Resource.query
-    links = get_linked_resources(practice_id)
+    existing_relationships = get_relationships(practice_id)
 
     if request.method == 'POST':
         name = request.form['name']
@@ -53,16 +54,16 @@ def edit_practice(practice_id):
             if linked_resources:
                 for linked_resource in linked_resources:
                     link = Resource.query.get(linked_resource)
-                    if links and link not in links:
-                        add_linked_resource(practice_id, linked_resource)
-                    elif not links:
-                        add_linked_resource(practice_id, linked_resource)
+                    if existing_relationships and link not in existing_relationships:
+                        add_relationship(practice_id, linked_resource)
+                    elif not existing_relationships:
+                        add_relationship(practice_id, linked_resource)
             if remove_linked_resources:
                 for remove_linked_resource in remove_linked_resources:
                     delete_relationship(practice_id, remove_linked_resource)
             return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
-    return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, links=links)
+    return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, links=existing_relationships)
 
 # route for function to delete a single practice from the edit page
 @practice.route('/practices/<int:practice_id>/delete', methods=('POST',))

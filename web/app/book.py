@@ -10,6 +10,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Resource
 from .resources import *
+from .relationships import *
 from werkzeug.exceptions import abort
 from . import db
 import os
@@ -26,7 +27,7 @@ def get_books():
 @book.route('/books/<int:book_id>')
 def show_book(book_id):
     book = get_resource(book_id)
-    links = get_linked_resources(book_id)
+    links = get_relationships(book_id)
     return render_template('resource.html', resource=book, links=links)
 
 # route for editing a single book based on the ID in the database

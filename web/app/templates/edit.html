@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{{linked_resources}}
+
 <h1>{% block title %} Edit "{{ resource['name'] }}" {% endblock %}</h1>
 
 <form method="post">
@@ -83,7 +86,7 @@
           {% for resource_dropdown in resource_dropdown %}
             {% if resource_dropdown['type'] != 'tool' %}
               {% if links and resource_dropdown in links %}
-                <option value="" selected>{{ resource_dropdown['name'] }}</option>
+                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
               {% else %}
                 <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
               {% endif %}
@@ -101,7 +104,7 @@
           {% for resource_dropdown in resource_dropdown %}
             {% if resource_dropdown['type'] != 'practice' %}
               {% if links and resource_dropdown in links %}
-                <option value="" selected>{{ resource_dropdown['name'] }}</option>
+                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
               {% else %}
                 <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
               {% endif %}

@@ -10,6 +10,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from .models import Resource
 from .resources import *
+from .relationships import *
 from werkzeug.exceptions import abort
 from . import db
 import os
@@ -26,7 +27,7 @@ def get_tools():
 @tool.route('/tools/<int:tool_id>')
 def show_tool(tool_id):
     tool = get_resource(tool_id)
-    links = get_linked_resources(tool_id)
+    links = get_relationships(tool_id)
     return render_template('resource.html', resource=tool, links=links)
 
 # route for editing a single tool based on the ID in the database
@@ -35,7 +36,7 @@ def show_tool(tool_id):
 def edit_tool(tool_id):
     tool = get_resource(tool_id)
     resource_dropdown = Resource.query
-    links = get_linked_resources(tool_id)
+    existing_relationships = get_relationships(tool_id)
 
     if request.method == 'POST':
         name = request.form['name']
@@ -69,16 +70,16 @@ def edit_tool(tool_id):
             if linked_resources:
                 for linked_resource in linked_resources:
                     link = Resource.query.get(linked_resource)
-                    if links and link not in links:
-                        add_linked_resource(tool_id, linked_resource)
-                    elif not links:
-                        add_linked_resource(tool_id, linked_resource)
+                    if existing_relationships and link not in existing_relationships:
+                        add_relationship(tool_id, linked_resource)
+                    elif not existing_relationships:
+                        add_relationship(tool_id, linked_resource)
             if remove_linked_resources:
                 for remove_linked_resource in remove_linked_resources:
                     delete_relationship(tool_id, remove_linked_resource)
             return redirect(url_for('tool.get_tools',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
-    return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, links=links)
+    return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, links=existing_relationships)
 
 # route for function to delete a single tool from the edit page
 @tool.route('/tools/<int:tool_id>/delete', methods=('POST',))
