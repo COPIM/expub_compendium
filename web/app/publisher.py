@@ -37,15 +37,12 @@ def edit_publisher(publisher_id):
     publisher = get_resource(publisher_id)
 
     if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-
-        if not name:
+        if not request.form['name']:
             flash('Name is required!')
         else:
             publisher = Resource.query.get(publisher_id)
-            publisher.name = name
-            publisher.description = description
+            publisher.name = request.form['name']
+            publisher.description = request.form['description']
             db.session.commit()
             return redirect(url_for('publisher.get_publishers',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 

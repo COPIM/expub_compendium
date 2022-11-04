@@ -2,8 +2,6 @@
 
 {% block content %}
 
-{{linked_resources}}
-
     <div class="row">
         <div class="col">
             <h1 class="text-center">{% block title %} {{ resource['name'] }} {% endblock %}</h1>
@@ -165,35 +163,35 @@
             </table>
         </div>
     </div>
-    {% if links %}
+    {% if relationships %}
     <div class="row">
         <div class="col">
             <h2 class="text-center">Linked resources:</h2>
         </div>
     </div>
     <div class="row">
-    {% for link in links %}
+    {% for relationship in relationships %}
         <div class="col-md-4 col-sm-6 py-3">
-        {% if link['type'] == 'tool' %}
+        {% if relationship['type'] == 'tool' %}
         <div class="card text-dark bg-tool mb-3">
             <div class="card-body">
-                <a href="{{ url_for('tool.show_tool', tool_id=link['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ link['name'] }}</h3>
+                <a href="{{ url_for('tool.show_tool', tool_id=relationship['id']) }}">
+                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
                 </a>
                 <p class="card-text">
-                    {{ link['description']|truncate(100) }}
+                    {{ relationship['description']|truncate(100) }}
                 </p>
             </div>
         </div>
         {% endif %}
-        {% if link['type'] == 'practice' %}
+        {% if relationship['type'] == 'practice' %}
         <div class="card text-dark bg-practice mb-3">
             <div class="card-body">
-                <a href="{{ url_for('practice.show_practice', practice_id=link['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ link['name'] }}</h3>
+                <a href="{{ url_for('practice.show_practice', practice_id=relationship['id']) }}">
+                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
                 </a>
                 <p class="card-text">
-                    {{ link['description']|truncate(100) }}
+                    {{ relationship['description']|truncate(100) }}
                 </p>
             </div>
         </div>

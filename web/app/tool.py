@@ -27,8 +27,8 @@ def get_tools():
 @tool.route('/tools/<int:tool_id>')
 def show_tool(tool_id):
     tool = get_resource(tool_id)
-    links = get_relationships(tool_id)
-    return render_template('resource.html', resource=tool, links=links)
+    relationships = get_relationships(tool_id)
+    return render_template('resource.html', resource=tool, relationships=relationships)
 
 # route for editing a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>/edit', methods=('GET', 'POST'))
@@ -39,42 +39,28 @@ def edit_tool(tool_id):
     existing_relationships = get_relationships(tool_id)
 
     if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        developer = request.form['developer']
-        developerUrl = request.form['developerUrl']
-        projectUrl = request.form['projectUrl']
-        repositoryUrl = request.form['repositoryUrl']
-        license = request.form['license']
-        scriptingLanguage = request.form['scriptingLanguage']
-        expertiseToUse = request.form['expertiseToUse']
-        expertiseToHost = request.form['expertiseToHost']
-        dependencies = request.form['dependencies']
-        ingestFormats = request.form['ingestFormats']
-        outputFormats = request.form['outputFormats']
-        status = request.form['status']
-        linked_resources = request.form.getlist('linked_resources')
-        remove_linked_resources = request.form.getlist('remove_linked_resources')
-
-        if not name:
+        if not request.form['name']:
             flash('Name is required!')
         else:
             tool = Resource.query.get(tool_id)
-            tool.name = name
-            tool.description = description
-            tool.developer = developer
-            tool.developerUrl = developerUrl
-            tool.projectUrl = projectUrl
-            tool.repositoryUrl = repositoryUrl
-            tool.license = license
-            tool.scriptingLanguage = scriptingLanguage
-            tool.dependencies = dependencies
-            tool.expertiseToUse = expertiseToUse
-            tool.expertiseToHost = expertiseToHost
-            tool.ingestFormats = ingestFormats
-            tool.outputFormats = outputFormats
-            tool.status = status
+            tool.name = request.form['name']
+            tool.description = request.form['description']
+            tool.developer = request.form['developer']
+            tool.developerUrl = request.form['developerUrl']
+            tool.projectUrl = request.form['projectUrl']
+            tool.repositoryUrl = request.form['repositoryUrl']
+            tool.license = request.form['license']
+            tool.scriptingLanguage = request.form['scriptingLanguage']
+            tool.expertiseToUse = request.form['expertiseToUse']
+            tool.expertiseToHost = request.form['expertiseToHost']
+            tool.dependencies = request.form['dependencies']
+            tool.ingestFormats = request.form['ingestFormats']
+            tool.outputFormats = request.form['outputFormats']
+            tool.status = request.form['status']
             db.session.commit()
+            linked_resources = request.form.getlist('linked_resources')
+            remove_linked_resources = request.form.getlist('remove_linked_resources')
+
             if linked_resources:
                 for linked_resource in linked_resources:
                     link = Resource.query.get(linked_resource)

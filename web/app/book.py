@@ -37,15 +37,12 @@ def edit_book(book_id):
     book = get_resource(book_id)
 
     if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-
-        if not name:
+        if not request.form['name']:
             flash('Name is required!')
         else:
             book = Resource.query.get(book_id)
-            book.name = name
-            book.description = description
+            book.name = request.form['name']
+            book.description = request.form['description']
             db.session.commit()
             return redirect(url_for('book.get_books',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 

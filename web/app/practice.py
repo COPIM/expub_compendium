@@ -27,8 +27,8 @@ def get_practices():
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
     practice = get_resource(practice_id)
-    links = get_relationships(practice_id)
-    return render_template('resource.html', resource=practice, links=links)
+    relationships = get_relationships(practice_id)
+    return render_template('resource.html', resource=practice, relationships=relationships)
 
 # route for editing a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>/edit', methods=('GET', 'POST'))
@@ -39,18 +39,16 @@ def edit_practice(practice_id):
     existing_relationships = get_relationships(practice_id)
 
     if request.method == 'POST':
-        name = request.form['name']
-        description = request.form['description']
-        linked_resources = request.form.getlist('linked_resources')
-        remove_linked_resources = request.form.getlist('remove_linked_resources')
-
-        if not name:
+        if not request.form['name']:
             flash('Name is required!')
         else:
             practice = Resource.query.get(practice_id)
-            practice.name = name
-            practice.description = description
+            practice.name = request.form['name']
+            practice.description = request.form['description']
             db.session.commit()
+            linked_resources = request.form.getlist('linked_resources')
+            remove_linked_resources = request.form.getlist('remove_linked_resources')
+
             if linked_resources:
                 for linked_resource in linked_resources:
                     link = Resource.query.get(linked_resource)
