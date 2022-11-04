@@ -18,7 +18,7 @@ main = Blueprint('main', __name__)
 # route for index page
 @main.route('/')
 def index():
-    tools = Resource.query.filter_by(type='tool').order_by(func.random()).limit(5).all()
+    tools = Resource.query.filter_by(type='tool').order_by(func.random()).limit(6).all()
     with open('content/home.md', 'r') as f:
         text = f.read()
         text = markdown.markdown(text)
