@@ -40,12 +40,14 @@ Help()
 
 Export()
 {
-  docker exec -it $CONTAINER mysqldump --single-transaction -u $USERNAME -p$PASSWORD $DATABASE > $EXPORT_SQL_FILENAME`date +"%Y%m%d"`.sql
+  docker exec -it $CONTAINER mysqldump --single-transaction -u $USERNAME -p$PASSWORD $DATABASE > $EXPORT_DIRECTORY/$EXPORT_SQL_FILENAME`date +"%Y%m%d"`.sql
 }
 
 Import()
 {
-  docker exec -i $CONTAINER mysql -u $USERNAME -p$PASSWORD $DATABASE < $IMPORT_SQL_DIRECTORY/$IMPORT_SQL_FILENAME
+  docker cp $IMPORT_SQL_FILE $CONTAINER:/tmp/import_file
+  
+  docker exec -i $CONTAINER mysql -u $USERNAME -p$PASSWORD $DATABASE < /tmp/import_file
 }
 
 Table_export()
@@ -73,12 +75,10 @@ Drop_table()
 # set variables
 CONTAINER=mariadb
 DATABASE=toolkit
-USERNAME=xxxxxxxxx
-PASSWORD=xxxxxxxxx
+USERNAME=xxxxxxxx
+PASSWORD=xxxxxxxx
+EXPORT_DIRECTORY="./db_exports"
 EXPORT_SQL_FILENAME=toolkit_db_
-IMPORT_SQL_DIRECTORY="/Users/ad7588/Downloads"
-IMPORT_SQL_FILENAME=toolkit_db.sql
-EXPORT_TXT_DIRECTORY="./db_exports"
 EXPORT_TXT_FILENAME=$2`date +"%Y%m%d"`
 
 # error message for no flags
@@ -100,8 +100,16 @@ while getopts ":hleicvd" flag; do
         Export
         exit;;
       i) # import database from file
-        Import
-        exit;;
+        if [ -z "$2" ]
+        then
+          echo "-i requires a file as an argument"
+          echo
+          echo "Syntax: database_functions.sh -i [file]"
+        else
+          IMPORT_SQL_FILE=$2
+          Import
+          exit 1
+        fi;;
       c) # export single table as tab-delimited txt
         if [ -z "$2" ]
         then
