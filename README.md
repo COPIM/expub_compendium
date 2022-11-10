@@ -18,7 +18,6 @@ Run `./database_functions -h` to see the instructions for this script.
 
 The following is no longer required in Flask-SQLAlchemy 3. See https://stackoverflow.com/questions/73968584/flask-sqlalchemy-db-create-all-got-an-unexpected-keyword-argument-app
 
-
 For creating database and user in production:
 
 `docker-compose exec -it db mysql -u root -p`

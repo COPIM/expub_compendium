@@ -66,10 +66,6 @@ def create_app():
     from .practice import practice as practice_blueprint
     app.register_blueprint(practice_blueprint)
 
-    # blueprint for publisher parts of app
-    from .publisher import publisher as publisher_blueprint
-    app.register_blueprint(publisher_blueprint)
-
     # blueprint for book parts of app
     from .book import book as book_blueprint
     app.register_blueprint(book_blueprint)

@@ -82,28 +82,6 @@ def create_resource():
                 db.session.add(new_practice)
                 db.session.commit()
 
-        elif request.form.get('resource_type') == 'publisher':
-            type = 'publisher'
-            name = request.form.get('publisher_name')
-            description = request.form.get('description')
-            publisherUrl = request.form.get('publisherUrl')
-
-            if not name:
-                flash('Name is required!')
-            else:
-                publisher = Publisher.query.filter_by(name=name).first() # if this returns a publisher, then the name already exists in database
-
-                if publisher: # if a publisher is found, we want to redirect back to create page
-                    flash('Publisher with same name already exists')
-                    return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
-
-                # create a new publisher with the form data
-                new_publisher = Resource(type=type, name=name, description=description, publisherUrl=publisherUrl)
-
-                # add the new publisher to the database
-                db.session.add(new_publisher)
-                db.session.commit()
-
         elif request.form.get('resource_type') == 'book':
             type = 'book'
             name = request.form.get('book_name')

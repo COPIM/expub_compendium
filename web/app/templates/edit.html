@@ -173,11 +173,4 @@
             onclick="return confirm('Are you sure you want to delete this practice?')">
 </form>
 {% endif %}
-{% if resource['type'] == 'publisher' %}
-<form action="{{ url_for('publisher.delete_publisher', publisher_id=resource['id']) }}" method="POST">
-    <input type="submit" value="Delete"
-            class="btn btn-danger btn-sm"
-            onclick="return confirm('Are you sure you want to delete this publisher?')">
-</form>
-{% endif %}
 {% endblock %}

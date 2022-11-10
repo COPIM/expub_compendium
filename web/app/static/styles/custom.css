@@ -19,7 +19,7 @@
   --bs-success-rgb: 25,135,84;
   --bs-tool-rgb: 13,202,240;
   --bs-practice-rgb: 255,193,7;
-  --bs-publisher-rgb: 150, 224, 167;
+  --bs-book-rgb: 150, 224, 167;
   --bs-danger-rgb: 220,53,69;
   --bs-light-rgb: 248,249,250;
   --bs-dark-rgb: 33,37,41;
@@ -1059,9 +1059,9 @@ main > .container {
     background-color: rgba(var(--bs-practice-rgb),var(--bs-bg-opacity))!important;
 }
 
-.bg-publisher {
+.bg-book {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-publisher-rgb),var(--bs-bg-opacity))!important;
+    background-color: rgba(var(--bs-book-rgb),var(--bs-bg-opacity))!important;
 }
 
 .drop {
