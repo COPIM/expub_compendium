@@ -1,6 +1,10 @@
 One of the key deliverables for Work Package 6 of the COPIM project is "an online resource detailing opportunities for experimental book publishing". We've decided to put this together in the form of an online toolkit with details of software, practices, examples, and sensitivities that can be used for experimental publishing.
 
-The online toolkit will build on this review of tools to present a resource for a researcher, artist, or publisher looking to try experimental publishing. From our preliminary design discussions, we have plans to include not only software tools that can be used to do experimental publishing but examples of experimental publications, practices of experimental publishing, publishers who have done some form of experimental publishing, and sensitivities involved in experimental publishing.
+The ExPub Compendium will build on this review of tools to present a resource for a researcher, artist, or publisher looking to try experimental publishing. From our preliminary design discussions, we have plans to include not only software tools that can be used to do experimental publishing but examples of experimental publications, practices of experimental publishing, publishers who have done some form of experimental publishing, and sensitivities involved in experimental publishing.
+
+## Application structure
+
+The ExPub Compendium is a Python application using the [Flask](https://flask.palletsprojects.com/en/2.2.x/) framework to render as a website and to provide functions around user authentication and login as well as retrieving data from the underlying database. The database is a MariaDB SQL database with a basic structure of Resources, Relationships, and Users. Resources are divided into tools, practices, and books and the table contains fields for these various types of resources. Relationships defines the links between resources using the resource ID in the Resource table: these are rendered on the site as connections between, say, a tool and a practice. Users contains the site's users with basic details like email address and hashed password. 
 
 ## Database functions 
 
