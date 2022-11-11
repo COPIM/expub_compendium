@@ -9,6 +9,8 @@ services:
       - ./web:/code
     env_file:
       - ./.env.dev
+    depends_on:
+      - db
       
   db:
     image: mariadb:latest
