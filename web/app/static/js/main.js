@@ -8,7 +8,7 @@
 # @acknowledgements:
 */
 
-// Dynamic HTML forms based on dropdown menu
+// dynamic HTML forms based on dropdown menu
 $("#resource_type").change(function() {
     var $ = jQuery.noConflict();
     var resource_type = $(this).val();
@@ -17,7 +17,17 @@ $("#resource_type").change(function() {
     });
 });
 
-// Testing a couple of ways to expand text
+// filtering resources by search
+$(document).ready(function(){
+  $("#searchInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#resource-boxes #resource").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+// testing a couple of ways to expand text
 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)

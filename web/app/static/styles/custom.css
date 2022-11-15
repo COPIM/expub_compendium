@@ -190,6 +190,13 @@ body {
   justify-content: center
 }
 
+.search-filter-sidebar {
+  background-color: #efefef;
+  padding: 5px;
+  padding-top: 10px;
+  border: 1px solid #cdcdcd;
+}
+
 ol,
 ul {
   /*list-style-type: circle;*/
