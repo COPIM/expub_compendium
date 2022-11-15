@@ -102,7 +102,7 @@
       <div class="layer-bg w-100">
         <img class="img-fluid w-100" src="{{ url_for('static',filename='images/dots-bg.png') }}" alt="bg-shape">
       </div>
-      <div class="container">
+      <div class="container-fluid">
           {% with messages = get_flashed_messages() %}
           {% if messages %}
               <div class="alert alert-danger">

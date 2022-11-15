@@ -21,7 +21,22 @@ tool = Blueprint('tool', __name__)
 @tool.route('/tools')
 def get_tools():
     tools = Resource.query.filter_by(type='tool')
-    return render_template('resources.html', resources=tools, type='tool')
+    for key in request.args.keys():
+        if key == 'practice':
+            query = 'SELECT * FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ';'
+            tools = db.engine.execute(query)
+        else:
+            kwargs = {'type': 'tool', key: request.args.get(key)}
+            tools = Resource.query.filter_by(**kwargs)
+    # get filters
+    # practices 
+    practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
+    #FOR LATER: SELECT Resource.name, second.name FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id LEFT JOIN Resource second ON Relationship.second_resource_id=second.id;
+    # license
+    licenses_filter = get_filter_values('license')
+    # language
+    languages_filter = get_filter_values('scriptingLanguage')
+    return render_template('resources.html', resources=tools, type='tool', practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter)
 
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')

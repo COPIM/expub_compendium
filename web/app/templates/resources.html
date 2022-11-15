@@ -19,7 +19,89 @@
     <div class="row">
       <div class="col-md-4 col-lg-3 py-3">
         <div class="search-filter-sidebar">
-          <input class="form-control" id="searchInput" type="text" placeholder="Search...">
+          <input class="form-control" id="searchResources" type="text" placeholder="filter by search...">
+          <div class="row">
+          {% if practices_filter %}
+            <div class="col-sm-6 d-md-block d-sm-none d-none">
+              <div class="filter-title">Practices</div>
+              <ul class="filter-items">
+                {% for practice in practices_filter %}
+                <li {% if request.args.get('practice') == practice[0]|string %} class="fw-bold"{% endif %}>
+                  <a href="/tools?practice={{practice[0]}}">{{ practice[1] }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="d-md-none accordion">
+              <div class="accordion-item">
+                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-practice">Practices</div>
+                <div class="accordion-body">
+                  <ul id="filter-practice" class="collapse filter-items">
+                    {% for practice in practices_filter %}
+                    <li {% if request.args.get('practice') == practice[0]|string %} class="fw-bold"{% endif %}>
+                      <a href="/tools?practice={{practice[0]}}">{{ practice[1] }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          </div>
+          <div class="row">
+          {% if languages_filter %}
+            <div class="col-sm-6 d-md-block d-sm-none d-none">
+              <div class="filter-title">Scripting languages</div>
+              <ul class="filter-items">
+                {% for language in languages_filter %}
+                <li {% if request.args.get('scriptingLanguage') == language %} class="fw-bold"{% endif %}>
+                  <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="d-md-none accordion">
+              <div class="accordion-item">
+                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-language">Scripting language</div>
+                <div class="accordion-body">
+                  <ul id="filter-language" class="collapse filter-items">
+                    {% for language in languages_filter %}
+                    <li {% if request.args.get('scriptingLanguage') == language %} class="fw-bold"{% endif %}>
+                      <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          {% if licenses_filter %}
+            <div class="col-sm-6 d-md-block d-sm-none d-none">
+              <div class="filter-title">License</div>
+              <ul class="filter-items">
+                {% for license in licenses_filter %}
+                <li {% if request.args.get('license') == license %} class="fw-bold"{% endif %}>
+                  <a href="/tools?license={{license}}">{{ license }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="d-md-none accordion">
+              <div class="accordion-item">
+                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-license">License</div>
+                <div class="accordion-body">
+                  <ul id="filter-license" class="collapse filter-items">
+                    {% for license in licenses_filter %}
+                    <li {% if request.args.get('license') == license %} class="fw-bold"{% endif %}>
+                      <a href="/tools?license={{license}}">{{ license }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          </div>
         </div>
       </div>
       <div class="col-md-8 col-lg-9">

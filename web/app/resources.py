@@ -23,3 +23,12 @@ def delete_resource(resource_id):
     db.session.delete(deletion)
     db.session.commit()
     flash('Successfully deleted!')
+
+# function to get filters for a specific field 
+def get_filter_values(field):
+    field_filter = Resource.query.filter_by(type='tool').with_entities(getattr(Resource, field))
+    field_filter = [i for i, in field_filter]
+    field_filter = list(dict.fromkeys(field_filter))
+    field_filter = filter(None, field_filter)
+    field_filter = sorted(field_filter)
+    return field_filter

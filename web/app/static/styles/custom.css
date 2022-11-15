@@ -194,7 +194,32 @@ body {
   background-color: #efefef;
   padding: 5px;
   padding-top: 10px;
-  border: 1px solid #cdcdcd;
+  border-radius: 0.25rem;
+}
+
+#searchResources {
+  height: calc(1.5em + 0.5rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+  border-bottom: 0px;
+}
+
+.filter-title {
+    padding: 5px;
+    font-weight: 600;
+}
+
+.filter-items {
+  margin: 0;
+  padding-left: 1.5rem;
+  line-height: 1.5;
+  font-size: 13px;
+}
+
+.accordion-body {
+    padding: 0;
 }
 
 ol,

@@ -19,7 +19,7 @@ $("#resource_type").change(function() {
 
 // filtering resources by search
 $(document).ready(function(){
-  $("#searchInput").on("keyup", function() {
+  $("#searchResources").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#resource-boxes #resource").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
