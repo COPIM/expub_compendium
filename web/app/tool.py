@@ -23,7 +23,7 @@ def get_tools():
     tools = Resource.query.filter_by(type='tool')
     for key in request.args.keys():
         if key == 'practice':
-            query = 'SELECT * FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ';'
+            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ';'
             tools = db.engine.execute(query)
         else:
             kwargs = {'type': 'tool', key: request.args.get(key)}
