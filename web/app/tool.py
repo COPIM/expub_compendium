@@ -25,6 +25,9 @@ def get_tools():
         if key == 'practice':
             query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ';'
             tools = db.engine.execute(query)
+        elif key == 'scriptingLanguage':
+            regex = request.args.get(key) + "$|" + request.args.get(key) + "\s\/"
+            tools = Resource.query.filter(Resource.scriptingLanguage.regexp_match(regex))
         else:
             kwargs = {'type': 'tool', key: request.args.get(key)}
             tools = Resource.query.filter_by(**kwargs)

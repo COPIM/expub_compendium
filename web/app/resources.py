@@ -26,9 +26,16 @@ def delete_resource(resource_id):
 
 # function to get filters for a specific field 
 def get_filter_values(field):
+    # get field values for filter 
     field_filter = Resource.query.filter_by(type='tool').with_entities(getattr(Resource, field))
+    # turn SQLAlchemy object into list
     field_filter = [i for i, in field_filter]
+    # split each element on '/' (useful for scriptingLanguage only)
+    field_filter = [y for x in field_filter for y in x.split(' / ')]
+    # consolidate duplicate values
     field_filter = list(dict.fromkeys(field_filter))
+    # filter None values from list
     field_filter = filter(None, field_filter)
+    # sort list by alphabetical order
     field_filter = sorted(field_filter)
     return field_filter
