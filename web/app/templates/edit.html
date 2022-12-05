@@ -123,6 +123,21 @@
 
     {% elif resource['type'] == 'practice' %}
     <div class="mb-3 mt-3">
+      <label for="experimental">How is this / Can this be an experimental practice?</label>
+      <textarea name="experimental" placeholder="How is this / Can this be an experimental practice?"
+                class="form-control">{{ request.form['experimental'] or resource['experimental'] }}</textarea>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="lessonsLearned">How has it been applied experimentally (lessons learned for authors and publishers)?</label>
+      <textarea name="lessonsLearned" placeholder="How has it been applied experimentally (lessons learned for authors and publishers)?"
+                class="form-control">{{ request.form['lessonsLearned'] or resource['lessonsLearned'] }}</textarea>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="references">References</label>
+      <textarea name="references" placeholder="References"
+                class="form-control">{{ request.form['references'] or resource['references'] }}</textarea>
+    </div>
+    <div class="mb-3 mt-3">
         <label for="linked_practice_id">Linked resources</label>
     </div>
     <div class="mb-3 mt-3">

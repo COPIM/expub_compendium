@@ -45,6 +45,9 @@ def edit_practice(practice_id):
             practice = Resource.query.get(practice_id)
             practice.name = request.form['name']
             practice.description = request.form['description']
+            practice.experimental = request.form['experimental']
+            practice.lessonsLearned = request.form['lessonsLearned']
+            practice.references = request.form['references']
             db.session.commit()
             linked_resources = request.form.getlist('linked_resources')
             remove_linked_resources = request.form.getlist('remove_linked_resources')

@@ -50,6 +50,7 @@
                         </td>
                     </tr>
                     {% endif %}
+                    <!-- fields for tools -->
                     {% if resource['developer'] %}
                     <tr>
                         <th>
@@ -161,6 +162,37 @@
                         </th>
                         <td>
                             {{ resource['status'] }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    <!-- fields for practices -->
+                    {% if resource['experimental'] %}
+                    <tr>
+                        <th>
+                            How is this / Can this be an experimental practice?
+                        </th>
+                        <td>
+                            {{ resource['experimental'] }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if resource['lessonsLearned'] %}
+                    <tr>
+                        <th>
+                            How has it been applied experimentally (lessons learned for authors and publishers)?
+                        </th>
+                        <td>
+                            <p style="white-space: pre-line">{{ resource['lessonsLearned'] }}</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if resource['references'] %}
+                    <tr>
+                        <th>
+                            References:
+                        </th>
+                        <td>
+                            <p style="white-space: pre-line">{{ resource['references'] }}</p>
                         </td>
                     </tr>
                     {% endif %}

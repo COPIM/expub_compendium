@@ -23,11 +23,13 @@ class User(UserMixin, db.Model):
 class Resource(db.Model):
     __tablename__ = 'Resource'
 
+    # all resource types
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
     created = db.Column(db.DateTime, default=datetime.utcnow)
     type = db.Column(db.Text)
     name = db.Column(db.Text)
     description = db.Column(db.Text)
+    # tools
     developer = db.Column(db.Text)
     developerUrl = db.Column(db.Text)
     projectUrl = db.Column(db.Text)
@@ -40,8 +42,12 @@ class Resource(db.Model):
     ingestFormats = db.Column(db.Text)
     outputFormats = db.Column(db.Text)
     status = db.Column(db.Text)
-    publisherUrl = db.Column(db.Text)
-    zoteroUrl = db.Column(db.Text)
+    # practices
+    experimental = db.Column(db.Text)
+    lessonsLearned = db.Column(db.Text)
+    references = db.Column(db.Text)
+    # books
+    isbn = db.Column(db.Text)
 
 # table for relationships
 class Relationship(db.Model):
