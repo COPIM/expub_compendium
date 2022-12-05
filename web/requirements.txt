@@ -6,3 +6,4 @@ gunicorn
 pymysql
 markdown
 isbntools
+requests

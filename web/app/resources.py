@@ -10,6 +10,7 @@ from .models import Resource
 from werkzeug.exceptions import abort
 from . import db
 from isbntools.app import *
+import requests
 
 # function to retrieve data about a single resource from the database
 def get_resource(resource_id):
@@ -42,9 +43,18 @@ def get_filter_values(field):
     return field_filter
 
 def get_book_data(isbn):
-    try:
+    #try:
         book = meta(isbn)
-        book.update(cover(isbn))
+        description = {'desc': desc(isbn)}
+        book.update(description)
+        # get highest-resolution book cover possible
+        openl_url = 'https://covers.openlibrary.org/b/isbn/' + book['ISBN-13'] + '-L.jpg?default=false'
+        request = requests.get(openl_url)
+        if request.status_code != 200:
+            book.update(cover(isbn))
+        else:
+            book_cover = {'thumbnail': openl_url}
+            book.update(book_cover)
         return book
-    except: 
-        pass
+    #except: 
+    #    pass

@@ -3,7 +3,7 @@
 {% block content %}
 
     {% if book['thumbnail'] %}
-        <img class="img-fluid mx-auto d-block" src={{ book['thumbnail'] }} alt="cover for {{ book['Title'] }}">
+        <img class="img-fluid mx-auto d-block py-3" src={{ book['thumbnail'] }} alt="cover for {{ book['Title'] }}">
     {% else %}
         <div class="row">
             <div class="col">
@@ -42,7 +42,7 @@
                             </th>
                             <td>
                                 {% for author in book['Authors'] %}
-                                    {{ author }}, 
+                                    {{ author }}
                                 {% endfor %}
                             </td>
                             {% else %}
@@ -84,6 +84,16 @@
                             </th>
                             <td>
                                 {{ book['Publisher'] }}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if book['desc'] %}
+                        <tr>
+                            <th>
+                                Summary:
+                            </th>
+                            <td>
+                                {{ book['desc'] }}
                             </td>
                         </tr>
                         {% endif %}
