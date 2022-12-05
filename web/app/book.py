@@ -21,20 +21,33 @@ book = Blueprint('book', __name__)
 @book.route('/books')
 def get_books():
     books = Resource.query.filter_by(type='book')
-    return render_template('resources.html', resources=books, type='book')
+    for key in request.args.keys():
+        if key == 'practice':
+            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="book";'
+            books = db.engine.execute(query)
+        else:
+            kwargs = {'type': 'book', key: request.args.get(key)}
+            tools = Resource.query.filter_by(**kwargs)
+    # get filters
+    # practices 
+    practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
+    return render_template('resources.html', resources=books, type='book', practices_filter=practices_filter)
 
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')
 def show_book(book_id):
     book = get_resource(book_id)
-    links = get_relationships(book_id)
-    return render_template('resource.html', resource=book, links=links)
+    relationships = get_relationships(book_id)
+    book_data = get_book_data(book.isbn)
+    return render_template('book.html', resource=book, relationships=relationships, book=book_data)
 
 # route for editing a single book based on the ID in the database
 @book.route('/books/<int:book_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit_book(book_id):
     book = get_resource(book_id)
+    resource_dropdown = Resource.query
+    existing_relationships = get_relationships(book_id)
 
     if request.method == 'POST':
         if not request.form['name']:
@@ -42,11 +55,17 @@ def edit_book(book_id):
         else:
             book = Resource.query.get(book_id)
             book.name = request.form['name']
-            book.description = request.form['description']
+            book.isbn = request.form['isbn']
             db.session.commit()
+            linked_resources = request.form.getlist('linked_resources')
+            remove_linked_resources = request.form.getlist('remove_linked_resources')
+
+            edit_relationships(book_id, linked_resources, remove_linked_resources, existing_relationships)
+
             return redirect(url_for('book.get_books',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
-    return render_template('edit.html', resource=book)
+    return render_template('edit.html', resource=book, resource_dropdown=resource_dropdown, relationships=existing_relationships)
+
 
 # route for function to delete a single book from the edit page
 @book.route('/books/<int:book_id>/delete', methods=('POST',))

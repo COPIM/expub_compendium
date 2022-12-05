@@ -5,3 +5,4 @@ flask-moment
 gunicorn
 pymysql
 markdown
+isbntools

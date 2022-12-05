@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col">
-            <h1 class="text-center">{% block title %} {{ resource['name'] }} {% endblock %}</h1>
+           <h1 class="text-center">{% block title %} {{ resource['name'] }} {% endblock %}</h1>
         </div>
     </div>
     {% if current_user.is_authenticated %}
@@ -17,12 +17,6 @@
       {% elif resource['type'] == 'practice' %}
       <div class="row text-center py-3">
           <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
-              <span class="badge bg-dark">Edit</span>
-          </a>
-      </div>
-      {% elif resource['type'] == 'book' %}
-      <div class="row text-center py-3">
-          <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
               <span class="badge bg-dark">Edit</span>
           </a>
       </div>
@@ -224,17 +218,6 @@
         <div class="card text-dark bg-practice mb-3">
             <div class="card-body">
                 <a href="{{ url_for('practice.show_practice', practice_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
-            </div>
-        </div>
-        {% elif relationship['type'] == 'book' %}
-        <div class="card text-dark bg-book mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('book.show_book', book_id=relationship['id']) }}">
                     <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
                 </a>
                 <p class="card-text">

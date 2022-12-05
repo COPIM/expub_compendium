@@ -56,7 +56,7 @@ def edit_practice(practice_id):
 
             return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
-    return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, links=existing_relationships)
+    return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, relationships=existing_relationships)
 
 # route for function to delete a single practice from the edit page
 @practice.route('/practices/<int:practice_id>/delete', methods=('POST',))

@@ -23,7 +23,7 @@ def get_tools():
     tools = Resource.query.filter_by(type='tool')
     for key in request.args.keys():
         if key == 'practice':
-            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ';'
+            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="tool";'
             tools = db.engine.execute(query)
         elif key == 'scriptingLanguage':
             regex = request.args.get(key) + "$|" + request.args.get(key) + "\s\/"
@@ -83,7 +83,7 @@ def edit_tool(tool_id):
             
             return redirect(url_for('tool.get_tools',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
-    return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, links=existing_relationships)
+    return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, relationships=existing_relationships)
 
 # route for function to delete a single tool from the edit page
 @tool.route('/tools/<int:tool_id>/delete', methods=('POST',))

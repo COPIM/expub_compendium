@@ -9,6 +9,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import Resource
 from werkzeug.exceptions import abort
 from . import db
+from isbntools.app import *
 
 # function to retrieve data about a single resource from the database
 def get_resource(resource_id):
@@ -39,3 +40,11 @@ def get_filter_values(field):
     # sort list by alphabetical order
     field_filter = sorted(field_filter)
     return field_filter
+
+def get_book_data(isbn):
+    try:
+        book = meta(isbn)
+        book.update(cover(isbn))
+        return book
+    except: 
+        pass

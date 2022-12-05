@@ -27,7 +27,7 @@
               <ul class="filter-items">
                 {% for practice in practices_filter %}
                 <li {% if request.args.get('practice') == practice[0]|string %} class="fw-bold"{% endif %}>
-                  <a href="/tools?practice={{practice[0]}}">{{ practice[1] }}</a>
+                  <a href="/{{type + 's'}}?practice={{practice[0]}}">{{ practice[1] }}</a>
                 </li>
                 {% endfor %}
               </ul>
@@ -39,7 +39,7 @@
                   <ul id="filter-practice" class="collapse filter-items">
                     {% for practice in practices_filter %}
                     <li {% if request.args.get('practice') == practice[0]|string %} class="fw-bold"{% endif %}>
-                      <a href="/tools?practice={{practice[0]}}">{{ practice[1] }}</a>
+                      <a href="/{{type + 's'}}?practice={{practice[0]}}">{{ practice[1] }}</a>
                     </li>
                     {% endfor %}
                   </ul>
@@ -55,7 +55,7 @@
               <ul class="filter-items">
                 {% for language in languages_filter %}
                 <li {% if request.args.get('scriptingLanguage') == language %} class="fw-bold"{% endif %}>
-                  <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
+                  <a href="/{{type}}?scriptingLanguage={{language}}">{{ language }}</a>
                 </li>
                 {% endfor %}
               </ul>

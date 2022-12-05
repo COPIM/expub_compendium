@@ -111,7 +111,7 @@
         <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
           {% for resource_dropdown in resource_dropdown %}
             {% if resource_dropdown['type'] != 'tool' %}
-              {% if links and resource_dropdown in links %}
+              {% if relationships and resource_dropdown in relationships %}
                 <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
               {% else %}
                 <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
@@ -144,7 +144,32 @@
         <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
           {% for resource_dropdown in resource_dropdown %}
             {% if resource_dropdown['type'] != 'practice' %}
-              {% if links and resource_dropdown in links %}
+              {% if relationships and resource_dropdown in relationships %}
+                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+              {% else %}
+                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </select>
+    </div>
+
+    {% elif resource['type'] == 'book' %}
+    <div class="mb-3 mt-3">
+      <label for="isbn">ISBN</label>
+      <input type="text" name="isbn" placeholder="ISBN"
+             class="form-control"
+             value="{{ request.form['isbn'] or resource['isbn'] }}">
+      </input>
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="linked_practice_id">Linked resources</label>
+    </div>
+    <div class="mb-3 mt-3">
+        <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
+          {% for resource_dropdown in resource_dropdown %}
+            {% if resource_dropdown['type'] != 'book' %}
+              {% if relationships and resource_dropdown in relationships %}
                 <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
               {% else %}
                 <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
@@ -155,14 +180,14 @@
     </div>
     {% endif %}
 
-    {% if links %}
+    {% if relationships %}
     <div class="mb-3 mt-3">
         <label for="linked_practice_id">Remove linked resources</label>
     </div>
     <div class="mb-3 mt-3">
         <select name="remove_linked_resources" id="remove_linked_resources" aria-label="Remove linked resources" class="selectpicker" data-live-search="true" multiple>
-          {% for link in links %}
-            <option value="{{ link['id'] }}">{{ link['name'] }}</option>
+          {% for relationship in relationships %}
+            <option value="{{ relationship['id'] }}">{{ relationship['name'] }}</option>
           {% endfor %}
         </select>
     </div>
@@ -186,6 +211,13 @@
     <input type="submit" value="Delete"
             class="btn btn-danger btn-sm"
             onclick="return confirm('Are you sure you want to delete this practice?')">
+</form>
+{% endif %}
+{% if resource['type'] == 'book' %}
+<form action="{{ url_for('book.delete_book', book_id=resource['id']) }}" method="POST">
+    <input type="submit" value="Delete"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('Are you sure you want to delete this book?')">
 </form>
 {% endif %}
 {% endblock %}
