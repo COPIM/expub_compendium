@@ -22,6 +22,16 @@
         <div class="col">
             <table class="table table-hover">
                 <tbody>
+                    {% if resource['bookUrl'] %}
+                    <tr>
+                        <th>
+                            URL:
+                        </th>
+                        <td>
+                            <a href="{{ resource['bookUrl'] }}">{{ resource['bookUrl'] }}</a>
+                        </td>
+                    </tr>
+                    {% endif %}
                     {% if book %}
                         <!-- fields for books from isbntools -->
                         {% if book['Title'] %}
@@ -116,6 +126,26 @@
                             </th>
                             <td>
                                 {{ resource['author'] }}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if resource['year'] %}
+                        <tr>
+                            <th>
+                                Publication year:
+                            </th>
+                            <td>
+                                {{ resource['year'] }}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if resource['description'] %}
+                        <tr>
+                            <th>
+                                Summary:
+                            </th>
+                            <td>
+                                {{ resource['description'] }}
                             </td>
                         </tr>
                         {% endif %}

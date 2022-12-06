@@ -47,6 +47,32 @@
               </div>
             </div>
           {% endif %}
+          {% if year_filter %}
+            <div class="col-sm-6 d-md-block d-sm-none d-none">
+              <div class="filter-title">Year</div>
+              <ul class="filter-items">
+                {% for year in year_filter %}
+                <li {% if request.args.get('year') == year %} class="fw-bold"{% endif %}>
+                  <a href="/books?year={{year}}">{{ year }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="d-md-none accordion">
+              <div class="accordion-item">
+                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-year">Year</div>
+                <div class="accordion-body">
+                  <ul id="filter-year" class="collapse filter-items">
+                    {% for year in year_filter %}
+                    <li {% if request.args.get('year') == year %} class="fw-bold"{% endif %}>
+                      <a href="/books?year={{year}}">{{ year }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {% endif %}
           </div>
           <div class="row">
           {% if languages_filter %}
@@ -55,7 +81,7 @@
               <ul class="filter-items">
                 {% for language in languages_filter %}
                 <li {% if request.args.get('scriptingLanguage') == language %} class="fw-bold"{% endif %}>
-                  <a href="/{{type}}?scriptingLanguage={{language}}">{{ language }}</a>
+                  <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
                 </li>
                 {% endfor %}
               </ul>

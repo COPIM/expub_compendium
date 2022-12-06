@@ -20,18 +20,21 @@ book = Blueprint('book', __name__)
 # route for displaying all books in database
 @book.route('/books')
 def get_books():
-    books = Resource.query.filter_by(type='book')
+    type = 'book'
+    books = Resource.query.filter_by(type=type)
     for key in request.args.keys():
         if key == 'practice':
-            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="book";'
+            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="' + type + '";'
             books = db.engine.execute(query)
         else:
-            kwargs = {'type': 'book', key: request.args.get(key)}
-            tools = Resource.query.filter_by(**kwargs)
+            kwargs = {'type': type, key: request.args.get(key)}
+            books = Resource.query.filter_by(**kwargs)
     # get filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
-    return render_template('resources.html', resources=books, type='book', practices_filter=practices_filter)
+    # year
+    year_filter = get_filter_values('year', type)
+    return render_template('resources.html', resources=books, type=type, practices_filter=practices_filter, year_filter=year_filter)
 
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')
@@ -55,6 +58,10 @@ def edit_book(book_id):
         else:
             book = Resource.query.get(book_id)
             book.name = request.form['name']
+            book.description = request.form['description']
+            book.author = request.form['author']
+            book.year = request.form['year']
+            book.bookUrl = request.form['bookUrl']
             book.isbn = request.form['isbn']
             db.session.commit()
             linked_resources = request.form.getlist('linked_resources')

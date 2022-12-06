@@ -27,9 +27,9 @@ def delete_resource(resource_id):
     flash('Successfully deleted!')
 
 # function to get filters for a specific field 
-def get_filter_values(field):
+def get_filter_values(field, type):
     # get field values for filter 
-    field_filter = Resource.query.filter_by(type='tool').with_entities(getattr(Resource, field))
+    field_filter = Resource.query.filter_by(type=type).with_entities(getattr(Resource, field))
     # turn SQLAlchemy object into list
     field_filter = [i for i, in field_filter]
     # split each element on '/' (useful for scriptingLanguage only)
@@ -43,7 +43,7 @@ def get_filter_values(field):
     return field_filter
 
 def get_book_data(isbn):
-    #try:
+    try:
         book = meta(isbn)
         description = {'desc': desc(isbn)}
         book.update(description)
@@ -56,5 +56,5 @@ def get_book_data(isbn):
             book_cover = {'thumbnail': openl_url}
             book.update(book_cover)
         return book
-    #except: 
-    #    pass
+    except: 
+        pass

@@ -47,6 +47,9 @@ class Resource(db.Model):
     lessonsLearned = db.Column(db.Text)
     references = db.Column(db.Text)
     # books
+    author = db.Column(db.Text)
+    year = db.Column(db.Text)
+    bookUrl = db.Column(db.Text)
     isbn = db.Column(db.Text)
 
 # table for relationships

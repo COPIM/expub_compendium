@@ -20,26 +20,27 @@ tool = Blueprint('tool', __name__)
 # route for displaying all tools in database
 @tool.route('/tools')
 def get_tools():
-    tools = Resource.query.filter_by(type='tool')
+    type = 'tool'
+    tools = Resource.query.filter_by(type=type)
     for key in request.args.keys():
         if key == 'practice':
-            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="tool";'
+            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="' + type + '";'
             tools = db.engine.execute(query)
         elif key == 'scriptingLanguage':
             regex = request.args.get(key) + "$|" + request.args.get(key) + "\s\/"
-            tools = Resource.query.filter_by(type='tool').filter(Resource.scriptingLanguage.regexp_match(regex))
+            tools = Resource.query.filter_by(type=type).filter(Resource.scriptingLanguage.regexp_match(regex))
         else:
-            kwargs = {'type': 'tool', key: request.args.get(key)}
+            kwargs = {'type': type, key: request.args.get(key)}
             tools = Resource.query.filter_by(**kwargs)
     # get filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
     #FOR LATER: SELECT Resource.name, second.name FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id LEFT JOIN Resource second ON Relationship.second_resource_id=second.id;
     # license
-    licenses_filter = get_filter_values('license')
+    licenses_filter = get_filter_values('license', type)
     # language
-    languages_filter = get_filter_values('scriptingLanguage')
-    return render_template('resources.html', resources=tools, type='tool', practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter)
+    languages_filter = get_filter_values('scriptingLanguage', type)
+    return render_template('resources.html', resources=tools, type=type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter)
 
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')

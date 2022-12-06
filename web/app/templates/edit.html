@@ -156,6 +156,27 @@
 
     {% elif resource['type'] == 'book' %}
     <div class="mb-3 mt-3">
+      <label for="author">Author</label>
+      <input type="text" name="author" placeholder="Author"
+             class="form-control"
+             value="{{ request.form['author'] or resource['author'] }}">
+      </input>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="year">Publication year</label>
+      <input type="text" name="year" placeholder="Publication year"
+             class="form-control"
+             value="{{ request.form['year'] or resource['year'] }}">
+      </input>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="bookUrl">URL</label>
+      <input type="text" name="bookUrl" placeholder="URL"
+             class="form-control"
+             value="{{ request.form['bookUrl'] or resource['bookUrl'] }}">
+      </input>
+    </div>
+    <div class="mb-3 mt-3">
       <label for="isbn">ISBN</label>
       <input type="text" name="isbn" placeholder="ISBN"
              class="form-control"
