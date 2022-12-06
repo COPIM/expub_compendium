@@ -166,7 +166,7 @@
                             How is this / Can this be an experimental practice?
                         </th>
                         <td>
-                            {{ resource['experimental'] }}
+                            {{ resource['experimental']|safe }}
                         </td>
                     </tr>
                     {% endif %}
@@ -176,7 +176,7 @@
                             How has it been applied experimentally (lessons learned for authors and publishers)?
                         </th>
                         <td>
-                            <p style="white-space: pre-line">{{ resource['lessonsLearned'] }}</p>
+                            <p style="white-space: pre-line">{{ resource['lessonsLearned']|safe }}</p>
                         </td>
                     </tr>
                     {% endif %}
@@ -186,7 +186,7 @@
                             References:
                         </th>
                         <td>
-                            <p style="white-space: pre-line">{{ resource['references'] }}</p>
+                            <p style="white-space: pre-line">{{ resource['references']|safe }}</p>
                         </td>
                     </tr>
                     {% endif %}
