@@ -4,6 +4,8 @@
 # @author: Simon Bowie <ad7588@coventry.ac.uk>
 # @purpose: Data schemas for API export
 # @acknowledgements:
+# https://marshmallow.readthedocs.io/en/stable/quickstart.html#next-steps
+# https://stackoverflow.com/questions/59721478/serializing-sqlalchemy-with-marshmallow
 
 from . import ma
 from marshmallow import Schema
