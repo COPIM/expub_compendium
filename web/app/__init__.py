@@ -17,7 +17,7 @@ import os
 # initiate SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
 
-# initiate Marshmallow
+# initiate Marshmallow for defining schemas for JSON export
 ma = Marshmallow()
 
 # initiate Moment for datetime functions

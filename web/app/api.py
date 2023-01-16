@@ -14,6 +14,21 @@ from .schemas import UserSchema, ToolSchema, PracticeSchema, BookSchema
 
 api = Blueprint('api', __name__)
 
+# function to get different types from the Resource database table
+def get_resource_json(type):
+    resources = Resource.query.filter_by(type=type)
+    if (type=='tool'):
+        resources_schema = ToolSchema(many=True)
+    elif (type=='practice'):
+        resources_schema = PracticeSchema(many=True)
+    elif (type=='book'):
+        resources_schema = BookSchema(many=True)
+    result = resources_schema.dump(resources)
+    # return all rows as a JSON array of objects
+    result = jsonify(result)
+
+    return result
+
 # route for api page
 @api.route('/api')
 def api_page():
@@ -29,20 +44,6 @@ def get_users():
 
     # return all rows as a JSON array of objects
     return jsonify(result)
-
-def get_resource_json(type):
-    resources = Resource.query.filter_by(type=type)
-    if (type=='tool'):
-        resources_schema = ToolSchema(many=True)
-    elif (type=='practice'):
-        resources_schema = PracticeSchema(many=True)
-    elif (type=='book'):
-        resources_schema = BookSchema(many=True)
-    result = resources_schema.dump(resources)
-    # return all rows as a JSON array of objects
-    result = jsonify(result)
-
-    return result
 
 # route for exporting all tools in database
 @api.route('/api/tools')
