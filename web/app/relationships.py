@@ -5,10 +5,8 @@
 # @purpose: functions for relationships
 # @acknowledgements:
 
-from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import Resource
 from .models import Relationship
-from werkzeug.exceptions import abort
 from . import db
 
 # function to retrieve linked resources

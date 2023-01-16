@@ -12,7 +12,6 @@ from .models import Resource
 from .models import Relationship
 from .resources import *
 from .relationships import *
-from werkzeug.exceptions import abort
 from . import db
 import os
 

@@ -8,7 +8,6 @@
 # https://stackoverflow.com/questions/59721478/serializing-sqlalchemy-with-marshmallow
 
 from . import ma
-from marshmallow import Schema
 
 # schema for JSON transformation of User table via Marshmallow
 class UserSchema(ma.Schema):
