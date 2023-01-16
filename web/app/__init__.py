@@ -11,10 +11,14 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_moment import Moment
+from flask_marshmallow import Marshmallow
 import os
 
 # initiate SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
+
+# initiate Marshmallow
+ma = Marshmallow()
 
 # initiate Moment for datetime functions
 moment = Moment()
@@ -27,6 +31,9 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_ECHO'] = False
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # for sorting API output correctly
+    app.config ['JSON_SORT_KEYS'] = False
 
     app.url_map.strict_slashes = False
 
@@ -73,5 +80,9 @@ def create_app():
     # blueprint for create parts of app
     from .create import create as create_blueprint
     app.register_blueprint(create_blueprint)
+
+    # blueprint for API parts of app
+    from .api import api as api_blueprint
+    app.register_blueprint(api_blueprint)
 
     return app

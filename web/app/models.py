@@ -8,7 +8,9 @@
 
 from flask_login import UserMixin
 from . import db
+from . import ma
 from datetime import datetime
+from marshmallow import Schema
 
 # table for users
 class User(UserMixin, db.Model):
