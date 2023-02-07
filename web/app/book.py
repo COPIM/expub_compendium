@@ -12,6 +12,7 @@ from .models import Resource
 from .resources import *
 from .relationships import *
 from . import db
+from sqlalchemy import text
 import os
 
 book = Blueprint('book', __name__)
@@ -24,7 +25,8 @@ def get_books():
     for key in request.args.keys():
         if key == 'practice':
             query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="' + type + '";'
-            books = db.engine.execute(query)
+            with db.engine.connect() as conn:
+                books = conn.execute(text(query))
         else:
             kwargs = {'type': type, key: request.args.get(key)}
             books = Resource.query.filter_by(**kwargs)
@@ -62,6 +64,7 @@ def edit_book(book_id):
             book.year = request.form['year']
             book.bookUrl = request.form['bookUrl']
             book.isbn = request.form['isbn']
+            book.typology = request.form['typology']
             db.session.commit()
             linked_resources = request.form.getlist('linked_resources')
             remove_linked_resources = request.form.getlist('remove_linked_resources')

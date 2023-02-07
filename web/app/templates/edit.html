@@ -123,14 +123,19 @@
 
     {% elif resource['type'] == 'practice' %}
     <div class="mb-3 mt-3">
-      <label for="experimental">How is this / Can this be an experimental practice?</label>
-      <textarea name="experimental" placeholder="How is this / Can this be an experimental practice?"
+      <label for="longDescription">Full description</label>
+      <textarea name="longDescription" placeholder="Full description"
+                class="form-control">{{ request.form['longDescription'] or resource['longDescription'] }}</textarea>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="experimental">Experimental use</label>
+      <textarea name="experimental" placeholder="Experimental use"
                 class="form-control">{{ request.form['experimental'] or resource['experimental'] }}</textarea>
     </div>
     <div class="mb-3 mt-3">
-      <label for="lessonsLearned">How has it been applied experimentally (lessons learned for authors and publishers)?</label>
-      <textarea name="lessonsLearned" placeholder="How has it been applied experimentally (lessons learned for authors and publishers)?"
-                class="form-control">{{ request.form['lessonsLearned'] or resource['lessonsLearned'] }}</textarea>
+      <label for="considerations">Considerations</label>
+      <textarea name="considerations" placeholder="Considerations"
+                class="form-control">{{ request.form['considerations'] or resource['considerations'] }}</textarea>
     </div>
     <div class="mb-3 mt-3">
       <label for="references">References</label>
@@ -167,6 +172,13 @@
       <input type="text" name="year" placeholder="Publication year"
              class="form-control"
              value="{{ request.form['year'] or resource['year'] }}">
+      </input>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="typology">Typology category</label>
+      <input type="text" name="typology" placeholder="Typology category"
+             class="form-control"
+             value="{{ request.form['typology'] or resource['typology'] }}">
       </input>
     </div>
     <div class="mb-3 mt-3">

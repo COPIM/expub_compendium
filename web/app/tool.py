@@ -12,6 +12,7 @@ from .models import Resource
 from .resources import *
 from .relationships import *
 from . import db
+from sqlalchemy import text
 import os
 
 tool = Blueprint('tool', __name__)
@@ -24,7 +25,8 @@ def get_tools():
     for key in request.args.keys():
         if key == 'practice':
             query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="' + type + '";'
-            tools = db.engine.execute(query)
+            with db.engine.connect() as conn:
+                tools = conn.execute(text(query))
         elif key == 'scriptingLanguage':
             regex = request.args.get(key) + "$|" + request.args.get(key) + "\s\/"
             tools = Resource.query.filter_by(type=type).filter(Resource.scriptingLanguage.regexp_match(regex))

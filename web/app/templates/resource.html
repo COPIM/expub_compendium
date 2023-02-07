@@ -160,23 +160,33 @@
                     </tr>
                     {% endif %}
                     <!-- fields for practices -->
+                    {% if resource['longDescription'] %}
+                    <tr>
+                        <th>
+                            Full description
+                        </th>
+                        <td>
+                            {{ resource['longDescription']|safe }}
+                        </td>
+                    </tr>
+                    {% endif %}
                     {% if resource['experimental'] %}
                     <tr>
                         <th>
-                            How is this / Can this be an experimental practice?
+                            Experimental uses
                         </th>
                         <td>
                             {{ resource['experimental']|safe }}
                         </td>
                     </tr>
                     {% endif %}
-                    {% if resource['lessonsLearned'] %}
+                    {% if resource['considerations'] %}
                     <tr>
                         <th>
-                            How has it been applied experimentally (lessons learned for authors and publishers)?
+                            Considerations
                         </th>
                         <td>
-                            <p style="white-space: pre-line">{{ resource['lessonsLearned']|safe }}</p>
+                            <p style="white-space: pre-line">{{ resource['considerations']|safe }}</p>
                         </td>
                     </tr>
                     {% endif %}
