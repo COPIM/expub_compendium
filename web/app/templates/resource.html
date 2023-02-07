@@ -99,36 +99,6 @@
                         </td>
                     </tr>
                     {% endif %}
-                    {% if resource['expertiseToUse'] %}
-                    <tr>
-                        <th>
-                            Expertise required to use:
-                        </th>
-                        <td>
-                            {{ resource['expertiseToUse'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['expertiseToHost'] %}
-                    <tr>
-                        <th>
-                            Expertise required to self-host:
-                        </th>
-                        <td>
-                            {{ resource['expertiseToHost'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['dependencies'] %}
-                    <tr>
-                        <th>
-                            Technical dependencies:
-                        </th>
-                        <td>
-                            {{ resource['dependencies'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
                     {% if resource['ingestFormats'] %}
                     <tr>
                         <th>
