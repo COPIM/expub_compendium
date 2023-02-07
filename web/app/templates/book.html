@@ -106,6 +106,17 @@
                                 {{ book['desc'] }}
                             </td>
                         </tr>
+                        {% else %}
+                            {% if resource['description'] %}
+                            <tr>
+                                <th>
+                                    Summary:
+                                </th>
+                                <td>
+                                    {{ resource['description'] }}
+                                </td>
+                            </tr>
+                            {% endif %}
                         {% endif %}
                     {% else %}
                         <!-- fields for books from database -->
