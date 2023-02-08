@@ -76,6 +76,32 @@
           {% endif %}
           </div>
           <div class="row">
+          {% if typology_filter %}
+            <div class="col-sm-6 d-md-block d-sm-none d-none">
+              <div class="filter-title">Typology category</div>
+              <ul class="filter-items">
+                {% for typology in typology_filter %}
+                <li {% if request.args.get('typology') == typology %} class="fw-bold"{% endif %}>
+                  <a href="/books?typology={{typology}}">{{ typology }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="d-md-none accordion">
+              <div class="accordion-item">
+                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-typology">Typology category</div>
+                <div class="accordion-body">
+                  <ul id="filter-typology" class="collapse filter-items">
+                    {% for typology in typology_filter %}
+                    <li {% if request.args.get('typology') == typology %} class="fw-bold"{% endif %}>
+                      <a href="/books?typology={{typology}}">{{ typology }}</a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {% endif %}
           {% if languages_filter %}
             <div class="col-sm-6 d-md-block d-sm-none d-none">
               <div class="filter-title">Scripting languages</div>

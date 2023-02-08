@@ -35,7 +35,9 @@ def get_books():
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
     # year
     year_filter = get_filter_values('year', type)
-    return render_template('resources.html', resources=books, type=type, practices_filter=practices_filter, year_filter=year_filter)
+    # typology
+    typology_filter = get_filter_values('typology', type)
+    return render_template('resources.html', resources=books, type=type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter)
 
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')

@@ -57,7 +57,7 @@ Table_import()
 {
   docker cp $IMPORT_TXT_FILE $CONTAINER:/tmp/import_file
 
-  docker exec -i $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE -e 'LOAD DATA LOCAL INFILE '\''/tmp/import_file'\'' REPLACE INTO TABLE $TABLE FIELDS TERMINATED BY '\''\t'\'' LINES TERMINATED BY '\''\n'\'' IGNORE 1 ROWS;'"
+  docker exec -i $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE -e 'LOAD DATA LOCAL INFILE '\''/tmp/import_file'\'' REPLACE INTO TABLE $TABLE FIELDS TERMINATED BY '\''\t'\'' LINES TERMINATED BY '\''\r'\'' IGNORE 1 ROWS;'"
 }
 
 Drop_table()

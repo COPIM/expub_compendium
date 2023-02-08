@@ -22,6 +22,16 @@
         <div class="col">
             <table class="table table-hover">
                 <tbody>
+                    {% if resource['typology'] %}
+                    <tr>
+                        <th>
+                            Typology category:
+                        </th>
+                        <td>
+                            <a href="{{ resource['typology'] }}">{{ resource['typology'] }}</a>
+                        </td>
+                    </tr>
+                    {% endif %}
                     {% if resource['bookUrl'] %}
                     <tr>
                         <th>
