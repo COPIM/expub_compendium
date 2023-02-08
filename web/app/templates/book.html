@@ -100,23 +100,12 @@
                         {% if book['desc'] %}
                         <tr>
                             <th>
-                                Summary:
+                                Publisher's description:
                             </th>
                             <td>
                                 {{ book['desc'] }}
                             </td>
                         </tr>
-                        {% else %}
-                            {% if resource['description'] %}
-                            <tr>
-                                <th>
-                                    Summary:
-                                </th>
-                                <td>
-                                    {{ resource['description'] }}
-                                </td>
-                            </tr>
-                            {% endif %}
                         {% endif %}
                     {% else %}
                         <!-- fields for books from database -->
@@ -150,16 +139,16 @@
                             </td>
                         </tr>
                         {% endif %}
-                        {% if resource['description'] %}
-                        <tr>
-                            <th>
-                                Summary:
-                            </th>
-                            <td>
-                                {{ resource['description'] }}
-                            </td>
-                        </tr>
-                        {% endif %}
+                    {% endif %}
+                    {% if resource['description'] %}
+                    <tr>
+                        <th>
+                            Experimental aspects:
+                        </th>
+                        <td>
+                            {{ resource['description'] }}
+                        </td>
+                    </tr>
                     {% endif %}
                 </tbody>
             </table>
