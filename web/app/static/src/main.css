@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'ag';
+    src: url(ApfelGrotezk-Regular.woff) format("woff");
+}
+
+@font-face {
+    font-family: 'ag-brukt';
+    src: url(ApfelGrotezk-Brukt.woff) format("woff");
+}
+
+@font-face {
+    font-family: 'ag-fett';
+    src: url(ApfelGrotezk-Fett.woff) format("woff");
+}
+
+body {
+    font-family: 'ag';
+}
+
+strong {
+    font-family: 'ag-fett';
+}
+
+.std-margin {
+    @apply p-2;
+}
+
+.cell-margin {
+    @apply p-4 pt-4 pb-8 pr-8
+}
+
+.block-margin {
+    @apply mb-8;
+}
+
+.std-padding {
+    @apply p-2;
+}
+
+.std-grid {
+    @apply grid md:grid-cols-2 lg:grid-cols-3;
+}
+
+.cell {
+    @apply cell-margin relative;
+    /* background: linear-gradient(to right,  white 0%, rgb(252, 206, 255) 15px, white 10%, white 100%); */
+}
+
+.cell::before {
+    content: '';
+    position: absolute;
+    
+    top: 10px;
+    right: 0px;
+    width: 3px;
+    height: calc(100% - 20px);
+    background-color: black;
+}
+
+.cell::after {
+    content: '';
+    position: absolute;
+    
+    bottom: 0px;
+    left: 8px;
+    width: calc(100% - 20px);
+    height: 3px;
+    background-color: black;
+}
+
+.meta {
+    transform: rotate(-3.5deg);
+}
+
+h2,h3 {
+    @apply overflow-hidden max-w-full overflow-ellipsis;
+}
+
+h2 {
+    @apply text-4xl;
+}
+
+h3 {
+    font-family: 'ag-fett';
+    @apply uppercase;
+}
+
+.text > h3 {
+    @apply ml-6 mt-8 ;
+}
+
+h2 + *,
+h3 + * {
+    @apply ml-6 mt-1;
+}
+
+p {
+    max-width: 55ch;
+}
+
+p + p {
+    @apply ml-6 mt-[1em];
+}
+
+.loading {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+
+.htmx-request .loading {
+    opacity: 1;
+    display: block;
+}
+
+.htmx-request.loading {
+    opacity: 1;
+}
+
+.active {
+    @apply bg-[#ffff00]
+}
+
+details[open]::details-content {
+    display: contents;
+}
+
+.text a {
+    font-family: 'ag-fett';
+}
+

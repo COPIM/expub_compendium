@@ -2,23 +2,20 @@
 
 {% block content %}
 
-    {% if book['thumbnail'] %}
-        <img class="img-fluid mx-auto d-block py-3" src={{ book['thumbnail'] }} alt="cover for {{ book['Title'] }}">
-    {% else %}
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">{% block title %} {{ book['Title'] or resource['name'] }} {% endblock %}</h1>
-            </div>
-        </div>
-    {% endif %}
-    {% if current_user.is_authenticated %}
-      <div class="row text-center py-3">
-          <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
-              <span class="badge bg-dark">Edit</span>
-          </a>
-      </div>
-    {% endif %}
-    <div class="row">
+    <div class="cell-margin">
+        {% if book['thumbnail'] %}
+            <img class="w-40 h-40 object-contain float-right m-16 grayscale rotate-[15deg]" src={{ book['thumbnail'] }} alt="cover for {{ book['Title'] }}">
+        {% endif %}
+        <h2 class="max-w-[30rem]">{% block title %} {{ book['Title'] or resource['name'] }} {% endblock %}</h2>
+        {% if current_user.is_authenticated %}
+          <div class="row text-center py-3">
+              <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
+                  <span class="badge bg-dark">Edit</span>
+              </a>
+          </div>
+        {% endif %}
+    </div>
+    <div class="row block-margin">
         <div class="col">
             <table class="table table-hover">
                 <tbody>
@@ -165,50 +162,10 @@
         </div>
     </div>
     {% if relationships %}
-    <div class="row">
-        <div class="col">
-            <h2 class="text-center">Linked resources:</h2>
-        </div>
-    </div>
-    <div class="row">
-    {% for relationship in relationships %}
-        <div class="col-md-4 col-sm-6 py-3">
-        {% if relationship['type'] == 'tool' %}
-        <div class="card text-dark bg-tool mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('tool.show_tool', tool_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
-            </div>
-        </div>
-        {% elif relationship['type'] == 'practice' %}
-        <div class="card text-dark bg-practice mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('practice.show_practice', practice_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
-            </div>
-        </div>
-        {% elif relationship['type'] == 'book' %}
-        <div class="card text-dark bg-book mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('book.show_book', book_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
-            </div>
-        </div>
-        {% endif %}
-        </div>
-    {% endfor %}
+    <div class="grid lg:grid-cols-3">
+        {% for relationship in relationships %}
+            {{ resource_small(relationship)}}
+        {% endfor %}
     </div>
     {% endif %}
 {% endblock %}

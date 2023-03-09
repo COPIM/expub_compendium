@@ -1,33 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="std-grid">
 
-{{ text|safe }}
-
-<hr>
-<p>
-  Browse from this selection of random tools, search or explore tools, practices, and experimental books.
-</p>
-
-<div class="row">
-{% for tool in tools %}
-    <div class="col-md-4 col-sm-6 py-3">
-    <div class="card text-dark bg-info mb-3">
-        <div class="card-body">
-            <a href="{{ url_for('tool.show_tool', tool_id=tool['id']) }}">
-                <h3 class="card-title text-center text-dark">{{ tool['name'] }}</h3>
-            </a>
-            <p class="card-text">
-                {{ tool['description']|truncate(100) }}
-            </p>
-            {% if current_user.is_authenticated %}
-            <a href="{{ url_for('tool.edit_tool', tool_id=tool['id']) }}">
-                <span class="badge bg-dark">Edit</span>
-            </a>
-            {% endif %}
-        </div>
+    <div class="std-margin text row-span-2 cell meta">
+        {{ text|safe }}
     </div>
+    
+    {% for tool in tools %}
+
+        {{ resource_small(tool) }}
+
+    {% endfor %}
+
+    <div class="cell text-red-600">
+        MISSING :<br>
+
+        Clusters of things (book + tool). SHow books and what tools they're made with, and "tagged" with practice and typology
     </div>
-{% endfor %}
+    <div class="cell text-red-600">
+        MISSING :<br>
+
+        Lead into Typology with some examples and lead text
+    </div>
+    <div class="cell text-red-600">
+        MISSING :<br>
+
+        Lead into Practices with some examples and lead text
+    </div>
+
 </div>
 {% endblock %}
