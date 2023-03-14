@@ -116,12 +116,26 @@ p + p {
     display: block;
 }
 
-.htmx-request.loading {
+
+#modal-content main {
+    
+    opacity: 1;
+}
+.htmx-request #modal-content main {
+    /* transition: opacity 0.2s ease; */
+    opacity: 0;
+}
+
+.htmx-request .loading {
     opacity: 1;
 }
 
 .active {
-    @apply bg-[#ffff00]
+    @apply bg-[#ffff00];
+}
+
+.link:hover {
+    @apply bg-[#ffff00];
 }
 
 details[open]::details-content {
@@ -129,6 +143,7 @@ details[open]::details-content {
 }
 
 .text a {
-    font-family: 'ag-fett';
+    /* font-family: 'ag-fett'; */
+    text-decoration: underline;
 }
 

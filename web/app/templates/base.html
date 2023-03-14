@@ -12,18 +12,27 @@
 # Boostrap select: https://stackoverflow.com/questions/67942546/bootstrap-5-select-dropdown-with-the-multiple-attribute-collapsed
 -->
 
+{% macro popup_link(title,url) %}
+    <a href="{{ url }}" class="nav-link">
+        {{ title }}
+    </a>
+{% endmacro %}
+
 {% macro resource_lead(type, title, leadtext, url, year, thumbnail='', large_title=false) %}
-    <div class="relative cell ">
-        <a 
+    <div class="relative cell h-full">
+        <a
             class="block cursor-pointer"
 
             href="{{ url }}" 
+            
             hx-target="#modal-content" 
             hx-select="main" 
             hx-swap="innerHTML" 
 
             @click="openModal()"
+            
         >
+
             {% if large_title %}
                 <h2 class="">{{ title }}</h2>
             {% else %}
@@ -120,27 +129,45 @@
 </head>
 
     <script>
-        htmx.logAll();
+        // htmx.on('htmx:beforeRequest', e=> {
+        //     console.log(e)
+        // })
+        // htmx.logAll()
         function base() {
             return {
                 menuOpen: false,
                 modalOpen: false,
+                showRelated: false,
                 home: '/',
+            
+                hideIfBase() {
+                    let str = document.location.toString();
+                    str = str.replace('http://', '');
+                    str = str.replace('https://', '');
+                    let l = str.split('/').length-1;
+                    if(l<2) {
+                        this.modalOpen = false;
+                    }
+                    return l;
+                },
                 init() {
+                    this.$watch('document.location', (value, oldValue) => { 
+                        console.log('new url', value);
+                    });
                     window.addEventListener('popstate', e => {
-                        console.log(document.location);
-                        if (document.location == this.home) {
-                            this.modalOpen = false;
-                        }
-                    })
+                        this.hideIfBase();
+                    });
                 },
                 hideOverlay() {
                     this.modalOpen = false;
-                    window.history.pushState({}, '', this.home);
+                    
+                    // window.history.pushState({}, '', this.home);
                 },
                 openModal() {
-                    this.$refs.modal.innerHTML = '';
+                    // this.$refs.modal.innerHTML = '';
                     this.modalOpen = true;
+                    let mc = document.querySelector('#modal-content');
+                    mc.scrollTo(0,0);
                 }
             }
         }
@@ -151,8 +178,8 @@
     hx-boost="true"
     hx-select="#all"
     hx-target="#all"
-    hx-indicator="#loading"
-
+    hx-swap="outerHTML"
+    hx-indicator="body"
 >
     <div id="loading" class="loading">
         <div class="pointer-events-none fixed top-0 left-0 w-full h-screen z-50 flex justify-center items-center p-4">
@@ -163,45 +190,50 @@
     </div>
     <div id="all">
         <header class="sticky top-0 z-10 bg-white std-padding border-b-[3px] border-black">
-            <nav class="lg:flex gap-8">
+            <nav class="">
+                <div class="lg:flex gap-2 mb-2">
+                    <a class="link leading-tight" href="{{ url_for('main.index') }}">ExPub<br>Compendium</a>
     
-                <a class="mr-auto" href="{{ url_for('main.index')}}">ExPub Compendium</a>
+                    <a href="{{ url_for('main.about') }}" class="{{ 'active' if request.path == url_for('main.about') }} ml-auto link">
+                        About
+                    </a>
     
-                <a href="{{ url_for('main.about') }}" class="nav-link">
-                    About
-                </a>
-                <a href="{{ url_for('tool.get_tools') }}" class="nav-link">
-                    Tools
-                </a>
-                <a href="{{ url_for('practice.get_practices') }}" class="nav-link">
-                    Practices
-                </a>
-                <a href="{{ url_for('book.get_books') }}" class="nav-link">
-                    Books
-                </a>
-                {% if current_user.is_authenticated %}
-                <a href="{{ url_for('create.create_resource') }}" class="nav-link">
-                    Add resource
-                </a>
-                {% endif %}
-                {% if current_user.is_authenticated %}
-                <a href="{{ url_for('main.profile') }}" class="nav-link">
-                    Profile
-                </a>
-                {% endif %}
-                {% if not current_user.is_authenticated %}
-                <a href="{{ url_for('auth.login') }}" class="nav-link">
-                    Login
-                </a>
-                <a href="{{ url_for('auth.signup') }}" class="nav-link">
-                    Sign Up
-                </a>
-                {% endif %}
-                {% if current_user.is_authenticated %}
-                <a href="{{ url_for('auth.logout') }}" class="nav-link">
-                    Logout
-                </a>
-                {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('create.create_resource') }}" class="link">
+                        Add resource
+                    </a>
+                    {% endif %}
+                    {% if current_user.is_authenticated %} 
+                    <a href="{{ url_for('main.profile') }}" class="link">
+                        Profile
+                    </a>
+                    {% endif %}
+                    {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.login') }}" class="link">
+                        Login
+                    </a>
+                    <a href="{{ url_for('auth.signup') }}" class="link">
+                        Sign Up
+                    </a>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.logout') }}" class="link">
+                        Logout
+                    </a>
+                    {% endif %}
+                </div>
+                <h2 class="flex gap-4 ">
+                    <a href="{{ url_for('tool.get_tools') }}" class=" link align-bottom">
+                        Tools
+                    </a>
+                    <a href="{{ url_for('practice.get_practices') }}" class="link">
+                        Practices
+                    </a>
+                    <a href="{{ url_for('book.get_books') }}" class="link">
+                        Books
+                    </a>
+                    <input class="ml-auto text-base border-2 border-black p-1 " type="text" placeholder="Search">
+                </h2>
             </nav>
         </header>
     
@@ -219,7 +251,7 @@
         </main>
     </div>
 
-    <div id="modal" x-show="modalOpen"  class="modal h-screen  w-full fixed top-0 z-20 p-8 bg-black/20">
+    <div id="modal" x-show="modalOpen"  class="modal h-screen  w-full fixed top-0 z-20 p-8 bg-black/20 overscroll-none">
         <div class="cross cursor-pointer absolute top-10 right-10 w-10 h-10" @click="hideOverlay()">
             <svg width="100%" height="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 2L18 18M18 2L2 18" stroke="black" stroke-width="1"></path>

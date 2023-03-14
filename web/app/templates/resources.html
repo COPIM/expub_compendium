@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="cell-margin">
+<!-- <div class="cell-margin">
   <div class="mb-8">
     <h2>
       {% block title %}
@@ -17,81 +17,122 @@
       Integer accumsan ullamcorper diam, non rhoncus tellus molestie ut. Maecenas finibus pretium dolor ac sagittis.
     </p>
   </div>
-</div>
-<div class="">
-  <div class="search sticky top-11  z-10 border-b-2 border-black">
-    <div class="sticky top-20 flex p-2 pt-4 gap-8 bg-white ">
-      <input class="border-2 border-black p-2 mb-2" type="text" placeholder="filter by search...">
-      {% if practices_filter %}
-      <details class="min-w-[10rem]">
-        <summary>Practices</summary>
-        <div class="">
-          {% for practice in practices_filter %}
-          <div {% if request.args.get('practice')==practice[0]|string %} class="active" {% endif %}>
-            <a href="/{{type + 's'}}?practice={{practice[0]}}">{{ practice[1] }}</a>
-          </div>
-          {% endfor %}
+</div> -->
+<script>
+  function filter() {
+    return {
+      filterOpen: false,
+      init() {
+        // console.log(this.showRelated)
+      }
+    }
+  }
+</script>
+<div class="" x-data="filter()">
+  <div 
+    class="search fixed z-20 top-0 left-0 w-[20rem] h-screen bg-white cell-padding " 
+    x-show="filterOpen"
+    style="box-shadow:0 0 2rem rgba(0,0,0,0.3)"
+    @click.outside = "filterOpen = false"
+  >
+  <div class=" p-2 pt-4 gap-8 bg-white ">
+    {% if practices_filter %}
+    <details class="" open>
+      <summary>Practices</summary>
+      <div class="">
+        {% for practice in practices_filter %}
+        <div {% if request.args.get('practice')==practice[0]|string %} class="active" {% endif %}>
+          <a href="/{{type + 's'}}?practice={{practice[0]}}">{{ practice[1] }}</a>
         </div>
-      </details>
-      {% endif %}
-      {% if year_filter %}
-      <details class="min-w-[10rem]">
-        <summary>Year</summary>
-        <div id="filter-year" class="collapse filter-items">
-          {% for year in year_filter %}
-          <li {% if request.args.get('year')==year %} class="active" {% endif %}>
-            <a href="/books?year={{year}}">{{ year }}</a>
-          </li>
-          {% endfor %}
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+    {% if year_filter %}
+    <details class="">
+      <summary>Year</summary>
+      <div id="filter-year" class="collapse filter-items">
+        {% for year in year_filter %}
+        <li {% if request.args.get('year')==year %} class="active" {% endif %}>
+          <a href="/books?year={{year}}">{{ year }}</a>
+        </li>
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+    {% if typology_filter %}
+    <details class="">
+      <summary class="">Typology category</summary>
+      <div class="">
+        {% for typology in typology_filter %}
+        <div {% if request.args.get('typology')==typology %} class="active" {% endif %}>
+          <a href="/books?typology={{typology}}">{{ typology }}</a>
         </div>
-      </details>
-      {% endif %}
-      {% if typology_filter %}
-      <details class="min-w-[10rem]">
-        <summary class="">Typology category</summary>
-        <div class="">
-          {% for typology in typology_filter %}
-          <div {% if request.args.get('typology')==typology %} class="active" {% endif %}>
-            <a href="/books?typology={{typology}}">{{ typology }}</a>
-          </div>
-          {% endfor %}
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+    {% if languages_filter %}
+    <details class="">
+      <summary>Scripting languages</summary>
+      <div class="">
+        {% for language in languages_filter %}
+        <div {% if request.args.get('scriptingLanguage')==language %} class="active" {% endif %}>
+          <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
         </div>
-      </details>
-      {% endif %}
-      {% if languages_filter %}
-      <details class="min-w-[10rem]">
-        <summary>Scripting languages</summary>
-        <div class="">
-          {% for language in languages_filter %}
-          <div {% if request.args.get('scriptingLanguage')==language %} class="active" {% endif %}>
-            <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
-          </div>
-          {% endfor %}
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+    {% if licenses_filter %}
+    <details class="min-w-[10rem]">
+      <summary>License</summary>
+      <div class="">
+        {% for license in licenses_filter %}
+        <div {% if request.args.get('license')==license %} class="active" {% endif %}>
+          <a href="/tools?license={{license}}">{{ license }}</a>
         </div>
-      </details>
-      {% endif %}
-      {% if licenses_filter %}
-      <details class="min-w-[10rem]">
-        <summary>License</summary>
-        <div class="">
-          {% for license in licenses_filter %}
-          <div {% if request.args.get('license')==license %} class="active" {% endif %}>
-            <a href="/tools?license={{license}}">{{ license }}</a>
-          </div>
-          {% endfor %}
-        </div>
-      </details>
-      {% endif %}
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+  </div>
+  </div> 
+  <div class="flex justify-between mx-4 my-8">
+    <div class="cursor-pointer" @click="filterOpen = true">← Show filters</div>
+    <div class="">
+      <input type="checkbox" name="filter-open" x-model="showRelated" id=""> Also show everything related
     </div>
   </div>
-
-
-  <div class="col-md-8 col-lg-9">
-    <div class="grid lg:grid-cols-3">
-      {% for resource in resources %}
+  
+  <div class="grid lg:grid-cols-3" x-show="!showRelated">
+    {% for resource in resources %}
       {{ resource_small(resource) }}
-      {% endfor %}
-    </div>
+    {% endfor %}  
+  </div>
+  
+  <div x-show="showRelated">
+    {% for resource in resources %}
+      <div class="w-full overflow-x-scroll">
+        <div class="grid lg:grid-rows-3 grid-flow-col mb-16">
+          <div class="w-[25rem] shrink-0 row-span-3 h-full">
+            {{ resource_small(resource) }}
+          </div>
+          <div class="w-[25rem] cell row-start-1">
+              Something Related
+          </div>
+          <div class="w-[25rem] cell shrink-0 row-start-1">
+              Something Related
+          </div>
+          <div class="w-[25rem] cell shrink-0 row-start-1">
+              Something Related
+          </div>
+          <div class="w-[25rem] cell shrink-0 row-start-1">
+              Something Related
+          </div>
+        </div>
+      </div>
+    {% endfor %}  
   </div>
 </div>
 
