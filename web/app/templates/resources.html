@@ -2,209 +2,138 @@
 
 {% block content %}
 
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1>{% block title %}
-              {{ type|capitalize + 's' }}
-              {% endblock %}
-            </h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 text-center">
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget viverra magna. Nam in ante ultricies purus feugiat vestibulum et ac erat. Donec in sagittis ante. Maecenas non mauris et eros commodo fringilla. Integer accumsan ullamcorper diam, non rhoncus tellus molestie ut. Maecenas finibus pretium dolor ac sagittis.
-            </p>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4 col-lg-3 py-3">
-        <div class="search-filter-sidebar">
-          <input class="form-control" id="searchResources" type="text" placeholder="filter by search...">
-          <div class="row">
-          {% if practices_filter %}
-            <div class="col-sm-6 d-md-block d-sm-none d-none">
-              <div class="filter-title">Practices</div>
-              <ul class="filter-items">
-                {% for practice in practices_filter %}
-                <li {% if request.args.get('practice') == practice[0]|string %} class="fw-bold"{% endif %}>
-                  <a href="/{{type + 's'}}?practice={{practice[0]}}">{{ practice[1] }}</a>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="d-md-none accordion">
-              <div class="accordion-item">
-                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-practice">Practices</div>
-                <div class="accordion-body">
-                  <ul id="filter-practice" class="collapse filter-items">
-                    {% for practice in practices_filter %}
-                    <li {% if request.args.get('practice') == practice[0]|string %} class="fw-bold"{% endif %}>
-                      <a href="/{{type + 's'}}?practice={{practice[0]}}">{{ practice[1] }}</a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          {% endif %}
-          {% if year_filter %}
-            <div class="col-sm-6 d-md-block d-sm-none d-none">
-              <div class="filter-title">Year</div>
-              <ul class="filter-items">
-                {% for year in year_filter %}
-                <li {% if request.args.get('year') == year %} class="fw-bold"{% endif %}>
-                  <a href="/books?year={{year}}">{{ year }}</a>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="d-md-none accordion">
-              <div class="accordion-item">
-                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-year">Year</div>
-                <div class="accordion-body">
-                  <ul id="filter-year" class="collapse filter-items">
-                    {% for year in year_filter %}
-                    <li {% if request.args.get('year') == year %} class="fw-bold"{% endif %}>
-                      <a href="/books?year={{year}}">{{ year }}</a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          {% endif %}
-          </div>
-          <div class="row">
-          {% if typology_filter %}
-            <div class="col-sm-6 d-md-block d-sm-none d-none">
-              <div class="filter-title">Typology category</div>
-              <ul class="filter-items">
-                {% for typology in typology_filter %}
-                <li {% if request.args.get('typology') == typology %} class="fw-bold"{% endif %}>
-                  <a href="/books?typology={{typology}}">{{ typology }}</a>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="d-md-none accordion">
-              <div class="accordion-item">
-                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-typology">Typology category</div>
-                <div class="accordion-body">
-                  <ul id="filter-typology" class="collapse filter-items">
-                    {% for typology in typology_filter %}
-                    <li {% if request.args.get('typology') == typology %} class="fw-bold"{% endif %}>
-                      <a href="/books?typology={{typology}}">{{ typology }}</a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          {% endif %}
-          {% if languages_filter %}
-            <div class="col-sm-6 d-md-block d-sm-none d-none">
-              <div class="filter-title">Scripting languages</div>
-              <ul class="filter-items">
-                {% for language in languages_filter %}
-                <li {% if request.args.get('scriptingLanguage') == language %} class="fw-bold"{% endif %}>
-                  <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="d-md-none accordion">
-              <div class="accordion-item">
-                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-language">Scripting language</div>
-                <div class="accordion-body">
-                  <ul id="filter-language" class="collapse filter-items">
-                    {% for language in languages_filter %}
-                    <li {% if request.args.get('scriptingLanguage') == language %} class="fw-bold"{% endif %}>
-                      <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          {% endif %}
-          {% if licenses_filter %}
-            <div class="col-sm-6 d-md-block d-sm-none d-none">
-              <div class="filter-title">License</div>
-              <ul class="filter-items">
-                {% for license in licenses_filter %}
-                <li {% if request.args.get('license') == license %} class="fw-bold"{% endif %}>
-                  <a href="/tools?license={{license}}">{{ license }}</a>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="d-md-none accordion">
-              <div class="accordion-item">
-                <div class="filter-title accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filter-license">License</div>
-                <div class="accordion-body">
-                  <ul id="filter-license" class="collapse filter-items">
-                    {% for license in licenses_filter %}
-                    <li {% if request.args.get('license') == license %} class="fw-bold"{% endif %}>
-                      <a href="/tools?license={{license}}">{{ license }}</a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          {% endif %}
-          </div>
-        </div>
-      </div>
-      <div class="col-md-8 col-lg-9">
-        <div id="resource-boxes" class="row">
-        {% for resource in resources %}
-        <div id="resource" class="col-md-4 col-sm-6 py-3">
-        <div class="card text-dark bg-{{type}} mb-3">
-            <div class="card-body">
-                {% if resource['type'] == 'tool' %}
-                <a href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ resource['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                  {{ resource['description']|truncate(100) }}
-                </p>
-                {% elif resource['type'] == 'practice' %}
-                <a href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ resource['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                  {{ resource['description']|truncate(100) }}
-                </p>
-                {% elif resource['type'] == 'book' %}
-                <a href="{{ url_for('book.show_book', book_id=resource['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ resource['name'] }}</h3>
-                </a>
-                <p class="card-text text-center">
-                  {{ resource['author']|truncate(100) }}
-                </p>
-                {% endif %}
-                {% if current_user.is_authenticated %}
-                  {% if resource['type'] == 'tool' %}
-                  <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
-                      <span class="badge bg-dark">Edit</span>
-                  </a>
-                  {% elif resource['type'] == 'practice' %}
-                  <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
-                      <span class="badge bg-dark">Edit</span>
-                  </a>
-                  {% elif resource['type'] == 'book' %}
-                  <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
-                      <span class="badge bg-dark">Edit</span>
-                  </a>
-                  {% endif %}
-                {% endif %}
-            </div>
-        </div>
+<!-- <div class="cell-margin">
+  <div class="mb-8">
+    <h2>
+      {% block title %}
+      {% autoescape false %}
+      {{ type + 's' | replace(" ","<br>") }}
+      {% endautoescape %}
+      {% endblock %}
+    </h2>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget viverra magna. Nam in ante ultricies
+      purus feugiat vestibulum et ac erat. Donec in sagittis ante. Maecenas non mauris et eros commodo fringilla.
+      Integer accumsan ullamcorper diam, non rhoncus tellus molestie ut. Maecenas finibus pretium dolor ac sagittis.
+    </p>
+  </div>
+</div> -->
+<script>
+  function filter() {
+    return {
+      filterOpen: false,
+      init() {
+        // console.log(this.showRelated)
+      }
+    }
+  }
+</script>
+<div class="" x-data="filter()">
+  <div 
+    class="search fixed z-20 top-0 left-0 w-[20rem] h-screen bg-white cell-padding " 
+    x-show="filterOpen"
+    style="box-shadow:0 0 2rem rgba(0,0,0,0.3)"
+    @click.outside = "filterOpen = false"
+  >
+  <div class=" p-2 pt-4 gap-8 bg-white ">
+    {% if practices_filter %}
+    <details class="" open>
+      <summary>Practices</summary>
+      <div class="">
+        {% for practice in practices_filter %}
+        <div {% if request.args.get('practice')==practice[0]|string %} class="active" {% endif %}>
+          <a href="/{{type + 's'}}?practice={{practice[0]}}">{{ practice[1] }}</a>
         </div>
         {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+    {% if year_filter %}
+    <details class="">
+      <summary>Year</summary>
+      <div id="filter-year" class="collapse filter-items">
+        {% for year in year_filter %}
+        <li {% if request.args.get('year')==year %} class="active" {% endif %}>
+          <a href="/books?year={{year}}">{{ year }}</a>
+        </li>
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+    {% if typology_filter %}
+    <details class="">
+      <summary class="">Typology category</summary>
+      <div class="">
+        {% for typology in typology_filter %}
+        <div {% if request.args.get('typology')==typology %} class="active" {% endif %}>
+          <a href="/books?typology={{typology}}">{{ typology }}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+    {% if languages_filter %}
+    <details class="">
+      <summary>Scripting languages</summary>
+      <div class="">
+        {% for language in languages_filter %}
+        <div {% if request.args.get('scriptingLanguage')==language %} class="active" {% endif %}>
+          <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+    {% if licenses_filter %}
+    <details class="min-w-[10rem]">
+      <summary>License</summary>
+      <div class="">
+        {% for license in licenses_filter %}
+        <div {% if request.args.get('license')==license %} class="active" {% endif %}>
+          <a href="/tools?license={{license}}">{{ license }}</a>
+        </div>
+        {% endfor %}
+      </div>
+    </details>
+    {% endif %}
+  </div>
+  </div> 
+  <div class="flex justify-between mx-4 my-8">
+    <div class="cursor-pointer" @click="filterOpen = true">← Show filters</div>
+    <div class="">
+      <input type="checkbox" name="filter-open" x-model="showRelated" id=""> Also show everything related
+    </div>
+  </div>
+  
+  <div class="grid lg:grid-cols-3" x-show="!showRelated">
+    {% for resource in resources %}
+      {{ resource_small(resource) }}
+    {% endfor %}  
+  </div>
+  
+  <div x-show="showRelated">
+    {% for resource in resources %}
+      <div class="w-full overflow-x-scroll">
+        <div class="grid lg:grid-rows-3 grid-flow-col mb-16">
+          <div class="w-[25rem] shrink-0 row-span-3 h-full">
+            {{ resource_small(resource) }}
+          </div>
+          <div class="w-[25rem] cell row-start-1">
+              Something Related
+          </div>
+          <div class="w-[25rem] cell shrink-0 row-start-1">
+              Something Related
+          </div>
+          <div class="w-[25rem] cell shrink-0 row-start-1">
+              Something Related
+          </div>
+          <div class="w-[25rem] cell shrink-0 row-start-1">
+              Something Related
+          </div>
         </div>
       </div>
-    </div>
+    {% endfor %}  
+  </div>
+</div>
+
 {% endblock %}
