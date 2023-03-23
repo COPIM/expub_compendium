@@ -20,6 +20,49 @@
     {% endif %}
 {% endmacro %}
 
+{% macro book_with_related(resource, relationships, pre_title='', post_title='Related') %}
+    <div class="w-full overflow-x-scroll my-8 pb-12 border-b-2 border-black">
+        <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col" >
+            <div class=" w-40 pl-16 pt-4 row-start-1 ">
+                {% if pre_title == '' %}
+                <p>1 / 34</p>
+                {% else %}
+                <p>{{ pre_title }}</p>
+                {% endif %}
+            </div>
+            <div class="w-[32rem] shrink-0 row-start-1 row-span-3">
+                {{ resource_lead(resource) }}
+            </div>
+            <div class=" w-52 pl-24 pt-4 row-start-1 ">
+                {{ post_title }}
+            </div>
+            <div class="h-12">
+
+            </div>
+            {% if resource['name'] != 'practice' %}
+            <div class="w-52 pl-24 pt-4 ">
+                Related practices
+            </div>
+            {% endif %}
+            {% for relationship in relationships %}
+            <div class="shrink-0 min-w-[32rem] row-start-1">
+                {{ resource_lead(relationship) }}
+            </div>
+            {% endfor %}
+            <!-- <div class=""></div>
+            <div class="cell practice">
+                <h2>Collaborative writing</h2>
+            </div>
+            <div class="shrink-0 min-w-[32rem] row-start-1">
+                {{ resource_lead(resource) }}
+            </div>
+            <div class="shrink-0 min-w-[32rem] row-start-1">
+                {{ resource_lead(resource) }}
+            </div> -->
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro resource_with_related(resource, pre_title='', post_title='Related') %}
     <div class="w-full overflow-x-scroll my-8 pb-12 border-b-2 border-black">
         <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col" >

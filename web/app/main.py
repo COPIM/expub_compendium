@@ -19,16 +19,14 @@ main = Blueprint('main', __name__)
 # route for index page
 @main.route('/')
 def index():
-    tools = Resource.query.filter_by(type='tool').order_by(func.random()).limit(1).all()
-    books = Resource.query.filter_by(type='book').order_by(func.random()).limit(1).all()
-    tools2 = Resource.query.filter_by(type='tool').order_by(func.random()).limit(1).all()
-    books2 = Resource.query.filter_by(type='book').order_by(func.random()).limit(1).all()
+    tools = Resource.query.filter_by(type='tool').order_by(func.random()).limit(6).all()
+    books = Resource.query.filter_by(type='book').order_by(func.random()).limit(6).all()
     with open('content/home.md', 'r') as f:
         text = f.read()
         text = markdown.markdown(text)
-        book_showcase = get_book('69')
-        book_showcase_relationships = get_relationships('69')
-        return render_template('index.html', text=text, tools=tools, book=book_showcase, book_relationships=book_showcase_relationships)
+    book_showcase = get_book('69')
+    book_showcase_relationships = get_relationships('69')
+    return render_template('index.html', text=text, tools=tools, books=books, book=book_showcase, book_relationships=book_showcase_relationships)
 
 # route for profile page
 @main.route('/profile')
