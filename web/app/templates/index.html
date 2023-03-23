@@ -1,33 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="std-grid">
+<div class="">
 
-    <div class="std-margin text row-span-2 cell meta">
-        {{ text|safe }}
+    <div class="border-b-2 border-black">
+        <div class="pl-44 text my-8 row-span-2 meta max-w-[65ch]">
+            {{ text|safe }}
+        </div>
+
     </div>
+    
     
     {% for tool in tools %}
 
-        {{ resource_small(tool) }}
+        {{ resource_with_related(tool, 'Tool', 'Used by') }}
 
     {% endfor %}
 
-    <div class="cell text-red-600">
-        MISSING :<br>
+    {% for book in books %}
 
-        Clusters of things (book + tool). SHow books and what tools they're made with, and "tagged" with practice and typology
-    </div>
-    <div class="cell text-red-600">
-        MISSING :<br>
+        {{ resource_with_related(book, 'Book', 'Made with') }}
 
-        Lead into Typology with some examples and lead text
-    </div>
-    <div class="cell text-red-600">
-        MISSING :<br>
+    {% endfor %}
 
-        Lead into Practices with some examples and lead text
-    </div>
+    {% for tool in tools2 %}
+
+        {{ resource_with_related(tool, 'Tool', 'Used by') }}
+
+    {% endfor %}
+
+    {% for book in books2 %}
+
+        {{ resource_with_related(book, 'Book', 'Made with') }}
+
+    {% endfor %}
+
+
 
 </div>
 {% endblock %}

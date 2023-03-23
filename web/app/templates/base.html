@@ -12,18 +12,75 @@
 # Boostrap select: https://stackoverflow.com/questions/67942546/bootstrap-5-select-dropdown-with-the-multiple-attribute-collapsed
 -->
 
+{% macro relationships_links(relationships) %}
+    {% if relationships %}
+        {% for relationship in relationships %}
+            {{ resource_lead(relationship)}}
+        {% endfor %}
+    {% endif %}
+{% endmacro %}
+
+{% macro resource_with_related(resource, pre_title='', post_title='Related') %}
+    <div class="w-full overflow-x-scroll my-8 pb-12 border-b-2 border-black">
+        <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col" >
+            <div class=" w-40 pl-16 pt-4 row-start-1 ">
+                {% if pre_title == '' %}
+                <p>1 / 34</p>
+                {% else %}
+                <p>{{ pre_title }}</p>
+                {% endif %}
+            </div>
+            <div class="w-[32rem] shrink-0 row-start-1 row-span-3">
+                {{ resource_lead(resource) }}
+            </div>
+            <div class=" w-52 pl-24 pt-4 row-start-1 ">
+                {{ post_title }}
+            </div>
+            <div class="h-12">
+
+            </div>
+            {% if resource['name'] != 'practice' %}
+            <div class="w-52 pl-24 pt-4 ">
+                Related practices
+            </div>
+            {% endif %}
+            <div class="shrink-0 min-w-[32rem] row-start-1">
+                {{ resource_lead(resource) }}
+            </div>
+            <div class=""></div>
+            <div class="cell practice">
+                <h2>Collaborative writing</h2>
+            </div>
+            <div class="shrink-0 min-w-[32rem] row-start-1">
+                {{ resource_lead(resource) }}
+            </div>
+            <div class="shrink-0 min-w-[32rem] row-start-1">
+                {{ resource_lead(resource) }}
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
 {% macro popup_link(title,url) %}
     <a href="{{ url }}" class="nav-link">
         {{ title }}
     </a>
 {% endmacro %}
 
-{% macro resource_lead(type, title, leadtext, url, year, thumbnail='', large_title=false) %}
-    <div class="relative cell h-full">
+{% macro resource_lead(resource) %}
+    <div class="relative cell ">
         <a
-            class="block cursor-pointer"
+            class="block h-full hover:opacity-60 transition-opacity cursor-pointer "
 
-            href="{{ url }}" 
+            {% if resource['type'] == 'book' %}
+            href="{{ url_for('book.show_book', book_id=resource['id']) }}" 
+            {% endif %}
+            {% if resource['type'] == 'tool' %}
+            href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" 
+            {% endif %}
+            {% if resource['type'] == 'practice' %}
+            href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" 
+            {% endif %}
             
             hx-target="#modal-content" 
             hx-select="main" 
@@ -33,23 +90,22 @@
             
         >
 
-            {% if large_title %}
-                <h2 class="">{{ title }}</h2>
-            {% else %}
-                <h3 class="">{{ title }}</h3>
+            {% if (resource['type'] == 'book') %}
+                <img class="w-20 h-20 object-contain float-right mt-4 ml-4 mb-4 grayscale rotate-[15deg]" src="https://dummyimage.com/4:5x70" alt="cover for {{ resource['name'] }}">
             {% endif %}
             
-            {% if year %}
-                <div class="">{{ year }}</div>
+            <h2 class="{{ resource['type'] }} mb-2">{{ resource['name'] }}</h2>
+            
+            {% if resource['year'] %}
+                <div class=" text-sm">
+                    {{ resource['year'] }}{% if resource['author'] %}, {{ resource['author'] }}{% endif%}
+                </div>
             {% endif %}
 
-            {% if type == 'book' and thumbnail %}
-                <img class="w-40 h-40 object-contain float-right m-16 grayscale rotate-[15deg]" src={{ book['thumbnail'] }} alt="cover for {{ title }}">
-            {% endif %}
-
-            <div class="">
-                {{ leadtext | truncate(100) }}
+            <div class="text-xl mb-[1em]">
+                {{ resource['description'] | truncate(150) }}
             </div>
+
         </a>
         {% if current_user.is_authenticated %}
             <div class="">
@@ -68,49 +124,10 @@
                 {% endif %}
             </div>
         {% endif %}
+
+
     </div>
 
-{% endmacro %}
-
-{% macro resource_small(resource) %}
-    {% if resource['type'] == 'tool' %}
-        {{  
-            resource_lead(
-                resource['type'], 
-                resource['name'], 
-                resource['description'], 
-                url_for('tool.show_tool', 
-                tool_id=resource['id']),
-                null,
-                '',
-                true
-            ) 
-        }}
-    {% elif resource['type'] == 'practice' %}
-        {{ 
-            resource_lead(
-                resource['type'], 
-                resource['name'], 
-                resource['description'], 
-                url_for('practice.show_practice', 
-                practice_id=resource['id']),
-                null
-            ) 
-        }}
-    {% elif resource['type'] == 'book' %}
-        {{ 
-            resource_lead(
-                resource['type'], 
-                resource['name'], 
-                resource['author'], 
-                url_for('book.show_book', 
-                book_id=resource['id']), 
-                null,
-                resource['thumbnail'],
-                true
-            ) 
-        }}
-    {% endif %}
 {% endmacro %}
 
 
@@ -122,12 +139,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <script src="https://unpkg.com/htmx.org@1.8.6"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <title>ExPub Compendium</title>
     <link href="{{ url_for('static',filename='styles/main.css') }}" rel="stylesheet">
-</head>
-
     <script>
         // htmx.on('htmx:beforeRequest', e=> {
         //     console.log(e)
@@ -139,19 +155,19 @@
                 modalOpen: false,
                 showRelated: false,
                 home: '/',
-            
+
                 hideIfBase() {
                     let str = document.location.toString();
                     str = str.replace('http://', '');
                     str = str.replace('https://', '');
-                    let l = str.split('/').length-1;
-                    if(l<2) {
+                    let l = str.split('/').length - 1;
+                    if (l < 2) {
                         this.modalOpen = false;
                     }
                     return l;
                 },
                 init() {
-                    this.$watch('document.location', (value, oldValue) => { 
+                    this.$watch('document.location', (value, oldValue) => {
                         console.log('new url', value);
                     });
                     window.addEventListener('popstate', e => {
@@ -160,18 +176,21 @@
                 },
                 hideOverlay() {
                     this.modalOpen = false;
-                    
+
                     // window.history.pushState({}, '', this.home);
                 },
                 openModal() {
                     // this.$refs.modal.innerHTML = '';
                     this.modalOpen = true;
                     let mc = document.querySelector('#modal-content');
-                    mc.scrollTo(0,0);
+                    mc.scrollTo(0, 0);
                 }
             }
         }
     </script>
+</head>
+
+
 <body 
     class="text-base overflow-y-scroll" 
     x-data="base()" 
@@ -181,59 +200,77 @@
     hx-swap="outerHTML"
     hx-indicator="body"
 >
-    <div id="loading" class="loading">
-        <div class="pointer-events-none fixed top-0 left-0 w-full h-screen z-50 flex justify-center items-center p-4">
-            <div class="rounded-full  bg-black text-white p-4 ">
-                Loading...
-            </div>
-        </div>
+    <div id="loading" class="loading pointer-events-none fixed top-0 left-0 w-full h-screen z-50">
     </div>
+
     <div id="all">
-        <header class="sticky top-0 z-10 bg-white std-padding border-b-[3px] border-black">
-            <nav class="">
-                <div class="lg:flex gap-2 mb-2">
-                    <a class="link leading-tight" href="{{ url_for('main.index') }}">ExPub<br>Compendium</a>
-    
-                    <a href="{{ url_for('main.about') }}" class="{{ 'active' if request.path == url_for('main.about') }} ml-auto link">
-                        About
+        <header class="sticky top-0 z-10 bg-white std-padding border-b-[2px] border-black">
+            <nav class=" lg:flex justify-between">
+                <a class="link inline-block w-40" href="{{ url_for('main.index') }}">ExPub<br>Compendium</a>
+
+                <div class="mr-8">
+                    <h2><a href="{{ url_for('tool.get_tools') }}" class="tool link align-bottom">Tools</a></h2>
+                </div>
+
+                <div class="mr-8">
+                    <h2>
+                        <a href="{{ url_for('practice.get_practices') }}" class="practice link">
+                            Practices
+                        </a>
+                    </h2>
+                </div>
+
+                <div class="mr-8">
+                    <h2>
+                        <a href="{{ url_for('book.get_books') }}" class="book link">
+                            Books
+                        </a>
+                    </h2>
+                </div>
+
+                <!-- <div class="mr-8">
+                    <h2 class="">
+                        <a href="{{ url_for('practice.get_practices') }}" class="practice link">
+                            Typologies
+                        </a>
+                    </h2>
+                </div> -->
+
+                <div class="mr-8">
+                    <a href="{{ url_for('main.about') }}"
+                        class="{{ 'active' if request.path == url_for('main.about') }} ml-auto link mr-auto">
+                        About<br>ExPub
                     </a>
-    
+                </div>
+                
+                <div class="ml-auto mr-2">
                     {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('create.create_resource') }}" class="link">
+                    <a href="{{ url_for('create.create_resource') }}" class="block link">
                         Add resource
                     </a>
                     {% endif %}
-                    {% if current_user.is_authenticated %} 
-                    <a href="{{ url_for('main.profile') }}" class="link">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('main.profile') }}" class="block link">
                         Profile
                     </a>
                     {% endif %}
                     {% if not current_user.is_authenticated %}
-                    <a href="{{ url_for('auth.login') }}" class="link">
+                    <a href="{{ url_for('auth.login') }}" class="block link">
                         Login
                     </a>
-                    <a href="{{ url_for('auth.signup') }}" class="link">
+                    <a href="{{ url_for('auth.signup') }}" class="block link">
                         Sign Up
                     </a>
                     {% endif %}
                     {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('auth.logout') }}" class="link">
+                    <a href="{{ url_for('auth.logout') }}" class="block link">
                         Logout
                     </a>
                     {% endif %}
                 </div>
-                <h2 class="flex gap-4 ">
-                    <a href="{{ url_for('tool.get_tools') }}" class=" link align-bottom">
-                        Tools
-                    </a>
-                    <a href="{{ url_for('practice.get_practices') }}" class="link">
-                        Practices
-                    </a>
-                    <a href="{{ url_for('book.get_books') }}" class="link">
-                        Books
-                    </a>
-                    <input class="ml-auto text-base border-2 border-black p-1 " type="text" placeholder="Search">
-                </h2>
+
+                <input class=" text-base border-2 border-black p-1 " type="text" placeholder="Search">
+                
             </nav>
         </header>
     
@@ -251,7 +288,7 @@
         </main>
     </div>
 
-    <div id="modal" x-show="modalOpen"  class="modal h-screen  w-full fixed top-0 z-20 p-8 bg-black/20 overscroll-none">
+    <div id="modal" x-show="modalOpen"  class="modal h-screen  w-full fixed top-0 z-20 p-4 bg-black/20 overscroll-none">
         <div class="cross cursor-pointer absolute top-10 right-10 w-10 h-10" @click="hideOverlay()">
             <svg width="100%" height="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 2L18 18M18 2L2 18" stroke="black" stroke-width="1"></path>

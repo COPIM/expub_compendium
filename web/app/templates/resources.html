@@ -21,7 +21,7 @@
 <script>
   function filter() {
     return {
-      filterOpen: false,
+      expandFilters: false,
       init() {
         // console.log(this.showRelated)
       }
@@ -29,111 +29,78 @@
   }
 </script>
 <div class="" x-data="filter()">
-  <div 
-    class="search fixed z-20 top-0 left-0 w-[20rem] h-screen bg-white cell-padding " 
-    x-show="filterOpen"
-    style="box-shadow:0 0 2rem rgba(0,0,0,0.3)"
-    @click.outside = "filterOpen = false"
-  >
-  <div class=" p-2 pt-4 gap-8 bg-white ">
-    {% if practices_filter %}
-    <details class="" open>
-      <summary>Practices</summary>
-      <div class="">
-        {% for practice in practices_filter %}
-        <div {% if request.args.get('practice')==practice[0]|string %} class="active" {% endif %}>
-          <a href="/{{type + 's'}}?practice={{practice[0]}}">{{ practice[1] }}</a>
+    <div id="resources" :class="expandFilters?'expanded':''">
+        <div class="std-margin grid lg:grid-cols-4 mb-16">
+            {% if practices_filter %}
+            <div class="hidden lg:block cursor-pointer" @click="expandFilters = !expandFilters">Show/hide filters</div>
+            <div class="">
+                <div class="filter-header">Practices</div>
+                <div class="filter-options my-4" x-show="expandFilters">
+                {% for practice in practices_filter %}
+                <div {% if request.args.get('practice')==practice[0]|string %} class="active" {% endif %}>
+                    <a href="/{{type + 's'}}?practice={{practice[0]}}" hx-target="#resources" hx-select="#resources">{{ practice[1] }}</a>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if year_filter %}
+            <div class="">
+                <div class="filter-header">Year</div>
+                <div class="filter-options my-4" x-show="expandFilters">
+                {% for year in year_filter %}
+                <div  {% if request.args.get('year')==year %} class="active" {% endif %}>
+                    <a href="/books?year={{year}}" hx-target="#resources" hx-select="#resources">{{ year }}</a>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if typology_filter %}
+            <div class="">
+                <div class="filter-header">Typology category</div>
+                <div class="filter-options my-4" x-show="expandFilters">
+                {% for typology in typology_filter %}
+                <div {% if request.args.get('typology')==typology %} class="active" {% endif %}>
+                    <a href="/books?typology={{typology}}" hx-target="#resources" hx-select="#resources">{{ typology }}</a>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if languages_filter %}
+            <div class="" >
+                <div class="filter-header">Scripting languages</div>
+                <div class="filter-options my-4" x-show="expandFilters">
+                {% for language in languages_filter %}
+                <div {% if request.args.get('scriptingLanguage')==language %} class="active" {% endif %}>
+                    <a href="/tools?scriptingLanguage={{language}}" hx-target="#resources" hx-select="#resources">{{ language }}</a>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            {% if licenses_filter %}
+            <div class=""  >
+                <div class="filter-header">License</div>
+                <div class="filter-options my-4" x-show="expandFilters">
+                {% for license in licenses_filter %}
+                <div {% if request.args.get('license')==license %} class="active" {% endif %}>
+                    <a href="/tools?license={{license}}" hx-target="#resources" hx-select="#resources">{{ license }}</a>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
-        {% endfor %}
-      </div>
-    </details>
-    {% endif %}
-    {% if year_filter %}
-    <details class="">
-      <summary>Year</summary>
-      <div id="filter-year" class="collapse filter-items">
-        {% for year in year_filter %}
-        <li {% if request.args.get('year')==year %} class="active" {% endif %}>
-          <a href="/books?year={{year}}">{{ year }}</a>
-        </li>
-        {% endfor %}
-      </div>
-    </details>
-    {% endif %}
-    {% if typology_filter %}
-    <details class="">
-      <summary class="">Typology category</summary>
-      <div class="">
-        {% for typology in typology_filter %}
-        <div {% if request.args.get('typology')==typology %} class="active" {% endif %}>
-          <a href="/books?typology={{typology}}">{{ typology }}</a>
+
+        <div>
+            {% for resource in resources %}
+                {{ resource_with_related(resource) }}
+            {% endfor %}  
         </div>
-        {% endfor %}
-      </div>
-    </details>
-    {% endif %}
-    {% if languages_filter %}
-    <details class="">
-      <summary>Scripting languages</summary>
-      <div class="">
-        {% for language in languages_filter %}
-        <div {% if request.args.get('scriptingLanguage')==language %} class="active" {% endif %}>
-          <a href="/tools?scriptingLanguage={{language}}">{{ language }}</a>
-        </div>
-        {% endfor %}
-      </div>
-    </details>
-    {% endif %}
-    {% if licenses_filter %}
-    <details class="min-w-[10rem]">
-      <summary>License</summary>
-      <div class="">
-        {% for license in licenses_filter %}
-        <div {% if request.args.get('license')==license %} class="active" {% endif %}>
-          <a href="/tools?license={{license}}">{{ license }}</a>
-        </div>
-        {% endfor %}
-      </div>
-    </details>
-    {% endif %}
-  </div>
-  </div> 
-  <div class="flex justify-between mx-4 my-8">
-    <div class="cursor-pointer" @click="filterOpen = true">← Show filters</div>
-    <div class="">
-      <input type="checkbox" name="filter-open" x-model="showRelated" id=""> Also show everything related
     </div>
-  </div>
-  
-  <div class="grid lg:grid-cols-3" x-show="!showRelated">
-    {% for resource in resources %}
-      {{ resource_small(resource) }}
-    {% endfor %}  
-  </div>
-  
-  <div x-show="showRelated">
-    {% for resource in resources %}
-      <div class="w-full overflow-x-scroll">
-        <div class="grid lg:grid-rows-3 grid-flow-col mb-16">
-          <div class="w-[25rem] shrink-0 row-span-3 h-full">
-            {{ resource_small(resource) }}
-          </div>
-          <div class="w-[25rem] cell row-start-1">
-              Something Related
-          </div>
-          <div class="w-[25rem] cell shrink-0 row-start-1">
-              Something Related
-          </div>
-          <div class="w-[25rem] cell shrink-0 row-start-1">
-              Something Related
-          </div>
-          <div class="w-[25rem] cell shrink-0 row-start-1">
-              Something Related
-          </div>
-        </div>
-      </div>
-    {% endfor %}  
-  </div>
 </div>
+
 
 {% endblock %}
