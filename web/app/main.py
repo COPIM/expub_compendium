@@ -9,6 +9,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from .models import Resource
+from .resources import *
 from sqlalchemy.sql import func
 import markdown
 
@@ -21,7 +22,8 @@ def index():
     with open('content/home.md', 'r') as f:
         text = f.read()
         text = markdown.markdown(text)
-    return render_template('index.html', text=text, tools=tools)
+    book_showcase = get_book('69')
+    return render_template('index.html', text=text, tools=tools, book=book_showcase)
 
 # route for profile page
 @main.route('/profile')

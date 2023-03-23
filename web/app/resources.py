@@ -63,6 +63,13 @@ def get_book_data(isbn):
     except: 
         pass
 
+# function to get full metadata for a book and combine into one object
+def get_book(resource_id):
+    book = get_resource(resource_id)
+    book_data = get_book_data(book.isbn)
+    book.__dict__.update(book_data)
+    return book
+
 # function to replace embedded URL strings with href links
 def replace_urls(input):
     # Compile a regular expression to match URLs.
