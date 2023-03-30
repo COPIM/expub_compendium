@@ -26,32 +26,11 @@ def get_resource(resource_id):
 # function to retrieve data about a resource and its relationships
 def get_full_resource(resource_id):
     resource = get_resource(resource_id)
-    relationships = get_relationships(resource_id)
-    for relationship in relationships:
-        if relationship.type == 'tool':
-            if 'tools' not in resource.__dict__.keys():
-                resource.__dict__['tools'] = relationship
-            elif type(resource.__dict__['tools']) == list:
-                resource.__dict__['tools'].append(relationship)
-            else:
-                resource.__dict__['tools'] = [resource.__dict__['tools'], relationship]
-        elif relationship.type == 'practice':
-            if 'practices' not in resource.__dict__.keys():
-                resource.__dict__['practices'] = relationship
-            elif type(resource.__dict__['practices']) == list:
-                resource.__dict__['practices'].append(relationship)
-            else:
-                resource.__dict__['practices'] = [resource.__dict__['practices'], relationship]
-        elif relationship.type == 'book':
-            if 'books' not in resource.__dict__.keys():
-                resource.__dict__['books'] = relationship
-            elif type(resource.__dict__['books']) == list:
-                resource.__dict__['books'].append(relationship)
-            else:
-                resource.__dict__['books'] = [resource.__dict__['books'], relationship]
+    resource = append_relationships(resource)
     if resource.type == 'book':
         book_data = get_book_data(resource.isbn)
-        resource.__dict__.update(book_data)
+        if book_data:
+            resource.__dict__.update(book_data)
     return resource
 
 # function to delete a single resource

@@ -33,6 +33,36 @@ def get_relationships(primary_id):
                 links.extend(Resource.query.filter_by(id=primary_id).all())
             return links
 
+# function to append relationships to a resource object
+def append_relationships(resource):
+    relationships = get_relationships(resource.id)
+    if relationships:
+        for relationship in relationships:
+            if relationship.type == 'tool':
+                if 'tools' not in resource.__dict__.keys():
+                    resource.__dict__['tools'] = relationship
+                elif type(resource.__dict__['tools']) == list:
+                    resource.__dict__['tools'].append(relationship)
+                else:
+                    resource.__dict__['tools'] = [resource.__dict__['tools'], relationship]
+            elif relationship.type == 'practice':
+                if 'practices' not in resource.__dict__.keys():
+                    resource.__dict__['practices'] = relationship
+                elif type(resource.__dict__['practices']) == list:
+                    resource.__dict__['practices'].append(relationship)
+                else:
+                    resource.__dict__['practices'] = [resource.__dict__['practices'], relationship]
+            elif relationship.type == 'book':
+                if 'books' not in resource.__dict__.keys():
+                    resource.__dict__['books'] = relationship
+                elif type(resource.__dict__['books']) == list:
+                    resource.__dict__['books'].append(relationship)
+                else:
+                    resource.__dict__['books'] = [resource.__dict__['books'], relationship]
+        return resource
+    else:
+        return resource
+
 # function to add a relationship to a linked resource
 def add_relationship(resource_id, linked_resource_id):
     first_resource_id = resource_id
