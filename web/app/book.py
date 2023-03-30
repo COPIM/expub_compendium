@@ -42,10 +42,8 @@ def get_books():
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')
 def show_book(book_id):
-    book = get_resource(book_id)
-    relationships = get_relationships(book_id)
-    book_data = get_book_data(book.isbn)
-    return render_template('book.html', resource=book, relationships=relationships, book=book_data)
+    book = get_full_resource(book_id)
+    return render_template('book.html', resource=book)
 
 # route for editing a single book based on the ID in the database
 @book.route('/books/<int:book_id>/edit', methods=('GET', 'POST'))

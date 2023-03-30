@@ -25,10 +25,8 @@ def get_practices():
 # route for displaying a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
-    practice = get_resource(practice_id)
-    relationships = get_relationships(practice_id)
-    practice.references = replace_urls(practice.references)
-    return render_template('resource.html', resource=practice, relationships=relationships)
+    practice = get_full_resource(practice_id)
+    return render_template('resource.html', resource=practice)
 
 # route for editing a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>/edit', methods=('GET', 'POST'))

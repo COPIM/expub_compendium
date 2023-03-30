@@ -24,9 +24,8 @@ def index():
     with open('content/home.md', 'r') as f:
         text = f.read()
         text = markdown.markdown(text)
-    book_showcase = get_book('69')
-    book_showcase_relationships = get_relationships('69')
-    return render_template('index.html', text=text, tools=tools, books=books, book=book_showcase, book_relationships=book_showcase_relationships)
+    book_showcase = get_full_resource('69')
+    return render_template('index.html', text=text, tools=tools, books=books, book=book_showcase)
 
 # route for profile page
 @main.route('/profile')
@@ -37,7 +36,9 @@ def profile():
 # route for test page
 @main.route('/test')
 def test():
-    return render_template('test.html')
+    tool_id = '69'
+    tool = get_full_resource(tool_id)
+    return render_template('test.html', resource=tool)
 
 # route for about page
 @main.route('/about')

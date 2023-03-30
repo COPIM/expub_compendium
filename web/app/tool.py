@@ -46,9 +46,8 @@ def get_tools():
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')
 def show_tool(tool_id):
-    tool = get_resource(tool_id)
-    relationships = get_relationships(tool_id)
-    return render_template('resource.html', resource=tool, relationships=relationships)
+    tool = get_full_resource(tool_id)
+    return render_template('resource.html', resource=tool)
 
 # route for editing a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>/edit', methods=('GET', 'POST'))

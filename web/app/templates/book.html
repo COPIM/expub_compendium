@@ -7,28 +7,28 @@
         <div class="left">
             <div class="mb-8">
                 <div class="mb-2">Book</div>
-                {% if book['thumbnail'] %}
+                {% if resource['thumbnail'] %}
                 <div class="float-right">
-                    <img class="w-40 h-40 object-contain  m-16 rotate-[15deg]" src={{ book['thumbnail'] }} alt="cover for {{ book['Title'] }}">
+                    <img class="w-40 h-40 object-contain  m-16 rotate-[15deg]" src={{ resource['thumbnail'] }} alt="cover for {{ resource['Title'] }}">
                 </div>
                 {% endif %}
 
-                <h2 class="book mb-2 max-w-[30rem]">{% block title %} {{ book['Title'] or resource['name'] }} {% endblock %}</h2>
+                <h2 class="book mb-2 max-w-[30rem]">{% block title %} {{ resource['Title'] or resource['name'] }} {% endblock %}</h2>
 
-                {% if book['Year'] %}
-                {{ book['Year'] }}
+                {% if resource['Year'] %}
+                {{ resource['Year'] }}
                 {% endif %}
-                {% if book['Authors'] %}
+                {% if resource['Authors'] %}
                 <div class="">
-                    {% if book['Authors']|length > 1 %}
+                    {% if resource['Authors']|length > 1 %}
                     <div class="">
-                        {% for author in book['Authors'] %}
+                        {% for author in resource['Authors'] %}
                         {{ author }}</br>
                         {% endfor %}
                     </div>
                     {% else %}
                     <div>
-                        {% for author in book['Authors'] %}
+                        {% for author in resource['Authors'] %}
                         {{ author }}
                         {% endfor %}
                     </div>
@@ -62,29 +62,27 @@
                         <a target="_blank" href="{{ resource['bookUrl'] }}">{{ resource['bookUrl'] }}</a>
                     </div>
                     {% endif %}
-                    {% if book %}
                     <!-- fields for books from isbntools -->
-                    {% if book['ISBN-13'] %}
+                    {% if resource['ISBN-13'] %}
                     <div class="">
                         <h3>
                             ISBN-13
                         </h3>
                         <div>
-                            {{ book['ISBN-13'] }}
+                            {{ resource['ISBN-13'] }}
                         </div>
                     </div>
                     {% endif %}
-                    {% if book['Publisher'] %}
+                    {% if resource['Publisher'] %}
                     <div class="">
                         <h3>
                             Publisher
                         </h3>
                         <div>
-                            {{ book['Publisher'] }}
+                            {{ resource['Publisher'] }}
                         </div>
                     </div>
                     {% endif %}
-                    {% else %}
                     <!-- fields for books from database -->
                     {% if resource['name'] %}
                     <!-- <div class="">
@@ -106,11 +104,10 @@
                         </div>
                     </div>
                     {% endif %}
-                    {% endif %}
-                    {% if book['desc'] %}
+                    {% if resource['desc'] %}
                     <div class="col-span-2">
                         <h3>Publisher's description</h3>
-                        <div class="">{{ book['desc'] }}</div>
+                        <div class="">{{ resource['desc'] }}</div>
                     </div>
                     {% endif %}
 
