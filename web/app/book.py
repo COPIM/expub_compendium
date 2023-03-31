@@ -30,6 +30,8 @@ def get_books():
         else:
             kwargs = {'type': type, key: request.args.get(key)}
             books = Resource.query.filter_by(**kwargs).all()
+    # get number of books
+    count = len(books)
     # append relationships to each book
     append_relationships_multiple(books)    
     # get filters
@@ -39,7 +41,7 @@ def get_books():
     year_filter = get_filter_values('year', type)
     # typology
     typology_filter = get_filter_values('typology', type)
-    return render_template('resources.html', resources=books, type=type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter)
+    return render_template('resources.html', resources=books, type=type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter, count=count)
 
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')

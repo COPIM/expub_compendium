@@ -33,6 +33,8 @@ def get_tools():
         else:
             kwargs = {'type': type, key: request.args.get(key)}
             tools = Resource.query.filter_by(**kwargs).all()
+    # get number of tools
+    count = len(tools)
     # append relationships to each tool
     append_relationships_multiple(tools)
     # get filters
@@ -43,7 +45,7 @@ def get_tools():
     licenses_filter = get_filter_values('license', type)
     # language
     languages_filter = get_filter_values('scriptingLanguage', type)
-    return render_template('resources.html', resources=tools, type=type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter)
+    return render_template('resources.html', resources=tools, type=type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, count=count)
 
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')

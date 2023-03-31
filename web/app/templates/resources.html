@@ -95,7 +95,8 @@
 
         <div>
             {% for resource in resources %}
-             {% if resource.tools %}
+
+            {% if resource.tools %}
               TOOLS:
                 {% for tool in resource.tools %}
                   {{ tool.name }};
@@ -113,7 +114,8 @@
                   {{ book.name }};
                 {% endfor %}
               {% endif %}
-              {{ resource_with_related(resource) }}
+
+              {{ resource_with_related(resource, loop) }}
             {% endfor %}  
         </div>
     </div>

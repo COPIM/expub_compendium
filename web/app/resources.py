@@ -75,6 +75,7 @@ def get_book_data(isbn):
         pass
 
 # function to get full metadata for a book and combine into one object
+# TO BE DELETED
 def get_book(resource_id):
     book = get_resource(resource_id)
     book_data = get_book_data(book.isbn)
