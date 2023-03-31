@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <!-- <div class="cell-margin">
   <div class="mb-8">
     <h2>
@@ -96,7 +95,25 @@
 
         <div>
             {% for resource in resources %}
-                {{ resource_with_related(resource) }}
+             {% if resource.tools %}
+              TOOLS:
+                {% for tool in resource.tools %}
+                  {{ tool.name }};
+                {% endfor %}
+              {% endif %}
+              {% if resource.practices %}
+              PRACTICES:
+                {% for practice in resource.practices %}
+                  {{ practice.name }};
+                {% endfor %}
+              {% endif %}
+              {% if resource.books %}
+              BOOKS:
+                {% for book in resource.books %}
+                  {{ book.name }};
+                {% endfor %}
+              {% endif %}
+              {{ resource_with_related(resource) }}
             {% endfor %}  
         </div>
     </div>

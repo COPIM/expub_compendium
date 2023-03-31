@@ -20,7 +20,11 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     tools = Resource.query.filter_by(type='tool').order_by(func.random()).limit(6).all()
+    # append relationships to each tool
+    append_relationships_multiple(tools)
     books = Resource.query.filter_by(type='book').order_by(func.random()).limit(6).all()
+    # append relationships to each book
+    append_relationships_multiple(books)
     with open('content/home.md', 'r') as f:
         text = f.read()
         text = markdown.markdown(text)
@@ -36,9 +40,7 @@ def profile():
 # route for test page
 @main.route('/test')
 def test():
-    tool_id = '69'
-    tool = get_full_resource(tool_id)
-    return render_template('test.html', resource=tool)
+    return render_template('test.html')
 
 # route for about page
 @main.route('/about')

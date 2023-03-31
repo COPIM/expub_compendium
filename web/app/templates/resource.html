@@ -122,6 +122,24 @@
     
     <div class="right lg:mt-16 max-w-[30rem] mx-auto p-4">
         {{ relationships_links(relationships) }}
+        {% if resource.tools %}
+         TOOLS:
+           {% for tool in resource.tools %}
+             {{ tool.name }};
+           {% endfor %}
+         {% endif %}
+         {% if resource.practices %}
+         PRACTICES:
+           {% for practice in resource.practices %}
+             {{ practice.name }};
+           {% endfor %}
+         {% endif %}
+         {% if resource.books %}
+         BOOKS:
+           {% for book in resource.books %}
+             {{ book.name }};
+           {% endfor %}
+         {% endif %}
     </div>
 </div>
     

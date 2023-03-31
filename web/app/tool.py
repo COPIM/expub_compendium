@@ -21,18 +21,20 @@ tool = Blueprint('tool', __name__)
 @tool.route('/tools')
 def get_tools():
     type = 'tool'
-    tools = Resource.query.filter_by(type=type)
+    tools = Resource.query.filter_by(type=type).all()
     for key in request.args.keys():
         if key == 'practice':
-            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="' + type + '";'
-            with db.engine.connect() as conn:
-                tools = conn.execute(text(query))
+            tools = Resource.query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.second_resource_id==request.args.get(key)).all()
+            also_tools = Resource.query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.first_resource_id==request.args.get(key)).all()
+            tools = tools + also_tools
         elif key == 'scriptingLanguage':
             regex = request.args.get(key) + "$|" + request.args.get(key) + "\s\/"
-            tools = Resource.query.filter_by(type=type).filter(Resource.scriptingLanguage.regexp_match(regex))
+            tools = Resource.query.filter_by(type=type).filter(Resource.scriptingLanguage.regexp_match(regex)).all()
         else:
             kwargs = {'type': type, key: request.args.get(key)}
-            tools = Resource.query.filter_by(**kwargs)
+            tools = Resource.query.filter_by(**kwargs).all()
+    # append relationships to each tool
+    append_relationships_multiple(tools)
     # get filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)

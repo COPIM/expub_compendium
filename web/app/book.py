@@ -21,15 +21,17 @@ book = Blueprint('book', __name__)
 @book.route('/books')
 def get_books():
     type = 'book'
-    books = Resource.query.filter_by(type=type)
+    books = Resource.query.filter_by(type=type).all()
     for key in request.args.keys():
         if key == 'practice':
-            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="' + type + '";'
-            with db.engine.connect() as conn:
-                books = conn.execute(text(query))
+            books = Resource.query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.second_resource_id==request.args.get(key)).all()
+            also_books = Resource.query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.first_resource_id==request.args.get(key)).all()
+            books = books + also_books
         else:
             kwargs = {'type': type, key: request.args.get(key)}
-            books = Resource.query.filter_by(**kwargs)
+            books = Resource.query.filter_by(**kwargs).all()
+    # append relationships to each book
+    append_relationships_multiple(books)    
     # get filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
