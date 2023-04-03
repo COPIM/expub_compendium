@@ -1,146 +1,134 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="cell-margin grid gap-8 grid-cols-[2fr,1fr]">
-    <div class="left">
-        <div class="mb-2 capitalize">{{ resource['type'] }}</div>
-        <h2 class="block-margin {{ resource['type'] }}">
-            {% block title %} 
-            {% autoescape false %}
-                {{ resource['name'] | replace(" ","<br>") }} 
-            {% endautoescape %}
-            {% endblock %}
-        </h2>
-    
-        {% if current_user.is_authenticated %}
-            {% if resource['type'] == 'tool' %}
-            <div class="row text-center py-3">
-                <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
-                    <span class="">Edit</span>
-                </a>
-            </div>
-            {% elif resource['type'] == 'practice' %}
-            <div class="row text-center py-3">
-                <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
-                    <span class="">Edit</span>
-                </a>
-            </div>
-            {% endif %}
-        {% endif %}
-        <div class="facts">
-            {% if resource['description'] %}
-            <div class="">
-                <h3>Description</h3>
-                {{ resource['description'] }}
-            </div>
-            {% endif %}
-            <!-- fields for tools -->
-            {% if resource['developer'] %}
-                <div class="">
-                    <h3>Developer</h3>
-                    {% if resource['developerUrl'] %}
-                        <a href="{{ resource['developerUrl'] }}">{{ resource['developer'] }}</a>
-                    {% else %}
-                        {{ resource['developer'] }}
-                    {% endif %}
-                </div>
-            {% endif %}
-            {% if resource['license'] %}
-                <div class="">
-                    <h3>Software license</h3>
-                    {{ resource['license'] }}
-                </div>
-            {% endif %}
-            {% if resource['scriptingLanguage'] %}
-                <div class="">
-                    <h3>Software language(s)</h3>
-                    {{ resource['scriptingLanguage'] }}
-                </div>
-            {% endif %}
-            {% if resource['projectUrl'] %}
-                <div class="">
-                    <h3>Project page</h3>
-                    <a href="{{ resource['projectUrl'] }}">{{ resource['projectUrl'] }}</a>
-                </div>
-            {% endif %}
-            {% if resource['repositoryUrl'] %}
-                <div class="">
-                    <h3>Code repository</h3>
-                    <a href="{{ resource['repositoryUrl'] }}">{{ resource['repositoryUrl'] }}</a>
-                </div>
-            {% endif %}
-            {% if resource['ingestFormats'] %}
-                <div class="">
-                    <h3>Import / ingest formats</h3>
-                    {{ resource['ingestFormats'] }}
-                </div>
-            {% endif %}
-            {% if resource['outputFormats'] %}
-                <div class="">
-                    <h3>Output formats</h3>
-                    {{ resource['outputFormats'] }}
-                </div>
-            {% endif %}
-            {% if resource['status'] %}
-                <div class="">
-                    <h3>Platform status</h3>
-                    {{ resource['status'] }}
-                </div>
-            {% endif %}
-            <!-- fields for practices -->
-            {% if resource['longDescription'] %}
-                <div class="col-span-2">
-                    <h3>Full description</h3>
-                    {{ resource['longDescription']|safe }}
-                </div>
-            {% endif %}
-            {% if resource['experimental'] %}
-                <div class="col-span-2">
-                    <h3>Experimental uses</h3>
-                    {{ resource['experimental']|safe }}
-                </div>
-            {% endif %}
-            {% if resource['considerations'] %}
-                <div class="col-span-2">
-                    <h3>Considerations</h3>
-                    <p>{{ resource['considerations']|safe }}</p>
-                </div>
-            {% endif %}
-            {% if resource['references'] %}
-                <div class="col-span-2">
-                    <h3> References </h3>
-                    <p>{{ resource['references']|safe }}</p>
-                </div>
-            {% endif %}
-            <div class="">
-                <h3>Created</h3>
-                {{ resource['created'].strftime("%Y-%m-%d %H:%M") }} UTC
-            </div>
 
+
+
+<div class="cell-margin grid mt-16 grid-cols-[1fr,1fr]">
+    <div class="left ">
+        <div class="mb-4 capitalize">{{ resource['type'] }}</div>
+        <div class="border-r-2 border-black pr-8">
+            <h2 class="block-margin huge-title {{ resource['type'] }}">
+                {% block title %} 
+                {% autoescape false %}
+                    {{ resource['name'] | replace(" ","<br>") }} 
+                {% endautoescape %}
+                {% endblock %}
+            </h2>
+        
+            {% if current_user.is_authenticated %}
+                {% if resource['type'] == 'tool' %}
+                <div class="row text-center py-3">
+                    <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
+                        <span class="">Edit</span>
+                    </a>
+                </div>
+                {% elif resource['type'] == 'practice' %}
+                <div class="row text-center py-3">
+                    <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
+                        <span class="">Edit</span>
+                    </a>
+                </div>
+                {% endif %}
+            {% endif %}
+            <div class="facts">
+                {% if resource['description'] %}
+                <div class="">
+                    <h3>Description</h3>
+                    {{ resource['description'] }}
+                </div>
+                {% endif %}
+                <!-- fields for tools -->
+                {% if resource['developer'] %}
+                    <div class="">
+                        <h3>Developer</h3>
+                        {% if resource['developerUrl'] %}
+                            <a href="{{ resource['developerUrl'] }}">{{ resource['developer'] }}</a>
+                        {% else %}
+                            {{ resource['developer'] }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if resource['license'] %}
+                    <div class="">
+                        <h3>Software license</h3>
+                        {{ resource['license'] }}
+                    </div>
+                {% endif %}
+                {% if resource['scriptingLanguage'] %}
+                    <div class="">
+                        <h3>Software language(s)</h3>
+                        {{ resource['scriptingLanguage'] }}
+                    </div>
+                {% endif %}
+                {% if resource['projectUrl'] %}
+                    <div class="">
+                        <h3>Project page</h3>
+                        <a href="{{ resource['projectUrl'] }}">{{ resource['projectUrl'] }}</a>
+                    </div>
+                {% endif %}
+                {% if resource['repositoryUrl'] %}
+                    <div class="">
+                        <h3>Code repository</h3>
+                        <a href="{{ resource['repositoryUrl'] }}">{{ resource['repositoryUrl'] }}</a>
+                    </div>
+                {% endif %}
+                {% if resource['ingestFormats'] %}
+                    <div class="">
+                        <h3>Import / ingest formats</h3>
+                        {{ resource['ingestFormats'] }}
+                    </div>
+                {% endif %}
+                {% if resource['outputFormats'] %}
+                    <div class="">
+                        <h3>Output formats</h3>
+                        {{ resource['outputFormats'] }}
+                    </div>
+                {% endif %}
+                {% if resource['status'] %}
+                    <div class="">
+                        <h3>Platform status</h3>
+                        {{ resource['status'] }}
+                    </div>
+                {% endif %}
+                <!-- fields for practices -->
+                {% if resource['longDescription'] %}
+                    <div class="col-span-2">
+                        <h3>Full description</h3>
+                        {{ resource['longDescription']|safe }}
+                    </div>
+                {% endif %}
+                {% if resource['experimental'] %}
+                    <div class="col-span-2">
+                        <h3>Experimental uses</h3>
+                        {{ resource['experimental']|safe }}
+                    </div>
+                {% endif %}
+                {% if resource['considerations'] %}
+                    <div class="col-span-2">
+                        <h3>Considerations</h3>
+                        <p>{{ resource['considerations']|safe }}</p>
+                    </div>
+                {% endif %}
+                {% if resource['references'] %}
+                    <div class="col-span-2">
+                        <h3> References </h3>
+                        <p>{{ resource['references']|safe }}</p>
+                    </div>
+                {% endif %}
+                <div class="">
+                    <h3>Created</h3>
+                    {{ resource['created'].strftime("%Y-%m-%d %H:%M") }} UTC
+                </div>
+            </div>
+            
         </div>
     </div>
     
-    <div class="right lg:mt-16 max-w-[30rem] mx-auto p-4">
-        {{ relationships_links(relationships) }}
-        
-        {% if resource.tools %}
-         TOOLS:
-           {% for tool in resource.tools %}
-             {{ tool.name }};
-           {% endfor %}
-         {% endif %}
-         {% if resource.practices %}
-         PRACTICES:
-           {% for practice in resource.practices %}
-             {{ practice.name }};
-           {% endfor %}
-         {% endif %}
-         {% if resource.books %}
-         BOOKS:
-           {% for book in resource.books %}
-             {{ book.name }};
-           {% endfor %}
-         {% endif %}
+    <div class="right ">
+        <div class="grid grid-cols-2 ">
+            {{ relationships_links(resource) }}
+        </div>
     </div>
 </div>
     

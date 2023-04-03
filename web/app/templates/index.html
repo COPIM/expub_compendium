@@ -3,36 +3,44 @@
 {% block content %}
 <div class="">
 
-    <div class="border-b-2 border-black">
-        <div class="pl-44 text my-8 row-span-2 meta max-w-[65ch]">
+    <div class="border-b-2 border-black grid grid-cols-[52rem,30rem]  content-start">
+
+        <div class="ml-[13rem] text my-8 meta max-w-[30rem]">
             {{ text|safe }}
         </div>
-
+        <div class="h-full ">
+            <div class="flex h-full gap-8 justify-start items-center ">
+                <div class="text-right">Show<br>related</div>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <div class="">Simpler<br>List</div>
+            </div>
+        </div>
     </div>
-    
-    {{ book_with_related(book, book_relationships, 'Book', 'Related') }}
     
     {% for tool in tools %}
 
-        {{ resource_with_related(tool, 'Tool', 'Used by') }}
+        {{ resource_with_related(tool, loop, false) }}
 
     {% endfor %}
 
     {% for book in books %}
 
-        {{ resource_with_related(book, 'Book', 'Made with') }}
+        {{ resource_with_related(book, loop, false) }}
 
     {% endfor %}
 
     {% for tool in tools2 %}
 
-        {{ resource_with_related(tool, 'Tool', 'Used by') }}
+        {{ resource_with_related(tool, loop, false) }}
 
     {% endfor %}
 
     {% for book in books2 %}
 
-        {{ resource_with_related(book, 'Book', 'Made with') }}
+        {{ resource_with_related(book, loop, false) }}
 
     {% endfor %}
 

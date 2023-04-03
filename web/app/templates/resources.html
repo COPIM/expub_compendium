@@ -17,6 +17,26 @@
     </p>
   </div>
 </div> -->
+
+
+    <div class="border-b-2 border-black grid grid-cols-[52rem,30rem]  content-start">
+    
+      <div class="ml-[13rem] text my-8 meta max-w-[30rem]">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies egestas felis at dignissim. Morbi ut bibendum
+            nisl. Integer ac sollicitudin risus. Vivamus et est est. Ut vitae lacus nec justo tincidunt interdum. Fusce sapien odio,
+            commodo nec est et, interdum varius risus. Curabitur vehicula consequat auctor.
+      </div>
+      <div class="h-full ">
+        <div class="flex h-full gap-8 justify-start items-center ">
+          <div class="text-right">Show<br>related</div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <div class="">Simpler<br>List</div>
+        </div>
+      </div>
+    </div>
 <script>
   function filter() {
     return {
@@ -95,26 +115,6 @@
 
         <div>
             {% for resource in resources %}
-
-            {% if resource.tools %}
-              TOOLS:
-                {% for tool in resource.tools %}
-                  {{ tool.name }};
-                {% endfor %}
-              {% endif %}
-              {% if resource.practices %}
-              PRACTICES:
-                {% for practice in resource.practices %}
-                  {{ practice.name }};
-                {% endfor %}
-              {% endif %}
-              {% if resource.books %}
-              BOOKS:
-                {% for book in resource.books %}
-                  {{ book.name }};
-                {% endfor %}
-              {% endif %}
-
               {{ resource_with_related(resource, loop) }}
             {% endfor %}  
         </div>
