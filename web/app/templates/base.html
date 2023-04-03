@@ -264,15 +264,17 @@
             <nav class=" lg:flex justify-center items-stretch">
                 <a class="menuitem  w-48 " href="{{ url_for('main.index') }}"><span>Experimental Publishing Compendium <span class="ml-3  inline-block -rotate-12 italic text-[#f52d2d]" style="text-shadow: 0 0 0.4rem white">beta</span></span></a>
 
-                <a href="{{ url_for('tool.get_tools') }}" class="menuitem tool medium-title ">Tools</a>
+                <a href="{{ url_for('tool.get_tools') }}" class="{{ 'active' if request.path == url_for('tool.get_tools') }} menuitem tool medium-title ">
+                    Tools
+                </a>
 
-                <a href="{{ url_for('practice.get_practices') }}" class="menuitem practice medium-title">
+                <a href="{{ url_for('practice.get_practices') }}" class="{{ 'active' if request.path == url_for('practice.get_practices') }} menuitem practice medium-title">
                     Practices
                 </a>
 
-                <a class="menuitem medium-title book" href="{{ url_for('book.get_books') }}" > Books </a>
-
-
+                <a href="{{ url_for('book.get_books') }}" class="{{ 'active' if request.path == url_for('book.get_books') }} menuitem medium-title book">
+                    Books
+                </a>
 
                 <a href="{{ url_for('main.about') }}" class="{{ 'active' if request.path == url_for('main.about') }} menuitem mr-auto">
                     About / <br> Contact
