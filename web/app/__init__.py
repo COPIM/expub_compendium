@@ -85,4 +85,8 @@ def create_app():
     from .api import api as api_blueprint
     app.register_blueprint(api_blueprint)
 
+    # blueprint for search parts of app
+    from .search import search as search_blueprint
+    app.register_blueprint(search_blueprint)
+
     return app

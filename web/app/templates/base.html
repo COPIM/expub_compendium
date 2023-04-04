@@ -306,7 +306,10 @@
                     {% endif %}
                 </div> -->
 
-                <input class=" text-center text-base border-l-2 border-black pl-1 " type="text" placeholder="Search">
+                <form action="{{ url_for('search.basic_search') }}">
+                    <input type="text" name="query" class="text-center text-base border-l-2 border-black pl-1" placeholder="Search">
+                    <input type="submit" hidden />
+                </form>
                 
             </nav>
         </header>

@@ -12,7 +12,6 @@ from .models import Resource
 from .resources import *
 from .relationships import *
 from . import db
-from sqlalchemy import text
 import os
 
 book = Blueprint('book', __name__)
