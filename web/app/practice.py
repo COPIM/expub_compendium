@@ -19,12 +19,14 @@ practice = Blueprint('practice', __name__)
 # route for displaying all practices in database
 @practice.route('/practices')
 def get_practices():
+    view = request.args.get('view')
     practices = Resource.query.filter_by(type='practice').all()
     # get number of practices
     count = len(practices)
-    # append relationships to each practice
-    append_relationships_multiple(practices)
-    return render_template('resources.html', resources=practices, type='practice', count=count)
+    if view != 'list':
+        # append relationships to each practice
+        append_relationships_multiple(practices)
+    return render_template('resources.html', resources=practices, type='practice', count=count, view=view)
 
 # route for displaying a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>')

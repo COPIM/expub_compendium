@@ -25,6 +25,10 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies egestas felis at dignissim. Morbi ut bibendum
             nisl. Integer ac sollicitudin risus. Vivamus et est est. Ut vitae lacus nec justo tincidunt interdum. Fusce sapien odio,
             commodo nec est et, interdum varius risus. Curabitur vehicula consequat auctor.
+
+            <br/><br/>
+            <a href="{{ url_for(request.endpoint, view='list') }}">LIST VIEW</a>
+
       </div>
       <div class="h-full ">
         <div class="flex h-full gap-8 justify-start items-center ">
@@ -57,7 +61,7 @@
                 <div class="filter-options my-4" x-show="expandFilters">
                 {% for practice in practices_filter %}
                 <div {% if request.args.get('practice')==practice[0]|string %} class="active" {% endif %}>
-                    <a href="/{{type + 's'}}?practice={{practice[0]}}" hx-target="#resources" hx-select="#resources">{{ practice[1] }}</a>
+                    <a href="{{ url_for(request.endpoint, practice=practice[0]) }}" hx-target="#resources" hx-select="#resources">{{ practice[1] }}</a>
                 </div>
                 {% endfor %}
                 </div>
@@ -69,7 +73,7 @@
                 <div class="filter-options my-4" x-show="expandFilters">
                 {% for year in year_filter %}
                 <div  {% if request.args.get('year')==year %} class="active" {% endif %}>
-                    <a href="/books?year={{year}}" hx-target="#resources" hx-select="#resources">{{ year }}</a>
+                    <a href="{{ url_for(request.endpoint, year=year) }}" hx-target="#resources" hx-select="#resources">{{ year }}</a>
                 </div>
                 {% endfor %}
                 </div>
@@ -81,7 +85,7 @@
                 <div class="filter-options my-4" x-show="expandFilters">
                 {% for typology in typology_filter %}
                 <div {% if request.args.get('typology')==typology %} class="active" {% endif %}>
-                    <a href="/books?typology={{typology}}" hx-target="#resources" hx-select="#resources">{{ typology }}</a>
+                    <a href="{{ url_for(request.endpoint, typology=typology) }}" hx-target="#resources" hx-select="#resources">{{ typology }}</a>
                 </div>
                 {% endfor %}
                 </div>
@@ -93,7 +97,7 @@
                 <div class="filter-options my-4" x-show="expandFilters">
                 {% for language in languages_filter %}
                 <div {% if request.args.get('scriptingLanguage')==language %} class="active" {% endif %}>
-                    <a href="/tools?scriptingLanguage={{language}}" hx-target="#resources" hx-select="#resources">{{ language }}</a>
+                    <a href="{{ url_for(request.endpoint, scriptingLanguage=language) }}" hx-target="#resources" hx-select="#resources">{{ language }}</a>
                 </div>
                 {% endfor %}
                 </div>
@@ -105,7 +109,7 @@
                 <div class="filter-options my-4" x-show="expandFilters">
                 {% for license in licenses_filter %}
                 <div {% if request.args.get('license')==license %} class="active" {% endif %}>
-                    <a href="/tools?license={{license}}" hx-target="#resources" hx-select="#resources">{{ license }}</a>
+                    <a href="{{ url_for(request.endpoint, license=license) }}" hx-target="#resources" hx-select="#resources">{{ license }}</a>
                 </div>
                 {% endfor %}
                 </div>
@@ -114,9 +118,15 @@
         </div>
 
         <div>
+            {% if view == 'list' %}
+              THIS IS LIST VIEW 
+            {% else %}
+
             {% for resource in resources %}
               {{ resource_with_related(resource, loop) }}
-            {% endfor %}  
+            {% endfor %}
+
+            {% endif %}
         </div>
     </div>
 </div>

@@ -20,23 +20,26 @@ tool = Blueprint('tool', __name__)
 # route for displaying all tools in database
 @tool.route('/tools')
 def get_tools():
+    view = request.args.get('view')
     type = 'tool'
     tools = Resource.query.filter_by(type=type).all()
     for key in request.args.keys():
-        if key == 'practice':
-            tools = Resource.query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.second_resource_id==request.args.get(key)).all()
-            also_tools = Resource.query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.first_resource_id==request.args.get(key)).all()
-            tools = tools + also_tools
-        elif key == 'scriptingLanguage':
-            regex = request.args.get(key) + "$|" + request.args.get(key) + "\s\/"
-            tools = Resource.query.filter_by(type=type).filter(Resource.scriptingLanguage.regexp_match(regex)).all()
-        else:
-            kwargs = {'type': type, key: request.args.get(key)}
-            tools = Resource.query.filter_by(**kwargs).all()
+        if key != 'view':
+            if key == 'practice':
+                tools = Resource.query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.second_resource_id==request.args.get(key)).all()
+                also_tools = Resource.query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.first_resource_id==request.args.get(key)).all()
+                tools = tools + also_tools
+            elif key == 'scriptingLanguage':
+                regex = request.args.get(key) + "$|" + request.args.get(key) + "\s\/"
+                tools = Resource.query.filter_by(type=type).filter(Resource.scriptingLanguage.regexp_match(regex)).all()
+            else:
+                kwargs = {'type': type, key: request.args.get(key)}
+                tools = Resource.query.filter_by(**kwargs).all()
     # get number of tools
     count = len(tools)
-    # append relationships to each tool
-    append_relationships_multiple(tools)
+    if view != 'list':
+        # append relationships to each tool
+        append_relationships_multiple(tools)
     # get filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
@@ -45,7 +48,7 @@ def get_tools():
     licenses_filter = get_filter_values('license', type)
     # language
     languages_filter = get_filter_values('scriptingLanguage', type)
-    return render_template('resources.html', resources=tools, type=type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, count=count)
+    return render_template('resources.html', resources=tools, type=type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, count=count, view=view)
 
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')

@@ -20,20 +20,23 @@ book = Blueprint('book', __name__)
 # route for displaying all books in database
 @book.route('/books')
 def get_books():
+    view = request.args.get('view')
     type = 'book'
     books = Resource.query.filter_by(type=type).all()
     for key in request.args.keys():
-        if key == 'practice':
-            books = Resource.query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.second_resource_id==request.args.get(key)).all()
-            also_books = Resource.query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.first_resource_id==request.args.get(key)).all()
-            books = books + also_books
-        else:
-            kwargs = {'type': type, key: request.args.get(key)}
-            books = Resource.query.filter_by(**kwargs).all()
+        if key != 'view':
+            if key == 'practice':
+                books = Resource.query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.second_resource_id==request.args.get(key)).all()
+                also_books = Resource.query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Resource.type==type, Relationship.first_resource_id==request.args.get(key)).all()
+                books = books + also_books
+            else:
+                kwargs = {'type': type, key: request.args.get(key)}
+                books = Resource.query.filter_by(**kwargs).all()
     # get number of books
     count = len(books)
-    # append relationships to each book
-    append_relationships_multiple(books)    
+    if view != 'list':
+        # append relationships to each book
+        append_relationships_multiple(books)    
     # get filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
@@ -41,7 +44,7 @@ def get_books():
     year_filter = get_filter_values('year', type)
     # typology
     typology_filter = get_filter_values('typology', type)
-    return render_template('resources.html', resources=books, type=type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter, count=count)
+    return render_template('resources.html', resources=books, type=type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter, count=count, view=view)
 
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')

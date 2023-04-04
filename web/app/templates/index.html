@@ -7,6 +7,10 @@
 
         <div class="ml-[13rem] text my-8 meta max-w-[30rem]">
             {{ text|safe }}
+
+            <br/>
+            <a href="{{ url_for(request.endpoint, view='list') }}">LIST VIEW</a>
+
         </div>
         <div class="h-full ">
             <div class="flex h-full gap-8 justify-start items-center ">
@@ -19,32 +23,36 @@
             </div>
         </div>
     </div>
+
+    {% if view == 'list' %}
+        THIS IS LIST VIEW 
+    {% else %}
     
-    {% for tool in tools %}
+        {% for tool in tools %}
 
-        {{ resource_with_related(tool, loop, false) }}
+            {{ resource_with_related(tool, loop, false) }}
 
-    {% endfor %}
+        {% endfor %}
 
-    {% for book in books %}
+        {% for book in books %}
 
-        {{ resource_with_related(book, loop, false) }}
+            {{ resource_with_related(book, loop, false) }}
 
-    {% endfor %}
+        {% endfor %}
 
-    {% for tool in tools2 %}
+        {% for tool in tools2 %}
 
-        {{ resource_with_related(tool, loop, false) }}
+            {{ resource_with_related(tool, loop, false) }}
 
-    {% endfor %}
+        {% endfor %}
 
-    {% for book in books2 %}
+        {% for book in books2 %}
 
-        {{ resource_with_related(book, loop, false) }}
+            {{ resource_with_related(book, loop, false) }}
 
-    {% endfor %}
+        {% endfor %}
 
-
+    {% endif %}
 
 </div>
 {% endblock %}
