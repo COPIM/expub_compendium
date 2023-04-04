@@ -21,6 +21,8 @@ practice = Blueprint('practice', __name__)
 def get_practices():
     view = request.args.get('view')
     practices = Resource.query.filter_by(type='practice').all()
+    # reorder practices by practice name
+    practices = sorted(practices, key=lambda d: d.__dict__['name']) 
     # get number of practices
     count = len(practices)
     if view != 'list':

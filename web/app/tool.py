@@ -34,6 +34,8 @@ def get_tools():
             else:
                 kwargs = {'type': type, key: request.args.get(key)}
                 tools = Resource.query.filter_by(**kwargs).all()
+    # reorder tools by tool name
+    tools = sorted(tools, key=lambda d: d.__dict__['name']) 
     # get number of tools
     count = len(tools)
     if view != 'list':

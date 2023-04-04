@@ -31,6 +31,8 @@ def get_books():
             else:
                 kwargs = {'type': type, key: request.args.get(key)}
                 books = Resource.query.filter_by(**kwargs).all()
+    # reorder books by book name
+    books = sorted(books, key=lambda d: d.__dict__['name']) 
     # get number of books
     count = len(books)
     if view != 'list':
