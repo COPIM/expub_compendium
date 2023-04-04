@@ -115,6 +115,18 @@
                 </div>
             </div>
             {% endif %}
+            {% if status_filter %}
+            <div class=""  >
+                <div class="filter-header">Status</div>
+                <div class="filter-options my-4" x-show="expandFilters">
+                {% for status in status_filter %}
+                <div {% if request.args.get('status')==status %} class="active" {% endif %}>
+                    <a href="{{ url_for(request.endpoint, status=status) }}" hx-target="#resources" hx-select="#resources">{{ status }}</a>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
 
         <div>

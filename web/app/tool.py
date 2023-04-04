@@ -47,7 +47,9 @@ def get_tools():
     licenses_filter = get_filter_values('license', type)
     # language
     languages_filter = get_filter_values('scriptingLanguage', type)
-    return render_template('resources.html', resources=tools, type=type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, count=count, view=view)
+    # status
+    status_filter = get_filter_values('status', type)
+    return render_template('resources.html', resources=tools, type=type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, status_filter=status_filter, count=count, view=view)
 
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')
