@@ -34,13 +34,14 @@ def get_tools():
             else:
                 kwargs = {'type': type, key: request.args.get(key)}
                 tools = Resource.query.filter_by(**kwargs).all()
-    # reorder tools by tool name
-    tools = sorted(tools, key=lambda d: d.__dict__['name']) 
     # get number of tools
     count = len(tools)
     if view != 'list':
         # append relationships to each tool
         append_relationships_multiple(tools)
+    else: 
+        # reorder tools by tools name
+        tools = sorted(tools, key=lambda d: d.__dict__['name']) 
     # get filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)

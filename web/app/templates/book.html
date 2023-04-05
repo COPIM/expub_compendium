@@ -7,13 +7,13 @@
         <div class="left">
             <div class="mb-2">Book</div>
             <div class="border-r-2 border-black pr-8">
-                {% if resource['thumbnail'] %}
+                {% if resource.references %}
                 <div class="float-right">
-                    <img class="w-40 h-40 object-contain  m-16 rotate-[15deg]" src={{ resource['thumbnail'] }} alt="cover for {{ resource['Title'] }}">
+                    <img class="w-40 h-40 object-contain  m-16 rotate-[15deg]" src={{ resource.references }} alt="cover for {{ resource['Title'] }}">
                 </div>
                 {% endif %}
     
-                <h2 class="book huge-title mb-2 max-w-[30rem]">{% block title %} {{ resource['Title'] or resource['name'] }} {% endblock %}</h2>
+                <h2 class="book huge-title mb-2 max-w-[30rem]">{% block title %} {{ resource.name }} {% endblock %}</h2>
     
                 {% if resource['Year'] %}
                 {{ resource['Year'] }}

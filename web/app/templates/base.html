@@ -143,8 +143,8 @@
             
         >
 
-            {% if (resource['type'] == 'book') %}
-                <img class="w-20 h-20 object-contain float-right m-4 grayscale rotate-[15deg]" src="https://dummyimage.com/4:5x70" alt="cover for {{ resource['name'] }}">
+            {% if (resource.type == 'book') and (resource.references) %}
+                <img class="w-20 h-20 object-contain float-right m-4 grayscale rotate-[15deg]" src="{{resource.references}}" alt="cover for {{ resource.name }}">
             {% endif %}
             
             <h2 class="{{ resource['type'] }} {% if size==1 %} big-title {% else %} small-title {% endif %} mb-2">{{ resource['name'] }}</h2>
@@ -181,7 +181,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html lang="en-gb">
 
 <head>
     {{ moment.include_moment() }}
