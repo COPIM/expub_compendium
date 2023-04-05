@@ -27,29 +27,9 @@
     {% if view == 'list' %}
         THIS IS LIST VIEW 
     {% else %}
-    
-        {% for tool in tools %}
 
-            {{ resource_with_related(tool, loop, false) }}
-
-        {% endfor %}
-
-        {% for book in books %}
-
-            {{ resource_with_related(book, loop, false) }}
-
-        {% endfor %}
-
-        {% for tool in tools2 %}
-
-            {{ resource_with_related(tool, loop, false) }}
-
-        {% endfor %}
-
-        {% for book in books2 %}
-
-            {{ resource_with_related(book, loop, false) }}
-
+        {% for resource in resources %}
+            {{ resource_with_related(resource, loop, false) }}
         {% endfor %}
 
     {% endif %}

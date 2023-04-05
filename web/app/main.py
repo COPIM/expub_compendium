@@ -20,19 +20,18 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     view = request.args.get('view')
-    tools = Resource.query.filter_by(type='tool').order_by(func.random()).limit(6).all()
-    if view != 'list':
-        # append relationships to each tool
-        append_relationships_multiple(tools)
-    books = Resource.query.filter_by(type='book').order_by(func.random()).limit(6).all()
-    if view != 'list':
-        # append relationships to each book
-        append_relationships_multiple(books)
+    # curated list of resources to display on homepage
+    tool_ids = ['4','10', '34', '27']
+    practice_ids = ['53', '59', '65', '56']
+    book_ids = ['94', '72', '105', '67']
+    # concatenate lists of resources
+    resource_ids = tool_ids + practice_ids + book_ids
+    # get data for curated resources
+    curated = get_curated_resources(resource_ids)
     with open('content/home.md', 'r') as f:
         text = f.read()
         text = markdown.markdown(text)
-    book_showcase = get_full_resource('69')
-    return render_template('index.html', text=text, tools=tools, books=books, book=book_showcase, view=view)
+    return render_template('index.html', text=text, resources=curated, view=view)
 
 # route for profile page
 @main.route('/profile')
