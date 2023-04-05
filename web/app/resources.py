@@ -15,6 +15,7 @@ from .relationships import *
 from isbntools.app import *
 import requests
 import re
+from sqlalchemy.sql import func
 
 # function to retrieve data about a single resource from the database
 def get_resource(resource_id):
@@ -32,6 +33,13 @@ def get_full_resource(resource_id):
         if book_data:
             resource.__dict__.update(book_data)
     return resource
+
+# function to retrieve data about a curated list of resources
+def get_curated_resources(resource_ids):
+    resources = Resource.query.filter(Resource.id.in_(resource_ids)).order_by(func.random()).all()
+    # append relationships to each resource
+    append_relationships_multiple(resources)
+    return resources
 
 # function to delete a single resource
 def delete_resource(resource_id):
@@ -62,14 +70,19 @@ def get_book_data(isbn):
         book = meta(isbn)
         description = {'desc': desc(isbn)}
         book.update(description)
-        # get highest-resolution book cover possible
-        openl_url = 'https://covers.openlibrary.org/b/isbn/' + book['ISBN-13'] + '-L.jpg?default=false'
-        request = requests.get(openl_url)
-        if request.status_code != 200:
-            book.update(cover(isbn))
-        else:
-            book_cover = {'thumbnail': openl_url}
-            book.update(book_cover)
+        #book = get_book_cover(book)
         return book
     except: 
         pass
+
+# function to get book cover data
+def get_book_cover(book):
+    # get highest-resolution book cover possible
+    openl_url = 'https://covers.openlibrary.org/b/isbn/' + book['ISBN-13'] + '-L.jpg?default=false'
+    request = requests.get(openl_url)
+    if request.status_code != 200:
+        book.update(cover(isbn))
+    else:
+        book_cover = {'thumbnail': openl_url}
+        book.update(book_cover)
+    return book
