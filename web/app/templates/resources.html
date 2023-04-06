@@ -25,12 +25,6 @@
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies egestas felis at dignissim. Morbi ut bibendum
             nisl. Integer ac sollicitudin risus. Vivamus et est est. Ut vitae lacus nec justo tincidunt interdum. Fusce sapien odio,
             commodo nec est et, interdum varius risus. Curabitur vehicula consequat auctor.
-
-            <br/><br/>
-            <a href="{{ request.base_url }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}">
-              LIST VIEW
-            </a>
-
       </div>
       <div class="h-full ">
         <div class="flex h-full gap-8 justify-start items-center ">
@@ -55,6 +49,12 @@
 </script>
 <div class="" x-data="filter()">
     <div id="resources" :class="expandFilters?'expanded':''">
+
+      <br/><br/>
+      <a href="{{ request.base_url }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}">
+        LIST VIEW
+      </a>
+      
         <div class="std-margin grid lg:grid-cols-4 mb-16">
             {% if practices_filter %}
             <div class="hidden lg:block cursor-pointer" @click="expandFilters = !expandFilters">Show/hide filters</div>
