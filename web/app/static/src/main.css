@@ -172,6 +172,9 @@ select {
 a:hover {
     @apply opacity-90;
 }
+a.link:hover {
+    @apply opacity-100;
+}
 
 
 h2,h3 {
@@ -283,6 +286,17 @@ p + p {
     @apply bg-expurple text-white;
     /* background-image: linear-gradient(to top, purple, transparent) ; */
 }
+
+.link:hover path,
+.active path {
+    stroke: white;
+}
+
+.link:hover rect,
+.active rect {
+    fill: white;
+}
+
 
 .link:hover {
     @apply bg-expurple text-white; 

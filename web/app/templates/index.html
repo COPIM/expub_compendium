@@ -9,7 +9,10 @@
         </div>
     </div>
 
-    {{ view_switch() }}
+    <div class="flex gap-4 items-center min-h-[2rem] mb-8 mb-8 border-b-2 border-black ">
+        {{ view_switch() }}
+    </div>
+
 
     {% if view == 'list' %}
     {% for resource in resources %}

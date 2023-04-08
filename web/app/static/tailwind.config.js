@@ -22,7 +22,7 @@ module.exports = {
       },
       colors: {
         'expurple': {
-          DEFAULT: 'rgba(103, 48, 255,0.8)'
+          DEFAULT: 'rgba(103, 48, 255,0.5)'
         }
         // 'ggreen': {
         //   light: '#67e8f9',

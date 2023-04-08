@@ -14,14 +14,40 @@
 
 {% macro view_switch() %}
 
+    <div class="flex">
         <a
-            href="{{ request.base_url }}?view=regular{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}">
-            Expanded view
+            href="{{ request.base_url }}?view=regular{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+            class="block link flex p-3 gap-2 {% if view != 'list' %} active {% endif %}"
+        >
+    
+            <div class="w-5 h-5 inline-block">
+                <svg width="100%" height="100%" viewBox="0 0 46 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="21" height="36" fill="black" />
+                    <rect x="27" width="19" height="14" fill="black" />
+                    <rect x="27" y="21" width="19" height="15" fill="black" />
+                </svg>
+    
+            </div>
+    
+            Expanded
         </a>
         <a
-            href="{{ request.base_url }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}">
-            LIST VIEW
+            href="{{ request.base_url }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+            class="block link flex p-3 gap-2 {% if view == 'list' %} active {% endif %}"
+        >
+            <div class="w-5 h-5  inline-block ">
+                <svg width="100%" height="100%" viewBox="0 0 38 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 2H38" stroke="black" stroke-width="2.5" />
+                    <path d="M0 13H38" stroke="black" stroke-width="2.5" />
+                    <path d="M0 24H38" stroke="black" stroke-width="2.5" />
+                    <path d="M0 35H38" stroke="black" stroke-width="2.5" />
+                </svg>
+    
+            </div>
+    
+            List
         </a>
+    </div>
 
 {% endmacro %}
 
@@ -47,30 +73,30 @@
     </a>
 
     <!-- <div class="ml-auto mr-2">
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('create.create_resource') }}" class="block link">
-                            Add resource
-                        </a>
-                        {% endif %}
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('main.profile') }}" class="block link">
-                            Profile
-                        </a>
-                        {% endif %}
-                        {% if not current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.login') }}" class="block link">
-                            Login
-                        </a>
-                        <a href="{{ url_for('auth.signup') }}" class="block link">
-                            Sign Up
-                        </a>
-                        {% endif %}
-                        {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.logout') }}" class="block link">
-                            Logout
-                        </a>
-                        {% endif %}
-                    </div> -->
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('create.create_resource') }}" class="block link">
+            Add resource
+        </a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.profile') }}" class="block link">
+            Profile
+        </a>
+        {% endif %}
+        {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('auth.login') }}" class="block link">
+            Login
+        </a>
+        <a href="{{ url_for('auth.signup') }}" class="block link">
+            Sign Up
+        </a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}" class="block link">
+            Logout
+        </a>
+        {% endif %}
+    </div> -->
 
     <form action="{{ url_for('search.basic_search') }}" class="hidden lg:block">
         <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1"
@@ -125,27 +151,29 @@
 
 {% macro resource_list(resource, loop, show_number=true) %}
 <div class="border-b-2 border-black">
-    <a class="block h-full py-1 px-4 hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}" {% if
+    <a class="flex gap-4 h-full py-1 hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}" {% if
         resource['type']=='book' %} href="{{ url_for('book.show_book', book_id=resource['id']) }}" {% endif %} {% if
         resource['type']=='tool' %} href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" {% endif %} {% if
         resource['type']=='practice' %} href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" {% endif
         %} hx-target="#modal-content" hx-select="main" hx-swap="innerHTML" @click="openModal()">
 
-        <span class="{% if show_number %} hidden  {% endif %} lg:w-[10.5rem] lg:text-center ">
+        <div class="w-[4rem] shrink-0 lg:w-[12rem] text-center ">
             {% if show_number %}
             {{loop.index}} / {{count}}
             {% else %}
-            <span class="capitalize inline-block min-w-[5rem] px-4 text-right">{{ resource['type'] }}</span>
+            <div class="capitalize inline-block min-w-[5rem] px-4 ">{{ resource['type'] }}</div>
             {% endif %}
-        </span>
+        </div>
 
 
-        <span class="{{ resource.type }}">
-            {{ resource.name }}
-        </span>
-        {% if resource['year'] %}
-            {{ resource['year'] }}{% if resource['author'] %}, {{ resource['author'] }}{% endif%}
-        {% endif %}
+        <div>
+            <span class="{{ resource.type }}">
+                {{ resource.name }}
+            </span>
+            {% if resource['year'] %}
+                {{ resource['year'] }}{% if resource['author'] %}, {{ resource['author'] }}{% endif%}
+            {% endif %}
+        </div>
     </a>
 </div>
 {% endmacro %}
@@ -154,7 +182,7 @@
     <div class="w-full  border-b-2 border-black fade-right">
         <div class="content w-full py-8   overflow-x-auto">
             <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col w-fit pr-40 " >
-                <div class=" related hidden lg:block ">
+                <div class="w-[4rem] shrink-0 lg:w-[12rem] text-center px-2 py-4 ">
                     {% if show_number %}
                     <p>{{loop.index}} / {{count}}</p>
                     {% else %}
@@ -275,7 +303,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en-gb">
+<html lang="en">
 
 <head>
     {{ moment.include_moment() }}
@@ -292,6 +320,7 @@
         //     console.log(e)
         // })
         // htmx.logAll()
+
         function base() {
             return {
                 menuOpen: false,
@@ -337,8 +366,8 @@
 <body 
     class="text-base overflow-y-scroll" 
     x-data="base()" 
-    hx-boost="true"
     
+    hx-boost="true"
     hx-select="#all"
     hx-target="#all"
     hx-swap="outerHTML"
