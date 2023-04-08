@@ -84,7 +84,7 @@ b,strong {
 
 
 .related {
-    @apply w-[8rem] lg:w-[12rem] pl-[4rem] p-5 text-right;
+    @apply w-[6rem] lg:w-[12rem] lg:pl-[4rem] px-2 py-4 lg:p-5 text-right;
 }
 
 .cell-margin {
@@ -305,15 +305,15 @@ details[open]::details-content {
 }
 
 .fade-right::after {
-    @apply absolute top-0 right-0 w-40 h-full pointer-events-none;
+    @apply absolute top-0 right-0 w-12 lg:w-40 h-full pointer-events-none;
 
     content: '';
-    background-image: linear-gradient(to left,#fff 0%, #fff 1rem, rgba(255,255,255,0) 100%);
+    background-image: linear-gradient(to left,#fff 0%, #fff 5%, rgba(255,255,255,0) 100%);
 
 }
 
 .menuitem {
-    @apply block px-4 py-2 link flex items-center;
+    @apply px-4 py-2 link items-center;
 }
 
 

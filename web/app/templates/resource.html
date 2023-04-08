@@ -4,10 +4,10 @@
 
 
 
-<div class="cell-margin grid mt-16 grid-cols-[1fr,1fr]">
+<div class="cell-margin grid mt-16 lg:grid-cols-2">
     <div class="left ">
         <div class="mb-4 capitalize">{{ resource['type'] }}</div>
-        <div class="border-r-2 border-black pr-8">
+        <div class="lg:border-r-2 lg:border-black lg:pr-8">
             <h2 class="block-margin huge-title {{ resource['type'] }}">
                 {% block title %} 
                 {% autoescape false %}
@@ -125,8 +125,8 @@
         </div>
     </div>
     
-    <div class="right ">
-        <div class="grid grid-cols-2 ">
+    <div class="right p-4 pr-8 lg:p-0 ">
+        <div class="grid lg:grid-cols-2">
             {{ relationships_links(resource) }}
         </div>
     </div>

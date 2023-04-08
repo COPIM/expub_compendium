@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-{% for result in results %}
-  {{ result.name }}
-{% endfor %}
+<div class="grid lg:grid-cols-3">
+  {% for result in results %}
+    <div class="cell">
+      {{ resource_lead(result) }}
+    </div>
+  {% endfor %}
+</div>
 
 {% endblock %}

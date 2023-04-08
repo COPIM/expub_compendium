@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       fontSize: {
         // xs: ['0.95rem', { lineHeight: '1.35' }],
-        sm: ['0.85rem', { lineHeight: '1.35' }],
+        sm: ['0.95rem', { lineHeight: '1.35' }],
         base: ['1.1rem', { lineHeight: '1.22' }],
         lg: ['1.24rem', { lineHeight: '1.1' }],
         xl: ['1.5rem', { lineHeight: '1.1' }],

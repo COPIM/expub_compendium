@@ -19,26 +19,15 @@
 </div> -->
 
 
-    <div class="border-b-2 border-black grid grid-cols-[52rem,30rem]  content-start">
-    
-      <div class="ml-[13rem] text my-8 meta max-w-[30rem]">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies egestas felis at dignissim. Morbi ut bibendum
-            nisl. Integer ac sollicitudin risus. Vivamus et est est. Ut vitae lacus nec justo tincidunt interdum. Fusce sapien odio,
-            commodo nec est et, interdum varius risus. Curabitur vehicula consequat auctor.
+    <div class="border-b-2 border-black grid lg:grid-cols-[52rem,30rem]  content-start">
+      <div class="mx-2 lg:ml-[13rem] text my-8 meta lg:max-w-[30rem]">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies egestas felis at dignissim. Morbi ut bibendum
+        nisl. Integer ac sollicitudin risus. Vivamus et est est. Ut vitae lacus nec justo tincidunt interdum. Fusce sapien odio,
+        commodo nec est et, interdum varius risus. Curabitur vehicula consequat auctor.
 
-            <br/><br/>
-            <a href="{{ url_for(request.endpoint, view='list') }}">LIST VIEW</a>
+        <br/><br/>
+        <a href="{{ url_for(request.endpoint, view='list') }}">As list</a> <a href="{{ url_for(request.endpoint, view='') }}">With related</a>
 
-      </div>
-      <div class="h-full ">
-        <div class="flex h-full gap-8 justify-start items-center ">
-          <div class="text-right">Show<br>related</div>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-          </label>
-          <div class="">Simpler<br>List</div>
-        </div>
       </div>
     </div>
 <script>
@@ -53,9 +42,9 @@
 </script>
 <div class="" x-data="filter()">
     <div id="resources" :class="expandFilters?'expanded':''">
-        <div class="std-margin grid lg:grid-cols-4 mb-16">
+        <div class="std-margin grid lg:grid-cols-4 sticky top-14">
+          <div class="hidden lg:block cursor-pointer" @click="expandFilters = !expandFilters">Show/hide filters</div>
             {% if practices_filter %}
-            <div class="hidden lg:block cursor-pointer" @click="expandFilters = !expandFilters">Show/hide filters</div>
             <div class="">
                 <div class="filter-header">Practices</div>
                 <div class="filter-options my-4" x-show="expandFilters">
@@ -131,13 +120,13 @@
 
         <div>
             {% if view == 'list' %}
-              THIS IS LIST VIEW 
+              {% for resource in resources %}
+                {{ resource_list(resource, loop) }}
+              {% endfor %}
             {% else %}
-
-            {% for resource in resources %}
-              {{ resource_with_related(resource, loop) }}
-            {% endfor %}
-
+              {% for resource in resources %}
+                {{ resource_with_related(resource, loop) }}
+              {% endfor %}
             {% endif %}
         </div>
     </div>
