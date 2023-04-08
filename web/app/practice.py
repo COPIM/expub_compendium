@@ -13,6 +13,7 @@ from .resources import *
 from .relationships import *
 from . import db
 import os
+import markdown
 
 practice = Blueprint('practice', __name__)
 
@@ -26,13 +27,20 @@ def get_practices():
     if view != 'list':
         # append relationships to each practice
         append_relationships_multiple(practices)
+    else: 
+        # reorder practices by practice name
+        practices = sorted(practices, key=lambda d: d.__dict__['name']) 
     return render_template('resources.html', resources=practices, type='practice', count=count, view=view)
 
 # route for displaying a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
     practice = get_full_resource(practice_id)
-    practice.references = replace_urls(practice.references)
+    # render Markdown as HTML
+    practice.longDescription = markdown.markdown(practice.longDescription)
+    practice.experimental = markdown.markdown(practice.experimental)
+    practice.considerations = markdown.markdown(practice.considerations)
+    practice.references = markdown.markdown(practice.references)
     return render_template('resource.html', resource=practice)
 
 # route for editing a single practice based on the ID in the database

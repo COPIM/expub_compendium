@@ -6,40 +6,20 @@
     <div class="border-b-2 border-black grid gap-8 lg:grid-cols-[52rem,30rem]  content-start">
         <div class="mx-2 lg:ml-[13rem] text my-8 meta max-w-[30rem]">
             {{ text|safe }}
-            <br/>
-            <a href="{{ url_for(request.endpoint, view='list') }}">LIST VIEW</a>
         </div>
     </div>
 
-  
-    
+    {{ view_switch() }}
 
     {% if view == 'list' %}
-        {% for tool in tools %}
-        {{ resource_list(tool, loop, false) }}
-        {% endfor %}
-    {% else %}    
-        {% for tool in tools %}
-        {{ resource_with_related(tool, loop, false) }}
-        {% endfor %}
-    {% endif %}
-
-
-
-
-    {% if view == 'list' %}
-        {% for book in books %}
-        {{ resource_list(book, loop, false) }}
-        {% endfor %}
+    {% for resource in resources %}
+    {{ resource_list(resource, loop, false) }}
+    {% endfor %}
     {% else %}
-        {% for book in books %}
-        {{ resource_with_related(book, loop, false) }}
-        {% endfor %}
+    {% for resource in resources %}
+    {{ resource_with_related(resource, loop, false) }}
+    {% endfor %}
     {% endif %}
-
-
-
-    
 
 </div>
 {% endblock %}
