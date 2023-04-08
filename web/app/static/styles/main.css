@@ -510,9 +510,6 @@ video {
 .pointer-events-none {
   pointer-events: none;
 }
-.invisible {
-  visibility: hidden;
-}
 .static {
   position: static;
 }
@@ -536,12 +533,6 @@ video {
 }
 .top-10 {
   top: 2.5rem;
-}
-.top-12 {
-  top: 3rem;
-}
-.top-14 {
-  top: 3.5rem;
 }
 .z-10 {
   z-index: 10;
@@ -577,16 +568,9 @@ video {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
-}
-.mb-16 {
-  margin-bottom: 4rem;
 }
 .mb-2 {
   margin-bottom: 0.5rem;
@@ -642,6 +626,9 @@ video {
 .h-10 {
   height: 2.5rem;
 }
+.h-14 {
+  height: 3.5rem;
+}
 .h-20 {
   height: 5rem;
 }
@@ -657,15 +644,6 @@ video {
 }
 .h-screen {
   height: 100vh;
-}
-.h-8 {
-  height: 2rem;
-}
-.h-16 {
-  height: 4rem;
-}
-.h-14 {
-  height: 3.5rem;
 }
 .w-10 {
   width: 2.5rem;
@@ -698,12 +676,6 @@ video {
 .w-full {
   width: 100%;
 }
-.min-w-\[10rem\] {
-  min-width: 10rem;
-}
-.min-w-\[7rem\] {
-  min-width: 7rem;
-}
 .min-w-\[5rem\] {
   min-width: 5rem;
 }
@@ -727,9 +699,6 @@ video {
 .grid-flow-col {
   grid-auto-flow: column;
 }
-.grid-cols-\[auto\2c 1fr\] {
-  grid-template-columns: auto 1fr;
-}
 .grid-rows-1 {
   grid-template-rows: repeat(1, minmax(0, 1fr));
 }
@@ -742,9 +711,6 @@ video {
 .items-stretch {
   align-items: stretch;
 }
-.justify-start {
-  justify-content: flex-start;
-}
 .justify-center {
   justify-content: center;
 }
@@ -753,10 +719,6 @@ video {
 }
 .gap-8 {
   gap: 2rem;
-}
-.gap-x-8 {
-  -moz-column-gap: 2rem;
-       column-gap: 2rem;
 }
 .overflow-x-auto {
   overflow-x: auto;
@@ -806,14 +768,8 @@ video {
   -o-object-fit: contain;
      object-fit: contain;
 }
-.p-2 {
-  padding: 0.5rem;
-}
 .p-4 {
   padding: 1rem;
-}
-.p-8 {
-  padding: 2rem;
 }
 .px-4 {
   padding-left: 1rem;
@@ -822,6 +778,10 @@ video {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 .py-3 {
   padding-top: 0.75rem;
@@ -834,10 +794,6 @@ video {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
-}
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
 }
 .pl-1 {
   padding-left: 0.25rem;
@@ -946,6 +902,10 @@ strong {
 }
 b,strong {
     font-weight: normal !important;
+}
+
+select {
+  padding: 0.25rem;
 }
 
 
@@ -1317,10 +1277,6 @@ details[open]::details-content {
 }
 
 
-
-
-
-
  /* The switch - the box around the slider */
  .switch {
      position: relative;
@@ -1428,10 +1384,6 @@ details[open]::details-content {
 
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .lg\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lg\:grid-cols-\[52rem\2c 30rem\] {

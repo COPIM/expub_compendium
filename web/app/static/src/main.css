@@ -58,6 +58,10 @@ b,strong {
     font-weight: normal !important;
 }
 
+select {
+    @apply p-1;
+}
+
 
 .book {
     font-family: 'ag-fett', 'Arial Black';
@@ -315,10 +319,6 @@ details[open]::details-content {
 .menuitem {
     @apply px-4 py-2 link items-center;
 }
-
-
-
-
 
 
  /* The switch - the box around the slider */

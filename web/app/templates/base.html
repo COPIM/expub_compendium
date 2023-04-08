@@ -12,6 +12,19 @@
 # Boostrap select: https://stackoverflow.com/questions/67942546/bootstrap-5-select-dropdown-with-the-multiple-attribute-collapsed
 -->
 
+{% macro view_switch() %}
+
+        <a
+            href="{{ request.base_url }}?view=regular{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}">
+            Expanded view
+        </a>
+        <a
+            href="{{ request.base_url }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}">
+            LIST VIEW
+        </a>
+
+{% endmacro %}
+
 {% macro menu() %}
     <a href="{{ url_for('tool.get_tools') }}{% if view == 'list' %}?view=list{% endif %}"
         class="{{ 'active' if request.path == url_for('tool.get_tools') }} menuitem tool medium-title hidden lg:block">
@@ -324,7 +337,7 @@
 <body 
     class="text-base overflow-y-scroll" 
     x-data="base()" 
-    hx-boost="true"
+
     hx-select="#all"
     hx-target="#all"
     hx-swap="outerHTML"
