@@ -20,19 +20,24 @@
 
 {% macro filter_dropdown(id, filter, plural='') %}
   <select name="{{ id }}" hx-trigger="change">
-    <option value="all" {% if request.args.get(id, '' ) == '' %} selected {% endif %}
+    <option 
+      value="" {% if request.args.get(id, '' )=='' %} selected {% endif %}
       hx-get="{{ request.base_url }}?{% for key in request.args %}{% if key != id %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
-      hx-push-url="true">
+      hx-push-url="true"
+
+    >
       {% if plural != '' %}
-        All {{ plural }}
+        {{ plural }}
       {% else %}
-        All {{ id }}s
+        <span class="capitalize bg-red-400">{{ id }}s</span>
       {% endif%}
     </option>
     {% for thing in filter %}
-    <option value="{{ thing[0] }}" {% if request.args.get(id)==thing[0]|string %} selected {% endif %}
+    <option 
+      value="{{ thing[0] }}" {% if request.args.get(id)==thing[0]|string %} selected {% endif %}
       hx-get="{{ request.base_url }}?{{ id }}={{ thing[0] }}{% for key in request.args %}{% if key != id %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
-      hx-push-url="true">
+      hx-push-url="true"
+    >
       {{ thing[1] }}
     </option>
     {% endfor %}
@@ -40,20 +45,22 @@
 {% endmacro%}
 
 {% macro filter_dropdown_nokey(id, filter, plural='') %}
-  <select name="{{ id }}" hx-trigger="change">
-    <option value="all" {% if request.args.get(id, '' ) == '' %} selected {% endif %}
+  <select name="{{ id }}" hx-trigger="changed">
+    <option value="" {% if request.args.get(id, '' ) == '' %} selected {% endif %}
       hx-get="{{ request.base_url }}?{% for key in request.args %}{% if key != id %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
-      hx-push-url="true">
+      hx-push-url="true"
+    >
       {% if plural != '' %}
-        All {{ plural }}
+        {{ plural }}
       {% else %}
-        All {{ id }}s
+        <span class="capitalize">{{ id }}s</span>
       {% endif%}
     </option>
     {% for thing in filter %}
     <option value="{{ thing }}" {% if request.args.get(id)==thing|string %} selected {% endif %}
       hx-get="{{ request.base_url }}?{{ id }}={{ thing }}{% for key in request.args %}{% if key != id %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
-      hx-push-url="true">
+      hx-push-url="true"
+    >
       {{ thing }}
     </option>
     {% endfor %}
@@ -67,45 +74,52 @@
         commodo nec est et, interdum varius risus. Curabitur vehicula consequat auctor.
       </div>
     </div>
-<div class="" >
-    <div id="resources" >
 
-      {{ view_switch() }}
+    <div class="" >
+        <div 
+          id="resources" 
+          hx-boost="false"
+        >
 
-      <div class="flex gap-8">
-            {% if practices_filter %}
-              {{ filter_dropdown('practice', practices_filter) }}
-            {% endif %}
-            {% if year_filter %}
-              {{ filter_dropdown_nokey('year', year_filter) }}
-            {% endif %}
-            {% if typology_filter %}
-              {{ filter_dropdown_nokey('typology', typology_filter, 'typologies') }}
-            {% endif %}
-            {% if languages_filter %}
-            {{ filter_dropdown_nokey('scriptingLanguage', languages_filter, 'scripting languages') }}
-            {% endif %}
-            {% if licenses_filter %}
-            {{ filter_dropdown_nokey('license', licenses_filter) }}
-            {% endif %}
-            {% if status_filter %}
-            {{ filter_dropdown_nokey('status', status_filter, 'statuses') }}
-            {% endif %}
-      </div>
+          {{ view_switch() }}
 
-      <div>
-          {% if view == 'list' %}
-            {% for resource in resources %}
-              {{ resource_list(resource, loop) }}
-            {% endfor %}
-          {% else %}
-            {% for resource in resources %}
-              {{ resource_with_related(resource, loop) }}
-            {% endfor %}
-          {% endif %}
-      </div>
+          <div class="flex gap-8">
+            
+              
+              {% if practices_filter%}
+                {{ filter_dropdown('practice', practices_filter, 'Practices') }}
+              {% endif %}
+              {% if year_filter %}
+                {{ filter_dropdown_nokey('year', year_filter, 'Year') }}
+              {% endif %}
+              {% if typology_filter %}
+                {{ filter_dropdown_nokey('typology', typology_filter, 'Typologies') }}
+              {% endif %}
+              {% if languages_filter %}
+                {{ filter_dropdown_nokey('scriptingLanguage', languages_filter, 'Scripting languages') }}
+              {% endif %}
+              {% if licenses_filter %}
+                {{ filter_dropdown_nokey('license', licenses_filter, 'Licenses') }}
+              {% endif %}
+              {% if status_filter %}
+                {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
+              {% endif %}
+            
+          </div>
+
+          <div>
+              {% if view == 'list' %}
+                {% for resource in resources %}
+                  {{ resource_list(resource, loop) }}
+                {% endfor %}
+              {% else %}
+                {% for resource in resources %}
+                  {{ resource_with_related(resource, loop) }}
+                {% endfor %}
+              {% endif %}
+          </div>
+        </div>
     </div>
-</div>
 
 
 {% endblock %}
