@@ -79,7 +79,7 @@
     </div>
 
     <form 
-      action="{{request.base_url}}" 
+      action="{{ url_for(request.endpoint )}}" 
       method="GET"
 
       hx-trigger="change" 
@@ -111,7 +111,7 @@
           {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
         {% endif %}
       
-        <a href="{{ request.base_url }}?view={{ view }}">Reset</a>
+        <a href="{{ url_for(request.endpoint) }}?view={{ view }}">Reset</a>
       
       </div>
       

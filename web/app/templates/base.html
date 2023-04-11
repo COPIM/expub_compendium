@@ -16,7 +16,7 @@
 
     <div class="flex">
         <a
-            href="{{ request.base_url }}?view=regular{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+            href="{{ url_for(request.endpoint) }}?view=regular{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
             class="block link flex p-3 gap-2 {% if view != 'list' %} active {% endif %}"
         >
     
@@ -32,7 +32,7 @@
             Expanded
         </a>
         <a
-            href="{{ request.base_url }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+            href="{{ url_for(request.endpoint) }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
             class="block link flex p-3 gap-2 {% if view == 'list' %} active {% endif %}"
         >
             <div class="w-5 h-5  inline-block ">
