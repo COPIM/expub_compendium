@@ -24,14 +24,14 @@ def get_tools():
     tools_query = Resource.query.filter_by(type=resource_type)
     for key in request.args.keys():
         if key != 'view':
-            if key == 'practice':
+            if (key == 'practice' and request.args.get(key) != ''):
                 tools_1 = tools_query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Relationship.second_resource_id==request.args.get(key))
                 tools_2 = tools_query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Relationship.first_resource_id==request.args.get(key))
                 tools_query = tools_1.union(tools_2)
-            if key == 'scriptingLanguage':
+            if (key == 'scriptingLanguage' and request.args.get(key) != ''):
                 regex = request.args.get(key) + "$|" + request.args.get(key) + "\s\/"
                 tools_query = tools_query.filter(Resource.scriptingLanguage.regexp_match(regex))
-            if key != 'practice' and key != 'scriptingLanguage':
+            if ((key != 'practice' and key != 'scriptingLanguage') and request.args.get(key) != ''):
                 kwargs = {key: request.args.get(key)}
                 tools_query = tools_query.filter_by(**kwargs)
     # finalise the query

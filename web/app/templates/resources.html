@@ -93,22 +93,22 @@
         {{ view_switch() }}
       
         {% if practices_filter%}
-        {{ filter_dropdown('practice', practices_filter, 'Practices') }}
+          {{ filter_dropdown('practice', practices_filter, 'Practices') }}
         {% endif %}
         {% if year_filter %}
-        {{ filter_dropdown_nokey('year', year_filter, 'Year') }}
+          {{ filter_dropdown_nokey('year', year_filter, 'Year') }}
         {% endif %}
         {% if typology_filter %}
-        {{ filter_dropdown_nokey('typology', typology_filter, 'Typologies') }}
+          {{ filter_dropdown_nokey('typology', typology_filter, 'Typologies') }}
         {% endif %}
         {% if languages_filter %}
-        {{ filter_dropdown_nokey('scriptingLanguage', languages_filter, 'Scripting languages') }}
+          {{ filter_dropdown_nokey('scriptingLanguage', languages_filter, 'Scripting languages') }}
         {% endif %}
         {% if licenses_filter %}
-        {{ filter_dropdown_nokey('license', licenses_filter, 'Licenses') }}
+          {{ filter_dropdown_nokey('license', licenses_filter, 'Licenses') }}
         {% endif %}
         {% if status_filter %}
-        {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
+          {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
         {% endif %}
       
         <a href="{{ request.base_url }}?view={{ view }}">Reset</a>
@@ -117,13 +117,13 @@
       
       <div>
         {% if view == 'list' %}
-        {% for resource in resources %}
-        {{ resource_list(resource, loop) }}
-        {% endfor %}
+          {% for resource in resources %}
+            {{ resource_list(resource, loop) }}
+          {% endfor %}
         {% else %}
-        {% for resource in resources %}
-        {{ resource_with_related(resource, loop) }}
-        {% endfor %}
+          {% for resource in resources %}
+            {{ resource_with_related(resource, loop) }}
+          {% endfor %}
         {% endif %}
       </div>
 

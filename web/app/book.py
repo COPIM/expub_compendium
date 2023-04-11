@@ -24,11 +24,11 @@ def get_books():
     books_query = Resource.query.filter_by(type=resource_type)
     for key in request.args.keys():
         if key != 'view':
-            if key == 'practice':
+            if (key == 'practice' and request.args.get(key) != ''):
                 books_1 = books_query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Relationship.second_resource_id==request.args.get(key))
                 books_2 = books_query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Relationship.first_resource_id==request.args.get(key))
                 books_query = books_1.union(books_2)
-            if key != 'practice':
+            if (key != 'practice' and request.args.get(key) != ''):
                 kwargs = {key: request.args.get(key)}
                 books_query = books_query.filter_by(**kwargs)
     # finalise the query
