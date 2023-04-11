@@ -13,6 +13,7 @@ from .resources import *
 from .relationships import *
 from . import db
 import os
+from sqlalchemy.sql import func
 
 book = Blueprint('book', __name__)
 
@@ -21,7 +22,7 @@ book = Blueprint('book', __name__)
 def get_books():
     view = request.args.get('view')
     resource_type = 'book'
-    books_query = Resource.query.filter_by(type=resource_type)
+    books_query = Resource.query.filter_by(type=resource_type).order_by(func.random())
     for key in request.args.keys():
         if key != 'view':
             if (key == 'practice' and request.args.get(key) != ''):

@@ -14,6 +14,7 @@ from .relationships import *
 from . import db
 import os
 import markdown
+from sqlalchemy.sql import func
 
 practice = Blueprint('practice', __name__)
 
@@ -21,7 +22,7 @@ practice = Blueprint('practice', __name__)
 @practice.route('/practices')
 def get_practices():
     view = request.args.get('view')
-    practices = Resource.query.filter_by(type='practice').all()
+    practices = Resource.query.filter_by(type='practice').order_by(func.random()).all()
     # get number of practices
     count = len(practices)
     if view != 'list':
