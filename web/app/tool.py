@@ -44,7 +44,7 @@ def get_tools():
         append_relationships_multiple(tools)
     else: 
         # reorder tools by tools name
-        tools = sorted(tools, key=lambda d: d.__dict__['name']) 
+        tools = sorted(tools, key=lambda d: d.__dict__['name'].lower()) 
     # get values for filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name).all()

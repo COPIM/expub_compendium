@@ -41,7 +41,7 @@ def get_books():
         append_relationships_multiple(books)
     else: 
         # reorder books by book name
-        books = sorted(books, key=lambda d: d.__dict__['name']) 
+        books = sorted(books, key=lambda d: d.__dict__['name'].lower()) 
     # get values for filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name).all()

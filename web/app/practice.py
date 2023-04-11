@@ -30,7 +30,7 @@ def get_practices():
         append_relationships_multiple(practices)
     else: 
         # reorder practices by practice name
-        practices = sorted(practices, key=lambda d: d.__dict__['name']) 
+        practices = sorted(practices, key=lambda d: d.__dict__['name'].lower()) 
     return render_template('resources.html', resources=practices, type='practice', count=count, view=view)
 
 # route for displaying a single practice based on the ID in the database
