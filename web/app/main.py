@@ -48,6 +48,9 @@ def test():
 @main.route('/about')
 def about():
     with open('content/about.md', 'r') as f:
-        text = f.read()
-        text = markdown.markdown(text)
-    return render_template('about.html', text=text)
+        about_text = f.read()
+        about_text = markdown.markdown(about_text)
+    with open('content/colophon.md', 'r') as f:
+        colophon_text = f.read()
+        colophon_text = markdown.markdown(colophon_text)
+    return render_template('about.html', about_text=about_text, colophon_text=colophon_text)
