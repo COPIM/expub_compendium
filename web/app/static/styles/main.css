@@ -1116,6 +1116,12 @@ h2,h3 {
             hyphens: auto;
 }
 
+h2 {
+  font-family: 'ag-fett';
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+
 h3 {
     font-family: 'ag-fett';
 }
