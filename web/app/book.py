@@ -36,12 +36,11 @@ def get_books():
     books = books_query.all()
     # get number of books
     count = len(books)
+    # reorder books by book name
+    books = sorted(books, key=lambda d: d.__dict__['name'].lower()) 
     if view != 'list':
         # append relationships to each book
         append_relationships_multiple(books)
-    else: 
-        # reorder books by book name
-        books = sorted(books, key=lambda d: d.__dict__['name'].lower()) 
     # get values for filters
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name).all()

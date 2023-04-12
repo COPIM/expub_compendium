@@ -25,12 +25,11 @@ def get_practices():
     practices = Resource.query.filter_by(type='practice').order_by(func.random()).all()
     # get number of practices
     count = len(practices)
+    # reorder practices by practice name
+    practices = sorted(practices, key=lambda d: d.__dict__['name'].lower()) 
     if view != 'list':
         # append relationships to each practice
         append_relationships_multiple(practices)
-    else: 
-        # reorder practices by practice name
-        practices = sorted(practices, key=lambda d: d.__dict__['name'].lower()) 
     return render_template('resources.html', resources=practices, type='practice', count=count, view=view)
 
 # route for displaying a single practice based on the ID in the database
