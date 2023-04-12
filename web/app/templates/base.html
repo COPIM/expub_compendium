@@ -118,8 +118,8 @@
     </div> -->
 
     <form action="{{ url_for('search.basic_search') }}" class="hidden lg:block">
-        <label for="siteSearch" class="sr-only">Search</label>
-        <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1"
+        <label id="search-label" for="siteSearch" class="sr-only">Search</label>
+        <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1" aria-labelledby="search-label"
             placeholder="Search">
         <input class="hidden" type="submit" value="Enter search" hidden />
     </form>
