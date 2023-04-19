@@ -9,6 +9,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import Resource
 from sqlalchemy import or_
+import markdown
 
 search = Blueprint('search', __name__)
 
@@ -30,6 +31,9 @@ def basic_search():
                 Resource.isbn.ilike('%' + query + '%'),
                 Resource.typology.ilike('%' + query + '%'),
             )).all()
+        # render Markdown as HTML
+        for result in results:
+            result.description = markdown.markdown(result.description)
         return render_template('search.html', results=results)
     else:
         return redirect(url_for('main.index'))
