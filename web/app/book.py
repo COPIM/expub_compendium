@@ -14,12 +14,17 @@ from .relationships import *
 from . import db
 import os
 from sqlalchemy.sql import func
+import markdown
 
 book = Blueprint('book', __name__)
 
 # route for displaying all books in database
 @book.route('/books')
 def get_books():
+    # get introductory paragraph Markdown
+    with open('content/books.md', 'r') as f:
+        intro_text = f.read()
+        intro_text = markdown.markdown(intro_text)
     view = request.args.get('view')
     resource_type = 'book'
     books_query = Resource.query.filter_by(type=resource_type).order_by(func.random())
@@ -38,6 +43,9 @@ def get_books():
     count = len(books)
     # reorder books by book name
     books = sorted(books, key=lambda d: d.__dict__['name'].lower()) 
+    # render Markdown as HTML
+    for book in books:
+        book.description = markdown.markdown(book.description)
     if view != 'list':
         # append relationships to each book
         append_relationships_multiple(books)
@@ -48,12 +56,14 @@ def get_books():
     year_filter = get_filter_values('year', resource_type)
     # typology
     typology_filter = get_filter_values('typology', resource_type)
-    return render_template('resources.html', resources=books, type=resource_type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter, count=count, view=view)
+    return render_template('resources.html', resources=books, type=resource_type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter, count=count, view=view, intro_text=intro_text)
 
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')
 def show_book(book_id):
     book = get_full_resource(book_id)
+    # render Markdown as HTML
+    book.description = markdown.markdown(book.description)
     return render_template('book.html', resource=book)
 
 # route for editing a single book based on the ID in the database

@@ -298,7 +298,7 @@
             {% endif %}
 
             <div class="{% if size==1 %} big-text {% else %} small-text {% endif %} mb-[1em]">
-                {{ resource['description'] | truncate(150) }}
+                {{ resource['description'] | truncate(150) | safe }}
             </div>
 
         </a>

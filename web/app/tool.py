@@ -14,12 +14,17 @@ from .relationships import *
 from . import db
 import os
 from sqlalchemy.sql import func
+import markdown
 
 tool = Blueprint('tool', __name__)
 
 # route for displaying all tools in database
 @tool.route('/tools')
 def get_tools():
+    # get introductory paragraph Markdown
+    with open('content/tools.md', 'r') as f:
+        intro_text = f.read()
+        intro_text = markdown.markdown(intro_text)
     view = request.args.get('view')
     resource_type = 'tool'
     tools_query = Resource.query.filter_by(type=resource_type).order_by(func.random())
@@ -53,7 +58,7 @@ def get_tools():
     languages_filter = get_filter_values('scriptingLanguage', resource_type)
     # status
     status_filter = get_filter_values('status', resource_type)
-    return render_template('resources.html', resources=tools, type=resource_type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, status_filter=status_filter, count=count, view=view)
+    return render_template('resources.html', resources=tools, type=resource_type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, status_filter=status_filter, count=count, view=view, intro_text=intro_text)
 
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')

@@ -28,6 +28,9 @@ def index():
     resource_ids = tool_ids + practice_ids + book_ids
     # get data for curated resources
     curated = get_curated_resources(resource_ids)
+    # render Markdown as HTML
+    for resource in curated:
+        resource.description = markdown.markdown(resource.description)
     with open('content/home.md', 'r') as f:
         text = f.read()
         text = markdown.markdown(text)
