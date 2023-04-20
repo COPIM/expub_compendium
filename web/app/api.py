@@ -40,7 +40,7 @@ def api_page():
 # route for exporting all users in database
 @api.route('/api/users')
 @login_required
-def get_users():
+def get_users_json():
     users = User.query.all()
     users_schema = UserSchema(many=True)
     result = users_schema.dump(users)
@@ -57,14 +57,14 @@ def get_tools_json():
 
 # route for exporting all practices in database
 @api.route('/api/practices')
-def get_practices():
+def get_practices_json():
     resource_type = 'practice'
     output = get_resource_json(resource_type)
     return output
 
 # route for exporting all books in database
 @api.route('/api/books')
-def get_books():
+def get_books_json():
     resource_type = 'book'
     output = get_resource_json(resource_type)
     return output
