@@ -1517,3 +1517,19 @@ a.menuitem:hover {
   height:1px;
   overflow:hidden;
 }
+
+#about {
+  display: inline-block;
+  width: 60%;
+}
+
+#colophon {
+  float: right;
+  width: 30%;
+}
+
+hr {
+  clear: both;
+  margin-bottom: 25%;
+  visibility: hidden;
+}

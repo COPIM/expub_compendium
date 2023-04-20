@@ -62,8 +62,6 @@ def get_books():
 @book.route('/books/<int:book_id>')
 def show_book(book_id):
     book = get_full_resource(book_id)
-    # render Markdown as HTML
-    book.description = markdown.markdown(book.description)
     return render_template('book.html', resource=book)
 
 # route for editing a single book based on the ID in the database

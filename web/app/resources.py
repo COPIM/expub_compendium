@@ -16,6 +16,7 @@ from isbntools.app import *
 import requests
 import re
 from sqlalchemy.sql import func
+import markdown
 
 # function to retrieve data about a single resource from the database
 def get_resource(resource_id):
@@ -29,6 +30,8 @@ def get_full_resource(resource_id):
     resource = get_resource(resource_id)
     resource = append_relationships(resource)
     if resource.type == 'book':
+        # render Markdown as HTML
+        resource.description = markdown.markdown(resource.description)
         book_data = get_book_data(resource.isbn)
         if book_data:
             resource.__dict__.update(book_data)
