@@ -112,14 +112,10 @@
                 {% endif %}
                 {% if resource['references'] %}
                     <div class="col-span-2">
-                        <h3> References </h3>
+                        <h3> Further reading </h3>
                         <p>{{ resource['references']|safe }}</p>
                     </div>
                 {% endif %}
-                <div class="">
-                    <h3>Created</h3>
-                    {{ resource['created'].strftime("%Y-%m-%d %H:%M") }} UTC
-                </div>
             </div>
             
         </div>
