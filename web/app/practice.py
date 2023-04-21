@@ -15,6 +15,7 @@ from . import db
 import os
 import markdown
 from sqlalchemy.sql import func
+from sqlalchemy import or_
 
 practice = Blueprint('practice', __name__)
 
@@ -26,7 +27,20 @@ def get_practices():
         intro_text = f.read()
         intro_text = markdown.markdown(intro_text)
     view = request.args.get('view')
-    practices = Resource.query.filter_by(type='practice').order_by(func.random()).all()
+    practices = Resource.query.filter_by(type='practice').order_by(func.random())
+    # temporarily removing incomplete practices from main list
+    practices = Resource.query.filter(
+        or_(
+            Resource.id==53,
+            Resource.id==56,
+            Resource.id==59,
+            Resource.id==62,
+            Resource.id==63,
+            Resource.id==65,
+            Resource.id==66
+        ))
+    # finalise the query
+    practices = practices.all()
     # get number of practices
     count = len(practices)
     # reorder practices by practice name
