@@ -1,33 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="">
 
-{{ text|safe }}
-
-<hr>
-<p>
-  Browse from this selection of random tools, search or explore tools, practices, and experimental books.
-</p>
-
-<div class="row">
-{% for tool in tools %}
-    <div class="col-md-4 col-sm-6 py-3">
-    <div class="card text-dark bg-info mb-3">
-        <div class="card-body">
-            <a href="{{ url_for('tool.show_tool', tool_id=tool['id']) }}">
-                <h3 class="card-title text-center text-dark">{{ tool['name'] }}</h3>
-            </a>
-            <p class="card-text">
-                {{ tool['description']|truncate(100) }}
-            </p>
-            {% if current_user.is_authenticated %}
-            <a href="{{ url_for('tool.edit_tool', tool_id=tool['id']) }}">
-                <span class="badge bg-dark">Edit</span>
-            </a>
-            {% endif %}
+    <div class="border-b-2 border-black grid gap-8 lg:grid-cols-[52rem,30rem]  content-start">
+        <div class="mx-2 lg:ml-[13rem] text my-8 meta max-w-[30rem]">
+            {{ text|safe }}
         </div>
     </div>
+
+    <div class="flex gap-4 items-center min-h-[2rem] mb-8 mb-8 border-b-2 border-black ">
+        {{ view_switch() }}
     </div>
-{% endfor %}
+
+
+    {% if view == 'list' %}
+        {% for resource in resources %}
+            {{ resource_list(resource, loop, false) }}
+        {% endfor %}
+    {% else %}
+        {% for resource in resources %}
+            {{ resource_with_related(resource, loop, false) }}
+        {% endfor %}
+    {% endif %}
+
 </div>
 {% endblock %}

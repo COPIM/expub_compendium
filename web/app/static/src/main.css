@@ -1,0 +1,395 @@
+@tailwind base;
+
+@tailwind components;
+@tailwind utilities;
+
+
+
+@font-face {
+    font-family: 'ag';
+    src: url('ApfelGrotezk-Regular.woff') format("woff");
+}
+
+@font-face {
+    font-family: 'ag-brukt';
+    src: url('ApfelGrotezk-Brukt.woff') format("woff");
+}
+
+@font-face {
+    font-family: 'ag-fett';
+    src: url('ApfelGrotezk-Fett.woff') format("woff");
+}
+
+@font-face {
+    font-family: 'dauphine';
+    src: url('Dauphine-Regular.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: 'dauphine';
+    src: url('Dauphine-Italic.ttf') format("truetype");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'robo';
+    src: url('roboto-regular.ttf') format("truetype");
+}
+
+@font-face {
+    font-family: 'robo';
+    src: url('roboto-italic.ttf') format("truetype");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'cirrus';
+    src: url('CirrusCumulus.woff') format("woff");
+}
+
+body {
+    font-family: 'dauphine';
+}
+
+strong {
+    font-family: 'ag-fett';
+}
+b,strong {
+    font-weight: normal !important;
+}
+
+select {
+    @apply p-1;
+}
+
+
+.book {
+    font-family: 'ag-fett', 'Arial Black';
+}
+
+.tool {
+    font-family: 'robo';
+}
+.practice {
+    font-family: 'cirrus';
+}
+
+.std-margin {
+    @apply p-2;
+}
+
+.cell {
+    @apply min-w-[14rem];
+    @apply overflow-hidden;
+}
+.cell.size-1 {
+    @apply min-w-[30rem];
+}
+
+
+.related {
+    @apply w-[6rem] lg:w-[12rem] lg:pl-[4rem] px-2 py-4 lg:p-5 text-right;
+}
+
+.cell-margin {
+    @apply p-4;
+}
+
+.block-margin {
+    @apply mb-8;
+}
+
+.std-padding {
+    @apply p-2;
+}
+.std-padding-x {
+    @apply px-2;
+}
+
+.std-grid {
+    @apply grid md:grid-cols-2 lg:grid-cols-3;
+}
+
+.cell {
+    @apply cell-margin relative;
+}
+
+
+.cell::before {
+    content: '';
+    position: absolute;
+    
+    top: 10px;
+    right: 0px;
+    width: 2px;
+    height: calc(100% - 20px);
+    background-color: black;
+}
+
+.cell::after {
+    content: '';
+    position: absolute;
+    
+    bottom: 0px;
+    left: 8px;
+    width: calc(100% - 20px);
+    height: 2px;
+    background-color: black;
+}
+
+.slash {
+    position: relative;
+}
+
+.slash::after {
+    content: '';
+    position: absolute;
+
+    bottom: 0px;
+    left: 8px;
+    width: calc(100% - 20px);
+    height: 3px;
+    background-color: black;
+    transform-origin: 100% 100%; 
+    transform: rotate(45deg);
+}
+
+/* .meta {
+    transform: rotate(-3.5deg);
+} */
+
+.facts {
+    @apply grid lg:grid-cols-2 gap-4;
+}
+
+.facts h3 {
+}
+
+.facts > * {
+    @apply max-w-[65ch];
+}
+
+a:hover {
+    @apply opacity-90;
+}
+a.link:hover {
+    @apply opacity-100;
+}
+
+
+h2,h3 {
+    hyphens: auto;
+}
+
+h3 {
+    font-family: 'ag-fett';
+}
+
+.huge-title {
+    @apply text-4xl lg:text-5xl;
+}
+.big-title {
+    @apply text-3xl lg:text-4xl;
+}
+.medium-title {
+    @apply text-2xl lg:text-3xl;
+}
+.small-title {
+    @apply text-xl lg:text-2xl;
+}
+.big-text {
+    @apply text-xl ;
+}
+.small-text {
+    @apply text-base;
+}
+
+.indent {
+    @apply mx-4 my-4;
+}
+
+.text > h3 {
+    @apply ml-6 mt-8 ;
+}
+
+h2 + *,
+h3 + * {
+    /* @apply ml-6 mt-1; */
+}
+
+
+p + p {
+    @apply mt-[1em];
+}
+
+.loading {
+    
+}
+
+/* .loading .bg-white {
+    @apply bg-white/90;
+    opacity: 0;
+    transform: opacity 0.2s;
+}
+
+.htmx-request .bg-white {
+    opacity: 1;
+} */
+
+.loading .bg {
+    opacity: 0;
+    background-image: linear-gradient(to top, rgb(103, 48, 255,0.8), rgb(255, 255, 255, 0),rgb(255, 255, 255, 0));
+    
+}
+
+.htmx-request .loading .bg {
+    transition: opacity 4000ms ease;
+    /* transition: opacity 4000ms cubic-bezier(.16, .01, .31, .99); */
+    opacity: 1;
+
+}
+
+.loading .spinner .inner {
+    opacity:0;   
+    transition: opacity 0.4s ease;
+    width:min-content;
+    height:min-content;
+    /* height:200px; */
+}
+.htmx-request .loading .spinner .inner {
+    opacity:1;   
+}
+
+
+#modal-content main {
+    opacity: 1;
+}
+.htmx-request #modal-content main {
+    /* transition: opacity 0.2s ease; */
+    opacity: 0;
+}
+
+.htmx-request .loading {
+    opacity: 1;
+}
+
+#modal-content {
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 4rem rgba(103, 48, 255, 0.8)
+}
+
+.htmx-request #modal-content {
+    box-shadow: 0 0 4rem rgba(103, 48, 255, 0.0)
+}
+
+.active {
+    @apply bg-expurple text-white;
+    /* background-image: linear-gradient(to top, purple, transparent) ; */
+}
+
+.link:hover path,
+.active path {
+    stroke: white;
+}
+
+.link:hover rect,
+.active rect {
+    fill: white;
+}
+
+
+.link:hover {
+    @apply bg-expurple text-white; 
+}
+
+details[open]::details-content {
+    display: contents;
+}
+
+.text a {
+    /* font-family: 'ag-fett'; */
+    text-decoration: underline;
+}
+
+#resources.expanded .filter-header::before {
+    content:'- ';
+}
+#resources .filter-header::before {
+    content:'+ ';
+}
+
+.fade-right {
+    @apply relative;
+}
+
+.fade-right::after {
+    @apply absolute top-0 right-0 w-16 lg:w-40 h-full pointer-events-none;
+
+    content: '';
+    background-image: linear-gradient(to left,#fff 0%, #fff 5%, rgba(255,255,255,0) 100%);
+
+}
+
+.menuitem {
+    @apply px-4 py-2 link items-center;
+}
+
+
+ /* The switch - the box around the slider */
+ .switch {
+     position: relative;
+     display: inline-block;
+     width: 60px;
+     height: 34px;
+ }
+
+ /* Hide default HTML checkbox */
+ .switch input {
+     opacity: 0;
+     width: 0;
+     height: 0;
+ }
+
+ /* The slider */
+ .slider {
+     position: absolute;
+     cursor: pointer;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: #000000;
+     transition: .4s;
+ }
+
+ .slider:before {
+     position: absolute;
+     content: "";
+     height: 26px;
+     width: 26px;
+     left: 4px;
+     bottom: 4px;
+     background-color: white;
+     transition: .4s;
+ }
+
+ input:checked+.slider {
+     background-color: #000000;
+ }
+
+ input:focus+.slider {
+     box-shadow: 0 0 1px #000000;
+ }
+
+ input:checked+.slider:before {
+     transform: translateX(26px);
+ }
+
+ /* Rounded sliders */
+ .slider.round {
+     border-radius: 34px;
+ }
+
+ .slider.round:before {
+     border-radius: 50%;
+ }

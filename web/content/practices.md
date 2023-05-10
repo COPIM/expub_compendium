@@ -1,0 +1,1 @@
+Sorting the compendium by practice (annotating, collaborative writing, forking, remixing, reviewing, translating, versioning) provides inspiration on how-to make experimental books.  

@@ -2,212 +2,130 @@
 
 {% block content %}
 
-    <div class="row">
-        <div class="col">
-           <h1 class="text-center">{% block title %} {{ resource['name'] }} {% endblock %}</h1>
-        </div>
-    </div>
-    {% if current_user.is_authenticated %}
-      {% if resource['type'] == 'tool' %}
-      <div class="row text-center py-3">
-          <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
-              <span class="badge bg-dark">Edit</span>
-          </a>
-      </div>
-      {% elif resource['type'] == 'practice' %}
-      <div class="row text-center py-3">
-          <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
-              <span class="badge bg-dark">Edit</span>
-          </a>
-      </div>
-      {% endif %}
-    {% endif %}
-    <div class="row">
-        <div class="col">
-            <table class="table table-hover">
-                <tbody>
-                    <tr>
-                        <th>
-                            Created:
-                        </th>
-                        <td>
-                            {{ resource['created'].strftime("%Y-%m-%d %H:%M") }} UTC
-                        </td>
-                    </tr>
-                    {% if resource['description'] %}
-                    <tr>
-                        <th>
-                            Description:
-                        </th>
-                        <td>
-                            {{ resource['description'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    <!-- fields for tools -->
-                    {% if resource['developer'] %}
-                    <tr>
-                        <th>
-                            Developer
-                        </th>
-                        <td>
-                            {% if resource['developerUrl'] %}
-                              <a href="{{ resource['developerUrl'] }}">{{ resource['developer'] }}</a>
-                            {% else %}
-                              {{ resource['developer'] }}
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['license'] %}
-                    <tr>
-                        <th>
-                            Software license:
-                        </th>
-                        <td>
-                            {{ resource['license'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['scriptingLanguage'] %}
-                    <tr>
-                        <th>
-                            Software language(s):
-                        </th>
-                        <td>
-                            {{ resource['scriptingLanguage'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['projectUrl'] %}
-                    <tr>
-                        <th>
-                            Project page:
-                        </th>
-                        <td>
-                            <a href="{{ resource['projectUrl'] }}">{{ resource['projectUrl'] }}</a>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['repositoryUrl'] %}
-                    <tr>
-                        <th>
-                            Code repository:
-                        </th>
-                        <td>
-                            <a href="{{ resource['repositoryUrl'] }}">{{ resource['repositoryUrl'] }}</a>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['ingestFormats'] %}
-                    <tr>
-                        <th>
-                            Import / ingest formats:
-                        </th>
-                        <td>
-                            {{ resource['ingestFormats'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['outputFormats'] %}
-                    <tr>
-                        <th>
-                            Output formats:
-                        </th>
-                        <td>
-                            {{ resource['outputFormats'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['status'] %}
-                    <tr>
-                        <th>
-                            Platform status:
-                        </th>
-                        <td>
-                            {{ resource['status'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    <!-- fields for practices -->
-                    {% if resource['longDescription'] %}
-                    <tr>
-                        <th>
-                            Full description
-                        </th>
-                        <td>
-                            {{ resource['longDescription']|safe }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['experimental'] %}
-                    <tr>
-                        <th>
-                            Experimental uses
-                        </th>
-                        <td>
-                            {{ resource['experimental']|safe }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['considerations'] %}
-                    <tr>
-                        <th>
-                            Considerations
-                        </th>
-                        <td>
-                            <p style="white-space: pre-line">{{ resource['considerations']|safe }}</p>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['references'] %}
-                    <tr>
-                        <th>
-                            References:
-                        </th>
-                        <td>
-                            <p style="white-space: pre-line">{{ resource['references']|safe }}</p>
-                        </td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% if relationships %}
-    <div class="row">
-        <div class="col">
-            <h2 class="text-center">Linked resources:</h2>
-        </div>
-    </div>
-    <div class="row">
-    {% for relationship in relationships %}
-        <div class="col-md-4 col-sm-6 py-3">
-        {% if relationship['type'] == 'tool' %}
-        <div class="card text-dark bg-tool mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('tool.show_tool', tool_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
+
+
+<div class="cell-margin grid mt-16 lg:grid-cols-2">
+    <div class="left ">
+        <div class="mb-4 capitalize">{{ resource['type'] }}</div>
+        <div class="lg:border-r-2 lg:border-black lg:pr-8">
+            <h2 class="block-margin huge-title {{ resource['type'] }}">
+                {% block title %} 
+                {% autoescape false %}
+                    {{ resource['name'] | replace(" ","<br>") }} 
+                {% endautoescape %}
+                {% endblock %}
+            </h2>
+        
+            {% if current_user.is_authenticated %}
+                {% if resource['type'] == 'tool' %}
+                <div class="row text-center py-3">
+                    <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
+                        <span class="">Edit</span>
+                    </a>
+                </div>
+                {% elif resource['type'] == 'practice' %}
+                <div class="row text-center py-3">
+                    <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
+                        <span class="">Edit</span>
+                    </a>
+                </div>
+                {% endif %}
+            {% endif %}
+            <div class="facts">
+                {% if resource['description'] %}
+                <div class="">
+                    <h3>Description</h3>
+                    {{ resource['description'] }}
+                </div>
+                {% endif %}
+                <!-- fields for tools -->
+                {% if resource['developer'] %}
+                    <div class="">
+                        <h3>Developer</h3>
+                        {% if resource['developerUrl'] %}
+                            <a href="{{ resource['developerUrl'] }}">{{ resource['developer'] }}</a>
+                        {% else %}
+                            {{ resource['developer'] }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if resource['license'] %}
+                    <div class="">
+                        <h3>Software license</h3>
+                        {{ resource['license'] }}
+                    </div>
+                {% endif %}
+                {% if resource['scriptingLanguage'] %}
+                    <div class="">
+                        <h3>Software language(s)</h3>
+                        {{ resource['scriptingLanguage'] }}
+                    </div>
+                {% endif %}
+                {% if resource['projectUrl'] %}
+                    <div class="">
+                        <h3>Project page</h3>
+                        <a href="{{ resource['projectUrl'] }}">{{ resource['projectUrl'] }}</a>
+                    </div>
+                {% endif %}
+                {% if resource['repositoryUrl'] %}
+                    <div class="">
+                        <h3>Code repository</h3>
+                        <a href="{{ resource['repositoryUrl'] }}">{{ resource['repositoryUrl'] }}</a>
+                    </div>
+                {% endif %}
+                {% if resource['ingestFormats'] %}
+                    <div class="">
+                        <h3>Import / ingest formats</h3>
+                        {{ resource['ingestFormats'] }}
+                    </div>
+                {% endif %}
+                {% if resource['outputFormats'] %}
+                    <div class="">
+                        <h3>Output formats</h3>
+                        {{ resource['outputFormats'] }}
+                    </div>
+                {% endif %}
+                {% if resource['status'] %}
+                    <div class="">
+                        <h3>Platform status</h3>
+                        {{ resource['status'] }}
+                    </div>
+                {% endif %}
+                <!-- fields for practices -->
+                {% if resource['longDescription'] %}
+                    <div class="col-span-2">
+                        <h3>Full description</h3>
+                        {{ resource['longDescription']|safe }}
+                    </div>
+                {% endif %}
+                {% if resource['experimental'] %}
+                    <div class="col-span-2">
+                        <h3>Experimental uses</h3>
+                        {{ resource['experimental']|safe }}
+                    </div>
+                {% endif %}
+                {% if resource['considerations'] %}
+                    <div class="col-span-2">
+                        <h3>Considerations</h3>
+                        <p>{{ resource['considerations']|safe }}</p>
+                    </div>
+                {% endif %}
+                {% if resource['references'] %}
+                    <div class="col-span-2">
+                        <h3> Further reading </h3>
+                        <p>{{ resource['references']|safe }}</p>
+                    </div>
+                {% endif %}
             </div>
+            
         </div>
-        {% elif relationship['type'] == 'practice' %}
-        <div class="card text-dark bg-practice mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('practice.show_practice', practice_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
-            </div>
-        </div>
-        {% endif %}
-        </div>
-    {% endfor %}
     </div>
-    {% endif %}
+    
+    <div class="right p-4 pr-8 lg:p-0 ">
+        <div class="grid lg:grid-cols-2">
+            {{ relationships_links(resource) }}
+        </div>
+    </div>
+</div>
+    
 {% endblock %}

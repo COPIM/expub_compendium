@@ -12,40 +12,57 @@ from .models import Resource
 from .resources import *
 from .relationships import *
 from . import db
-from sqlalchemy import text
 import os
+from sqlalchemy.sql import func
+import markdown
 
 book = Blueprint('book', __name__)
 
 # route for displaying all books in database
 @book.route('/books')
 def get_books():
-    type = 'book'
-    books = Resource.query.filter_by(type=type)
+    # get introductory paragraph Markdown
+    with open('content/books.md', 'r') as f:
+        intro_text = f.read()
+        intro_text = markdown.markdown(intro_text)
+    view = request.args.get('view')
+    resource_type = 'book'
+    books_query = Resource.query.filter_by(type=resource_type).order_by(func.random())
     for key in request.args.keys():
-        if key == 'practice':
-            query = 'SELECT Resource.* FROM Resource LEFT JOIN Relationship ON Resource.id=Relationship.first_resource_id WHERE Relationship.second_resource_id=' + request.args.get(key) + ' AND Resource.type="' + type + '";'
-            with db.engine.connect() as conn:
-                books = conn.execute(text(query))
-        else:
-            kwargs = {'type': type, key: request.args.get(key)}
-            books = Resource.query.filter_by(**kwargs)
-    # get filters
+        if key != 'view':
+            if (key == 'practice' and request.args.get(key) != ''):
+                books_1 = books_query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Relationship.second_resource_id==request.args.get(key))
+                books_2 = books_query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Relationship.first_resource_id==request.args.get(key))
+                books_query = books_1.union(books_2)
+            if (key != 'practice' and request.args.get(key) != ''):
+                kwargs = {key: request.args.get(key)}
+                books_query = books_query.filter_by(**kwargs)
+    # finalise the query
+    books = books_query.all()
+    # get number of books
+    count = len(books)
+    # reorder books by book name
+    books = sorted(books, key=lambda d: d.__dict__['name'].lower()) 
+    # render Markdown as HTML
+    for book in books:
+        book.description = markdown.markdown(book.description)
+    if view != 'list':
+        # append relationships to each book
+        append_relationships_multiple(books)
+    # get values for filters
     # practices 
-    practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name)
+    practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name).all()
     # year
-    year_filter = get_filter_values('year', type)
+    year_filter = get_filter_values('year', resource_type)
     # typology
-    typology_filter = get_filter_values('typology', type)
-    return render_template('resources.html', resources=books, type=type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter)
+    typology_filter = get_filter_values('typology', resource_type)
+    return render_template('resources.html', resources=books, type=resource_type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter, count=count, view=view, intro_text=intro_text)
 
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')
 def show_book(book_id):
-    book = get_resource(book_id)
-    relationships = get_relationships(book_id)
-    book_data = get_book_data(book.isbn)
-    return render_template('book.html', resource=book, relationships=relationships, book=book_data)
+    book = get_full_resource(book_id)
+    return render_template('book.html', resource=book)
 
 # route for editing a single book based on the ID in the database
 @book.route('/books/<int:book_id>/edit', methods=('GET', 'POST'))

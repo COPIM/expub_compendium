@@ -13,22 +13,53 @@ from .resources import *
 from .relationships import *
 from . import db
 import os
+import markdown
+from sqlalchemy.sql import func
+from sqlalchemy import or_
 
 practice = Blueprint('practice', __name__)
 
 # route for displaying all practices in database
 @practice.route('/practices')
 def get_practices():
-    practices = Resource.query.filter_by(type='practice')
-    return render_template('resources.html', resources=practices, type='practice')
+    # get introductory paragraph Markdown
+    with open('content/practices.md', 'r') as f:
+        intro_text = f.read()
+        intro_text = markdown.markdown(intro_text)
+    view = request.args.get('view')
+    practices = Resource.query.filter_by(type='practice').order_by(func.random())
+    # temporarily removing incomplete practices from main list
+    practices = Resource.query.filter(
+        or_(
+            Resource.id==53,
+            Resource.id==56,
+            Resource.id==59,
+            Resource.id==62,
+            Resource.id==63,
+            Resource.id==65,
+            Resource.id==66
+        ))
+    # finalise the query
+    practices = practices.all()
+    # get number of practices
+    count = len(practices)
+    # reorder practices by practice name
+    practices = sorted(practices, key=lambda d: d.__dict__['name'].lower()) 
+    if view != 'list':
+        # append relationships to each practice
+        append_relationships_multiple(practices)
+    return render_template('resources.html', resources=practices, type='practice', count=count, view=view, intro_text=intro_text)
 
 # route for displaying a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
-    practice = get_resource(practice_id)
-    relationships = get_relationships(practice_id)
-    practice.references = replace_urls(practice.references)
-    return render_template('resource.html', resource=practice, relationships=relationships)
+    practice = get_full_resource(practice_id)
+    # render Markdown as HTML
+    practice.longDescription = markdown.markdown(practice.longDescription)
+    practice.experimental = markdown.markdown(practice.experimental)
+    practice.considerations = markdown.markdown(practice.considerations)
+    practice.references = markdown.markdown(practice.references)
+    return render_template('resource.html', resource=practice)
 
 # route for editing a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>/edit', methods=('GET', 'POST'))

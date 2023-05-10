@@ -12,119 +12,459 @@
 # Boostrap select: https://stackoverflow.com/questions/67942546/bootstrap-5-select-dropdown-with-the-multiple-attribute-collapsed
 -->
 
+{% macro view_switch() %}
+
+    <div class="flex">
+        <a
+            href="{{ url_for(request.endpoint) }}?view=regular{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+            class="block link flex p-3 gap-2 {% if view != 'list' %} active {% endif %}"
+        >
+    
+            <div class="w-5 h-5 inline-block">
+                <svg width="100%" height="100%" viewBox="0 0 46 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="21" height="36" fill="black" />
+                    <rect x="27" width="19" height="14" fill="black" />
+                    <rect x="27" y="21" width="19" height="15" fill="black" />
+                </svg>
+    
+            </div>
+    
+            Expanded
+        </a>
+        <a
+            href="{{ url_for(request.endpoint) }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+            class="block link flex p-3 gap-2 {% if view == 'list' %} active {% endif %}"
+        >
+            <div class="w-5 h-5  inline-block ">
+                <svg width="100%" height="100%" viewBox="0 0 38 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 2H38" stroke="black" stroke-width="2.5" />
+                    <path d="M0 13H38" stroke="black" stroke-width="2.5" />
+                    <path d="M0 24H38" stroke="black" stroke-width="2.5" />
+                    <path d="M0 35H38" stroke="black" stroke-width="2.5" />
+                </svg>
+    
+            </div>
+    
+            List
+        </a>
+    </div>
+
+{% endmacro %}
+
+{% macro menu(type) %}
+    <a 
+        class="block menuitem  w-48 " 
+        href="{{ url_for('main.index') }}{% if view == 'list' %}?view=list{% endif %}"
+        @click="menuOpen = false"
+    ><span>Experimental Publishing Compendium <span class="ml-3  inline-block -rotate-12 italic text-[#f52d2d]" style="text-shadow: 0 0 0.4rem white">beta</span></span>
+    </a>
+
+    <a href="{{ url_for('tool.get_tools') }}{% if view == 'list' %}?view=list{% endif %}"
+        class="{{ 'active' if request.path == url_for('tool.get_tools') }} menuitem tool medium-title  {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
+        @click="menuOpen = false"
+        >
+        Tools
+        
+    </a>
+
+    <a href="{{ url_for('practice.get_practices') }}{% if view == 'list' %}?view=list{% endif %}"
+        class="{{ 'active' if request.path == url_for('practice.get_practices') }} menuitem practice medium-title   {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
+        @click="menuOpen = false"
+        >
+        Practices
+        
+    </a>
+
+    <a href="{{ url_for('book.get_books') }}{% if view == 'list' %}?view=list{% endif %}"
+        class="{{ 'active' if request.path == url_for('book.get_books') }} menuitem medium-title book block   {% if type=='top' %} hidden lg:block {% else %} block {% endif %} "
+        @click="menuOpen = false"
+        >
+        Books
+        
+    </a>
+
+    <a href="{{ url_for('main.about') }}{% if view == 'list' %}?view=list{% endif %}"
+        class="{{ 'active' if request.path == url_for('main.about') }} menuitem mr-auto    {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
+        @click="menuOpen = false"
+        >
+        About / <br> Contact
+        
+    </a>
+
+    <!-- <div class="ml-auto mr-2">
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('create.create_resource') }}" class="block link">
+            Add resource
+        </a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.profile') }}" class="block link">
+            Profile
+        </a>
+        {% endif %}
+        {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('auth.login') }}" class="block link">
+            Login
+        </a>
+        <a href="{{ url_for('auth.signup') }}" class="block link">
+            Sign Up
+        </a>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('auth.logout') }}" class="block link">
+            Logout
+        </a>
+        {% endif %}
+    </div> -->
+
+    <form action="{{ url_for('search.basic_search') }}" class="hidden lg:block">
+        <label id="search-label" for="siteSearch" class="sr-only">Search</label>
+        <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1" aria-labelledby="search-label"
+            placeholder="Search">
+        <input class="hidden" type="submit" value="Enter search" hidden />
+    </form>
+{% endmacro %}
+
+{% macro relationships_links(resource) %}
+
+    {% if resource.tools %}
+    <div class="">
+        <div class="px-4 mt-16 lg:mt-0">
+            Tools
+        </div>
+        {% for tool in resource.tools %}
+        <div class="cell">
+            {{ resource_lead(tool,size=2) }}
+        </div>
+        {% endfor %}
+    
+    </div>
+    {% endif %}
+    {% if resource.books %}
+    <div class="">
+        <div class="px-4 mt-16 lg:mt-0">
+            Books
+        </div>
+    
+        {% for book in resource.books %}
+        <div class="cell">
+            {{ resource_lead(book,size=2) }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if resource.practices %}
+    <div class="">
+        <div class="px-4 mt-16 lg:mt-0">
+            Practices
+        </div>
+    
+        {% for practice in resource.practices %}
+        <div class="cell">
+            {{ resource_lead(practice,size=2) }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+{% endmacro %}
+
+{% macro resource_list(resource, loop, show_number=true) %}
+<div class="border-b-2 border-black">
+    <a class="flex gap-4 h-full py-1 hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}" {% if
+        resource['type']=='book' %} href="{{ url_for('book.show_book', book_id=resource['id']) }}" {% endif %} {% if
+        resource['type']=='tool' %} href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" {% endif %} {% if
+        resource['type']=='practice' %} href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" {% endif
+        %} hx-target="#modal-content" hx-select="main" hx-swap="innerHTML" @click="openModal()">
+
+        <div class="w-[4rem] shrink-0 lg:w-[12rem] text-center ">
+            {% if show_number %}
+            {{loop.index}} / {{count}}
+            {% else %}
+            <div class="capitalize inline-block min-w-[5rem] px-4 ">{{ resource['type'] }}</div>
+            {% endif %}
+        </div>
+
+
+        <div>
+            <span class="{{ resource.type }}">
+                {{ resource.name }}
+            </span>
+            {% if resource['year'] %}
+                {{ resource['year'] }}{% if resource['author'] %}, {{ resource['author'] }}{% endif%}
+            {% endif %}
+        </div>
+    </a>
+</div>
+{% endmacro %}
+
+{% macro resource_with_related(resource, loop, show_number=true) %}
+    <div class="w-full  border-b-2 border-black fade-right">
+        <div class="content w-full py-8   overflow-x-auto">
+            <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col w-fit pr-40 " >
+                <div class="w-[4rem] shrink-0 lg:w-[12rem] text-center px-2 py-4 ">
+                    {% if show_number %}
+                    <p>{{loop.index}} / {{count}}</p>
+                    {% else %}
+                    <p class="capitalize">{{ resource['type'] }}</p>
+                    {% endif %}
+                </div>
+                <div class="cell w-[20rem] lg:w-[32rem] row-start-1 lg:row-span-3">
+                    {{ resource_lead(resource) }}
+                </div>
+    
+                {% if resource.tools %}
+                <div class="grid lg:grid-rows-1 grid-flow-col w-fit h-fit">
+                    <div class="related">
+                        Related<br>Tools
+                    </div>
+                    {% for tool in resource.tools %}
+                    <div class="cell w-[20rem] lg:w-[30rem]">
+                        {{ resource_lead(tool,size=2) }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+    
+                {% if resource.books %}
+                <div class="grid grid-rows-1 grid-flow-col w-fit h-fit">
+                    <div class="related">
+                        Related<br>Books
+                    </div>
+                    {% for book in resource.books %}
+                    <div class="cell w-[20] lg:w-[35rem]">
+                        {{ resource_lead(book,size=2) }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
+                {% if resource.practices %}
+                <div class="grid grid-rows-1 grid-flow-col w-fit h-fit">
+                    <div class="related">
+                        Related<br>Practices
+                    </div>
+                    {% for practice in resource.practices %}
+                    <div class="cell w-[20rem] lg:w-[25rem]">
+                        {{ resource_lead(practice,size=2) }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+    
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro popup_link(title,url) %}
+    <a href="{{ url }}" class="nav-link">
+        {{ title }}
+    </a>
+{% endmacro %}
+
+{% macro resource_lead(resource,size=1) %}
+        <a
+            class="block h-full hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}"
+
+            {% if resource['type'] == 'book' %}
+            href="{{ url_for('book.show_book', book_id=resource['id']) }}" 
+            {% endif %}
+            {% if resource['type'] == 'tool' %}
+            href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" 
+            {% endif %}
+            {% if resource['type'] == 'practice' %}
+            href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" 
+            {% endif %}
+            
+            hx-target="#modal-content" 
+            hx-select="main" 
+            hx-swap="innerHTML" 
+
+            @click="openModal()"
+            
+        >
+
+            {% if (resource.type == 'book') and (resource.references) %}
+                <img class="w-20 h-20 object-contain float-right m-4 grayscale rotate-[15deg]" src="{{resource.references}}" alt="cover for {{ resource.name }}">
+            {% endif %}
+            
+            <h2 class="{{ resource['type'] }} {% if size==1 %} big-title {% else %} small-title {% endif %} mb-2">{{ resource['name'] }}</h2>
+            
+            {% if resource['year'] %}
+                <div class="text-sm">
+                    {{ resource['year'] }}{% if resource['author'] %}, {{ resource['author'] }}{% endif%}
+                </div>
+            {% endif %}
+
+            <div class="{% if size==1 %} big-text {% else %} small-text {% endif %} mb-[1em]">
+                {{ resource['description'] | truncate(150) | safe }}
+            </div>
+
+        </a>
+        {% if current_user.is_authenticated %}
+            <div class="">
+                {% if resource['type'] == 'tool' %}
+                <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
+                    <span class="absolute top-0 left-0 text-xs">Edit</span>
+                </a>
+                {% elif resource['type'] == 'practice' %}
+                <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
+                    <span class="absolute top-0 left-0 text-xs">Edit</span>
+                </a>
+                {% elif resource['type'] == 'book' %}
+                <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
+                    <span class="absolute top-0 left-0 text-xs">Edit</span>
+                </a>
+                {% endif %}
+            </div>
+        {% endif %}
+{% endmacro %}
+
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     {{ moment.include_moment() }}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ExPub Compendium</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="{{ url_for('static',filename='styles/custom.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <title>Experimental Publishing Compendium</title>
+    <script src="{{ url_for('static',filename='js/alpine.min.js') }}" defer></script>
+    <script src="{{ url_for('static',filename='js/htmx.min.js') }}"></script>
+    <link href="{{ url_for('static',filename='styles/main.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/favicon-no_bg.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static',filename='images/favicon-no_bg.png') }}" type="image/x-icon">
+    <script>
+        // htmx.on('htmx:beforeRequest', e=> {
+        //     console.log(e)
+        // })
+        // htmx.logAll()
+
+        function base() {
+            return {
+                menuOpen: false,
+                modalOpen: false,
+                showRelated: false,
+                home: '/',
+
+                hideIfBase() {
+                    let str = document.location.toString();
+                    str = str.replace('http://', '');
+                    str = str.replace('https://', '');
+                    let l = str.split('/').length - 1;
+                    if (l < 2) {
+                        this.modalOpen = false;
+                    }
+                    return l;
+                },
+                init() {
+                    this.$watch('document.location', (value, oldValue) => {
+                        console.log('new url', value);
+                    });
+                    window.addEventListener('popstate', e => {
+                        this.hideIfBase();
+                    });
+                },
+                hideOverlay() {
+                    this.modalOpen = false;
+
+                    // window.history.pushState({}, '', this.home);
+                },
+                openModal() {
+                    // this.$refs.modal.innerHTML = '';
+                    this.modalOpen = true;
+                    let mc = document.querySelector('#modal-content');
+                    mc.scrollTo(0, 0);
+                }
+            }
+        }
+    </script>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
 
-    <header>
-      <!-- Fixed navbar -->
-      <nav class="navbar navbar-expand-md navbar-light sticky-top">
-          <a class="navbar-brand" href="{{ url_for('main.index')}}">ExPub Compendium</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                  <a href="{{ url_for('main.about') }}" class="nav-link">
-                      About
-                  </a>
-              </li>
-            <li class="nav-item">
-                <a href="{{ url_for('tool.get_tools') }}" class="nav-link">
-                    Tools
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url_for('practice.get_practices') }}" class="nav-link">
-                    Practices
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url_for('book.get_books') }}" class="nav-link">
-                    Books
-                </a>
-            </li>
-            {% if current_user.is_authenticated %}
-            <li class="nav-item">
-                <a href="{{ url_for('create.create_resource') }}" class="nav-link">
-                    Add resource
-                </a>
-            </li>
-            {% endif %}
-            {% if current_user.is_authenticated %}
-            <li class="nav-item">
-                <a href="{{ url_for('main.profile') }}" class="nav-link">
-                    Profile
-                </a>
-            </li>
-            {% endif %}
-            {% if not current_user.is_authenticated %}
-            <li class="nav-item">
-                <a href="{{ url_for('auth.login') }}" class="nav-link">
-                    Login
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ url_for('auth.signup') }}" class="nav-link">
-                    Sign Up
-                </a>
-            </li>
-            {% endif %}
-            {% if current_user.is_authenticated %}
-            <li class="nav-item">
-                <a href="{{ url_for('auth.logout') }}" class="nav-link">
-                    Logout
-                </a>
-            </li>
-            {% endif %}
-            </ul>
-          </div>
-    </nav>
-    </header>
+<body 
+    class="text-base overflow-y-scroll" 
+    x-data="base()" 
+    
+    hx-boost="true"
+    hx-select="#all"
+    hx-target="#all"
+    hx-swap="outerHTML"
+    hx-indicator="body"
+>
+    <div id="loading" class="loading pointer-events-none ">
+        <!-- <div class="bg-white fixed top-0 left-0 w-full h-screen z-20"></div> -->
+        <div class="bg fixed top-0 left-0 w-full h-screen z-30"></div>
+        <div class="spinner fixed top-0 left-0 w-full h-screen z-[60] flex justify-center items-center">
+            <div class="inner bg-black rounded-full px-8 py-6 text-white text-center">
+                Loading...
+            </div>
+        </div>
+    </div>
 
-    <!-- Begin page content -->
-    <main class="flex-shrink-0">
-      <div class="layer-bg w-100">
-        <img class="img-fluid w-100" src="{{ url_for('static',filename='images/dots-bg.png') }}" alt="bg-shape">
-      </div>
-      <div class="container-fluid">
-          {% with messages = get_flashed_messages() %}
-          {% if messages %}
-              <div class="alert alert-danger">
-                  {{ messages[0] }}
-              </div>
-          {% endif %}
-          {% endwith %}
-          {% block content %}
-          {% endblock %}
-      </div>
-    </main>
+    <div id="all">
+        <header class="sticky top-0 z-10 bg-white  border-b-[2px] border-black flex justify-between w-full">
+            <nav class=" lg:flex justify-center items-stretch w-full ">
+                
+                {{ menu('top') }}
+                
+            </nav>
+            <div class="burger h-14 cursor-pointer block lg:hidden p-4" @click="menuOpen = true">
+                <svg width="100%" height="100%" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 4H19" stroke="black" stroke-width="1.5" />
+                    <path d="M19 9H1" stroke="black" stroke-width="1.5" />
+                    <path d="M1 14H19" stroke="black" stroke-width="1.5" />
+                </svg>
+
+            </div>
+        </header>
+
+        <menu 
+            class="fixed top-0 right-0 z-20 p-8 bg-white w-[calc(100%-2rem)] max-w-[30rem] h-screen"
+            x-show="menuOpen"
+            style="box-shadow: 0 0 2rem rgb(0,0,0,0.2);"
+            @click.outside = "menuOpen = false"
+            >
+            {{ menu('side') }}
+        </menu>
+
+
+    
+        <!-- Begin page content -->
+        <main>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+
+    <div id="modal" x-show="modalOpen"  class="modal h-screen  w-full fixed top-0 z-50 p-4 bg overscroll-none">
+        <div class="cross cursor-pointer absolute top-10 right-10 w-10 h-10" @click="hideOverlay()">
+            <svg width="100%" height="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 2L18 18M18 2L2 18" stroke="black" stroke-width="1"></path>
+            </svg>
+        </div>
+        <div id="modal-content" @click.outside="hideOverlay()" x-ref="modal" class="content w-full overflow-y-auto h-full bg-white " >
+
+        </div>
+    </div>
 
     <!-- Sticky footer-->
-    <footer class="footer py-3 mt-auto" style="background-color: #dcddde;">
+    <footer class="std-margin mt-20 text-sm">
         <div class="container">
-            <span class="text-muted">© 2022–{{ moment().format('YYYY') }} <a href="https://copim.ac.uk/">COPIM</a> and licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.</span>
+            <span class="">© 2022–{{ moment().format('YYYY') }} <a href="https://copim.ac.uk/">COPIM</a> and licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.</span>
         </div>
     </footer>
     <!-- JavaScript -->
-    <!-- jQuery first, then Popper JS, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ url_for('static',filename='js/main.js') }}"></script>
 </body>
 

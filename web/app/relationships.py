@@ -8,6 +8,7 @@
 from .models import Resource
 from .models import Relationship
 from . import db
+import markdown
 
 # function to retrieve linked resources
 def get_relationships(primary_id):
@@ -32,6 +33,41 @@ def get_relationships(primary_id):
                 primary_id = relationship.first_resource_id
                 links.extend(Resource.query.filter_by(id=primary_id).all())
             return links
+
+# function to append relationships to a resource object
+def append_relationships(resource):
+    relationships = get_relationships(resource.id)
+    if relationships:
+        for relationship in relationships:
+            if relationship.type == 'tool':
+                if 'tools' not in resource.__dict__.keys():
+                    resource.__dict__['tools'] = []
+                    resource.__dict__['tools'].append(relationship)
+                else:
+                    resource.__dict__['tools'].append(relationship)
+            elif relationship.type == 'practice':
+                if 'practices' not in resource.__dict__.keys():
+                    resource.__dict__['practices'] = []
+                    resource.__dict__['practices'].append(relationship)
+                else:
+                    resource.__dict__['practices'].append(relationship)
+            elif relationship.type == 'book':
+                # render Markdown as HTML
+                relationship.description = markdown.markdown(relationship.description)
+                if 'books' not in resource.__dict__.keys():
+                    resource.__dict__['books'] = []
+                    resource.__dict__['books'].append(relationship)
+                else:
+                    resource.__dict__['books'].append(relationship)
+        return resource
+    else:
+        return resource
+
+# function to append relationships to a dictionary of resources
+def append_relationships_multiple(resources):
+    for index, resource in enumerate(resources):
+        resources[index] = append_relationships(resource)
+    return resources
 
 # function to add a relationship to a linked resource
 def add_relationship(resource_id, linked_resource_id):

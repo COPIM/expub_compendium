@@ -2,6 +2,12 @@
 
 {% block content %}
 
-{{ text|safe }}
+<div id="about" class="cell-margin text max-w-[65ch]">
+    {{ about_text|safe }}
+</div>
+
+<div id="colophon" class="cell-margin text">
+    {{ colophon_text | safe }}
+</div>
 
 {% endblock %}

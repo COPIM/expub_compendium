@@ -1,0 +1,22 @@
+{
+  "name": "expub",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postcss:watch": "postcss ./src/main.css --dir ./styles --watch --verbose"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.6",
+    "postcss-cli": "^9.1.0",
+    "tailwindcss": "^3.0.18"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+
+  },
+  "keywords": [],
+  "description": ""
+}

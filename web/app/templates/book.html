@@ -2,213 +2,135 @@
 
 {% block content %}
 
-    {% if book['thumbnail'] %}
-        <img class="img-fluid mx-auto d-block py-3" src={{ book['thumbnail'] }} alt="cover for {{ book['Title'] }}">
-    {% else %}
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center">{% block title %} {{ book['Title'] or resource['name'] }} {% endblock %}</h1>
-            </div>
-        </div>
-    {% endif %}
-    {% if current_user.is_authenticated %}
-      <div class="row text-center py-3">
-          <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
-              <span class="badge bg-dark">Edit</span>
-          </a>
-      </div>
-    {% endif %}
-    <div class="row">
-        <div class="col">
-            <table class="table table-hover">
-                <tbody>
-                    {% if resource['typology'] %}
-                    <tr>
-                        <th>
-                            Typology category:
-                        </th>
-                        <td>
-                            <a href="/books?typology={{ resource['typology'] }}">{{ resource['typology'] }}</a>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if resource['bookUrl'] %}
-                    <tr>
-                        <th>
-                            URL:
-                        </th>
-                        <td>
-                            <a href="{{ resource['bookUrl'] }}">{{ resource['bookUrl'] }}</a>
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% if book %}
-                        <!-- fields for books from isbntools -->
-                        {% if book['Title'] %}
-                        <tr>
-                            <th>
-                                Title:
-                            </th>
-                            <td>
-                                {{ book['Title'] }}
-                            </td>
-                        </tr>
-                        {% endif %}
-                        {% if book['Authors'] %}
-                        <tr>
-                            {% if book['Authors']|length > 1 %}
-                            <th>
-                                Authors:
-                            </th>
-                            <td>
-                                {% for author in book['Authors'] %}
-                                    {{ author }}</br>
-                                {% endfor %}
-                            </td>
-                            {% else %}
-                            <th>
-                                Author:
-                            </th>
-                            <td>
-                                {% for author in book['Authors'] %}
-                                    {{ author }}
-                                {% endfor %}
-                            </td>
-                            {% endif %}
-                        </tr>
-                        {% endif %}
-                        {% if book['ISBN-13'] %}
-                        <tr>
-                            <th>
-                                ISBN-13:
-                            </th>
-                            <td>
-                                {{ book['ISBN-13'] }}
-                            </td>
-                        </tr>
-                        {% endif %}
-                        {% if book['Year'] %}
-                        <tr>
-                            <th>
-                                Publication year:
-                            </th>
-                            <td>
-                                {{ book['Year'] }}
-                            </td>
-                        </tr>
-                        {% endif %}
-                        {% if book['Publisher'] %}
-                        <tr>
-                            <th>
-                                Publisher:
-                            </th>
-                            <td>
-                                {{ book['Publisher'] }}
-                            </td>
-                        </tr>
-                        {% endif %}
-                        {% if book['desc'] %}
-                        <tr>
-                            <th>
-                                Publisher's description:
-                            </th>
-                            <td>
-                                {{ book['desc'] }}
-                            </td>
-                        </tr>
-                        {% endif %}
+    <div class="cell-margin grid mt-16 lg:grid-cols-2">
+        
+        <div class="left">
+            <div class="mb-2">Book</div>
+            <div class="border-r-2 border-black pr-8">
+                {% if resource.references %}
+                <div class="float-right">
+                    <img class="w-40 h-40 object-contain  m-16 rotate-[15deg]" src={{ resource.references }} alt="cover for {{ resource['Title'] }}">
+                </div>
+                {% endif %}
+    
+                <h2 class="book huge-title mb-2 max-w-[30rem]">{% block title %} {{ resource.name }} {% endblock %}</h2>
+    
+                {% if resource['Year'] %}
+                {{ resource['Year'] }}
+                {% endif %}
+                {% if resource['Authors'] %}
+                <div class="">
+                    {% if resource['Authors']|length > 1 %}
+                    <div class="">
+                        {% for author in resource['Authors'] %}
+                        {{ author }}</br>
+                        {% endfor %}
+                    </div>
                     {% else %}
+                    <div>
+                        {% for author in resource['Authors'] %}
+                        {{ author }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+    
+                </div>
+                {% endif %}
+    
+    
+                <div class="">
+                    {% if current_user.is_authenticated %}
+                    <div class="">
+                        <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
+                            <span class="badge bg-dark">Edit</span>
+                        </a>
+                    </div>
+                    {% endif %}
+    
+                    <div class="facts ">
+    
+                        {% if resource['typology'] %}
+                        <div class="">
+                            <h3>Typology category</h3>
+                            <a href="/books?typology={{ resource['typology'] }}">{{ resource['typology'] }}</a>
+                        </div>
+                        {% endif %}
+                        {% if resource['bookUrl'] %}
+                        <div class="">
+                            <h3>URL</h3>
+                            <a target="_blank" href="{{ resource['bookUrl'] }}">{{ resource['bookUrl'] }}</a>
+                        </div>
+                        {% endif %}
+                        <!-- fields for books from isbntools -->
+                        {% if resource['ISBN-13'] %}
+                        <div class="">
+                            <h3>
+                                ISBN-13
+                            </h3>
+                            <div>
+                                {{ resource['ISBN-13'] }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if resource['Publisher'] %}
+                        <div class="">
+                            <h3>
+                                Publisher
+                            </h3>
+                            <div>
+                                {{ resource['Publisher'] }}
+                            </div>
+                        </div>
+                        {% endif %}
                         <!-- fields for books from database -->
                         {% if resource['name'] %}
-                        <tr>
-                            <th>
-                                Title:
-                            </th>
-                            <td>
-                                {{ resource['name'] }}
-                            </td>
-                        </tr>
+                        <!-- <div class="">
+                            <h3>Title</h3>
+                            <div class="">{{ resource['name'] }}</div>
+                        </div> -->
                         {% endif %}
                         {% if resource['author'] %}
-                        <tr>
-                            <th>
-                                Author:
-                            </th>
-                            <td>
-                                {{ resource['author'] }}
-                            </td>
-                        </tr>
+                        <div class="">
+                            <h3>Author</h3>
+                            <div class="">{{ resource['author'] }}</div>
+                        </div>
                         {% endif %}
                         {% if resource['year'] %}
-                        <tr>
-                            <th>
-                                Publication year:
-                            </th>
-                            <td>
+                        <div class="">
+                            <h3>Publication year</h3>
+                            <div>
                                 {{ resource['year'] }}
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                         {% endif %}
-                    {% endif %}
-                    {% if resource['description'] %}
-                    <tr>
-                        <th>
-                            Experimental aspects:
-                        </th>
-                        <td>
-                            {{ resource['description'] }}
-                        </td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-    {% if relationships %}
-    <div class="row">
-        <div class="col">
-            <h2 class="text-center">Linked resources:</h2>
-        </div>
-    </div>
-    <div class="row">
-    {% for relationship in relationships %}
-        <div class="col-md-4 col-sm-6 py-3">
-        {% if relationship['type'] == 'tool' %}
-        <div class="card text-dark bg-tool mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('tool.show_tool', tool_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
+                        {% if resource['desc'] %}
+                        <div class="col-span-2">
+                            <h3>Publisher's description</h3>
+                            <div class="">{{ resource['desc'] }}</div>
+                        </div>
+                        {% endif %}
+    
+                        {% if resource['description'] %}
+                        <div class="col-span-2">
+                            <h3>
+                                Experimental aspects:
+                            </h3>
+                            <div>
+                                {{ resource['description']|safe }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
-        {% elif relationship['type'] == 'practice' %}
-        <div class="card text-dark bg-practice mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('practice.show_practice', practice_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
+        <div class="right p-4 pr-8 lg:p-0">
+            <div class="grid lg:grid-cols-2">
+                {{ relationships_links(resource) }} 
             </div>
         </div>
-        {% elif relationship['type'] == 'book' %}
-        <div class="card text-dark bg-book mb-3">
-            <div class="card-body">
-                <a href="{{ url_for('book.show_book', book_id=relationship['id']) }}">
-                    <h3 class="card-title text-center text-dark">{{ relationship['name'] }}</h3>
-                </a>
-                <p class="card-text">
-                    {{ relationship['description']|truncate(100) }}
-                </p>
-            </div>
-        </div>
-        {% endif %}
-        </div>
-    {% endfor %}
+        
     </div>
-    {% endif %}
+
 {% endblock %}
+

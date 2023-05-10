@@ -6,3 +6,4 @@ database_functions_live.sh
 old_database_schema
 db_exports
 db_imports
+node_modules
