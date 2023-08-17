@@ -14,84 +14,75 @@
 
 {% macro view_switch() %}
 
-    <div class="flex">
-        <a
-            href="{{ request.base_url }}?view=regular{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
-            class="block link flex p-3 gap-2 {% if view != 'list' %} active {% endif %}"
-        >
-    
-            <div class="w-5 h-5 inline-block">
-                <svg width="100%" height="100%" viewBox="0 0 46 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="21" height="36" fill="black" />
-                    <rect x="27" width="19" height="14" fill="black" />
-                    <rect x="27" y="21" width="19" height="15" fill="black" />
-                </svg>
-    
-            </div>
-    
-            Expanded
-        </a>
-        <a
-            href="{{ request.base_url }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
-            class="block link flex p-3 gap-2 {% if view == 'list' %} active {% endif %}"
-        >
-            <div class="w-5 h-5  inline-block ">
-                <svg width="100%" height="100%" viewBox="0 0 38 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M0 2H38" stroke="black" stroke-width="2.5" />
-                    <path d="M0 13H38" stroke="black" stroke-width="2.5" />
-                    <path d="M0 24H38" stroke="black" stroke-width="2.5" />
-                    <path d="M0 35H38" stroke="black" stroke-width="2.5" />
-                </svg>
-    
-            </div>
-    
-            List
-        </a>
-    </div>
+<div class="flex">
+    <a href="{{ request.base_url }}?view=regular{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+        class="block link flex p-3 gap-2 {% if view != 'list' %} active {% endif %}">
+
+        <div class="w-5 h-5 inline-block">
+            <svg width="100%" height="100%" viewBox="0 0 46 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="21" height="36" fill="black" />
+                <rect x="27" width="19" height="14" fill="black" />
+                <rect x="27" y="21" width="19" height="15" fill="black" />
+            </svg>
+
+        </div>
+
+        Expanded
+    </a>
+    <a href="{{ request.base_url }}?view=list{% for key in request.args %}{% if key != 'view' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+        class="block link flex p-3 gap-2 {% if view == 'list' %} active {% endif %}">
+        <div class="w-5 h-5  inline-block ">
+            <svg width="100%" height="100%" viewBox="0 0 38 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 2H38" stroke="black" stroke-width="2.5" />
+                <path d="M0 13H38" stroke="black" stroke-width="2.5" />
+                <path d="M0 24H38" stroke="black" stroke-width="2.5" />
+                <path d="M0 35H38" stroke="black" stroke-width="2.5" />
+            </svg>
+
+        </div>
+
+        List
+    </a>
+</div>
 
 {% endmacro %}
 
 {% macro menu(type) %}
-    <a 
-        class="block menuitem  w-48 " 
-        href="{{ url_for('main.index') }}{% if view == 'list' %}?view=list{% endif %}"
-        @click="menuOpen = false"
-    ><span>Experimental Publishing Compendium <span class="ml-3  inline-block -rotate-12 italic text-[#f52d2d]" style="text-shadow: 0 0 0.4rem white">beta</span></span>
-    </a>
+<a class="block menuitem  w-48 " href="{{ url_for('main.index') }}{% if view == 'list' %}?view=list{% endif %}"
+    @click="menuOpen = false"><span>Experimental Publishing Compendium <span
+            class="ml-3  inline-block -rotate-12 italic text-[#f52d2d]"
+            style="text-shadow: 0 0 0.4rem white">beta</span></span>
+</a>
 
-    <a href="{{ url_for('tool.get_tools') }}{% if view == 'list' %}?view=list{% endif %}"
-        class="{{ 'active' if request.path == url_for('tool.get_tools') }} menuitem tool medium-title  {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
-        @click="menuOpen = false"
-        >
-        Tools
-        
-    </a>
+<a href="{{ url_for('tool.get_tools') }}{% if view == 'list' %}?view=list{% endif %}"
+    class="{{ 'active' if request.path == url_for('tool.get_tools') }} menuitem tool medium-title  {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
+    @click="menuOpen = false">
+    Tools
 
-    <a href="{{ url_for('practice.get_practices') }}{% if view == 'list' %}?view=list{% endif %}"
-        class="{{ 'active' if request.path == url_for('practice.get_practices') }} menuitem practice medium-title   {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
-        @click="menuOpen = false"
-        >
-        Practices
-        
-    </a>
+</a>
 
-    <a href="{{ url_for('book.get_books') }}{% if view == 'list' %}?view=list{% endif %}"
-        class="{{ 'active' if request.path == url_for('book.get_books') }} menuitem medium-title book block   {% if type=='top' %} hidden lg:block {% else %} block {% endif %} "
-        @click="menuOpen = false"
-        >
-        Books
-        
-    </a>
+<a href="{{ url_for('practice.get_practices') }}{% if view == 'list' %}?view=list{% endif %}"
+    class="{{ 'active' if request.path == url_for('practice.get_practices') }} menuitem practice medium-title   {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
+    @click="menuOpen = false">
+    Practices
 
-    <a href="{{ url_for('main.about') }}{% if view == 'list' %}?view=list{% endif %}"
-        class="{{ 'active' if request.path == url_for('main.about') }} menuitem mr-auto    {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
-        @click="menuOpen = false"
-        >
-        About / <br> Contact
-        
-    </a>
+</a>
 
-    <!-- <div class="ml-auto mr-2">
+<a href="{{ url_for('book.get_books') }}{% if view == 'list' %}?view=list{% endif %}"
+    class="{{ 'active' if request.path == url_for('book.get_books') }} menuitem medium-title book block   {% if type=='top' %} hidden lg:block {% else %} block {% endif %} "
+    @click="menuOpen = false">
+    Books
+
+</a>
+
+<a href="{{ url_for('main.about') }}{% if view == 'list' %}?view=list{% endif %}"
+    class="ml-auto {{ 'active' if request.path == url_for('main.about') }} menuitem     {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
+    @click="menuOpen = false">
+    About / <br> Contact
+
+</a>
+
+<!-- <div class="ml-auto mr-2">
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('create.create_resource') }}" class="block link">
             Add resource
@@ -117,66 +108,68 @@
         {% endif %}
     </div> -->
 
-    <form action="{{ url_for('search.basic_search') }}" class="hidden lg:block">
-        <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1"
-            placeholder="Search">
-        <input class="hidden" type="submit" hidden />
-    </form>
+<form action="{{ url_for('search.basic_search') }}" class="hidden lg:block">
+    <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1"
+        placeholder="Search" hx-get="{{ url_for('search.basic_search') }}"
+        hx-trigger="keyup changed delay:500ms, search" hx-target="main" hx-select="main">
+    <input class="hidden" type="submit" hidden />
+</form>
+
 {% endmacro %}
 
 {% macro relationships_links(resource) %}
 
-    {% if resource.tools %}
-    <div class="">
-        <div class="px-4 mt-16 lg:mt-0">
-            Tools
-        </div>
-        {% for tool in resource.tools %}
-        <div class="cell">
-            {{ resource_lead(tool,size=2) }}
-        </div>
-        {% endfor %}
-    
+{% if resource.tools %}
+<div class="">
+    <div class="px-4 mt-16 lg:mt-0">
+        Tools
     </div>
-    {% endif %}
-    {% if resource.books %}
-    <div class="">
-        <div class="px-4 mt-16 lg:mt-0">
-            Books
-        </div>
-    
-        {% for book in resource.books %}
-        <div class="cell">
-            {{ resource_lead(book,size=2) }}
-        </div>
-        {% endfor %}
+    {% for tool in resource.tools %}
+    <div class="cell">
+        {{ resource_lead(tool,size=2) }}
     </div>
-    {% endif %}
-    {% if resource.practices %}
-    <div class="">
-        <div class="px-4 mt-16 lg:mt-0">
-            Practices
-        </div>
-    
-        {% for practice in resource.practices %}
-        <div class="cell">
-            {{ resource_lead(practice,size=2) }}
-        </div>
-        {% endfor %}
+    {% endfor %}
+
+</div>
+{% endif %}
+{% if resource.books %}
+<div class="">
+    <div class="px-4 mt-16 lg:mt-0">
+        Books
     </div>
-    {% endif %}
+
+    {% for book in resource.books %}
+    <div class="cell">
+        {{ resource_lead(book,size=2) }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% if resource.practices %}
+<div class="">
+    <div class="px-4 mt-16 lg:mt-0">
+        Practices
+    </div>
+
+    {% for practice in resource.practices %}
+    <div class="cell">
+        {{ resource_lead(practice,size=2) }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
 
 {% endmacro %}
 
 {% macro resource_list(resource, loop, show_number=true) %}
 <div class="border-b-2 border-black">
-    <a class="flex gap-4 h-full py-1 hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}" {% if
+    <a class="flex gap-6 h-full py-2  hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}" {% if
         resource['type']=='book' %} href="{{ url_for('book.show_book', book_id=resource['id']) }}" {% endif %} {% if
         resource['type']=='tool' %} href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" {% endif %} {% if
-        resource['type']=='practice' %} href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" {% endif
-        %} hx-target="#modal-content" hx-select="main" hx-swap="innerHTML" @click="openModal()">
+        resource['type']=='practice' %} href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" {%
+        endif %} hx-target="#modal-content" hx-select="main" hx-swap="innerHTML" @click="openModal()">
 
-        <div class="w-[4rem] shrink-0 lg:w-[12rem] text-center ">
+        <div class="w-[4.5rem] shrink-0 lg:w-[12rem] text-center ">
             {% if show_number %}
             {{loop.index}} / {{count}}
             {% else %}
@@ -185,12 +178,14 @@
         </div>
 
 
-        <div>
-            <span class="{{ resource.type }}">
+        <div class="">
+            <span class="{{ resource.type }} lg:text-xl pr-4">
                 {{ resource.name }}
             </span>
             {% if resource['year'] %}
+            <div class="">
                 {{ resource['year'] }}{% if resource['author'] %}, {{ resource['author'] }}{% endif%}
+            </div>
             {% endif %}
         </div>
     </a>
@@ -198,126 +193,113 @@
 {% endmacro %}
 
 {% macro resource_with_related(resource, loop, show_number=true) %}
-    <div class="w-full  border-b-2 border-black fade-right">
-        <div class="content w-full py-8   overflow-x-auto">
-            <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col w-fit pr-40 " >
-                <div class="w-[4rem] shrink-0 lg:w-[12rem] text-center px-2 py-4 ">
-                    {% if show_number %}
-                    <p>{{loop.index}} / {{count}}</p>
-                    {% else %}
-                    <p class="capitalize">{{ resource['type'] }}</p>
-                    {% endif %}
-                </div>
-                <div class="cell w-[20rem] lg:w-[32rem] row-start-1 lg:row-span-3">
-                    {{ resource_lead(resource) }}
-                </div>
-    
-                {% if resource.tools %}
-                <div class="grid lg:grid-rows-1 grid-flow-col w-fit h-fit">
-                    <div class="related">
-                        Related<br>Tools
-                    </div>
-                    {% for tool in resource.tools %}
-                    <div class="cell w-[20rem] lg:w-[30rem]">
-                        {{ resource_lead(tool,size=2) }}
-                    </div>
-                    {% endfor %}
-                </div>
+<div class="w-full  border-b-2 border-black fade-right">
+    <div class="content w-full py-8   overflow-x-auto">
+        <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col w-fit pr-40 ">
+            <div class="w-[4.5rem] shrink-0 lg:w-[12rem] text-center px-2 py-4 ">
+                {% if show_number %}
+                <p>{{loop.index}} / {{count}}</p>
+                {% else %}
+                <p class="capitalize">{{ resource['type'] }}</p>
                 {% endif %}
-    
-                {% if resource.books %}
-                <div class="grid grid-rows-1 grid-flow-col w-fit h-fit">
-                    <div class="related">
-                        Related<br>Books
-                    </div>
-                    {% for book in resource.books %}
-                    <div class="cell w-[20] lg:w-[35rem]">
-                        {{ resource_lead(book,size=2) }}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-                
-                {% if resource.practices %}
-                <div class="grid grid-rows-1 grid-flow-col w-fit h-fit">
-                    <div class="related">
-                        Related<br>Practices
-                    </div>
-                    {% for practice in resource.practices %}
-                    <div class="cell w-[20rem] lg:w-[25rem]">
-                        {{ resource_lead(practice,size=2) }}
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endif %}
-    
             </div>
+            <div class="cell w-[12rem] lg:w-[32rem] row-start-1 lg:row-span-3">
+                {{ resource_lead(resource) }}
+            </div>
+
+            {% if resource.tools %}
+            <div class="grid lg:grid-rows-1 grid-flow-col w-fit h-fit ">
+                <div class="related">
+                    Related<br>Tools
+                </div>
+                {% for tool in resource.tools %}
+                <div class="cell w-[12rem] lg:w-[30rem]">
+                    {{ resource_lead(tool,size=2) }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if resource.books %}
+            <div class="grid grid-rows-1 grid-flow-col w-fit h-fit">
+                <div class="related">
+                    Related<br>Books
+                </div>
+                {% for book in resource.books %}
+                <div class="cell w-[12rem] lg:w-[35rem]">
+                    {{ resource_lead(book,size=2) }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if resource.practices %}
+            <div class="grid grid-rows-1 grid-flow-col w-fit h-fit">
+                <div class="related">
+                    Related<br>Practices
+                </div>
+                {% for practice in resource.practices %}
+                <div class="cell w-[12rem] lg:w-[25rem]">
+                    {{ resource_lead(practice,size=2) }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
         </div>
     </div>
+</div>
 {% endmacro %}
 
 {% macro popup_link(title,url) %}
-    <a href="{{ url }}" class="nav-link">
-        {{ title }}
-    </a>
+<a href="{{ url }}" class="nav-link">
+    {{ title }}
+</a>
 {% endmacro %}
 
 {% macro resource_lead(resource,size=1) %}
-        <a
-            class="block h-full hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}"
+<a class="block lead-inner-link overflow-hidden h-full hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}"
+    {% if resource['type']=='book' %} href="{{ url_for('book.show_book', book_id=resource['id']) }}" {% endif %} {% if
+    resource['type']=='tool' %} href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" {% endif %} {% if
+    resource['type']=='practice' %} href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" {% endif
+    %} hx-target="#modal-content" hx-select="main" hx-swap="innerHTML" @click="openModal()">
 
-            {% if resource['type'] == 'book' %}
-            href="{{ url_for('book.show_book', book_id=resource['id']) }}" 
-            {% endif %}
-            {% if resource['type'] == 'tool' %}
-            href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" 
-            {% endif %}
-            {% if resource['type'] == 'practice' %}
-            href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" 
-            {% endif %}
-            
-            hx-target="#modal-content" 
-            hx-select="main" 
-            hx-swap="innerHTML" 
+    {% if (resource.type == 'book') and (resource.references) %}
+    <img class="w-14 h-14 lg:w-20 lg:h-20 object-contain lg:float-right absolute opacity-40 lg:opacity-100 lg:static top-0 right-0 m-1 lg:m-4 grayscale rotate-[15deg]"
+        src="{{resource.references}}" alt="cover for {{ resource.name }}">
+    {% endif %}
 
-            @click="openModal()"
-            
-        >
+    <h2 class="{{ resource['type'] }} {% if size==1 %} big-title {% else %} small-title {% endif %} mb-2">{{
+        resource['name'] }}</h2>
 
-            {% if (resource.type == 'book') and (resource.references) %}
-                <img class="w-20 h-20 object-contain float-right m-4 grayscale rotate-[15deg]" src="{{resource.references}}" alt="cover for {{ resource.name }}">
-            {% endif %}
-            
-            <h2 class="{{ resource['type'] }} {% if size==1 %} big-title {% else %} small-title {% endif %} mb-2">{{ resource['name'] }}</h2>
-            
-            {% if resource['year'] %}
-                <div class="text-sm">
-                    {{ resource['year'] }}{% if resource['author'] %}, {{ resource['author'] }}{% endif%}
-                </div>
-            {% endif %}
+    {% if resource['year'] %}
+    <div class="text-sm">
+        {{ resource['year'] }}{% if resource['author'] %}, {{ resource['author'] }}{% endif%}
+    </div>
+    {% endif %}
 
-            <div class="{% if size==1 %} big-text {% else %} small-text {% endif %} mb-[1em]">
-                {{ resource['description'] | truncate(150) }}
-            </div>
+    <div class="{% if size==1 %} big-text {% else %} small-text {% endif %} mb-[1em]">
+        {{ resource['description'] | truncate(150) }}
+    </div>
 
-        </a>
-        {% if current_user.is_authenticated %}
-            <div class="">
-                {% if resource['type'] == 'tool' %}
-                <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
-                    <span class="absolute top-0 left-0 text-xs">Edit</span>
-                </a>
-                {% elif resource['type'] == 'practice' %}
-                <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
-                    <span class="absolute top-0 left-0 text-xs">Edit</span>
-                </a>
-                {% elif resource['type'] == 'book' %}
-                <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
-                    <span class="absolute top-0 left-0 text-xs">Edit</span>
-                </a>
-                {% endif %}
-            </div>
-        {% endif %}
+</a>
+{% if current_user.is_authenticated %}
+<div class="">
+    {% if resource['type'] == 'tool' %}
+    <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}">
+        <span class="absolute top-0 left-0 text-xs">Edit</span>
+    </a>
+    {% elif resource['type'] == 'practice' %}
+    <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}">
+        <span class="absolute top-0 left-0 text-xs">Edit</span>
+    </a>
+    {% elif resource['type'] == 'book' %}
+    <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
+        <span class="absolute top-0 left-0 text-xs">Edit</span>
+    </a>
+    {% endif %}
+</div>
+{% endif %}
 {% endmacro %}
 
 
@@ -329,7 +311,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <title>Experimental Publishing Compendium</title>
     <script src="{{ url_for('static',filename='js/alpine.min.js') }}" defer></script>
     <script src="{{ url_for('static',filename='js/htmx.min.js') }}"></script>
@@ -382,16 +364,8 @@
 </head>
 
 
-<body 
-    class="text-base overflow-y-scroll" 
-    x-data="base()" 
-    
-    hx-boost="true"
-    hx-select="#all"
-    hx-target="#all"
-    hx-swap="outerHTML"
-    hx-indicator="body"
->
+<body class="text-base overflow-y-scroll" x-data="base()" hx-boost="true" hx-select="#all" hx-target="#all"
+    hx-swap="outerHTML" hx-indicator="body">
     <div id="loading" class="loading pointer-events-none ">
         <!-- <div class="bg-white fixed top-0 left-0 w-full h-screen z-20"></div> -->
         <div class="bg fixed top-0 left-0 w-full h-screen z-30"></div>
@@ -405,9 +379,9 @@
     <div id="all">
         <header class="sticky top-0 z-10 bg-white  border-b-[2px] border-black flex justify-between w-full">
             <nav class=" lg:flex justify-center items-stretch w-full ">
-                
+
                 {{ menu('top') }}
-                
+
             </nav>
             <div class="burger h-14 cursor-pointer block lg:hidden p-4" @click="menuOpen = true">
                 <svg width="100%" height="100%" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -419,24 +393,24 @@
             </div>
         </header>
 
-        <menu 
-            class="fixed top-0 right-0 z-20 p-8 bg-white w-[calc(100%-2rem)] max-w-[30rem] h-screen"
-            x-show="menuOpen"
-            style="box-shadow: 0 0 2rem rgb(0,0,0,0.2);"
-            @click.outside = "menuOpen = false"
-            >
+        <div x-transition.opacity x-show="menuOpen" class="fixed z-20 top-0 left-0 w-full h-screen bg-purple-700/50">
+
+        </div>
+
+        <menu x-transition.opacity class="fixed top-0 right-0 z-20  bg-white w-[calc(100%-2rem)] max-w-[30rem] h-screen"
+            x-show="menuOpen" style="box-shadow: 0 0 2rem rgb(0,0,0,0.2);" @click.outside="menuOpen = false">
             {{ menu('side') }}
         </menu>
 
 
-    
+
         <!-- Begin page content -->
         <main>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div class="alert alert-danger">
-                    {{ messages[0] }}
-                </div>
+            <div class="alert alert-danger">
+                {{ messages[0] }}
+            </div>
             {% endif %}
             {% endwith %}
             {% block content %}
@@ -444,13 +418,14 @@
         </main>
     </div>
 
-    <div id="modal" x-show="modalOpen"  class="modal h-screen  w-full fixed top-0 z-50 p-4 bg overscroll-none">
+    <div id="modal" x-show="modalOpen" class="modal h-screen  w-full fixed top-0 z-50 p-4 bg overscroll-none">
         <div class="cross cursor-pointer absolute top-10 right-10 w-10 h-10" @click="hideOverlay()">
             <svg width="100%" height="100%" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 2L18 18M18 2L2 18" stroke="black" stroke-width="1"></path>
             </svg>
         </div>
-        <div id="modal-content" @click.outside="hideOverlay()" x-ref="modal" class="content w-full overflow-y-auto h-full bg-white " >
+        <div id="modal-content" @click.outside="hideOverlay()" x-ref="modal"
+            class="content w-full overflow-y-auto h-full bg-white ">
 
         </div>
     </div>
@@ -458,7 +433,9 @@
     <!-- Sticky footer-->
     <footer class="std-margin mt-20 text-sm">
         <div class="container">
-            <span class="">© 2022–{{ moment().format('YYYY') }} <a href="https://copim.ac.uk/">COPIM</a> and licensed under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License (CC BY 4.0)</a>.</span>
+            <span class="">© 2022–{{ moment().format('YYYY') }} <a href="https://copim.ac.uk/">COPIM</a> and licensed
+                under a <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0
+                    International License (CC BY 4.0)</a>.</span>
         </div>
     </footer>
     <!-- JavaScript -->

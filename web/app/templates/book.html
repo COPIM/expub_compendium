@@ -2,135 +2,135 @@
 
 {% block content %}
 
-    <div class="cell-margin grid mt-16 lg:grid-cols-2">
-        
-        <div class="left">
-            <div class="mb-2">Book</div>
-            <div class="border-r-2 border-black pr-8">
-                {% if resource.references %}
-                <div class="float-right">
-                    <img class="w-40 h-40 object-contain  m-16 rotate-[15deg]" src={{ resource.references }} alt="cover for {{ resource['Title'] }}">
+<div class="cell-margin grid mt-16 lg:grid-cols-2">
+
+    <div class="left">
+        <div class="mb-2">Book</div>
+        <div class="lg:border-r-2 border-black pr-8">
+            {% if resource.references %}
+            <div class="float-right">
+                <img class="w-14 h-14 lg:w-40 lg:h-40 object-contain  lg:m-16 rotate-[15deg]" src={{ resource.references
+                    }} alt="cover for {{ resource['Title'] }}">
+            </div>
+            {% endif %}
+
+            <h2 class="book huge-title mb-2 max-w-[30rem]">{% block title %} {{ resource.name }} {% endblock %}</h2>
+
+            {% if resource['Year'] %}
+            {{ resource['Year'] }}
+            {% endif %}
+            {% if resource['Authors'] %}
+            <div class="">
+                {% if resource['Authors']|length > 1 %}
+                <div class="">
+                    {% for author in resource['Authors'] %}
+                    {{ author }}</br>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div>
+                    {% for author in resource['Authors'] %}
+                    {{ author }}
+                    {% endfor %}
                 </div>
                 {% endif %}
-    
-                <h2 class="book huge-title mb-2 max-w-[30rem]">{% block title %} {{ resource.name }} {% endblock %}</h2>
-    
-                {% if resource['Year'] %}
-                {{ resource['Year'] }}
-                {% endif %}
-                {% if resource['Authors'] %}
+
+            </div>
+            {% endif %}
+
+
+            <div class="">
+                {% if current_user.is_authenticated %}
                 <div class="">
-                    {% if resource['Authors']|length > 1 %}
-                    <div class="">
-                        {% for author in resource['Authors'] %}
-                        {{ author }}</br>
-                        {% endfor %}
-                    </div>
-                    {% else %}
-                    <div>
-                        {% for author in resource['Authors'] %}
-                        {{ author }}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-    
+                    <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
+                        <span class="badge bg-dark">Edit</span>
+                    </a>
                 </div>
                 {% endif %}
-    
-    
-                <div class="">
-                    {% if current_user.is_authenticated %}
+
+                <div class="facts ">
+
+                    {% if resource['typology'] %}
                     <div class="">
-                        <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
-                            <span class="badge bg-dark">Edit</span>
-                        </a>
+                        <h3>Typology category</h3>
+                        <a href="/books?typology={{ resource['typology'] }}">{{ resource['typology'] }}</a>
                     </div>
                     {% endif %}
-    
-                    <div class="facts ">
-    
-                        {% if resource['typology'] %}
-                        <div class="">
-                            <h3>Typology category</h3>
-                            <a href="/books?typology={{ resource['typology'] }}">{{ resource['typology'] }}</a>
+                    {% if resource['bookUrl'] %}
+                    <div class="">
+                        <h3>URL</h3>
+                        <a target="_blank" href="{{ resource['bookUrl'] }}">{{ resource['bookUrl'] }}</a>
+                    </div>
+                    {% endif %}
+                    <!-- fields for books from isbntools -->
+                    {% if resource['ISBN-13'] %}
+                    <div class="">
+                        <h3>
+                            ISBN-13
+                        </h3>
+                        <div>
+                            {{ resource['ISBN-13'] }}
                         </div>
-                        {% endif %}
-                        {% if resource['bookUrl'] %}
-                        <div class="">
-                            <h3>URL</h3>
-                            <a target="_blank" href="{{ resource['bookUrl'] }}">{{ resource['bookUrl'] }}</a>
+                    </div>
+                    {% endif %}
+                    {% if resource['Publisher'] %}
+                    <div class="">
+                        <h3>
+                            Publisher
+                        </h3>
+                        <div>
+                            {{ resource['Publisher'] }}
                         </div>
-                        {% endif %}
-                        <!-- fields for books from isbntools -->
-                        {% if resource['ISBN-13'] %}
-                        <div class="">
-                            <h3>
-                                ISBN-13
-                            </h3>
-                            <div>
-                                {{ resource['ISBN-13'] }}
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% if resource['Publisher'] %}
-                        <div class="">
-                            <h3>
-                                Publisher
-                            </h3>
-                            <div>
-                                {{ resource['Publisher'] }}
-                            </div>
-                        </div>
-                        {% endif %}
-                        <!-- fields for books from database -->
-                        {% if resource['name'] %}
-                        <!-- <div class="">
+                    </div>
+                    {% endif %}
+                    <!-- fields for books from database -->
+                    {% if resource['name'] %}
+                    <!-- <div class="">
                             <h3>Title</h3>
                             <div class="">{{ resource['name'] }}</div>
                         </div> -->
-                        {% endif %}
-                        {% if resource['author'] %}
-                        <div class="">
-                            <h3>Author</h3>
-                            <div class="">{{ resource['author'] }}</div>
-                        </div>
-                        {% endif %}
-                        {% if resource['year'] %}
-                        <div class="">
-                            <h3>Publication year</h3>
-                            <div>
-                                {{ resource['year'] }}
-                            </div>
-                        </div>
-                        {% endif %}
-                        {% if resource['desc'] %}
-                        <div class="col-span-2">
-                            <h3>Publisher's description</h3>
-                            <div class="">{{ resource['desc'] }}</div>
-                        </div>
-                        {% endif %}
-    
-                        {% if resource['description'] %}
-                        <div class="col-span-2">
-                            <h3>
-                                Experimental aspects:
-                            </h3>
-                            <div>
-                                {{ resource['description'] }}
-                            </div>
-                        </div>
-                        {% endif %}
+                    {% endif %}
+                    {% if resource['author'] %}
+                    <div class="">
+                        <h3>Author</h3>
+                        <div class="">{{ resource['author'] }}</div>
                     </div>
+                    {% endif %}
+                    {% if resource['year'] %}
+                    <div class="">
+                        <h3>Publication year</h3>
+                        <div>
+                            {{ resource['year'] }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if resource['desc'] %}
+                    <div class="lg:col-span-2">
+                        <h3>Publisher's description</h3>
+                        <div class="">{{ resource['desc'] }}</div>
+                    </div>
+                    {% endif %}
+
+                    {% if resource['description'] %}
+                    <div class="lg:col-span-2">
+                        <h3>
+                            Experimental aspects:
+                        </h3>
+                        <div>
+                            {{ resource['description'] }}
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        <div class="right p-4 pr-8 lg:p-0">
-            <div class="grid lg:grid-cols-2">
-                {{ relationships_links(resource) }} 
-            </div>
+    </div>
+    <div class="right p-4 pr-8 lg:p-0">
+        <div class="grid lg:grid-cols-2">
+            {{ relationships_links(resource) }}
         </div>
-        
     </div>
 
-{% endblock %}
+</div>
 
+{% endblock %}

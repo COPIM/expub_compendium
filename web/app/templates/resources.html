@@ -20,113 +20,94 @@
 
 
 {% macro filter_dropdown(id, filter, plural='') %}
-  <select 
-    name="{{ id }}"  
-  >
-    <option 
-      value="" 
-      {% if request.args.get(id, '' )=='' %} selected {% endif %}
-      
-    >
-      {% if plural != '' %}
-        {{ plural }}
-      {% else %}
-        <span class="capitalize bg-red-400">{{ id }}s</span>
-      {% endif%}
-    </option>
-    {% for thing in filter %}
-    <option 
-      value="{{ thing[0] }}" 
-      {% if request.args.get(id)==thing[0]|string %} selected {% endif %}
-    >
-      {{ thing[1] }}
-    </option>
-    {% endfor %}
-  </select>
+<select name="{{ id }}">
+  <option value="" {% if request.args.get(id, '' )=='' %} selected {% endif %}>
+    {% if plural != '' %}
+    {{ plural }}
+    {% else %}
+    <span class="capitalize bg-red-400">{{ id }}s</span>
+    {% endif%}
+  </option>
+  {% for thing in filter %}
+  <option value="{{ thing[0] }}" {% if request.args.get(id)==thing[0]|string %} selected {% endif %}>
+    {{ thing[1] }}
+  </option>
+  {% endfor %}
+</select>
 {% endmacro%}
 
 {% macro filter_dropdown_nokey(id, filter, plural='') %}
-  <select 
-    name="{{ id }}" 
-  >
-    <option 
-      value="" 
-      {% if request.args.get(id, '' ) == '' %} selected {% endif %}
-    >
-      {% if plural != '' %}
-        {{ plural }}
-      {% else %}
-        <span class="capitalize">{{ id }}s</span>
-      {% endif%}
-    </option>
-    {% for thing in filter %}
-    <option 
-      value="{{ thing }}" 
-      {% if request.args.get(id)==thing|string %} selected {% endif %}
-    >
-      {{ thing }}
-    </option>
-    {% endfor %}
-  </select>
+<select name="{{ id }}">
+  <option value="" {% if request.args.get(id, '' )=='' %} selected {% endif %}>
+    {% if plural != '' %}
+    {{ plural }}
+    {% else %}
+    <span class="capitalize">{{ id }}s</span>
+    {% endif%}
+  </option>
+  {% for thing in filter %}
+  <option value="{{ thing }}" {% if request.args.get(id)==thing|string %} selected {% endif %}>
+    {{ thing }}
+  </option>
+  {% endfor %}
+</select>
 {% endmacro%}
 
-    <div class="border-b-2 border-black grid lg:grid-cols-[52rem,30rem] content-start">
-      <div class="mx-2 lg:ml-[13rem] text my-8 meta lg:max-w-[30rem]">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies egestas felis at dignissim. Morbi ut bibendum
-        nisl. Integer ac sollicitudin risus. Vivamus et est est. Ut vitae lacus nec justo tincidunt interdum. Fusce sapien odio,
-        commodo nec est et, interdum varius risus. Curabitur vehicula consequat auctor.
-      </div>
+<div class="border-b-2 border-black grid lg:grid-cols-[52rem,30rem] content-start">
+  <div class="mx-4 lg:ml-[13rem] text my-4 lg:my-8 meta lg:max-w-[30rem]">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ultricies egestas felis at dignissim. Morbi ut
+    bibendum
+    nisl. Integer ac sollicitudin risus. Vivamus et est est. Ut vitae lacus nec justo tincidunt interdum. Fusce sapien
+    odio,
+    commodo nec est et, interdum varius risus. Curabitur vehicula consequat auctor.
+  </div>
+</div>
+
+<form action="{{request.base_url}}" method="GET" hx-trigger="change" hx-push-url="true">
+  <input type="hidden" name="view" value="{{ view }}">
+  <div
+    class="flex p-4 lg:p-0 flex-col items-start lg:items-center lg:flex-row lg:flex-wrap gap-2 lg:gap-4 min-h-[2rem] mb-8 border-b-2 border-black ">
+
+    <div class="-m-4 mb-4 lg:m-0">
+      {{ view_switch() }}
     </div>
 
-    <form 
-      action="{{request.base_url}}" 
-      method="GET"
 
-      hx-trigger="change" 
-      hx-push-url="true"
-    
+    {% if practices_filter%}
+    {{ filter_dropdown('practice', practices_filter, 'Practices') }}
+    {% endif %}
+    {% if year_filter %}
+    {{ filter_dropdown_nokey('year', year_filter, 'Year') }}
+    {% endif %}
+    {% if typology_filter %}
+    {{ filter_dropdown_nokey('typology', typology_filter, 'Typologies') }}
+    {% endif %}
+    {% if languages_filter %}
+    {{ filter_dropdown_nokey('scriptingLanguage', languages_filter, 'Scripting languages') }}
+    {% endif %}
+    {% if licenses_filter %}
+    {{ filter_dropdown_nokey('license', licenses_filter, 'Licenses') }}
+    {% endif %}
+    {% if status_filter %}
+    {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
+    {% endif %}
 
-    >
-      <input type="hidden" name="view" value="{{ view }}">
-      <div class="flex flex-wrap gap-4 items-center min-h-[2rem] mb-8 border-b-2 border-black ">
-      
-        {{ view_switch() }}
-      
-        {% if practices_filter%}
-          {{ filter_dropdown('practice', practices_filter, 'Practices') }}
-        {% endif %}
-        {% if year_filter %}
-          {{ filter_dropdown_nokey('year', year_filter, 'Year') }}
-        {% endif %}
-        {% if typology_filter %}
-          {{ filter_dropdown_nokey('typology', typology_filter, 'Typologies') }}
-        {% endif %}
-        {% if languages_filter %}
-          {{ filter_dropdown_nokey('scriptingLanguage', languages_filter, 'Scripting languages') }}
-        {% endif %}
-        {% if licenses_filter %}
-          {{ filter_dropdown_nokey('license', licenses_filter, 'Licenses') }}
-        {% endif %}
-        {% if status_filter %}
-          {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
-        {% endif %}
-      
-        <a href="{{ request.base_url }}?view={{ view }}">Reset</a>
-      
-      </div>
-      
-      <div>
-        {% if view == 'list' %}
-          {% for resource in resources %}
-            {{ resource_list(resource, loop) }}
-          {% endfor %}
-        {% else %}
-          {% for resource in resources %}
-            {{ resource_with_related(resource, loop) }}
-          {% endfor %}
-        {% endif %}
-      </div>
+    <a href="{{ request.base_url }}?view={{ view }}" class="block py-4 lg:py-0">Reset</a>
 
-    </form>
+  </div>
+
+  <div>
+    {% if view == 'list' %}
+    {% for resource in resources %}
+    {{ resource_list(resource, loop) }}
+    {% endfor %}
+    {% else %}
+    {% for resource in resources %}
+    {{ resource_with_related(resource, loop) }}
+    {% endfor %}
+    {% endif %}
+  </div>
+
+</form>
 
 {% endblock %}
