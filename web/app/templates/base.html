@@ -193,7 +193,7 @@
 {% endmacro %}
 
 {% macro resource_with_related(resource, loop, show_number=true) %}
-<div class="w-full  border-b-2 border-black fade-right">
+<div class="w-full  border-b-2 border-black fade-right" {% if resource.status == 'no longer maintained' %} style="background-color: gray"{% endif %}>
     <div class="content w-full py-8   overflow-x-auto">
         <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col w-fit pr-40 ">
             <div class="w-[4.5rem] shrink-0 lg:w-[12rem] text-center px-2 py-4 ">
