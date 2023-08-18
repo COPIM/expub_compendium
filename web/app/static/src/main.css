@@ -79,9 +79,15 @@ select {
 }
 
 .cell {
-    @apply min-w-[14rem];
+    @apply max-h-[30vh] lg:max-h-none relative;
     @apply overflow-hidden;
 }
+/* 
+.cell::after {
+    content:'';
+    @apply absolute w-full h-[3rem] left-0 bottom-0;
+    background-color: red;
+} */
 .cell.size-1 {
     @apply min-w-[30rem];
 }
@@ -111,9 +117,18 @@ select {
 }
 
 .cell {
-    @apply cell-margin relative;
+    @apply cell-margin ;
 }
 
+.cell .lead-inner-link {
+    @apply relative;
+}
+
+.cell .lead-inner-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-full h-[3rem] ;
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+}
 
 .cell::before {
     content: '';
@@ -166,7 +181,7 @@ select {
 }
 
 .facts > * {
-    @apply max-w-[65ch];
+    @apply lg:max-w-[65ch];
 }
 
 a:hover {
@@ -186,19 +201,19 @@ h3 {
 }
 
 .huge-title {
-    @apply text-4xl lg:text-5xl;
+    @apply text-2xl lg:text-5xl;
 }
 .big-title {
-    @apply text-3xl lg:text-4xl;
+    @apply text-lg lg:text-4xl;
 }
 .medium-title {
-    @apply text-2xl lg:text-3xl;
+    @apply text-xl lg:text-3xl;
 }
 .small-title {
-    @apply text-xl lg:text-2xl;
+    @apply text-lg lg:text-2xl;
 }
 .big-text {
-    @apply text-xl ;
+    @apply text-base lg:text-xl ;
 }
 .small-text {
     @apply text-base;
