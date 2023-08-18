@@ -87,7 +87,10 @@
           {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
         {% endif %}
       
-        <a href="{{ url_for(request.endpoint) }}?view={{ view }}">Reset</a>
+        {% if not practices_filter and not year_filter and not typology_filter and not languages_filter and not licenses_filter and not status_filter %}
+        {% else %} 
+          <a href="{{ url_for(request.endpoint) }}?view={{ view }}">Reset</a>
+        {% endif %}
       
       </div>
       
