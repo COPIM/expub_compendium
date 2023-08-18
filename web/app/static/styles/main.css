@@ -1114,6 +1114,10 @@ select {
   gap: 1rem;
 }
 
+.facts a {
+  text-decoration: underline;
+}
+
 @media (min-width: 1024px) {
 
   .facts {
@@ -1142,6 +1146,12 @@ a.link:hover {
 h2,h3 {
     -webkit-hyphens: auto;
             hyphens: auto;
+}
+
+h2 {
+  font-family: 'ag-fett';
+  font-size: 1.5rem;
+  line-height: 1.1;
 }
 
 h3 {
@@ -1611,4 +1621,46 @@ a.menuitem:hover {
   .lg\:opacity-100 {
     opacity: 1;
   }
+}
+
+.sr-only{
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+#about {
+  display: inline-block;
+  width: 60%;
+}
+
+#colophon {
+  float: right;
+  width: 30%;
+}
+
+hr {
+  clear: both;
+  margin-bottom: 15%;
+  visibility: hidden;
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+}
+blockquote:before {
+  color: #ccc;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
 }

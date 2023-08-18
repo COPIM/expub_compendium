@@ -3,7 +3,11 @@
 {% block content %}
 
 <div class="cell-margin text max-w-[65ch] lg:m-16 text-lg lg:text-xl">
-    {{ text|safe }}
+    {{ about_text|safe }}
+</div>
+
+<div id="colophon" class="cell-margin text">
+    {{ colophon_text | safe }}
 </div>
 
 {% endblock %}

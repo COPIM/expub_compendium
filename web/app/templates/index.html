@@ -15,13 +15,13 @@
 
 
     {% if view == 'list' %}
-    {% for resource in resources %}
-    {{ resource_list(resource, loop, false) }}
-    {% endfor %}
+        {% for resource in resources %}
+            {{ resource_list(resource, loop, false) }}
+        {% endfor %}
     {% else %}
-    {% for resource in resources %}
-    {{ resource_with_related(resource, loop, false) }}
-    {% endfor %}
+        {% for resource in resources %}
+            {{ resource_with_related(resource, loop, false) }}
+        {% endfor %}
     {% endif %}
 
 </div>

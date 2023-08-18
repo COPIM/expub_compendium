@@ -14,23 +14,41 @@ from .relationships import *
 from . import db
 import os
 import markdown
+from sqlalchemy.sql import func
+from sqlalchemy import or_
 
 practice = Blueprint('practice', __name__)
 
 # route for displaying all practices in database
 @practice.route('/practices')
 def get_practices():
+    # get introductory paragraph Markdown
+    with open('content/practices.md', 'r') as f:
+        intro_text = f.read()
+        intro_text = markdown.markdown(intro_text)
     view = request.args.get('view')
-    practices = Resource.query.filter_by(type='practice').all()
+    practices = Resource.query.filter_by(type='practice').order_by(func.random())
+    # temporarily removing incomplete practices from main list
+    practices = Resource.query.filter(
+        or_(
+            Resource.id==53,
+            Resource.id==56,
+            Resource.id==59,
+            Resource.id==62,
+            Resource.id==63,
+            Resource.id==65,
+            Resource.id==66
+        ))
+    # finalise the query
+    practices = practices.all()
     # get number of practices
     count = len(practices)
+    # reorder practices by practice name
+    practices = sorted(practices, key=lambda d: d.__dict__['name'].lower()) 
     if view != 'list':
         # append relationships to each practice
         append_relationships_multiple(practices)
-    else: 
-        # reorder practices by practice name
-        practices = sorted(practices, key=lambda d: d.__dict__['name']) 
-    return render_template('resources.html', resources=practices, type='practice', count=count, view=view)
+    return render_template('resources.html', resources=practices, type='practice', count=count, view=view, intro_text=intro_text)
 
 # route for displaying a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>')

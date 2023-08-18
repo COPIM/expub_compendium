@@ -1,0 +1,1 @@
+Open source software tools and platforms enable experimentation with scholarly books: changing how people, collate, write, assemble, review, publish, share, reuse, and read long-form texts.

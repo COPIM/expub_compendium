@@ -3,7 +3,7 @@
 # @creation_date: 2022-11-02
 # @license: The MIT License <https://opensource.org/licenses/MIT>
 # @author: Simon Bowie <ad7588@coventry.ac.uk>
-# @purpose: Runs database functions for the ExPub Compendium
+# @purpose: Runs database functions for the Experimental Publishing Compendium
 # @acknowledgements:
 # https://www.redhat.com/sysadmin/arguments-options-bash-scripts
 
@@ -24,7 +24,7 @@ License()
 Help()
 {
    # Display Help
-   echo "This script performs database functions for the ExPub Compendium"
+   echo "This script performs database functions for the Experimental Publishing Compendium"
    echo
    echo "Syntax: database_functions.sh [-l|h|e|i|c|v|d]"
    echo "options:"
@@ -72,11 +72,11 @@ Drop_table()
 
 # set variables
 CONTAINER=mariadb
-DATABASE=toolkit
+DATABASE=compendium
 USERNAME=xxxxxxxx
 PASSWORD=xxxxxxxx
 EXPORT_DIRECTORY="./db_exports"
-EXPORT_SQL_FILENAME=toolkit_db_
+EXPORT_SQL_FILENAME=compendium_db_
 EXPORT_TXT_FILENAME=$2`date +"%Y%m%d"`
 
 # error message for no flags

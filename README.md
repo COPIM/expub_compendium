@@ -1,16 +1,16 @@
-One of the key deliverables for Work Package 6 of the COPIM project is "an online resource detailing opportunities for experimental book publishing". We've decided to put this together in the form of an online toolkit with details of software, practices, examples, and sensitivities that can be used for experimental publishing.
+One of the key deliverables for Work Package 6 of the COPIM project is "an online resource detailing opportunities for experimental book publishing". We've decided to put this together in the form of an online compendium with details of software, practices, examples, and sensitivities that can be used for experimental publishing.
 
-The ExPub Compendium will build on this review of tools to present a resource for a researcher, artist, or publisher looking to try experimental publishing. From our preliminary design discussions, we have plans to include not only software tools that can be used to do experimental publishing but examples of experimental publications, practices of experimental publishing, publishers who have done some form of experimental publishing, and sensitivities involved in experimental publishing.
+The Experimental Publishing Compendium will build on this review of tools to present a resource for any researcher, artist, or publisher looking to try experimental publishing. This compendium includes not only software tools that can be used to do experimental publishing but practices of experimental publishing and examples of experimental publications.
 
 ## application structure
 
-The ExPub Compendium is a Python application using the [Flask](https://flask.palletsprojects.com/en/2.2.x/) framework to render as a website and to provide functions around user authentication and login as well as retrieving data from the underlying database. The Flask framework uses a few HTML template pages to render different pages efficiently based on routes defined in Python files. These template pages use a fairly basic [Bootstrap 5](https://getbootstrap.com/) grid design which allows for responsive design using in-built CSS and HTML elements. 
+The Experimental Publishing Compendium is a Python application using the [Flask](https://flask.palletsprojects.com/en/2.2.x/) framework to render as a website and to provide functions around user authentication and login as well as retrieving data from the underlying database. The Flask framework uses a few HTML template pages to render different pages efficiently based on routes defined in Python files. 
 
 The database is a MariaDB SQL database with a basic structure of Resources, Relationships, and Users. Resources are divided into tools, practices, and books and the table contains fields for these various types of resources. Relationships defines the links between resources using the resource ID in the Resource table: these are rendered on the site as connections between, say, a tool and a practice. Users contains the site's users with basic details like email address and hashed password. This simple structure provides flexibility for displaying resources with filters and to illustrate the connections between various resources. 
 
 ### RESTful API
 
-The application has a simple RESTful API deployed using Marshmallow to define schemas based on the SQLAlchemy database models. It allows a simple JSON export of users (login required), tools, practices, and books.
+The application has a simple RESTful API deployed using [Marshmallow](https://marshmallow.readthedocs.io/en/stable/index.html) to define schemas based on the SQLAlchemy database models. It allows a simple JSON export of users (login required), tools, practices, and books.
 
 The API is relatively open and is available at ./api 
 
@@ -42,9 +42,9 @@ To intially create the database and a database user:
 
 Enter your root password as defined in .env.dev.
 
-`CREATE DATABASE toolkit;`
+`CREATE DATABASE compendium;`
 `CREATE USER 'flask'@'%' IDENTIFIED BY '[PASSWORD]';`
-`GRANT CREATE, INSERT, UPDATE, SELECT, DELETE ON toolkit.* TO 'flask'@'%';`
+`GRANT CREATE, INSERT, UPDATE, SELECT, DELETE ON compendium.* TO 'flask'@'%';`
 
 Restart the containers to allow Flask to build the database tables:
 
@@ -53,7 +53,7 @@ Restart the containers to allow Flask to build the database tables:
 
 You can then use database_functions.sh and an SQL file to populate the database e.g.
 
-`./database_functions -i ./db_imports/toolkit_db_20230112.sql`
+`./database_functions -i ./db_imports/compendium_db_20230112.sql`
 
 ## database functions 
 
@@ -70,3 +70,13 @@ To build the database tables run:
 `docker exec -it python python`
 `from app import db, create_app, models`
 `db.create_all(app=create_app())`
+
+## credits
+
+Content in the Experimental Publishing Compendium is © 2022–2023 [COPIM](https://copim.ac.uk) and licensed under a [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+
+Book cover data is from the [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers).
+
+The Experimental Publishing Compendium's source code is available at [https://github.com/COPIM/expub_compendium](https://github.com/COPIM/expub_compendium) and is licensed under the [MIT License](https://github.com/COPIM/expub_compendium/blob/main/LICENSE).
+
+The Experimental Publishing Compendium was developed by [Simon Bowie](https://simonxix.com) and designed by [Joel Galvez](https://www.joelgalvez.com/) and Martina Vanini.

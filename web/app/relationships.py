@@ -8,6 +8,7 @@
 from .models import Resource
 from .models import Relationship
 from . import db
+import markdown
 
 # function to retrieve linked resources
 def get_relationships(primary_id):
@@ -51,6 +52,8 @@ def append_relationships(resource):
                 else:
                     resource.__dict__['practices'].append(relationship)
             elif relationship.type == 'book':
+                # render Markdown as HTML
+                relationship.description = markdown.markdown(relationship.description)
                 if 'books' not in resource.__dict__.keys():
                     resource.__dict__['books'] = []
                     resource.__dict__['books'].append(relationship)
