@@ -2,12 +2,14 @@
 
 {% block content %}
 
-<div class="cell-margin text max-w-[65ch] lg:m-16 text-lg lg:text-xl">
-    {{ about_text|safe }}
-</div>
+<div class="grid lg:grid-cols-[2fr,1fr] gap-4 container">
+    <div class="cell-margin text max-w-[65ch] lg:m-16 text-lg lg:text-xl">
+        {{ about_text|safe }}
+    </div>
 
-<div id="colophon" class="cell-margin text">
-    {{ colophon_text | safe }}
+    <div id="colophon" class="cell-margin text lg:my-16">
+        {{ colophon_text | safe }}
+    </div>
 </div>
 
 {% endblock %}

@@ -408,3 +408,12 @@ details[open]::details-content {
  .slider.round:before {
      border-radius: 50%;
  }
+
+ hr {
+    border:0;
+    border-bottom: 2px solid;
+    width:50%;
+    margin:4ch;
+    
+    margin-left:0;
+ }
