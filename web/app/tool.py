@@ -27,7 +27,7 @@ def get_tools():
         intro_text = markdown.markdown(intro_text)
     view = request.args.get('view')
     resource_type = 'tool'
-    tools_query = Resource.query.filter_by(type=resource_type).order_by(func.random())
+    tools_query = Resource.query.filter_by(type=resource_type)
     for key in request.args.keys():
         if key != 'view':
             if (key == 'practice' and request.args.get(key) != ''):

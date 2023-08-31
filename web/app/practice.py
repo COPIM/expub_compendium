@@ -27,7 +27,7 @@ def get_practices():
         intro_text = f.read()
         intro_text = markdown.markdown(intro_text)
     view = request.args.get('view')
-    practices = Resource.query.filter_by(type='practice').order_by(func.random())
+    practices = Resource.query.filter_by(type='practice')
     # temporarily removing incomplete practices from main list
     practices = Resource.query.filter(
         or_(
