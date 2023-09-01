@@ -33,7 +33,7 @@ def get_tools():
         intro_text = markdown.markdown(intro_text)
 
     # DATABASE QUERY
-    tools_query = Resource.query.filter_by(type=resource_type).order_by(Resource.name)
+    tools_query = Resource.query.filter_by(type=resource_type)
 
     # FILTERING
     for key in request.args.keys():
@@ -50,7 +50,7 @@ def get_tools():
                 tools_query = tools_query.filter_by(**kwargs)
 
     # finalise the query and add pagination
-    tools = tools_query.paginate(page=page, per_page=5)
+    tools = tools_query.order_by(Resource.name).paginate(page=page, per_page=5)
 
     # FILTERS MENU
     # get values for filter menu dropdowns

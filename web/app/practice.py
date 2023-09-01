@@ -34,7 +34,7 @@ def get_practices():
         intro_text = markdown.markdown(intro_text)
 
     # DATABASE QUERY
-    practices_query = Resource.query.filter_by(type=resource_type).order_by(Resource.name)
+    practices_query = Resource.query.filter_by(type=resource_type)
 
    # temporarily removing incomplete practices from main list
     practices_query = Resource.query.filter(
@@ -49,7 +49,7 @@ def get_practices():
         ))
 
     # finalise the query and add pagination
-    practices = practices_query.paginate(page=page, per_page=5)
+    practices = practices_query.order_by(Resource.name).paginate(page=page, per_page=5)
 
     # POST-FILTERING PROCESSING
     # if view is 'expanded' then append relationships

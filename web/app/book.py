@@ -33,7 +33,7 @@ def get_books():
         intro_text = markdown.markdown(intro_text)
 
     # DATABASE QUERY
-    books_query = Resource.query.filter_by(type=resource_type).order_by(Resource.name)
+    books_query = Resource.query.filter_by(type=resource_type)
 
     # FILTERING
     for key in request.args.keys():
@@ -47,7 +47,7 @@ def get_books():
                 books_query = books_query.filter_by(**kwargs)
 
     # finalise the query and add pagination
-    books = books_query.paginate(page=page, per_page=5)
+    books = books_query.order_by(Resource.name).paginate(page=page, per_page=5)
 
     # FILTERS MENU
     # get values for filter menu dropdowns
