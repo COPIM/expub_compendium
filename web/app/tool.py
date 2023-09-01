@@ -21,15 +21,23 @@ tool = Blueprint('tool', __name__)
 # route for displaying all tools in database
 @tool.route('/tools')
 def get_tools():
+    # GET PARAMETERS
+    # get URL parameters for views and pages
+    view = request.args.get('view')
+    page = request.args.get('page', 1, type=int)
+    # set resource type
+    resource_type = 'tool'
     # get introductory paragraph Markdown
-    with open('content/tools.md', 'r') as f:
+    with open('content/books.md', 'r') as f:
         intro_text = f.read()
         intro_text = markdown.markdown(intro_text)
-    view = request.args.get('view')
-    resource_type = 'tool'
-    tools_query = Resource.query.filter_by(type=resource_type)
+
+    # DATABASE QUERY
+    tools_query = Resource.query.filter_by(type=resource_type).order_by(Resource.name)
+
+    # FILTERING
     for key in request.args.keys():
-        if key != 'view':
+        if key != 'view' and key != 'page':
             if (key == 'practice' and request.args.get(key) != ''):
                 tools_1 = tools_query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Relationship.second_resource_id==request.args.get(key))
                 tools_2 = tools_query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Relationship.first_resource_id==request.args.get(key))
@@ -40,16 +48,12 @@ def get_tools():
             if ((key != 'practice' and key != 'scriptingLanguage') and request.args.get(key) != ''):
                 kwargs = {key: request.args.get(key)}
                 tools_query = tools_query.filter_by(**kwargs)
-    # finalise the query
-    tools = tools_query.all()
-    # get number of tools
-    count = len(tools)
-    # reorder tools by tools name
-    tools = sorted(tools, key=lambda d: d.__dict__['name'].lower()) 
-    if view != 'list':
-        # append relationships to each tool
-        append_relationships_multiple(tools)
-    # get values for filters
+
+    # finalise the query and add pagination
+    tools = tools_query.paginate(page=page, per_page=5)
+
+    # FILTERS MENU
+    # get values for filter menu dropdowns
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name).all()
     # license
@@ -58,7 +62,14 @@ def get_tools():
     languages_filter = get_filter_values('scriptingLanguage', resource_type)
     # status
     status_filter = get_filter_values('status', resource_type)
-    return render_template('resources.html', resources=tools, type=resource_type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, status_filter=status_filter, count=count, view=view, intro_text=intro_text)
+ 
+    # POST-FILTERING PROCESSING
+    # if view is 'expanded' then append relationships
+    if view != 'list':
+        # append relationships to each book
+        append_relationships_multiple_paginated(tools)
+
+    return render_template('resources.html', resources=tools, type=resource_type, practices_filter=practices_filter, licenses_filter=licenses_filter, languages_filter=languages_filter, status_filter=status_filter, view=view, page=page, intro_text=intro_text)
 
 # route for displaying a single tool based on the ID in the database
 @tool.route('/tools/<int:tool_id>')

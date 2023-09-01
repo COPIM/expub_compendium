@@ -171,7 +171,7 @@
 
         <div class="w-[4.5rem] shrink-0 lg:w-[12rem] text-center ">
             {% if show_number %}
-            {{loop.index}} / {{count}}
+                {{ (page -1) * resources.per_page + loop.index }} / {{ resources.total }}
             {% else %}
             <div class="capitalize inline-block min-w-[5rem] px-4 ">{{ resource['type'] }}</div>
             {% endif %}
@@ -198,7 +198,7 @@
         <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col w-fit pr-40 ">
             <div class="w-[4.5rem] shrink-0 lg:w-[12rem] text-center px-2 py-4 ">
                 {% if show_number %}
-                <p>{{loop.index}} / {{count}}</p>
+                <p>{{ (page -1) * resources.per_page + loop.index }} / {{ resources.total }}</p>
                 {% else %}
                 <p class="capitalize">{{ resource['type'] }}</p>
                 {% endif %}
