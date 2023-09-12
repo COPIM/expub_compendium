@@ -107,13 +107,13 @@
                 {% if resource['considerations'] %}
                 <div class="lg:col-span-2">
                     <h3>Considerations</h3>
-                    <p>{{ resource['considerations']|safe }}</p>
+                    {{ resource['considerations']|safe }}
                 </div>
                 {% endif %}
                 {% if resource['references'] %}
                 <div class="lg:col-span-2">
-                    <h3> Further reading </h3>
-                    <p>{{ resource['references']|safe }}</p>
+                    <h3> Further reading</h3>
+                    {{ resource['references']|safe }}
                 </div>
                 {% endif %}
             </div>
