@@ -40,29 +40,29 @@ Help()
 
 Export()
 {
-  docker exec -it $CONTAINER mysqldump --single-transaction -u $USERNAME -p$PASSWORD $DATABASE > $EXPORT_DIRECTORY/$EXPORT_SQL_FILENAME`date +"%Y%m%d"`.sql
+  docker exec -it $CONTAINER mariadb-dump --single-transaction -u $USERNAME -p$PASSWORD $DATABASE > $EXPORT_DIRECTORY/$EXPORT_SQL_FILENAME`date +"%Y%m%d"`.sql
 }
 
 Import()
 {
-  docker exec -i $CONTAINER mysql -u $USERNAME -p$PASSWORD $DATABASE < $IMPORT_SQL_FILE
+  docker exec -i $CONTAINER mariadb -u $USERNAME -p$PASSWORD $DATABASE < $IMPORT_SQL_FILE
 }
 
 Table_export()
 {
-  docker exec -it $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE --batch -e 'SELECT * FROM $TABLE'" > $EXPORT_TXT_DIRECTORY/$EXPORT_TXT_FILENAME.txt
+  docker exec -it $CONTAINER bash -c "mariadb -u $USERNAME -p$PASSWORD $DATABASE --batch -e 'SELECT * FROM $TABLE'" > $EXPORT_TXT_DIRECTORY/$EXPORT_TXT_FILENAME.txt
 }
 
 Table_import()
 {
   docker cp $IMPORT_TXT_FILE $CONTAINER:/tmp/import_file
 
-  docker exec -i $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE -e 'LOAD DATA LOCAL INFILE '\''/tmp/import_file'\'' REPLACE INTO TABLE $TABLE FIELDS TERMINATED BY '\''\t'\'' LINES TERMINATED BY '\''\r'\'' IGNORE 1 ROWS;'"
+  docker exec -i $CONTAINER bash -c "mariadb -u $USERNAME -p$PASSWORD $DATABASE -e 'LOAD DATA LOCAL INFILE '\''/tmp/import_file'\'' REPLACE INTO TABLE $TABLE FIELDS TERMINATED BY '\''\t'\'' LINES TERMINATED BY '\''\r'\'' IGNORE 1 ROWS;'"
 }
 
 Drop_table()
 {
-  docker exec -i $CONTAINER bash -c "mysql -u $USERNAME -p$PASSWORD $DATABASE -e 'DROP TABLE IF EXISTS $TABLE;'"
+  docker exec -i $CONTAINER bash -c "mariadb -u $USERNAME -p$PASSWORD $DATABASE -e 'DROP TABLE IF EXISTS $TABLE;'"
 }
 ############################################################
 ############################################################

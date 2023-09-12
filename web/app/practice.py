@@ -36,6 +36,7 @@ def get_practices():
             Resource.id==59,
             Resource.id==62,
             Resource.id==63,
+            Resource.id==64,
             Resource.id==65,
             Resource.id==66
         ))
