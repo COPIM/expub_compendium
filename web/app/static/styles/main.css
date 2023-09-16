@@ -583,6 +583,14 @@ video {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+.mx-1 {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1157,12 +1165,6 @@ a.link:hover {
 h2,h3 {
     -webkit-hyphens: auto;
             hyphens: auto;
-}
-
-h2 {
-  font-family: 'ag-fett';
-  font-size: 1.5rem;
-  line-height: 1.1;
 }
 
 h3 {

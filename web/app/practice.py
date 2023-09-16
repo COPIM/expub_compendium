@@ -49,7 +49,7 @@ def get_practices():
         ))
 
     # finalise the query and add pagination
-    practices = practices_query.order_by(Resource.name).paginate(page=page, per_page=5)
+    practices = practices_query.order_by(Resource.name).paginate(page=page, per_page=25)
 
     # POST-FILTERING PROCESSING
     # if view is 'expanded' then append relationships

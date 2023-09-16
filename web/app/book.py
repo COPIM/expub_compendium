@@ -47,7 +47,7 @@ def get_books():
                 books_query = books_query.filter_by(**kwargs)
 
     # finalise the query and add pagination
-    books = books_query.order_by(Resource.name).paginate(page=page, per_page=5)
+    books = books_query.order_by(Resource.name).paginate(page=page, per_page=25)
 
     # FILTERS MENU
     # get values for filter menu dropdowns
