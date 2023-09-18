@@ -21,15 +21,23 @@ book = Blueprint('book', __name__)
 # route for displaying all books in database
 @book.route('/books')
 def get_books():
+    # GET PARAMETERS
+    # get URL parameters for views and pages
+    view = request.args.get('view')
+    page = request.args.get('page', 1, type=int)
+    # set resource type
+    resource_type = 'book'
     # get introductory paragraph Markdown
     with open('content/books.md', 'r') as f:
         intro_text = f.read()
         intro_text = markdown.markdown(intro_text)
-    view = request.args.get('view')
-    resource_type = 'book'
-    books_query = Resource.query.filter_by(type=resource_type).order_by(func.random())
+
+    # DATABASE QUERY
+    books_query = Resource.query.filter_by(type=resource_type)
+
+    # FILTERING
     for key in request.args.keys():
-        if key != 'view':
+        if key != 'view' and key != 'page':
             if (key == 'practice' and request.args.get(key) != ''):
                 books_1 = books_query.join(Relationship, Relationship.first_resource_id == Resource.id, isouter=True).filter(Relationship.second_resource_id==request.args.get(key))
                 books_2 = books_query.join(Relationship, Relationship.second_resource_id == Resource.id, isouter=True).filter(Relationship.first_resource_id==request.args.get(key))
@@ -37,26 +45,29 @@ def get_books():
             if (key != 'practice' and request.args.get(key) != ''):
                 kwargs = {key: request.args.get(key)}
                 books_query = books_query.filter_by(**kwargs)
-    # finalise the query
-    books = books_query.all()
-    # get number of books
-    count = len(books)
-    # reorder books by book name
-    books = sorted(books, key=lambda d: d.__dict__['name'].lower()) 
-    # render Markdown as HTML
-    for book in books:
-        book.description = markdown.markdown(book.description)
-    if view != 'list':
-        # append relationships to each book
-        append_relationships_multiple(books)
-    # get values for filters
+
+    # finalise the query and add pagination
+    books = books_query.order_by(Resource.name).paginate(page=page, per_page=25)
+
+    # FILTERS MENU
+    # get values for filter menu dropdowns
     # practices 
     practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name).all()
     # year
     year_filter = get_filter_values('year', resource_type)
     # typology
     typology_filter = get_filter_values('typology', resource_type)
-    return render_template('resources.html', resources=books, type=resource_type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter, count=count, view=view, intro_text=intro_text)
+
+    # POST-FILTERING PROCESSING
+    # if view is 'expanded' then append relationships
+    if view != 'list':
+        # append relationships to each book
+        append_relationships_multiple_paginated(books)
+    # render Markdown as HTML
+    for book in books:
+        book.description = markdown.markdown(book.description)
+        
+    return render_template('resources.html', resources=books, type=resource_type, practices_filter=practices_filter, year_filter=year_filter, typology_filter=typology_filter, view=view, page=page, intro_text=intro_text)
 
 # route for displaying a single book based on the ID in the database
 @book.route('/books/<int:book_id>')

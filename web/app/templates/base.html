@@ -109,8 +109,8 @@
 
 <form action="{{ url_for('search.basic_search') }}" class="hidden lg:block">
     <label id="search-label" for="siteSearch" class="sr-only">Search</label>
-    <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1" aria-labelledby="search-label"
-        placeholder="Search" hx-get="{{ url_for('search.basic_search') }}"
+    <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1"
+        aria-labelledby="search-label" placeholder="Search" hx-get="{{ url_for('search.basic_search') }}"
         hx-trigger="keyup changed delay:500ms, search" hx-target="main" hx-select="main">
     <input class="hidden" type="submit" hidden />
 </form>
@@ -163,15 +163,15 @@
 
 {% macro resource_list(resource, loop, show_number=true) %}
 <div class="border-b-2 border-black">
-    <a class="flex gap-6 h-full py-2  hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}" {% if
-        resource['type']=='book' %} href="{{ url_for('book.show_book', book_id=resource['id']) }}" {% endif %} {% if
-        resource['type']=='tool' %} href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" {% endif %} {% if
+    <a class="flex gap-6 h-full py-2 {% if resource.status == 'no longer maintained' %} opacity-30 {% endif %} {% if resource.status == 'minimally maintained' %} opacity-70 {% endif %} hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}"
+        {% if resource['type']=='book' %} href="{{ url_for('book.show_book', book_id=resource['id']) }}" {% endif %} {%
+        if resource['type']=='tool' %} href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" {% endif %} {% if
         resource['type']=='practice' %} href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" {%
         endif %} hx-target="#modal-content" hx-select="main" hx-swap="innerHTML" @click="openModal()">
 
         <div class="w-[4.5rem] shrink-0 lg:w-[12rem] text-center ">
             {% if show_number %}
-            {{loop.index}} / {{count}}
+                {{ (page -1) * resources.per_page + loop.index }} / {{ resources.total }}
             {% else %}
             <div class="capitalize inline-block min-w-[5rem] px-4 ">{{ resource['type'] }}</div>
             {% endif %}
@@ -193,12 +193,12 @@
 {% endmacro %}
 
 {% macro resource_with_related(resource, loop, show_number=true) %}
-<div class="w-full  border-b-2 border-black fade-right">
+<div class="w-full  border-b-2 border-black fade-right ">
     <div class="content w-full py-8   overflow-x-auto">
         <div class="grid lg:grid-rows-[auto,auto,auto] grid-flow-col w-fit pr-40 ">
             <div class="w-[4.5rem] shrink-0 lg:w-[12rem] text-center px-2 py-4 ">
                 {% if show_number %}
-                <p>{{loop.index}} / {{count}}</p>
+                <p>{{ (page -1) * resources.per_page + loop.index }} / {{ resources.total }}</p>
                 {% else %}
                 <p class="capitalize">{{ resource['type'] }}</p>
                 {% endif %}
@@ -258,7 +258,7 @@
 {% endmacro %}
 
 {% macro resource_lead(resource,size=1) %}
-<a class="block lead-inner-link overflow-hidden h-full hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}"
+<a class="block lead-inner-link overflow-hidden h-full {% if resource.status == 'no longer maintained' %} opacity-30 {% endif %} {% if resource.status == 'minimally maintained' %} opacity-50 {% endif %} hover:opacity-60 transition-opacity cursor-pointer size-{{ size }}"
     {% if resource['type']=='book' %} href="{{ url_for('book.show_book', book_id=resource['id']) }}" {% endif %} {% if
     resource['type']=='tool' %} href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" {% endif %} {% if
     resource['type']=='practice' %} href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" {% endif
@@ -281,6 +281,14 @@
     <div class="{% if size==1 %} big-text {% else %} small-text {% endif %} mb-[1em]">
         {{ resource['description'] | truncate(150) | safe }}
     </div>
+
+    {% if resource.status == 'no longer maintained' %}
+    <div class="mt-4 mb-8">(No longer maintained)</div>
+    {% endif %}
+
+    {% if resource.status == 'minimally maintained' %}
+    <div class="mt-4 mb-8">(Minimally maintained)</div>
+    {% endif %}
 
 </a>
 {% if current_user.is_authenticated %}

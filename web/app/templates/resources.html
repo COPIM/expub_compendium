@@ -67,41 +67,72 @@
     <div class="-m-4 mb-4 lg:m-0">
       {{ view_switch() }}
     </div>
-      
-        {% if practices_filter%}
-          {{ filter_dropdown('practice', practices_filter, 'Practices') }}
-        {% endif %}
-        {% if year_filter %}
-          {{ filter_dropdown_nokey('year', year_filter, 'Year') }}
-        {% endif %}
-        {% if typology_filter %}
-          {{ filter_dropdown_nokey('typology', typology_filter, 'Typologies') }}
-        {% endif %}
-        {% if languages_filter %}
-          {{ filter_dropdown_nokey('scriptingLanguage', languages_filter, 'Scripting languages') }}
-        {% endif %}
-        {% if licenses_filter %}
-          {{ filter_dropdown_nokey('license', licenses_filter, 'Licenses') }}
-        {% endif %}
-        {% if status_filter %}
-          {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
-        {% endif %}
-      
-        <a href="{{ url_for(request.endpoint) }}?view={{ view }}">Reset</a>
-      
-      </div>
-      
-      <div>
-        {% if view == 'list' %}
-          {% for resource in resources %}
-            {{ resource_list(resource, loop) }}
-          {% endfor %}
-        {% else %}
-          {% for resource in resources %}
-            {{ resource_with_related(resource, loop) }}
-          {% endfor %}
-        {% endif %}
-      </div>
+
+    {% if practices_filter%}
+    {{ filter_dropdown('practice', practices_filter, 'Practices') }}
+    {% endif %}
+    {% if year_filter %}
+    {{ filter_dropdown_nokey('year', year_filter, 'Year') }}
+    {% endif %}
+    {% if typology_filter %}
+    {{ filter_dropdown_nokey('typology', typology_filter, 'Typologies') }}
+    {% endif %}
+    {% if languages_filter %}
+    {{ filter_dropdown_nokey('scriptingLanguage', languages_filter, 'Scripting languages') }}
+    {% endif %}
+    {% if licenses_filter %}
+    {{ filter_dropdown_nokey('license', licenses_filter, 'Licenses') }}
+    {% endif %}
+    {% if status_filter %}
+    {{ filter_dropdown_nokey('status', status_filter, 'Maintenance status') }}
+    {% endif %}
+
+    {% if not practices_filter and not year_filter and not typology_filter and not languages_filter and not
+    licenses_filter and not status_filter %}
+    {% else %}
+    <a href="{{ url_for(request.endpoint) }}?view={{ view }}">Reset</a>
+    {% endif %}
+
+  </div>
+
+  <div>
+    {% if view == 'list' %}
+    {% for resource in resources %}
+    {{ resource_list(resource, loop) }}
+    {% endfor %}
+    {% else %}
+    {% for resource in resources %}
+    {{ resource_with_related(resource, loop) }}
+    {% endfor %}
+    {% endif %}
+  </div>
+
+  {% macro render_pagination(pagination) %}
+
+  <!-- <div class=page-items>
+          {{ pagination.first }} - {{ pagination.last }} of {{ pagination.total }}
+        </div> -->
+
+  <div class="pagination p-4">
+    <span class="mr-2">Page</span>
+    {% for page in pagination.iter_pages() %}
+    {% if page %}
+    {% if page != pagination.page %}
+
+    <a href="{{ url_for(request.endpoint, page=page) }}{% for key in request.args %}{% if key != 'page' %}&{{ key }}={{ request.args.get(key) }}{% endif %}{% endfor %}"
+      class="mx-1">{{
+      page }}</a>
+    {% else %}
+    <strong class="mx-1">{{ page }}</strong>
+    {% endif %}
+    {% else %}
+    <span class="ellipsis">…</span>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% endmacro %}
+
+  {{ render_pagination(resources) }}
 
 </form>
 

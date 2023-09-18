@@ -22,14 +22,22 @@ practice = Blueprint('practice', __name__)
 # route for displaying all practices in database
 @practice.route('/practices')
 def get_practices():
+    # GET PARAMETERS
+    # get URL parameters for views and pages
+    view = request.args.get('view')
+    page = request.args.get('page', 1, type=int)
+    # set resource type
+    resource_type = 'practice'
     # get introductory paragraph Markdown
-    with open('content/practices.md', 'r') as f:
+    with open('content/books.md', 'r') as f:
         intro_text = f.read()
         intro_text = markdown.markdown(intro_text)
-    view = request.args.get('view')
-    practices = Resource.query.filter_by(type='practice').order_by(func.random())
-    # temporarily removing incomplete practices from main list
-    practices = Resource.query.filter(
+
+    # DATABASE QUERY
+    practices_query = Resource.query.filter_by(type=resource_type)
+
+   # temporarily removing incomplete practices from main list
+    practices_query = Resource.query.filter(
         or_(
             Resource.id==53,
             Resource.id==56,
@@ -40,16 +48,17 @@ def get_practices():
             Resource.id==65,
             Resource.id==66
         ))
-    # finalise the query
-    practices = practices.all()
-    # get number of practices
-    count = len(practices)
-    # reorder practices by practice name
-    practices = sorted(practices, key=lambda d: d.__dict__['name'].lower()) 
+
+    # finalise the query and add pagination
+    practices = practices_query.order_by(Resource.name).paginate(page=page, per_page=25)
+
+    # POST-FILTERING PROCESSING
+    # if view is 'expanded' then append relationships
     if view != 'list':
-        # append relationships to each practice
-        append_relationships_multiple(practices)
-    return render_template('resources.html', resources=practices, type='practice', count=count, view=view, intro_text=intro_text)
+        # append relationships to each book
+        append_relationships_multiple_paginated(practices)
+
+    return render_template('resources.html', resources=practices, type='practice', view=view, page=page, intro_text=intro_text)
 
 # route for displaying a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>')

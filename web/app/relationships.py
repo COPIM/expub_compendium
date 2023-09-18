@@ -69,6 +69,12 @@ def append_relationships_multiple(resources):
         resources[index] = append_relationships(resource)
     return resources
 
+# function to append relationships to a pagination object of resources
+def append_relationships_multiple_paginated(pagination):
+    for item in (pagination.items):
+        item = append_relationships(item)
+    return pagination
+
 # function to add a relationship to a linked resource
 def add_relationship(resource_id, linked_resource_id):
     first_resource_id = resource_id
