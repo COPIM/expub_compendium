@@ -28,7 +28,7 @@ def get_tools():
     # set resource type
     resource_type = 'tool'
     # get introductory paragraph Markdown
-    with open('content/books.md', 'r') as f:
+    with open('content/tools.md', 'r') as f:
         intro_text = f.read()
         intro_text = markdown.markdown(intro_text)
 

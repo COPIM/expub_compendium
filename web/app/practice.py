@@ -29,7 +29,7 @@ def get_practices():
     # set resource type
     resource_type = 'practice'
     # get introductory paragraph Markdown
-    with open('content/books.md', 'r') as f:
+    with open('content/practices.md', 'r') as f:
         intro_text = f.read()
         intro_text = markdown.markdown(intro_text)
 
