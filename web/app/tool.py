@@ -82,7 +82,7 @@ def show_tool(tool_id):
 @login_required
 def edit_tool(tool_id):
     tool = get_resource(tool_id)
-    resource_dropdown = Resource.query
+    resource_dropdown = Resource.query.order_by(Resource.name)
     existing_relationships = get_relationships(tool_id)
 
     if request.method == 'POST':
@@ -105,7 +105,7 @@ def edit_tool(tool_id):
             tool.outputFormats = request.form['outputFormats']
             tool.status = request.form['status']
             db.session.commit()
-            linked_resources = request.form.getlist('linked_resources')
+            linked_resources = request.form.getlist('linked_practices') + request.form.getlist('linked_books')
             remove_linked_resources = request.form.getlist('remove_linked_resources')
 
             edit_relationships(tool_id, linked_resources, remove_linked_resources, existing_relationships)

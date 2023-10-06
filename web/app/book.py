@@ -80,7 +80,7 @@ def show_book(book_id):
 @login_required
 def edit_book(book_id):
     book = get_resource(book_id)
-    resource_dropdown = Resource.query
+    resource_dropdown = Resource.query.order_by(Resource.name)
     existing_relationships = get_relationships(book_id)
 
     if request.method == 'POST':
@@ -96,7 +96,7 @@ def edit_book(book_id):
             book.isbn = request.form['isbn']
             book.typology = request.form['typology']
             db.session.commit()
-            linked_resources = request.form.getlist('linked_resources')
+            linked_resources = request.form.getlist('linked_tools') + request.form.getlist('linked_practices')
             remove_linked_resources = request.form.getlist('remove_linked_resources')
 
             edit_relationships(book_id, linked_resources, remove_linked_resources, existing_relationships)

@@ -1167,7 +1167,7 @@ h2,h3 {
             hyphens: auto;
 }
 
-h3 {
+h1, h2, h3 {
     font-family: 'ag-fett';
 }
 

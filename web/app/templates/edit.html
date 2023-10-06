@@ -105,12 +105,28 @@
         </input>
     </div>
     <div class="mb-3 mt-3">
-        <label for="linked_practice_id">Linked resources</label>
+        <label for="linked_practices">Add link to practices (press Ctrl to select multiple options)</label>
     </div>
     <div class="mb-3 mt-3">
-        <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
+        <select name="linked_practices" id="linked_practices" aria-label="Add link to practices" class="selectpicker" data-live-search="true" multiple>
           {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] != 'tool' %}
+            {% if resource_dropdown['type'] == 'practice' %}
+              {% if relationships and resource_dropdown in relationships %}
+                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+              {% else %}
+                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="linked_books">Add link to books (press Ctrl to select multiple options)</label>
+    </div>
+    <div class="mb-3 mt-3">
+        <select name="linked_books" id="linked_books" aria-label="Add link to books" class="selectpicker" data-live-search="true" multiple>
+          {% for resource_dropdown in resource_dropdown %}
+            {% if resource_dropdown['type'] == 'book' %}
               {% if relationships and resource_dropdown in relationships %}
                 <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
               {% else %}
@@ -143,12 +159,28 @@
                 class="form-control">{{ request.form['references'] or resource['references'] }}</textarea>
     </div>
     <div class="mb-3 mt-3">
-        <label for="linked_practice_id">Linked resources</label>
+      <label for="linked_tools">Add link to tools (press Ctrl to select multiple options)</label>
     </div>
     <div class="mb-3 mt-3">
-        <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
+        <select name="linked_tools" id="linked_tools" aria-label="Add link to tools" class="selectpicker" data-live-search="true" multiple>
           {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] != 'practice' %}
+            {% if resource_dropdown['type'] == 'tool' %}
+              {% if relationships and resource_dropdown in relationships %}
+                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+              {% else %}
+                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="linked_books">Add link to books (press Ctrl to select multiple options)</label>
+    </div>
+    <div class="mb-3 mt-3">
+        <select name="linked_books" id="linked_books" aria-label="Add link to books" class="selectpicker" data-live-search="true" multiple>
+          {% for resource_dropdown in resource_dropdown %}
+            {% if resource_dropdown['type'] == 'book' %}
               {% if relationships and resource_dropdown in relationships %}
                 <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
               {% else %}
@@ -196,12 +228,28 @@
       </input>
     </div>
     <div class="mb-3 mt-3">
-        <label for="linked_practice_id">Linked resources</label>
+      <label for="linked_tools">Add link to tools (press Ctrl to select multiple options)</label>
     </div>
     <div class="mb-3 mt-3">
-        <select name="linked_resources" id="linked_resources" aria-label="Linked resources" class="selectpicker" data-live-search="true" multiple>
+        <select name="linked_tools" id="linked_tools" aria-label="Add link to tools" class="selectpicker" data-live-search="true" multiple>
           {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] != 'book' %}
+            {% if resource_dropdown['type'] == 'tool' %}
+              {% if relationships and resource_dropdown in relationships %}
+                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+              {% else %}
+                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="linked_practices">Add link to practices (press Ctrl to select multiple options)</label>
+    </div>
+    <div class="mb-3 mt-3">
+        <select name="linked_practices" id="linked_practices" aria-label="Add link to practices" class="selectpicker" data-live-search="true" multiple>
+          {% for resource_dropdown in resource_dropdown %}
+            {% if resource_dropdown['type'] == 'practice' %}
               {% if relationships and resource_dropdown in relationships %}
                 <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
               {% else %}
@@ -215,10 +263,10 @@
 
     {% if relationships %}
     <div class="mb-3 mt-3">
-        <label for="linked_practice_id">Remove linked resources</label>
+        <label for="linked_practice_id">Remove link</label>
     </div>
     <div class="mb-3 mt-3">
-        <select name="remove_linked_resources" id="remove_linked_resources" aria-label="Remove linked resources" class="selectpicker" data-live-search="true" multiple>
+        <select name="remove_linked_resources" id="remove_linked_resources" aria-label="Remove link" class="selectpicker" data-live-search="true" multiple>
           {% for relationship in relationships %}
             <option value="{{ relationship['id'] }}">{{ relationship['name'] }}</option>
           {% endfor %}

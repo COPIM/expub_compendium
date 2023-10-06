@@ -76,7 +76,7 @@ def show_practice(practice_id):
 @login_required
 def edit_practice(practice_id):
     practice = get_resource(practice_id)
-    resource_dropdown = Resource.query
+    resource_dropdown = Resource.query.order_by(Resource.name)
     existing_relationships = get_relationships(practice_id)
 
     if request.method == 'POST':
@@ -91,7 +91,7 @@ def edit_practice(practice_id):
             practice.considerations = request.form['considerations']
             practice.references = request.form['references']
             db.session.commit()
-            linked_resources = request.form.getlist('linked_resources')
+            linked_resources = request.form.getlist('linked_tools') + request.form.getlist('linked_books')
             remove_linked_resources = request.form.getlist('remove_linked_resources')
 
             edit_relationships(practice_id, linked_resources, remove_linked_resources, existing_relationships)
