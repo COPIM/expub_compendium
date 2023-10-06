@@ -17,27 +17,22 @@
                     <label for="tool_name">Tool name</label>
                     <input class="form-control" type="text" name="tool_name" placeholder="Tool name" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="description">Short description</label>
                     <textarea class="form-control" rows="4" type="text" name="description" placeholder="Tool description" autofocus=""></textarea>
                 </div>
-                
                 <div class="mb-3 mt-3">
                     <label for="developer">Developer</label>
                     <input class="form-control" type="text" name="developer" placeholder="Developer" autofocus="">
                 </div>
-                
                 <div class="mb-3 mt-3">
                     <label for="developerUrl">Developer URL</label>
                     <input class="form-control" type="text" name="developerUrl" placeholder="Developer URL" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="projectUrl">Project URL</label>
                     <input class="form-control" type="text" name="projectUrl" placeholder="Project URL" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="repositoryUrl">Repository URL</label>
                     <input class="form-control" type="text" name="repositoryUrl" placeholder="Repository URL" autofocus="">
@@ -47,42 +42,34 @@
                     <label for="license">Software license</label>
                     <input class="form-control" type="text" name="license" placeholder="Software license" autofocus="">
                 </div>
-                
                 <div class="mb-3 mt-3">
                     <label for="scriptingLanguage">Software language</label>
                     <input class="form-control" type="text" name="scriptingLanguage" placeholder="Software language" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="expertiseToUse">Expertise required to use</label>
                     <input class="form-control" type="text" name="expertiseToUse" placeholder="Expertise required to use" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="expertiseToHost">Expertise required to self-host</label>
                     <input class="form-control" type="text" name="expertiseToHost" placeholder="Expertise required to self-host" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="dependencies">Technical dependencies</label>
                     <input class="form-control" type="text" name="dependencies" placeholder="Technical dependencies" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="ingestFormats">Import / ingest formats</label>
                     <input class="form-control" type="text" name="ingestFormats" placeholder="Import / ingest formats" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="outputFormats">Output formats</label>
                     <input class="form-control" type="text" name="outputFormats" placeholder="Output formats" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="status">Platform status</label>
                     <input class="form-control" type="text" name="status" placeholder="Platform status" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
                     <label for="linked_practice_id">Linked resources</label>
                 </div>
@@ -101,10 +88,25 @@
                     <label for="practice_name">Practice name</label>
                     <input class="form-control" type="text" name="practice_name" placeholder="Practice name" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
-                    <label for="description">Practice description</label>
-                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Practice description" autofocus=""></textarea>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Description" autofocus=""></textarea>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="longDescription">Full description</label>
+                    <textarea class="form-control" rows="4" type="text" name="longDescription" placeholder="Full description" autofocus=""></textarea>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="experimental">Experimental uses</label>
+                    <textarea class="form-control" rows="4" type="text" name="experimental" placeholder="Experimental uses" autofocus=""></textarea>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="considerations">Considerations</label>
+                    <textarea class="form-control" rows="4" type="text" name="considerations" placeholder="Considerations" autofocus=""></textarea>
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="references">Further reading</label>
+                    <textarea class="form-control" rows="4" type="text" name="references" placeholder="Further reading" autofocus=""></textarea>
                 </div>
             </div>
             <div id="resource_type_book" class="resource_type_input" style="display: none;">
@@ -112,12 +114,35 @@
                     <label for="book_name">Book name</label>
                     <input class="form-control" type="text" name="book_name" placeholder="Book name" autofocus="">
                 </div>
-
                 <div class="mb-3 mt-3">
-                    <label for="description">Book description</label>
+                    <label for="description">Description</label>
                     <textarea class="form-control" rows="4" type="text" name="description" placeholder="Book description" autofocus=""></textarea>
                 </div>
+                <div class="mb-3 mt-3">
+                    <label for="author">Author</label>
+                    <input class="form-control" type="text" name="author" placeholder="Author" autofocus="">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="year">Publication year</label>
+                    <input class="form-control" type="text" name="year" placeholder="Publication year" autofocus="">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="typology">Typology category</label>
+                    <input class="form-control" type="text" name="typology" placeholder="Typology category" autofocus="">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="bookUrl">URL</label>
+                    <input class="form-control" type="text" name="bookUrl" placeholder="URL" autofocus="">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label for="isbn">ISBN</label>
+                    <input class="form-control" type="text" name="isbn" placeholder="ISBN" autofocus="">
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary mb-3">Submit</button>
+            <button type="submit" class="btn btn-default">Submit</button>
         </form>
+        <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
 {% endblock %}

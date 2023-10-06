@@ -74,6 +74,19 @@
 
 </a>
 
+{% if current_user.is_authenticated %}
+    <a href="{{ url_for('create.create_resource') }}"
+        class="ml-auto {{ 'active' if request.path == url_for('create.create_resource') }} menuitem  {% if type=='top' %} hidden lg:block {% else %} block {% endif %} "
+        >
+        Add resource
+    </a>
+    <a href="{{ url_for('auth.logout') }}"
+        class="menuitem  {% if type=='top' %} hidden lg:block {% else %} block {% endif %} "
+        >
+        Logout
+    </a>
+{% endif %}
+
 <a href="{{ url_for('main.about') }}{% if view == 'list' %}?view=list{% endif %}"
     class="ml-auto {{ 'active' if request.path == url_for('main.about') }} menuitem     {% if type=='top' %} hidden lg:block {% else %} block {% endif %}"
     @click="menuOpen = false">

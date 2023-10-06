@@ -128,8 +128,8 @@
                 class="form-control">{{ request.form['longDescription'] or resource['longDescription'] }}</textarea>
     </div>
     <div class="mb-3 mt-3">
-      <label for="experimental">Experimental use</label>
-      <textarea name="experimental" placeholder="Experimental use"
+      <label for="experimental">Experimental uses</label>
+      <textarea name="experimental" placeholder="Experimental uses"
                 class="form-control">{{ request.form['experimental'] or resource['experimental'] }}</textarea>
     </div>
     <div class="mb-3 mt-3">
@@ -138,8 +138,8 @@
                 class="form-control">{{ request.form['considerations'] or resource['considerations'] }}</textarea>
     </div>
     <div class="mb-3 mt-3">
-      <label for="references">References</label>
-      <textarea name="references" placeholder="References"
+      <label for="references">Further reading</label>
+      <textarea name="references" placeholder="Further reading"
                 class="form-control">{{ request.form['references'] or resource['references'] }}</textarea>
     </div>
     <div class="mb-3 mt-3">
@@ -227,10 +227,9 @@
     {% endif %}
 
     <div class="mb-3 mt-3">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-default">Submit</button>
     </div>
 </form>
-<hr>
 
 {% if resource['type'] == 'tool' %}
 <form action="{{ url_for('tool.delete_tool', tool_id=resource['id']) }}" method="POST">

@@ -64,6 +64,10 @@ def create_resource():
             type = 'practice'
             name = request.form.get('practice_name')
             description = request.form.get('description')
+            longDescription = request.form.get('longDescription')
+            experimental = request.form.get('experimental')
+            considerations = request.form.get('considerations')
+            references = request.form.get('references')
 
             if not name:
                 flash('Name is required!')
@@ -75,7 +79,7 @@ def create_resource():
                     return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
                 # create a new practice with the form data
-                new_practice = Resource(type=type, name=name, description=description)
+                new_practice = Resource(type=type, name=name, description=description, longDescription=longDescription, experimental=experimental, considerations=considerations, references=references)
 
                 # add the new practice to the database
                 db.session.add(new_practice)
@@ -85,18 +89,23 @@ def create_resource():
             type = 'book'
             name = request.form.get('book_name')
             description = request.form.get('description')
+            author = request.form.get('author')
+            year = request.form.get('year')
+            typology = request.form.get('typology')
+            bookUrl = request.form.get('bookUrl')
+            isbn = request.form.get('isbn')
 
             if not name:
                 flash('Name is required!')
             else:
-                book = Book.query.filter_by(name=name).first() # if this returns a book, then the name already exists in database
+                book = Resource.query.filter_by(type='book').filter_by(name=name).first() # if this returns a book, then the name already exists in database
 
                 if book: # if a book is found, we want to redirect back to create page
                     flash('Book with same name already exists')
                     return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
                 # create a new book with the form data
-                new_book = Resource(type=type, name=name, description=description)
+                new_book = Resource(type=type, name=name, description=description, author=author, year=year, typology=typology, bookUrl=bookUrl, isbn=isbn)
 
                 # add the new book to the database
                 db.session.add(new_book)
