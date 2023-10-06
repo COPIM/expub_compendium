@@ -8,6 +8,16 @@ The Experimental Publishing Compendium is a Python application using the [Flask]
 
 The database is a MariaDB SQL database with a basic structure of Resources, Relationships, and Users. Resources are divided into tools, practices, and books and the table contains fields for these various types of resources. Relationships defines the links between resources using the resource ID in the Resource table: these are rendered on the site as connections between, say, a tool and a practice. Users contains the site's users with basic details like email address and hashed password. This simple structure provides flexibility for displaying resources with filters and to illustrate the connections between various resources. 
 
+### admin interface
+
+There's an admin interface for editing resources and relationships in the browser. To login with a user account that has been previously set up, go to ./login and enter your email address and password. 
+
+Once logged in, you can access the page to add a new resource at ./create. Select using the dropdown whether you want to create a tool, a practice, or a book. At the bottom of the form, you will be able to add relationships between your new resource and other resources: to select multiple resources to create relationships with, hold Ctrl on your keyboard while selecting options in the selection list.
+
+You can also use the 'edit' link which will appear next to every resource to edit an existing resource, add new relationships between existing resources, and delete an existing resource.
+
+Logged in users can log out at ./logout.
+
 ### RESTful API
 
 The application has a simple RESTful API deployed using [Marshmallow](https://marshmallow.readthedocs.io/en/stable/index.html) to define schemas based on the SQLAlchemy database models. It allows a simple JSON export of users (login required), tools, practices, and books.

@@ -55,8 +55,9 @@ def create_resource():
                 db.session.add(new_tool)
                 db.session.commit()
 
-                if request.form.getlist('linked_resources'):
-                    for linked_resource in request.form.getlist('linked_resources'):
+                if request.form.getlist('linked_practices') or request.form.getlist('linked_books'):
+                    linked_resources = request.form.getlist('linked_practices') + request.form.getlist('linked_books')
+                    for linked_resource in linked_resources:
                         tool = Resource.query.filter_by(type='tool').filter_by(name=name).first()
                         add_relationship(tool.id, linked_resource)
 
@@ -85,6 +86,12 @@ def create_resource():
                 db.session.add(new_practice)
                 db.session.commit()
 
+                if request.form.getlist('linked_tools') or request.form.getlist('linked_books'):
+                    linked_resources = request.form.getlist('linked_tools') + request.form.getlist('linked_books')
+                    for linked_resource in linked_resources:
+                        practice = Resource.query.filter_by(type='practice').filter_by(name=name).first()
+                        add_relationship(practice.id, linked_resource)
+
         elif request.form.get('resource_type') == 'book':
             type = 'book'
             name = request.form.get('book_name')
@@ -111,5 +118,11 @@ def create_resource():
                 db.session.add(new_book)
                 db.session.commit()
 
-    resource_dropdown = Resource.query
+                if request.form.getlist('linked_tools') or request.form.getlist('linked_practices'):
+                    linked_resources = request.form.getlist('linked_tools') + request.form.getlist('linked_practices')
+                    for linked_resource in linked_resources:
+                        book = Resource.query.filter_by(type='book').filter_by(name=name).first()
+                        add_relationship(book.id, linked_resource)
+
+    resource_dropdown = Resource.query.order_by(Resource.name)
     return render_template('create.html', resource_dropdown=resource_dropdown)
