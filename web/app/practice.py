@@ -41,7 +41,9 @@ def get_practices():
         or_(
             Resource.id==53,
             Resource.id==56,
+            Resource.id==57,
             Resource.id==59,
+            Resource.id==61,
             Resource.id==62,
             Resource.id==63,
             Resource.id==64,
