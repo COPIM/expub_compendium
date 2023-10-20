@@ -1,5 +1,6 @@
 flask
 flask-sqlalchemy
+werkzeug==2.3
 flask-login
 flask-moment
 gunicorn
