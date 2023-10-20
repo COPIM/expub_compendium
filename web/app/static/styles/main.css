@@ -1140,6 +1140,10 @@ select {
   gap: 1rem;
 }
 
+.facts a {
+  overflow-wrap: break-word;
+}
+
 @media (min-width: 1024px) {
 
   .facts {
