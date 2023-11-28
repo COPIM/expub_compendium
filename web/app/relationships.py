@@ -46,6 +46,8 @@ def append_relationships(resource):
                 else:
                     resource.__dict__['tools'].append(relationship)
             elif relationship.type == 'practice':
+                # render Markdown as HTML
+                relationship.description = markdown.markdown(relationship.description)
                 if 'practices' not in resource.__dict__.keys():
                     resource.__dict__['practices'] = []
                     resource.__dict__['practices'].append(relationship)

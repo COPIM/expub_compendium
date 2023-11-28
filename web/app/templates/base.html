@@ -120,7 +120,7 @@
         {% endif %}
     </div> -->
 
-<form action="{{ url_for('search.basic_search') }}" class="hidden lg:block">
+<form action="{{ url_for('search.basic_search') }}" class="{% if type=='top' %} hidden lg:block {% else %} block {% endif %}">
     <label id="search-label" for="siteSearch" class="sr-only">Search</label>
     <input type="text" name="query" class="text-center h-full text-base border-l-2 border-black pl-1"
         aria-labelledby="search-label" placeholder="Search" hx-get="{{ url_for('search.basic_search') }}"

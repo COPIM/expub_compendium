@@ -1190,7 +1190,8 @@ h1, h2, h3 {
 @media (min-width: 1024px) {
 
   .huge-title {
-    font-size: 4.2rem;
+    word-break: break-word;
+    font-size: 3.8rem;
     line-height: 0.9;
   }
 }

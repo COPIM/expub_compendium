@@ -67,6 +67,7 @@ def get_practices():
 def show_practice(practice_id):
     practice = get_full_resource(practice_id)
     # render Markdown as HTML
+    practice.description = markdown.markdown(practice.description)
     practice.longDescription = markdown.markdown(practice.longDescription)
     practice.experimental = markdown.markdown(practice.experimental)
     practice.considerations = markdown.markdown(practice.considerations)

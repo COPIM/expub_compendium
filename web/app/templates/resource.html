@@ -35,7 +35,7 @@
                 {% if resource['description'] %}
                 <div class="">
                     <h3>Description</h3>
-                    {{ resource['description'] }}
+                    {{ resource['description']|safe }}
                 </div>
                 {% endif %}
                 <!-- fields for tools -->
