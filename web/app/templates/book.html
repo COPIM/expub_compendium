@@ -92,7 +92,13 @@
                     {% endif %}
                     {% if resource['author'] %}
                     <div class="">
-                        <h3>Author(s)</h3>
+                        <h3>
+                            {% if ' and ' in resource['author'] or ',' in resource['author'] %}
+                                Authors
+                            {% else %}
+                                Author
+                            {% endif %}
+                        </h3>
                         <div class="">{{ resource['author'] }}</div>
                     </div>
                     {% endif %}
