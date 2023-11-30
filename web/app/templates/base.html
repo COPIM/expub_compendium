@@ -292,7 +292,7 @@
     {% endif %}
 
     <div class="{% if size==1 %} big-text {% else %} small-text {% endif %} mb-[1em]">
-        {{ resource['description'] | truncate(150) | safe }}
+        {{ resource['description'] | truncate(150) | striptags }}
     </div>
 
     {% if resource.status == 'no longer maintained' %}
