@@ -48,9 +48,11 @@
 
 {% macro menu(type) %}
 <a class="block menuitem  w-48 " href="{{ url_for('main.index') }}{% if view == 'list' %}?view=list{% endif %}"
-    @click="menuOpen = false"><span>Experimental Publishing Compendium <span
+    @click="menuOpen = false">
+    <span>Experimental <span class="logo-secondary">Publishing</span> Compendium <!--<span
             class="ml-3  inline-block -rotate-12 italic text-[#f52d2d]"
-            style="text-shadow: 0 0 0.4rem white">beta</span></span>
+            style="text-shadow: 0 0 0.4rem white">beta</span>-->
+    </span>
 </a>
 
 <a href="{{ url_for('tool.get_tools') }}{% if view == 'list' %}?view=list{% endif %}"

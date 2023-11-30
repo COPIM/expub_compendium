@@ -1421,6 +1421,13 @@ a.menuitem:hover {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.logo-secondary {
+  color: #B398FF;
+}
+
+.menuitem:hover .logo-secondary, .menuitem.hover .logo-secondary {
+  color: #000000;
+}
 
  /* The switch - the box around the slider */
  .switch {
