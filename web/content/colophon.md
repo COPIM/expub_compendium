@@ -1,6 +1,6 @@
-## Beta 1.0 (2023)
+## Version 2.0 (2023)
 
-Version 1.0 has been curated by Janneke Adema, Julien McHardy, and Simon Bowie. Future versions will be overseen, curated, and maintained by an Editorial Board (members TBC).
+Version 2.0 has been curated by Janneke Adema, Julien McHardy, and Simon Bowie. Future versions will be overseen, curated, and maintained by an Editorial Board (members TBC).
 
 Back-end coding by [Simon Bowie](https://simonxix.com), front-end coding by [Joel Galvez](https://www.joelgalvez.com/), design by Joel Galvez & Martina Vanini.
 
