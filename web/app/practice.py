@@ -40,7 +40,6 @@ def get_practices():
     practices_query = practices_query.filter(
         not_(or_(
             Resource.id==52,
-            Resource.id==54,
             Resource.id==55,
             Resource.id==58
         )))
