@@ -110,9 +110,6 @@
         <a href="{{ url_for('auth.login') }}" class="block link">
             Login
         </a>
-        <a href="{{ url_for('auth.signup') }}" class="block link">
-            Sign Up
-        </a>
         {% endif %}
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('auth.logout') }}" class="block link">
