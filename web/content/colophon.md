@@ -6,7 +6,7 @@ Back-end coding by [Simon Bowie](https://simonxix.com), front-end coding by [Joe
 
 Special thanks to Gary Hall, Rebekka Kiesewetter, Marcell Mars, Toby Steiner, and Samuel Moore, and everyone who has provided feedback on our research or shared suggestions of examples to feature, including the participants of COPIM’s experimental publishing workshop, and Nicolás Arata, Dominique Babini, Maria Fernanda Pampin, Sebastian Nordhoff, Abel Packer, and Armanda Ramalho, and Agatha Morka.
 
-Our appreciation also goes out to the [Next Generation Library Publishing Project](https://educopia.org/next-generation-library-publishing/) for sharing an early catalogue-in-progress version of [SComCat](https://www.scomcat.net/) with us, which formed one of the inspirations behind the Compendium.
+Our appreciation also goes out to the [Next Generation Library Publishing Project](https://educopia.org/next-generation-library-publishing/) for sharing an early catalogue-in-progress version of [SComCat](https://www.scomcat.net/) with us which formed one of the inspirations behind the Compendium.
 ___
 
 Copyright © 2023 [COPIM](https://copim.ac.uk/).

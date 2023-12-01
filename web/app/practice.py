@@ -15,7 +15,7 @@ from . import db
 import os
 import markdown
 from sqlalchemy.sql import func
-from sqlalchemy import or_
+from sqlalchemy import or_, not_
 
 practice = Blueprint('practice', __name__)
 
@@ -37,19 +37,13 @@ def get_practices():
     practices_query = Resource.query.filter_by(type=resource_type)
 
    # temporarily removing incomplete practices from main list
-    practices_query = Resource.query.filter(
-        or_(
-            Resource.id==53,
-            Resource.id==56,
-            Resource.id==57,
-            Resource.id==59,
-            Resource.id==61,
-            Resource.id==62,
-            Resource.id==63,
-            Resource.id==64,
-            Resource.id==65,
-            Resource.id==66
-        ))
+    practices_query = practices_query.filter(
+        not_(or_(
+            Resource.id==52,
+            Resource.id==54,
+            Resource.id==55,
+            Resource.id==58
+        )))
 
     # finalise the query and add pagination
     practices = practices_query.order_by(Resource.name).paginate(page=page, per_page=25)
