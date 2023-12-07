@@ -38,6 +38,13 @@ def get_full_resource(resource_id):
             resource.__dict__.update(book_data)
     return resource
 
+# function to get practice from Markdown file
+def get_practice_markdown(practice_name):
+    with open(f'content/practices/{practice_name}.md', 'r') as f:
+        practice_text = f.read()
+        practice_text = markdown.markdown(practice_text)
+    return practice_text
+
 # function to retrieve data about a curated list of resources
 def get_curated_resources(resource_ids):
     resources = Resource.query.filter(Resource.id.in_(resource_ids)).order_by(func.random()).all()

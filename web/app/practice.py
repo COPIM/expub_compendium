@@ -13,6 +13,7 @@ from .resources import *
 from .relationships import *
 from . import db
 import os
+import re
 import markdown
 from sqlalchemy.sql import func
 from sqlalchemy import or_, not_
@@ -59,13 +60,11 @@ def get_practices():
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
     practice = get_full_resource(practice_id)
-    # render Markdown as HTML
-    practice.description = markdown.markdown(practice.description)
-    practice.longDescription = markdown.markdown(practice.longDescription)
-    practice.experimental = markdown.markdown(practice.experimental)
-    practice.considerations = markdown.markdown(practice.considerations)
-    practice.references = markdown.markdown(practice.references)
-    return render_template('resource.html', resource=practice)
+    practice_markdown = get_practice_markdown(practice.name)
+    practice_markdown = re.sub('^', '<div class="">', practice_markdown)
+    practice_markdown = re.sub('</p>\s<h3>', '</p></div><div class="lg:col-span-2"><h3>', practice_markdown)
+    practice_markdown = re.sub('$', '</div>', practice_markdown)
+    return render_template('resource.html', resource=practice, practice_markdown=practice_markdown)
 
 # route for editing a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>/edit', methods=('GET', 'POST'))
