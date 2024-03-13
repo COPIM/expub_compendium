@@ -1,1 +1,3 @@
 The Experimental Publishing Compendium is a guide and reference for scholars, publishers, developers, librarians, and designers who want to challenge, push and redefine the shape, form and rationale of scholarly books. The compendium brings together tools, practices, and books to promote the publication of experimental scholarly works. [Read more](/about)
+
+We're pleased that the Experimental Publishing Compendium has been nominated for the DH Awards 2023! Please vote for us at [http://dhawards.org/dhawards2023/voting/](http://dhawards.org/dhawards2023/voting/). Voting is open until 30 March 2024.
