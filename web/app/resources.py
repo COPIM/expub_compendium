@@ -40,7 +40,7 @@ def get_full_resource(resource_id):
 
 # function to retrieve data about a curated list of resources
 def get_curated_resources(resource_ids):
-    resources = Resource.query.filter(Resource.id.in_(resource_ids)).order_by(func.random()).all()
+    resources = Resource.query.filter(Resource.id.in_(resource_ids)).filter_by(published=True).order_by(func.random()).all()
     # append relationships to each resource
     append_relationships_multiple(resources)
     return resources

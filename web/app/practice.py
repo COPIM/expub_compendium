@@ -34,7 +34,7 @@ def get_practices():
         intro_text = markdown.markdown(intro_text)
 
     # DATABASE QUERY
-    practices_query = Resource.query.filter_by(type=resource_type)
+    practices_query = Resource.query.filter_by(type=resource_type).filter_by(published=True)
 
    # temporarily removing incomplete practices from main list
     practices_query = practices_query.filter(
