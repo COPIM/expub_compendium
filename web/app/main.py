@@ -51,9 +51,20 @@ def test():
 @main.route('/about')
 def about():
     with open('content/about.md', 'r') as f:
-        about_text = f.read()
-        about_text = markdown.markdown(about_text)
+        main_text = f.read()
+        main_text = markdown.markdown(main_text)
     with open('content/colophon.md', 'r') as f:
-        colophon_text = f.read()
-        colophon_text = markdown.markdown(colophon_text)
-    return render_template('about.html', about_text=about_text, colophon_text=colophon_text)
+        sidebar_text = f.read()
+        sidebar_text = markdown.markdown(sidebar_text)
+    return render_template('about.html', main_text=main_text, sidebar_text=sidebar_text)
+
+# route for events page
+@main.route('/expub_seminars')
+def events():
+    with open('content/seminar.md', 'r') as f:
+        main_text = f.read()
+        main_text = markdown.markdown(main_text)
+    with open('content/seminar_details.md', 'r') as f:
+        sidebar_text = f.read()
+        sidebar_text = markdown.markdown(sidebar_text)
+    return render_template('about.html', main_text=main_text, sidebar_text=sidebar_text)

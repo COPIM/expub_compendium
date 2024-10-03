@@ -2,6 +2,7 @@ services:
   web:
     build: ./web
     container_name: python
+    restart: unless-stopped
     expose:
       - 5000
     volumes:
