@@ -1,4 +1,4 @@
-## Manifold
+## Session 01: Manifold
 
 
 Date: Thursday 21st November 2024
