@@ -3,7 +3,7 @@
 
 Date: Thursday 21st November 2024
 
-Time: 17:00 CET / 16:00 BST / 11:00 EDT
+Time: 17:00 CET / 16:00 GMT / 11:00 EST
 
 Speakers: Terence Smyre, Matthew Gold, & Whitney Trettien
 

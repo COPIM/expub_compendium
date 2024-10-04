@@ -2,7 +2,7 @@
 
 A seminar series for experimental book publishers bring together authors and publishers with software and tool providers running in 2024 and 2025. 
 
-Our first seminar will be Thursday 21st November 2024 at 17:00 CET / 16:00 BST / 11:00 EDT bringing together Terence Smyre and Matthew Gold with author Whitney Trettien to discuss the publishing platform [Manifold](https://compendium.copim.ac.uk/tools/7).
+Our first seminar will be Thursday 21st November 2024 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together Terence Smyre and Matthew Gold with author Whitney Trettien to discuss the publishing platform [Manifold](https://compendium.copim.ac.uk/tools/7).
 
 Register at [INSERT LINK HERE](https://copim.ac.uk).
 
