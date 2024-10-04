@@ -1,12 +1,12 @@
 ## Experimental Book Publishing in Practice
 
-A seminar series for experimental book publishers bring together authors and publishers with software and tool providers running in 2024 and 2025. 
+The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/experimental-publishing-group) and the Centre for Postdigital Cultures’ [Post-Publishing](https://postpublishing.postdigitalcultures.org) research strand are pleased to present a seminar series for experimental book publishers throughout 2024 and 2025. Each seminar will bring together authors and publishers with software and tool providers. 
 
 Our first seminar will be Thursday 21st November 2024 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together Terence Smyre and Matthew Gold with author Whitney Trettien to discuss the publishing platform [Manifold](https://compendium.copim.ac.uk/tools/7).
 
 Register at [INSERT LINK HERE](https://copim.ac.uk).
 
-### Description
+![logos for Open Book Futures Experimental Publishing Group and the Centre for Postdigital Cultures](/static/images/seminar_logos.png)
 
 Last year saw the release of the [Experimental Publishing Compendium](https://compendium.copim.ac.uk/), a guide and reference for scholars, publishers, developers, librarians, and designers who want to challenge, push and redefine the shape, form and rationale of scholarly books. The Compendium brings together tools, practices, and books to promote the publication of experimental scholarly works. 
 
@@ -17,3 +17,7 @@ Organised by [Copim’s Experimental Publishing Group](https://copim.pubpub.org/
 The aim of these seminars is to help authors and publishers get started with a tool or platform, which sometimes can be quite daunting or complicated without dedicated IT support. The seminars will feature short walkthroughs of platforms and tools, as well as talks by and Q&As with the people that have developed, designed or are currently maintaining them and will be complemented by presentations by authors or publishers that have used these tools or platforms to publish an experimental book, who will be sharing their experiences of doing so. 
 
 Next to providing dedicated space for audience members to ask questions to the presenters during the seminars, the recordings of these events will be uploaded to the Experimental Publishing Compendium to complement the information on the discussed tools, practices, and books already included in the Compendium.
+
+The Open Book Futures project is funded by the [Research England Development (RED) Fund](https://re.ukri.org/funding/our-funds-overview/research-england-development-red-fund/) and [Arcadia](https://www.arcadiafund.org.uk/), a charitable fund of Lisbet Rausing and Peter Baldwin.
+
+![logos for Research England and Arcadia](/static/images/funder_logos.png)
