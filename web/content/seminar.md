@@ -1,5 +1,13 @@
 ## Experimental Book Publishing in Practice
 
+A seminar series for experimental book publishers bring together authors and publishers with software and tool providers running in 2024 and 2025. 
+
+Our first seminar will be Thursday 21st November 2024 at 17:00 CET / 16:00 BST / 11:00 EDT bringing together Terence Smyre and Matthew Gold with author Whitney Trettien to discuss the publishing platform [Manifold](https://compendium.copim.ac.uk/tools/7).
+
+Register at [INSERT LINK HERE](https://copim.ac.uk).
+
+### Description
+
 Last year saw the release of the [Experimental Publishing Compendium](https://compendium.copim.ac.uk/), a guide and reference for scholars, publishers, developers, librarians, and designers who want to challenge, push and redefine the shape, form and rationale of scholarly books. The Compendium brings together tools, practices, and books to promote the publication of experimental scholarly works. 
 
 To complement the Compendium, this series of seminars will showcase a selection of open source tools, platforms, and software that support the publication of experimental, interactive, multimodal, and/or versioned books as well as experimental publishing practices from annotating and open reviewing to forking and rewriting. 
