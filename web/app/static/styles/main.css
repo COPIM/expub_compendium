@@ -1172,6 +1172,10 @@ a.link:hover {
   opacity: 1;
 }
 
+h2 {
+  font-size: 150%;
+  margin-bottom: 1em;
+}
 
 h2,h3 {
     -webkit-hyphens: auto;

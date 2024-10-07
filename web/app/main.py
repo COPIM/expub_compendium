@@ -59,6 +59,7 @@ def about():
     return render_template('about.html', main_text=main_text, sidebar_text=sidebar_text)
 
 # route for events page
+@main.route('/practice_seminars')
 @main.route('/expub_seminars')
 def events():
     with open('content/seminar.md', 'r') as f:

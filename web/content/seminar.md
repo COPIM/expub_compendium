@@ -1,14 +1,18 @@
 ## Experimental Book Publishing in Practice
 
-The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/experimental-publishing-group) and the Centre for Postdigital Cultures’ [Post-Publishing](https://postpublishing.postdigitalcultures.org) research strand are pleased to present a seminar series for experimental book publishers throughout 2024 and 2025. Each seminar will bring together authors and publishers with software and tool providers. 
+The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/experimental-publishing-group) and the Centre for Postdigital Cultures’ [Post-Publishing](https://postpublishing.postdigitalcultures.org) research strand are pleased to present a seminar series for for those interested in experimental scholarly book publishing throughout 2024 and 2025. Each seminar will bring together authors and publishers with software and tool providers. 
 
-Our first seminar will be Thursday 21st November 2024 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together Terence Smyre and Matthew Gold with author Whitney Trettien to discuss the publishing platform [Manifold](https://compendium.copim.ac.uk/tools/7).
+Our first seminar will be Thursday 21st November 2024 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together Terence Smyre (Manifold) and Matthew Gold (CUNY) with author Whitney Trettien (University of Pennsylvania) to discuss the publishing platform [Manifold](https://compendium.copim.ac.uk/tools/7).
 
 Register at [INSERT LINK HERE](https://copim.ac.uk). 
 
 Every seminar in this series will take place online using [kMeet](https://www.infomaniak.com/en/kmeet), the open source privacy-focused videoconferencing software from Infomaniak. kMeet is compatible with all modern browsers.
 
+
 ![logos for Open Book Futures Experimental Publishing Group and the Centre for Postdigital Cultures](/static/images/seminar_logos.png)
+
+
+## Concept
 
 Last year saw the release of the [Experimental Publishing Compendium](https://compendium.copim.ac.uk/), a guide and reference for scholars, publishers, developers, librarians, and designers who want to challenge, push and redefine the shape, form and rationale of scholarly books. The Compendium brings together tools, practices, and books to promote the publication of experimental scholarly works. 
 
