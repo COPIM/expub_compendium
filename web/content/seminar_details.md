@@ -9,4 +9,4 @@ Location: Online using kMeet
 
 Speakers: Terence Smyre (Manifold), Matthew Gold (CUNY), & Whitney Trettien (University of Pennsylvania)
 
-Register at [INSERT LINK HERE](https://copim.ac.uk).
+Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontend/reg/thome.csp?pageID=555708&ef_sel_menu=9150&eventID=1997).

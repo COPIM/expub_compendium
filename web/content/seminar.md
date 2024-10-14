@@ -4,7 +4,7 @@ The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/e
 
 Our first seminar will be Thursday 21st November 2024 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together Terence Smyre (Manifold) and Matthew Gold (CUNY) with author Whitney Trettien (University of Pennsylvania) to discuss the publishing platform [Manifold](https://compendium.copim.ac.uk/tools/7).
 
-Register at [INSERT LINK HERE](https://copim.ac.uk). 
+Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontend/reg/thome.csp?pageID=555708&ef_sel_menu=9150&eventID=1997).
 
 Every seminar in this series will take place online using [kMeet](https://www.infomaniak.com/en/kmeet), the open source privacy-focused videoconferencing software from Infomaniak. kMeet is compatible with all modern browsers.
 
