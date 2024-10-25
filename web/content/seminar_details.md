@@ -18,4 +18,4 @@ Time: 17:00 CET / 16:00 GMT / 11:00 EST
 
 Location: Online using kMeet
 
-Speakers: Remi Kalir (Duke University), Sonja Visser (Hypothesis), and Janneke Adema (Open Humanities Press)
+Speakers: Remi Kalir (Duke University), Sonja Visser (Hypothesis), & Janneke Adema (Open Humanities Press)
