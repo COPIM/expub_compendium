@@ -19,3 +19,13 @@ Time: 17:00 CET / 16:00 GMT / 11:00 EST
 Location: Online using kMeet
 
 Speakers: Remi Kalir (Duke University), Sonja Visser (Hypothes.is), & Janneke Adema (Open Humanities Press)
+
+## Seminar 03: TK Labels
+
+Date: Thursday 20th March 2025
+
+Time: 17:00 CET / 16:00 GMT / 11:00 EST
+
+Location: Online using kMeet
+
+Speakers: Stephany RunningHawk Johnson (Local Contexts), Corrie Roe (Local Contexts), & Darcy Cullen (UBC Press)
