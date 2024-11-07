@@ -28,4 +28,4 @@ Time: 17:00 CET / 16:00 GMT / 11:00 EST
 
 Location: Online using kMeet
 
-Speakers: Stephany RunningHawk Johnson (Local Contexts), Corrie Roe (Local Contexts), & Darcy Cullen (UBC Press)
+Speakers: Stephany RunningHawk Johnson (Local Contexts) & Darcy Cullen (UBC Press)
