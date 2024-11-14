@@ -9,6 +9,11 @@
 
     <div id="colophon" class="cell-margin text lg:my-16">
         {{ sidebar_text | safe }}
+
+        {% if last_updated is defined %}
+            <hr>
+            Database last updated: {{ last_updated[0:10] }}
+        {% endif %}
     </div>
 </div>
 
