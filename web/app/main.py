@@ -50,13 +50,15 @@ def test():
 # route for about page
 @main.route('/about')
 def about():
+    # get last updated date
+    last_updated = get_last_date()
     with open('content/about.md', 'r') as f:
         main_text = f.read()
         main_text = markdown.markdown(main_text)
     with open('content/colophon.md', 'r') as f:
         sidebar_text = f.read()
         sidebar_text = markdown.markdown(sidebar_text)
-    return render_template('about.html', main_text=main_text, sidebar_text=sidebar_text)
+    return render_template('about.html', main_text=main_text, sidebar_text=sidebar_text, last_updated=last_updated)
 
 # route for events page
 @main.route('/practice_seminars')

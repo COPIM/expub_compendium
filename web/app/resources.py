@@ -90,3 +90,8 @@ def get_book_cover(book):
         book_cover = {'thumbnail': openl_url}
         book.update(book_cover)
     return book
+
+# function to retrieve last updated date from the database
+def get_last_date():
+    resource = Resource.query.order_by(Resource.created.asc()).filter_by(published=True).first()
+    return resource.created.isoformat()
