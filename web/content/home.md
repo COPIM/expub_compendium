@@ -1,1 +1,3 @@
 The Experimental Publishing Compendium is a guide and reference for scholars, publishers, developers, librarians, and designers who want to challenge, push and redefine the shape, form and rationale of scholarly books. The compendium brings together tools, practices, and books to promote the publication of experimental scholarly works. [Read more](/about)
+
+The Open Book Futures Experimental Publishing Group and the Centre for Postdigital Cultures’ Post-Publishing research strand are presenting **a seminar series for for those interested in experimental scholarly book publishing** throughout 2024 and 2025. [Read more and register](/practice_seminars).
