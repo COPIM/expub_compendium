@@ -2,9 +2,9 @@
 
 The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/experimental-publishing-group) and the Centre for Postdigital Cultures’ [Post-Publishing](https://postpublishing.postdigitalcultures.org) research strand are pleased to present a seminar series for for those interested in experimental scholarly book publishing throughout 2024 and 2025. Each seminar will bring together authors and publishers with software and tool providers. 
 
-Our first seminar will be Thursday 21st November 2024 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together Terence Smyre (Manifold) and Matthew Gold (CUNY) with author Whitney Trettien (University of Pennsylvania) to discuss the publishing platform [Manifold](https://compendium.copim.ac.uk/tools/7).
+Our next seminar will be Thursday 16th January 2025 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together author Remi Kalir (Duke University) with Sonja Visser (Hypothes.is) and Janneke Adema (Open Humanities Press) to discuss the annotation software [Hypothes.is](https://compendium.copim.ac.uk/tools/27).
 
-Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontend/reg/thome.csp?pageID=555708&ef_sel_menu=9150&eventID=1997).
+Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontend/reg/thome.csp?pageID=566861&eventID=2038).
 
 Every seminar in this series will take place online using [kMeet](https://www.infomaniak.com/en/kmeet), the open source privacy-focused videoconferencing software from Infomaniak. kMeet is compatible with all modern browsers.
 
