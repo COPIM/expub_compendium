@@ -18,7 +18,7 @@ Location: Online using kMeet
 
 Speakers: Remi Kalir (Duke University), Sonja Visser (Hypothes.is), & Janneke Adema (Open Humanities Press)
 
-Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontend/reg/thome.csp?pageID=566861&eventID=2038).
+Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontEnd/reg/registerNew.csp?ef_sel_menu=9304&eventID=2038).
 
 ## Seminar 03: TK Labels
 
@@ -30,4 +30,4 @@ Location: Online using kMeet
 
 Speakers: Stephany RunningHawk Johnson (Local Contexts) & Darcy Cullen (UBC Press)
 
-Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontend/reg/thome.csp?pageID=567108&eventID=2039).
+Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontEnd/reg/registerNew.csp?ef_sel_menu=9308&eventID=2039).

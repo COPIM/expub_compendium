@@ -4,7 +4,7 @@ The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/e
 
 Our next seminar will be Thursday 16th January 2025 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together author Remi Kalir (Duke University) with Sonja Visser (Hypothes.is) and Janneke Adema (Open Humanities Press) to discuss the annotation software [Hypothes.is](https://compendium.copim.ac.uk/tools/27).
 
-Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontend/reg/thome.csp?pageID=566861&eventID=2038).
+Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontEnd/reg/registerNew.csp?ef_sel_menu=9304&eventID=2038).
 
 Every seminar in this series will take place online using [kMeet](https://www.infomaniak.com/en/kmeet), the open source privacy-focused videoconferencing software from Infomaniak. kMeet is compatible with all modern browsers.
 
