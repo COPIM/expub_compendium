@@ -11,6 +11,15 @@ Every seminar in this series will take place online using [kMeet](https://www.in
 
 ![logos for Open Book Futures Experimental Publishing Group and the Centre for Postdigital Cultures](/static/images/seminar_logos.png)
 
+## Seminar recordings
+
+### Sesson 01: Manifold
+
+<br><iframe src="https://archive.org/embed/Experimental_Publishing_Seminar_01" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe><br>
+
+View the whole recording on the Internet Archive: [https://archive.org/details/Experimental_Publishing_Seminar_01](https://archive.org/details/Experimental_Publishing_Seminar_01)
+
+<br>
 
 ## Concept
 
@@ -27,11 +36,3 @@ Next to providing dedicated space for audience members to ask questions to the p
 The Open Book Futures project is funded by the [Research England Development (RED) Fund](https://re.ukri.org/funding/our-funds-overview/research-england-development-red-fund/) and [Arcadia](https://www.arcadiafund.org.uk/), a charitable fund of Lisbet Rausing and Peter Baldwin.
 
 ![logos for Research England and Arcadia](/static/images/funder_logos.png)
-
-## Previous seminars
-
-### Sesson 01: Manifold
-
-<br><iframe src="https://archive.org/embed/Experimental_Publishing_Seminar_01" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe><br>
-
-View the whole recording on the Internet Archive: [https://archive.org/details/Experimental_Publishing_Seminar_01](https://archive.org/details/Experimental_Publishing_Seminar_01)
