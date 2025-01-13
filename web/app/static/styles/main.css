@@ -1752,3 +1752,17 @@ select.form-select {
   background-color: #d9534f;
   border-color: #d43f3a;
 }
+
+#embedded-video {
+  margin-top: 1rem;
+}
+
+div#embedded-video iframe {
+  position: relative;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 480px;
+  width: 100%;
+}

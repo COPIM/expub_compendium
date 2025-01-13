@@ -30,6 +30,7 @@ class Resource(db.Model):
     type = db.Column(db.Text)
     name = db.Column(db.Text)
     description = db.Column(db.Text)
+    videoUrl = db.Column(db.Text)
     # tools
     developer = db.Column(db.Text)
     developerUrl = db.Column(db.Text)
