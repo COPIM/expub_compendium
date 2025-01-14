@@ -15,6 +15,7 @@ from .relationships import *
 from isbntools.app import *
 import requests
 import re
+import json
 from sqlalchemy.sql import func
 import markdown
 
@@ -36,6 +37,11 @@ def get_full_resource(resource_id):
         book_data = get_book_data(resource.isbn)
         if book_data:
             resource.__dict__.update(book_data)
+    # if there's a GitHub repository link, get last GitHub commit date
+    if resource.repositoryUrl and "github" in resource.repositoryUrl:
+        # get commit date
+        date = get_commit_date(resource.repositoryUrl)
+        resource.__dict__['commitDate'] = date
     return resource
 
 # function to retrieve data about a curated list of resources
@@ -95,3 +101,18 @@ def get_book_cover(book):
 def get_last_date():
     resource = Resource.query.order_by(Resource.created.asc()).filter_by(published=True).first()
     return resource.created.isoformat()
+
+# function to retrieve last commit date from a GitHub repository for a tool
+def get_commit_date(repositoryUrl):
+    # change repository URL to API URL
+    api_url = repositoryUrl.replace("https://github.com", "https://api.github.com/repos")
+    # get default branch name
+    r = requests.get(api_url)
+    r = json.loads(r.content)
+    branch = r['default_branch']
+    # get date of last commit on default branch
+    api_url = api_url + "/branches/" + branch  
+    r = requests.get(api_url)
+    r = json.loads(r.content)
+    date = r['commit']['commit']['author']['date'][0:10]
+    return date

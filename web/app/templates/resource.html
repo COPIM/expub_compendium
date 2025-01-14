@@ -89,6 +89,9 @@
                 <div class="">
                     <h3>Platform status</h3>
                     {{ resource['status'] }}
+                    {% if resource['commitDate'] %}
+                        : last <a href="{{ resource['repositoryUrl'] }}">GitHub commit</a> on {{ resource['commitDate']}}
+                    {% endif %}
                 </div>
                 {% endif %}
                 <!-- fields for practices -->
