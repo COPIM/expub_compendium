@@ -9,7 +9,7 @@ Special thanks to Gary Hall, Rebekka Kiesewetter, Marcell Mars, Toby Steiner, an
 Our appreciation also goes out to the [Next Generation Library Publishing Project](https://educopia.org/next-generation-library-publishing/) for sharing an early catalogue-in-progress version of SComCat with us which formed one of the inspirations behind the Compendium.
 ___
 
-Copyright © 2023–2024 [COPIM](https://copim.ac.uk/).
+Copyright © 2023–2025 [COPIM](https://copim.ac.uk/).
 
 Design © 2023 [Joel Galvez](https://joelgalvez.com/selected).
 
