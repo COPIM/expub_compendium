@@ -15,9 +15,9 @@ Every seminar in this series will take place online using [kMeet](https://www.in
 
 ### Sesson 01: Manifold
 
-<br><iframe src="https://archive.org/embed/Experimental_Publishing_Seminar_01" width="640" height="480" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe><br>
+<br><div id="embedded-video"><iframe src="https://archive.org/embed/Experimental_Publishing_Seminar_01" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe></div><br>
 
-View the whole recording on the Internet Archive: [https://archive.org/details/Experimental_Publishing_Seminar_01](https://archive.org/details/Experimental_Publishing_Seminar_01)
+View the [whole recording on the Internet Archive](https://archive.org/details/Experimental_Publishing_Seminar_01).
 
 <br>
 
