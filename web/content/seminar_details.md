@@ -18,8 +18,6 @@ Location: Online using kMeet
 
 Speakers: Remi Kalir (Duke University), Sonja Visser (Hypothes.is), & Janneke Adema (Open Humanities Press)
 
-Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontEnd/reg/registerNew.csp?ef_sel_menu=9304&eventID=2038).
-
 ## Seminar 03: TK Labels
 
 Date: Thursday 20th March 2025

@@ -2,9 +2,9 @@
 
 The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/experimental-publishing-group) and the Centre for Postdigital Cultures’ [Post-Publishing](https://postpublishing.postdigitalcultures.org) research strand are pleased to present a seminar series for for those interested in experimental scholarly book publishing throughout 2024 and 2025. Each seminar will bring together authors and publishers with software and tool providers. 
 
-Our next seminar will be Thursday 16th January 2025 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together author Remi Kalir (Duke University) with Sonja Visser (Hypothes.is) and Janneke Adema (Open Humanities Press) to discuss the annotation software [Hypothes.is](https://compendium.copim.ac.uk/tools/27).
+Our next seminar will be Thursday 20th March 2025 at 17:00 CET / 16:00 GMT / 11:00 EST bringing together Stephany RunningHawk Johnson (Local Contexts) & Darcy Cullen (UBC Press) to discuss [Traditional Knowledge Labels](https://compendium.copim.ac.uk/tools/170), labels which allow Indigenous communities to express local and specific conditions for sharing and engaging in future research and relationships in ways that are consistent with already existing community rules, governance and protocols for using, sharing and circulating knowledge and data.
 
-Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontEnd/reg/registerNew.csp?ef_sel_menu=9304&eventID=2038).
+Register via [Eventsforce](https://www.eventsforce.net/cugroup/frontEnd/reg/registerNew.csp?ef_sel_menu=9308&eventID=2039).
 
 Every seminar in this series will take place online using [kMeet](https://www.infomaniak.com/en/kmeet), the open source privacy-focused videoconferencing software from Infomaniak. kMeet is compatible with all modern browsers.
 
