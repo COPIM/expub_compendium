@@ -19,6 +19,12 @@ Every seminar in this series will take place online using [kMeet](https://www.in
 
 View the [whole recording on the Internet Archive](https://archive.org/details/Experimental_Publishing_Seminar_01).
 
+### Sesson 02: Hypothes.is
+
+<br><div id="embedded-video"><iframe src="https://archive.org/embed/Experimental_Publishing_Seminar_02" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe></div><br>
+
+View the [whole recording on the Internet Archive](https://archive.org/details/Experimental_Publishing_Seminar_02).
+
 <br>
 
 ## Concept
