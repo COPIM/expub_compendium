@@ -99,7 +99,7 @@ def get_book_cover(book):
 
 # function to retrieve last updated date from the database
 def get_last_date():
-    resource = Resource.query.order_by(Resource.created.asc()).filter_by(published=True).first()
+    resource = Resource.query.order_by(Resource.created.desc()).filter_by(published=True).first()
     return resource.created.isoformat()
 
 # function to retrieve last commit date from a GitHub repository for a tool
