@@ -13,6 +13,7 @@ from .resources import *
 from .relationships import *
 from . import db
 import os
+import re
 import markdown
 from sqlalchemy.sql import func
 from sqlalchemy import or_, not_
@@ -47,6 +48,13 @@ def get_practices():
     # finalise the query and add pagination
     practices = practices_query.order_by(Resource.name).paginate(page=page, per_page=25)
 
+    # fill the description field with the first paragraph of the associated practice Markdown file
+    for practice in practices:
+        if not practice.description:
+            practice_markdown = get_practice_markdown(practice.name, 'markdown')
+            description = extract_first_paragraph(practice_markdown)
+            practice.description = description
+
     # POST-FILTERING PROCESSING
     # if view is 'expanded' then append relationships
     if view != 'list':
@@ -59,13 +67,11 @@ def get_practices():
 @practice.route('/practices/<int:practice_id>')
 def show_practice(practice_id):
     practice = get_full_resource(practice_id)
-    # render Markdown as HTML
-    practice.description = markdown.markdown(practice.description)
-    practice.longDescription = markdown.markdown(practice.longDescription)
-    practice.experimental = markdown.markdown(practice.experimental)
-    practice.considerations = markdown.markdown(practice.considerations)
-    practice.references = markdown.markdown(practice.references)
-    return render_template('resource.html', resource=practice)
+    practice_markdown = get_practice_markdown(practice.name)
+    practice_markdown = re.sub('^', '<div class="">', practice_markdown)
+    practice_markdown = re.sub('</p>\s<h3>', '</p></div><div class="lg:col-span-2"><h3>', practice_markdown)
+    practice_markdown = re.sub('$', '</div>', practice_markdown)
+    return render_template('resource.html', resource=practice, practice_markdown=practice_markdown)
 
 # route for editing a single practice based on the ID in the database
 @practice.route('/practices/<int:practice_id>/edit', methods=('GET', 'POST'))
@@ -75,18 +81,18 @@ def edit_practice(practice_id):
     resource_dropdown = Resource.query.order_by(Resource.name)
     existing_relationships = get_relationships(practice_id)
 
+    practice_markdown = get_practice_markdown(practice.name, 'markdown')
+
     if request.method == 'POST':
         if not request.form['name']:
             flash('Name is required!')
         else:
             practice = Resource.query.get(practice_id)
             practice.name = request.form['name']
-            practice.description = request.form['description']
-            practice.longDescription = request.form['longDescription']
-            practice.experimental = request.form['experimental']
-            practice.considerations = request.form['considerations']
-            practice.references = request.form['references']
             db.session.commit()
+
+            write_practice_markdown(request.form['name'], request.form['practice_markdown'])
+
             linked_resources = request.form.getlist('linked_tools') + request.form.getlist('linked_books')
             remove_linked_resources = request.form.getlist('remove_linked_resources')
 
@@ -94,11 +100,19 @@ def edit_practice(practice_id):
 
             return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
-    return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, relationships=existing_relationships)
+    return render_template('edit.html', resource=practice, practice_markdown=practice_markdown, resource_dropdown=resource_dropdown, relationships=existing_relationships)
 
 # route for function to delete a single practice from the edit page
 @practice.route('/practices/<int:practice_id>/delete', methods=('POST',))
 @login_required
 def delete_practice(practice_id):
+    # get practice name for deleting Markdown
+    practice = get_resource(practice_id)
+    practice_name = practice.name.replace(" ", "_")
+    # delete associated Markdown file
+    os.remove(f'content/practices/{practice_name}.md')
+
+    # delete from database
     delete_resource(practice_id)
+
     return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))

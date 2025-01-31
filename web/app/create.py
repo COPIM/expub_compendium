@@ -64,11 +64,7 @@ def create_resource():
         elif request.form.get('resource_type') == 'practice':
             type = 'practice'
             name = request.form.get('practice_name')
-            description = request.form.get('description')
-            longDescription = request.form.get('longDescription')
-            experimental = request.form.get('experimental')
-            considerations = request.form.get('considerations')
-            references = request.form.get('references')
+            practice_markdown = request.form.get('practice_markdown')
 
             if not name:
                 flash('Name is required!')
@@ -80,11 +76,12 @@ def create_resource():
                     return redirect(url_for('create.create_resource',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
                 # create a new practice with the form data
-                new_practice = Resource(type=type, name=name, description=description, longDescription=longDescription, experimental=experimental, considerations=considerations, references=references)
-
+                new_practice = Resource(type=type, name=name)
                 # add the new practice to the database
                 db.session.add(new_practice)
                 db.session.commit()
+
+                write_practice_markdown(name, practice_markdown)
 
                 if request.form.getlist('linked_tools') or request.form.getlist('linked_books'):
                     linked_resources = request.form.getlist('linked_tools') + request.form.getlist('linked_books')

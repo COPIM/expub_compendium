@@ -44,6 +44,42 @@ def get_full_resource(resource_id):
         resource.__dict__['commitDate'] = date
     return resource
 
+# function to get practice from Markdown file
+def get_practice_markdown(practice_name, option='html'):
+    file_name = practice_name.replace(" ", "_")
+    with open(f'content/practices/{file_name}.md', 'r') as f:
+        practice_text = f.read()
+        if option == 'html':
+            practice_text = markdown.markdown(practice_text)
+    return practice_text
+
+# function to write new or edited practice to Markdown file
+def write_practice_markdown(practice_name, markdown):
+    practice_name = practice_name.replace(" ", "_")
+    with open(f'content/practices/{practice_name}.md', 'w+') as f:
+        f.write(markdown)
+
+# function to extract only the first paragraph of practice Markdown
+def extract_first_paragraph(markdown):
+    # Split the text into lines
+    lines = markdown.split("\n")
+    
+    # Initialize a flag to track when we find the first paragraph
+    paragraph = []
+    
+    for line in lines:
+        # Ignore headings (lines starting with #)
+        if line.startswith("#"):
+            continue
+        
+        # If the line is not empty, it's part of a paragraph
+        if line.strip():
+            paragraph.append(line.strip())
+        elif paragraph:  # Stop once we have collected a paragraph and hit an empty line
+            break
+
+    return " ".join(paragraph)
+
 # function to retrieve data about a curated list of resources
 def get_curated_resources(resource_ids):
     resources = Resource.query.filter(Resource.id.in_(resource_ids)).filter_by(published=True).order_by(func.random()).all()

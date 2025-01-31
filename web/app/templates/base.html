@@ -289,9 +289,11 @@
     </div>
     {% endif %}
 
+    {% if resource['description'] %}
     <div class="{% if size==1 %} big-text {% else %} small-text {% endif %} mb-[1em]">
         {{ resource['description'] | truncate(150) | striptags }}
     </div>
+    {% endif %}
 
     {% if resource.status == 'no longer maintained' %}
     <div class="mt-4 mb-8">(No longer maintained)</div>

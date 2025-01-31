@@ -13,13 +13,13 @@
         </input>
     </div>
 
+    {% if resource['type'] == 'tool' %}
     <div class="mb-3 mt-3">
-        <label for="description">Description</label>
-        <textarea name="description" placeholder="Description"
-                  class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
+      <label for="description">Description</label>
+      <textarea name="description" placeholder="Description"
+                class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
     </div>
 
-    {% if resource['type'] == 'tool' %}
     <div class="mb-3 mt-3">
         <label for="developer">Developer</label>
         <input type="text" name="developer" placeholder="Developer"
@@ -139,24 +139,9 @@
 
     {% elif resource['type'] == 'practice' %}
     <div class="mb-3 mt-3">
-      <label for="longDescription">Full description</label>
-      <textarea name="longDescription" placeholder="Full description"
-                class="form-control">{{ request.form['longDescription'] or resource['longDescription'] }}</textarea>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="experimental">Experimental uses</label>
-      <textarea name="experimental" placeholder="Experimental uses"
-                class="form-control">{{ request.form['experimental'] or resource['experimental'] }}</textarea>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="considerations">Considerations</label>
-      <textarea name="considerations" placeholder="Considerations"
-                class="form-control">{{ request.form['considerations'] or resource['considerations'] }}</textarea>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="references">Further reading</label>
-      <textarea name="references" placeholder="Further reading"
-                class="form-control">{{ request.form['references'] or resource['references'] }}</textarea>
+      <label for="practice_markdown">Markdown text</label>
+      <textarea name="practice_markdown" placeholder="Markdown text"
+                class="form-control">{{ request.form['practice_markdown'] or practice_markdown }}</textarea>
     </div>
     <div class="mb-3 mt-3">
       <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
@@ -192,6 +177,12 @@
     </div>
 
     {% elif resource['type'] == 'book' %}
+    <div class="mb-3 mt-3">
+      <label for="description">Description</label>
+      <textarea name="description" placeholder="Description"
+                class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
+    </div>
+
     <div class="mb-3 mt-3">
       <label for="author">Author</label>
       <input type="text" name="author" placeholder="Author"
