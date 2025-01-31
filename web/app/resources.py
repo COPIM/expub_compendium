@@ -39,11 +39,19 @@ def get_full_resource(resource_id):
     return resource
 
 # function to get practice from Markdown file
-def get_practice_markdown(practice_name):
-    with open(f'content/practices/{practice_name}.md', 'r') as f:
+def get_practice_markdown(practice_name, option='html'):
+    file_name = practice_name.replace(" ", "_")
+    with open(f'content/practices/{file_name}.md', 'r') as f:
         practice_text = f.read()
-        practice_text = markdown.markdown(practice_text)
+        if option == 'html':
+            practice_text = markdown.markdown(practice_text)
     return practice_text
+
+# function to write new or edited practice to Markdown file
+def write_practice_markdown(practice_name, markdown):
+    practice_name = practice_name.replace(" ", "_")
+    with open(f'content/practices/{practice_name}.md', 'w+') as f:
+        f.write(markdown)
 
 # function to retrieve data about a curated list of resources
 def get_curated_resources(resource_ids):

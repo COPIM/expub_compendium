@@ -1,8 +1,8 @@
-Short description
+### Description
 
 Computational publishing broadly refers to publishing a book using techniques or processes from software development. This can include software development practices like forking, versioning, or programming and can produce books which incorporate computational elements alongside human-readable text such as executable code blocks, interactive visualisations, or browsable data repositories. 
 
-Long description
+### Full description
 
 'Computational publishing' is an umbrella term for a number of experimental publishing techniques and practices linked to the processes of software development. Broadly defined, it refers to publishing a book using techniques or processes from software development. 
 
@@ -10,7 +10,7 @@ Specialist software development practices like forking, versioning, or computer 
 
 Since computational publishing is derived from the world of software development, a computational book will often contain computational elements within the publication itself. The computational functionality in computational books is distinguished from more basic computational functionality of e.g. hyperlinks by the extent to which it requires the use of techniques from software development such as writing in a programming language or automatically retrieving data or media objects through an API (application programming interface: a type of interface to allow two computer programs to communicate with one another and exchange data).
 
-Experimental aspects
+### Experimental uses
 
 Computational book publications will generally combine human-readable text with computational functionality and generally use computational functionality in one of two ways.  
 
@@ -33,7 +33,7 @@ Some examples of these kinds of publications include [Simon Ganahl’s (2022) *C
 
 While some computational publishing software tools may make it easy to fetch or embed these kinds of computational media objects, they may also require the use of software development techniques to write code that expresses the object or to write code to retrieve the object from another source via an API.
 
-Considerations
+### Considerations
 
 A major consideration for computational publishing is the specialist skills required. Since definitionally computational publishing uses techniques or processes from software development, then some familiarity is required not only with those techniques or processes but with the knowledge to understand how such software development processes interact. Software development is a specialist skill set and there’s a high technical complexity overhead in either contracting a developer to work on a computational publishing project or in learning the skills required to use specialist software. 
 
@@ -45,31 +45,10 @@ Another consideration specific to computational publishing is reproducibility an
 
 Issues around preservation are complicated in the case of computational books by the issue of who is responsible for preserving external or remote content. [Adema (2023)](https://doi.org/10.21428/785a6451.2af49d16) discusses how dynamically bringing in content hosted by a third party creates the potential for link rot and content disappearing. Adema notes that Open Book Publishers has taken on responsibility for preserving URLs as Handles but not all publishers will either want to or be able to take on that kind of preservation work for third-party content.
 
-Further reading
+### Further reading
 
 Bowie, S. (2022). What is computational publishing? *Community-Led Open Publication Infrastructures for Monographs (COPIM)*. [https://doi.org/10.21428/785a6451.af466093](https://doi.org/10.21428/785a6451.af466093)
 
 Odewahn, A. (2017). Computational Publishing with Jupyter. In *GitHub*. [https://github.com/odewahn/computational-publishing](https://github.com/odewahn/computational-publishing)
 
 Victor, B. (2011). Explorable Explanations. [http://worrydream.com/ExplorableExplanations/](http://worrydream.com/ExplorableExplanations/)
-
-
-
-
-References (included here for posterity, not for publication)
- 
-Bauch, N. (2016). Enchanting the Desert: A Pattern Language for the Production of Space. Stanford University Press. http://www.enchantingthedesert.com/home/
-
-Bowie, S. (2022). What is computational publishing? Community-Led Open Publication Infrastructures for Monographs (COPIM). https://doi.org/10.21428/785a6451.af466093
-
-Ganahl, S. (2022). Campus Medius: Digital Mapping in Cultural and Media Studies. Transcript Publishing. https://campusmedius.net/ 
-
-Juhasz, A. (2011). Learning From YouTube. The MIT Press. http://vectors.usc.edu/projects/learningfromyoutube/ 
-
-Odewahn, A. (2017). Computational Publishing with Jupyter. In GitHub. https://github.com/odewahn/computational-publishing
-
-Odewarn, A. (2015). Patterns of Code as Media. http://odewahn.github.io/patterns-of-code-as-media/www/introduction.html 
-
-Soon, W., & Cox, G. (2020). Aesthetic Programming: A Handbook of Software Studies. Open Humanites Press. http://www.openhumanitiespress.org/books/titles/aesthetic-programming/
-
-Victor, B. (2011). 'Explorable Explanations'. http://worrydream.com/ExplorableExplanations/ 

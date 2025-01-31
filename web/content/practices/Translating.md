@@ -1,10 +1,8 @@
-# Translating
-
-### Short description
+### Description
 
 Translating is inherently experimental because it requires the approximation of meaning through trial and error. Translating experiments have the potential to make explicit what is lost and gained when moving languages, texts, words and debates from one situated context to another.
 
-### Description
+### Full description
 
 There is a vast literature on the politics, aesthetics and ethics of translating. Joel Scott’s book *Translation and Experimental Writing* provides useful points of departure, informed by translation theory and empirical case studies. In line with the observation that translating is inherently experimental, Scott invites readers to reconsider translation as an experimental writing practice [(2018)](https://www.waterstones.com/book/translation-and-experimental-writing/joel-scott/9781138672956). Noting that translating is experimental at the core grants the question of what is at stake when the experimental character of translating is made explicit.
 
@@ -14,7 +12,7 @@ Drawing on feminist and postcolonial scholarship, Robert-Foley understands trans
 
 In the introduction to the special issue [(*Words to Think with*)](https://doi.org/10.1177/0038026120905452), the science and technology scholars Anne-Maire Mol and John Law consider the political, ethical and ontological effects of normalising English as the default of scholarly communication. Noting that in the social sciences, in 2005, three-quarters of all papers were published globally in English, they point out that English, despite its dominance, is not a lingua franca because, unlike with Medieval Latin, for example, there are English native speakers, and those who have to go the extra mile to speak and write in English, creating patterns of exclusion. Mol and Law flag that enforcing *one* version of proper global (scholarly) English is missing out on a wealth of analytical possibilities. Understanding that language cannot meaningfully be separated from places, practices and concerns, Mol and Law warn that the hegemony of academic English mutes debates, subjects and issues that do not translate into globalised English academic language, which in turn severely undermines the relevance of scholarly work in non-English dominated context. Translation, understood from the perspective of situated practice, is not the circulation of universal texts but the work of re-situating text, words and issues.
 
-### Experimental aspects
+### Experimental uses
 
 Situated understandings of translation that conceive of reading, writing, editing, reviewing, forking and publishing as acts of translation entangled in particular concerns and power relations invite us to attend to and play with what is lost and gained when moving between languages, texts, words and debates. Against the background of the dominance of academic English and continuous feminist and postcolonial critique of hegemonic discourses, scholarly writers explore the potential of working *inter-linguistically.*
 
@@ -63,13 +61,3 @@ Law, John, and Annemarie Mol. 2020. 'Words to Think with: An Introduction'. *The
 Robert-Foley, Lily. 2021. 'The Politics of Experimental Translation: Potentialities and Preoccupations'. *Journal of the English Association* 69 (267): 401–19. <[https://doi.org/10.1093/english/efaa032](https://doi.org/10.1093/english/efaa032)>.
 
 Scott, Joel. 2018. *Translation and Experimental Writing* : Routledge
-
-### Book examples
-
-Soon, Winnie. 2022. Translating Aesthetic Programming. In *CSS Working Group* <https://wg.criticalcodestudies.com/index.php?p=/discussion/132/week-4-translating-aesthetic-programming>
-
-Diderot, Denis. 2016. Denis Diderot Rameau’s Nephew — Le Neveu de Rameau: A Multi-Media Bilingual Edition. Edited by Marian Hobson. Translated by Kate Tunstall and Caroline Warman. Open Book Publishers. <https://doi.org/10.11647/OBP.0098>.
-
-As I remember it.
-
-### 

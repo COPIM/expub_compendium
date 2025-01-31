@@ -74,18 +74,18 @@ def edit_practice(practice_id):
     resource_dropdown = Resource.query.order_by(Resource.name)
     existing_relationships = get_relationships(practice_id)
 
+    practice_markdown = get_practice_markdown(practice.name, 'markdown')
+
     if request.method == 'POST':
         if not request.form['name']:
             flash('Name is required!')
         else:
             practice = Resource.query.get(practice_id)
             practice.name = request.form['name']
-            practice.description = request.form['description']
-            practice.longDescription = request.form['longDescription']
-            practice.experimental = request.form['experimental']
-            practice.considerations = request.form['considerations']
-            practice.references = request.form['references']
             db.session.commit()
+
+            write_practice_markdown(request.form['name'], request.form['practice_markdown'])
+
             linked_resources = request.form.getlist('linked_tools') + request.form.getlist('linked_books')
             remove_linked_resources = request.form.getlist('remove_linked_resources')
 
@@ -93,7 +93,7 @@ def edit_practice(practice_id):
 
             return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
 
-    return render_template('edit.html', resource=practice, resource_dropdown=resource_dropdown, relationships=existing_relationships)
+    return render_template('edit.html', resource=practice, practice_markdown=practice_markdown, resource_dropdown=resource_dropdown, relationships=existing_relationships)
 
 # route for function to delete a single practice from the edit page
 @practice.route('/practices/<int:practice_id>/delete', methods=('POST',))

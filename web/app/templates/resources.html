@@ -97,13 +97,13 @@
 
   <div>
     {% if view == 'list' %}
-    {% for resource in resources %}
-    {{ resource_list(resource, loop) }}
-    {% endfor %}
+      {% for resource in resources %}
+        {{ resource_list(resource, loop) }}
+      {% endfor %}
     {% else %}
-    {% for resource in resources %}
-    {{ resource_with_related(resource, loop) }}
-    {% endfor %}
+      {% for resource in resources %}
+        {{ resource_with_related(resource, loop) }}
+      {% endfor %}
     {% endif %}
   </div>
 

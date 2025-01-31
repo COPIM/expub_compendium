@@ -1,8 +1,8 @@
-Short description
+### Description
 
 Forking is a form of computational publishing that involves creating a derivative version of a previously published text or book to make revisions to it or customise it to a different context. Like versioning, it is derived from practices in software development and can even involve the same kind of tools.
 
-Long description
+### Full description
 
 Similar to versioning, forking is originally derived from the practices of software development. In software development, forking refers to taking a copy of a software’s source code and developing it to take the software in a new direction akin to taking a fork in the road to end up on a different path. There are many examples but a famous example is when the original developers of [MySQL](https://www.mysql.com/), the relational database management system, forked the open source code into [MariaDB](https://mariadb.org/) due to their [ethical concerns with Oracle Corporation acquiring Sun Microsystems](https://www2.computerworld.com.au/article/457551/dead_database_walking_mysql_creator_why_future_belongs_mariadb/) and therefore the rights to MySQL. MariaDB has a very similar interface and backend to MySQL but has developed slightly different features as a fork of the original. 
 
@@ -10,7 +10,7 @@ In an experimental publishing context, forking refers to the creation of a deriv
 
 Forking may be done by taking a digital copy of the original text or more systematically by using the same tools as software development. For a text stored in a data repository on GitLab or GitHub like [Soon and Cox’s (2020) *Aesthetic Programming*](https://aesthetic-programming.net/), a fork can be created instantly using the inbuilt forking function. 
 
-Experimental aspects
+### Experimental uses
 
 [Aslan Neferler Tim (2013)](http://toc.oreilly.com/2013/01/forking-the-book.html) refers to forking as an example of "what can happen when books embrace their natural unstable state." He contrasts books and websites with books perceived as stable because of the traditional publishing paradigms of the printing press and he goes on to argue that digital formats like ePub return books to a state of instability whereby they can be copied instantly and mixed through practices like forking. He points to [*The CryptoParty Handbook*](https://www.cryptoparty.in/learn/handbook) which was created in Berlin during a 3-day booksprint and combined two existing Creative Commons-licensed books, *How to Bypass Internet Censorship* and [*Basic Internet Security*](http://basicinternetsecurity.org/) which had both also been created during booksprints. 
 
@@ -20,7 +20,7 @@ Another fork of Soon and Cox’s *Aesthetic Programming* is focusing on translat
 
 Syllabi for courses may also be forked. Heidi Ellis contributed a chapter to The Open Organization Guide for Educators on how she "invited her students to collaborate in the co-construction of important course documents" by forking the course syllabus on GitHub and making their own changes [(The Open Organization, 2019)](https://github.com/open-organization/open-org-educators-guide/issues/10). 
 
-Considerations
+### Considerations
 
 Despite its apparent simplicity, forking is not as simple as copying a text. [Aslan Neferler Tim (2013)](http://toc.oreilly.com/2013/01/forking-the-book.html) highlights the economies in action in forking and the skill involved in curating new text, shaping it alongside existing text, using expertise to fill in new text, and the facilitation and curation skills of reaching a new audience with the forked text. 
 
@@ -28,7 +28,7 @@ Forking a book also has a different social and emotional connotation to reviewin
 
 Forking may also have a high technical complexity overhead. Heidi Ellis notes that when she asked her students to fork their course syllabus to make changes, only a very small number of students contributed to the collaborative process [(The Open Organization, 2019)](https://github.com/open-organization/open-org-educators-guide/issues/10). She suggests that the complexity of the technology and the high learning threshold of Git and GitHub may have contributed to this. Forking may require a higher degree of technical knowledge of software development practices than other authorial remixing practices. 
 
-Further reading
+### Further reading
 
 Nyman, L. (2015). *Understanding Code Forking in Open Source Software: An Examination of Code Forking, Its Effect on Open Source Software, and How It Is Viewed and Practiced by Developers*. Hanken School of Economics. [http://hdl.handle.net/10138/153135](http://hdl.handle.net/10138/153135)
 
