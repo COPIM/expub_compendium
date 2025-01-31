@@ -15,6 +15,7 @@ from .relationships import *
 from isbntools.app import *
 import requests
 import re
+import json
 from sqlalchemy.sql import func
 import markdown
 
@@ -36,6 +37,11 @@ def get_full_resource(resource_id):
         book_data = get_book_data(resource.isbn)
         if book_data:
             resource.__dict__.update(book_data)
+    # if there's a GitHub repository link, get last GitHub commit date
+    if resource.repositoryUrl and "github" in resource.repositoryUrl:
+        # get commit date
+        date = get_commit_date(resource.repositoryUrl)
+        resource.__dict__['commitDate'] = date
     return resource
 
 # function to get practice from Markdown file
@@ -47,7 +53,7 @@ def get_practice_markdown(practice_name):
 
 # function to retrieve data about a curated list of resources
 def get_curated_resources(resource_ids):
-    resources = Resource.query.filter(Resource.id.in_(resource_ids)).order_by(func.random()).all()
+    resources = Resource.query.filter(Resource.id.in_(resource_ids)).filter_by(published=True).order_by(func.random()).all()
     # append relationships to each resource
     append_relationships_multiple(resources)
     return resources
@@ -62,7 +68,7 @@ def delete_resource(resource_id):
 # function to get filters for a specific field 
 def get_filter_values(field, type):
     # get field values for filter 
-    field_filter = Resource.query.filter_by(type=type).with_entities(getattr(Resource, field))
+    field_filter = Resource.query.filter_by(type=type).filter_by(published=True).with_entities(getattr(Resource, field))
     # turn SQLAlchemy object into list
     field_filter = [i for i, in field_filter]
     # split each element on '/' (useful for scriptingLanguage only)
@@ -97,3 +103,23 @@ def get_book_cover(book):
         book_cover = {'thumbnail': openl_url}
         book.update(book_cover)
     return book
+
+# function to retrieve last updated date from the database
+def get_last_date():
+    resource = Resource.query.order_by(Resource.created.desc()).filter_by(published=True).first()
+    return resource.created.isoformat()
+
+# function to retrieve last commit date from a GitHub repository for a tool
+def get_commit_date(repositoryUrl):
+    # change repository URL to API URL
+    api_url = repositoryUrl.replace("https://github.com", "https://api.github.com/repos")
+    # get default branch name
+    r = requests.get(api_url)
+    r = json.loads(r.content)
+    branch = r['default_branch']
+    # get date of last commit on default branch
+    api_url = api_url + "/branches/" + branch  
+    r = requests.get(api_url)
+    r = json.loads(r.content)
+    date = r['commit']['commit']['author']['date'][0:10]
+    return date
