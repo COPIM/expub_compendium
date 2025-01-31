@@ -99,5 +99,13 @@ def edit_practice(practice_id):
 @practice.route('/practices/<int:practice_id>/delete', methods=('POST',))
 @login_required
 def delete_practice(practice_id):
+    # get practice name for deleting Markdown
+    practice = get_resource(practice_id)
+    practice_name = practice.name.replace(" ", "_")
+    # delete associated Markdown file
+    os.remove(f'content/practices/{practice_name}.md')
+
+    # delete from database
     delete_resource(practice_id)
+
     return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
