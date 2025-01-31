@@ -33,7 +33,7 @@ def get_books():
         intro_text = markdown.markdown(intro_text)
 
     # DATABASE QUERY
-    books_query = Resource.query.filter_by(type=resource_type)
+    books_query = Resource.query.filter_by(type=resource_type).filter_by(published=True)
 
     # FILTERING
     for key in request.args.keys():
@@ -52,7 +52,7 @@ def get_books():
     # FILTERS MENU
     # get values for filter menu dropdowns
     # practices 
-    practices_filter = Resource.query.filter_by(type='practice').with_entities(Resource.id, Resource.name).all()
+    practices_filter = Resource.query.filter_by(type='practice').filter_by(published=True).with_entities(Resource.id, Resource.name).all()
     # year
     year_filter = get_filter_values('year', resource_type)
     # typology

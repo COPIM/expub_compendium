@@ -18,12 +18,12 @@ def get_relationships(primary_id):
         links = []
         for relationship in primary_relationships:
              secondary_id = relationship.second_resource_id
-             links.extend(Resource.query.filter_by(id=secondary_id).all())
+             links.extend(Resource.query.filter_by(id=secondary_id).filter_by(published=True).all())
         secondary_relationships = Relationship.query.filter_by(second_resource_id=primary_id).all()
         if secondary_relationships:
             for relationship in secondary_relationships:
                 primary_id = relationship.first_resource_id
-                links.extend(Resource.query.filter_by(id=primary_id).all())
+                links.extend(Resource.query.filter_by(id=primary_id).filter_by(published=True).all())
         return links
     else:
         secondary_relationships = Relationship.query.filter_by(second_resource_id=primary_id).all()
@@ -31,7 +31,7 @@ def get_relationships(primary_id):
             links = []
             for relationship in secondary_relationships:
                 primary_id = relationship.first_resource_id
-                links.extend(Resource.query.filter_by(id=primary_id).all())
+                links.extend(Resource.query.filter_by(id=primary_id).filter_by(published=True).all())
             return links
 
 # function to append relationships to a resource object

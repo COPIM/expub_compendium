@@ -10,4 +10,5 @@ isbntools
 requests
 marshmallow
 flask-marshmallow
+marshmallow-sqlalchemy
 pandas

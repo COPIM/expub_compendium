@@ -83,7 +83,7 @@ To build the database tables run:
 
 ## credits
 
-Content in the Experimental Publishing Compendium is © 2022–2023 [COPIM](https://copim.ac.uk) and licensed under a [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+Content in the Experimental Publishing Compendium is © 2022–2025 [COPIM](https://copim.ac.uk) and licensed under a [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
 
 Book cover data is from the [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers).
 

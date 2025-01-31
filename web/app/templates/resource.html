@@ -90,12 +90,21 @@
                     <div class="">
                         <h3>Platform status</h3>
                         {{ resource['status'] }}
+                        {% if resource['commitDate'] %}
+                            : last <a href="{{ resource['repositoryUrl'] }}">GitHub commit</a> on {{ resource['commitDate']}}
+                        {% endif %}
                     </div>
                     {% endif %}
                 {% elif resource.type == 'practice' %}
                     {{ practice_markdown | safe }}
                 {% endif %}
             </div>
+            {% if resource['videoUrl'] %}
+            <div id="embedded-video" class="lg:col-span-12">
+                <h3>Accompanying video</h3>
+                <iframe src="{{ resource['videoUrl']|safe }}" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
+            </div>
+            {% endif %}
 
         </div>
     </div>
