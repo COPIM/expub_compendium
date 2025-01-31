@@ -53,6 +53,27 @@ def write_practice_markdown(practice_name, markdown):
     with open(f'content/practices/{practice_name}.md', 'w+') as f:
         f.write(markdown)
 
+# function to extract only the first paragraph of practice Markdown
+def extract_first_paragraph(markdown):
+    # Split the text into lines
+    lines = markdown.split("\n")
+    
+    # Initialize a flag to track when we find the first paragraph
+    paragraph = []
+    
+    for line in lines:
+        # Ignore headings (lines starting with #)
+        if line.startswith("#"):
+            continue
+        
+        # If the line is not empty, it's part of a paragraph
+        if line.strip():
+            paragraph.append(line.strip())
+        elif paragraph:  # Stop once we have collected a paragraph and hit an empty line
+            break
+
+    return " ".join(paragraph)
+
 # function to retrieve data about a curated list of resources
 def get_curated_resources(resource_ids):
     resources = Resource.query.filter(Resource.id.in_(resource_ids)).order_by(func.random()).all()

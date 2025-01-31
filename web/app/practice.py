@@ -48,6 +48,13 @@ def get_practices():
     # finalise the query and add pagination
     practices = practices_query.order_by(Resource.name).paginate(page=page, per_page=25)
 
+    # fill the description field with the first paragraph of the associated practice Markdown file
+    for practice in practices:
+        if not practice.description:
+            practice_markdown = get_practice_markdown(practice.name, 'markdown')
+            description = extract_first_paragraph(practice_markdown)
+            practice.description = description
+
     # POST-FILTERING PROCESSING
     # if view is 'expanded' then append relationships
     if view != 'list':
