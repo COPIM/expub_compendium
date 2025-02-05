@@ -104,6 +104,7 @@ def edit_tool(tool_id):
             tool.ingestFormats = request.form['ingestFormats']
             tool.outputFormats = request.form['outputFormats']
             tool.status = request.form['status']
+            tool.videoUrl = request.form['videoUrl']
             db.session.commit()
             linked_resources = request.form.getlist('linked_practices') + request.form.getlist('linked_books')
             remove_linked_resources = request.form.getlist('remove_linked_resources')

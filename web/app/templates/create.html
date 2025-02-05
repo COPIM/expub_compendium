@@ -1,192 +1,195 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Add a New Resource{% endblock %}</h1>
-        <form method="POST" action="/create" id="resource">
-            <div class="mb-3 mt-3">
-              <label for="type">Type</label>
-              <select class="form-select" id="resource_type" name="resource_type" form="resource">
-                  <option selected="selected">Please choose</option>
-                  <option value="tool">Tool</option>
-                  <option value="practice">Practice</option>
-                  <option value="book">Book</option>
-              </select>
-            </div>
-            <div id="resource_type_tool" class="resource_type_input" style="display: none;">
+
+<div class="input-form">
+    <h1>{% block title %} Add a New Resource{% endblock %}</h1>
+            <form method="POST" action="/create" id="resource">
                 <div class="mb-3 mt-3">
-                    <label for="tool_name">Tool name</label>
-                    <input class="form-control" type="text" name="tool_name" placeholder="Tool name" autofocus="">
+                <label for="type">Type</label>
+                <select class="form-select" id="resource_type" name="resource_type" form="resource">
+                    <option selected="selected">Please choose</option>
+                    <option value="tool">Tool</option>
+                    <option value="practice">Practice</option>
+                    <option value="book">Book</option>
+                </select>
                 </div>
-                <div class="mb-3 mt-3">
-                    <label for="description">Short description</label>
-                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Tool description" autofocus=""></textarea>
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="developer">Developer</label>
-                    <input class="form-control" type="text" name="developer" placeholder="Developer" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="developerUrl">Developer URL</label>
-                    <input class="form-control" type="text" name="developerUrl" placeholder="Developer URL" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="projectUrl">Project URL</label>
-                    <input class="form-control" type="text" name="projectUrl" placeholder="Project URL" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="repositoryUrl">Repository URL</label>
-                    <input class="form-control" type="text" name="repositoryUrl" placeholder="Repository URL" autofocus="">
-                </div>
-                
-                <div class="mb-3 mt-3">
-                    <label for="license">Software license</label>
-                    <input class="form-control" type="text" name="license" placeholder="Software license" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="scriptingLanguage">Software language</label>
-                    <input class="form-control" type="text" name="scriptingLanguage" placeholder="Software language" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="expertiseToUse">Expertise required to use</label>
-                    <input class="form-control" type="text" name="expertiseToUse" placeholder="Expertise required to use" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="expertiseToHost">Expertise required to self-host</label>
-                    <input class="form-control" type="text" name="expertiseToHost" placeholder="Expertise required to self-host" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="dependencies">Technical dependencies</label>
-                    <input class="form-control" type="text" name="dependencies" placeholder="Technical dependencies" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="ingestFormats">Import / ingest formats</label>
-                    <input class="form-control" type="text" name="ingestFormats" placeholder="Import / ingest formats" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="outputFormats">Output formats</label>
-                    <input class="form-control" type="text" name="outputFormats" placeholder="Output formats" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="status">Platform status</label>
-                    <input class="form-control" type="text" name="status" placeholder="Platform status" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="linked_practices">Add practices relationship(s) (hold Ctrl to select multiple options)</label>
-                </div>
-                <div class="mb-3 mt-3">
-                    <select name="linked_practices" id="linked_practices" aria-label="Add practices relationships" class="selectpicker" data-live-search="true" multiple>
-                      {% for resource_dropdown in resource_dropdown %}
-                        {% if resource_dropdown['type'] == 'practice' %}
-                            <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-                        {% endif %}
-                      {% endfor %}
-                    </select>
-                </div>
-                <div class="mb-3 mt-3">
-                  <label for="linked_books">Add books relationship(s) (hold Ctrl to select multiple options)</label>
-                </div>
-                <div class="mb-3 mt-3">
-                    <select name="linked_books" id="linked_books" aria-label="Add books relationships" class="selectpicker" data-live-search="true" multiple>
-                      {% for resource_dropdown in resource_dropdown %}
-                        {% if resource_dropdown['type'] == 'book' %}
-                            <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-                        {% endif %}
-                      {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div id="resource_type_practice" class="resource_type_input" style="display: none;">
-                <div class="mb-3 mt-3">
-                    <label for="practice_name">Practice name</label>
-                    <input class="form-control" type="text" name="practice_name" placeholder="Practice name" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="practice_markdown">Markdown text</label>
-                    <textarea class="form-control" rows="4" type="text" name="practice_markdown" placeholder="Markdown text" autofocus=""></textarea>
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
-                </div>
-                <div class="mb-3 mt-3">
-                    <select name="linked_tools" id="linked_tools" aria-label="Add tools relationships" class="selectpicker" data-live-search="true" multiple>
-                        {% for resource_dropdown in resource_dropdown %}
-                            {% if resource_dropdown['type'] == 'tool' %}
-                                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="linked_books">Add books relationship(s) (hold Ctrl to select multiple options)</label>
-                </div>
-                <div class="mb-3 mt-3">
-                    <select name="linked_books" id="linked_books" aria-label="Add books relationships" class="selectpicker" data-live-search="true" multiple>
-                        {% for resource_dropdown in resource_dropdown %}
-                            {% if resource_dropdown['type'] == 'book' %}
-                                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-            </div>
-            <div id="resource_type_book" class="resource_type_input" style="display: none;">
-                <div class="mb-3 mt-3">
-                    <label for="book_name">Book name</label>
-                    <input class="form-control" type="text" name="book_name" placeholder="Book name" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" rows="4" type="text" name="description" placeholder="Book description" autofocus=""></textarea>
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="author">Author</label>
-                    <input class="form-control" type="text" name="author" placeholder="Author" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="year">Publication year</label>
-                    <input class="form-control" type="text" name="year" placeholder="Publication year" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="typology">Typology category</label>
-                    <input class="form-control" type="text" name="typology" placeholder="Typology category" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="bookUrl">URL</label>
-                    <input class="form-control" type="text" name="bookUrl" placeholder="URL" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="isbn">ISBN</label>
-                    <input class="form-control" type="text" name="isbn" placeholder="ISBN" autofocus="">
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
-                </div>
-                <div class="mb-3 mt-3">
-                    <select name="linked_tools" id="linked_tools" aria-label="Add tools relationships" class="selectpicker" data-live-search="true" multiple>
-                        {% for resource_dropdown in resource_dropdown %}
-                            {% if resource_dropdown['type'] == 'tool' %}
-                                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-                            {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="linked_practices">Add practices relationship(s) (hold Ctrl to select multiple options)</label>
-                </div>
-                <div class="mb-3 mt-3">
-                    <select name="linked_practices" id="linked_practices" aria-label="Add practices relationships" class="selectpicker" data-live-search="true" multiple>
+                <div id="resource_type_tool" class="resource_type_input" style="display: none;">
+                    <div class="mb-3 mt-3">
+                        <label for="tool_name">Tool name</label>
+                        <input class="form-control" type="text" name="tool_name" placeholder="Tool name" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="description">Short description</label>
+                        <textarea class="form-control" rows="4" type="text" name="description" placeholder="Tool description" autofocus=""></textarea>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="developer">Developer</label>
+                        <input class="form-control" type="text" name="developer" placeholder="Developer" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="developerUrl">Developer URL</label>
+                        <input class="form-control" type="text" name="developerUrl" placeholder="Developer URL" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="projectUrl">Project URL</label>
+                        <input class="form-control" type="text" name="projectUrl" placeholder="Project URL" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="repositoryUrl">Repository URL</label>
+                        <input class="form-control" type="text" name="repositoryUrl" placeholder="Repository URL" autofocus="">
+                    </div>
+                    
+                    <div class="mb-3 mt-3">
+                        <label for="license">Software license</label>
+                        <input class="form-control" type="text" name="license" placeholder="Software license" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="scriptingLanguage">Software language</label>
+                        <input class="form-control" type="text" name="scriptingLanguage" placeholder="Software language" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="expertiseToUse">Expertise required to use</label>
+                        <input class="form-control" type="text" name="expertiseToUse" placeholder="Expertise required to use" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="expertiseToHost">Expertise required to self-host</label>
+                        <input class="form-control" type="text" name="expertiseToHost" placeholder="Expertise required to self-host" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="dependencies">Technical dependencies</label>
+                        <input class="form-control" type="text" name="dependencies" placeholder="Technical dependencies" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="ingestFormats">Import / ingest formats</label>
+                        <input class="form-control" type="text" name="ingestFormats" placeholder="Import / ingest formats" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="outputFormats">Output formats</label>
+                        <input class="form-control" type="text" name="outputFormats" placeholder="Output formats" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="status">Platform status</label>
+                        <input class="form-control" type="text" name="status" placeholder="Platform status" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="linked_practices">Add practices relationship(s) (hold Ctrl to select multiple options)</label>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <select name="linked_practices" id="linked_practices" aria-label="Add practices relationships" class="selectpicker" data-live-search="true" multiple>
                         {% for resource_dropdown in resource_dropdown %}
                             {% if resource_dropdown['type'] == 'practice' %}
                                 <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
                             {% endif %}
                         {% endfor %}
-                    </select>
+                        </select>
+                    </div>
+                    <div class="mb-3 mt-3">
+                    <label for="linked_books">Add books relationship(s) (hold Ctrl to select multiple options)</label>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <select name="linked_books" id="linked_books" aria-label="Add books relationships" class="selectpicker" data-live-search="true" multiple>
+                        {% for resource_dropdown in resource_dropdown %}
+                            {% if resource_dropdown['type'] == 'book' %}
+                                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                            {% endif %}
+                        {% endfor %}
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-        <script
-        src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
+                <div id="resource_type_practice" class="resource_type_input" style="display: none;">
+                    <div class="mb-3 mt-3">
+                        <label for="practice_name">Practice name</label>
+                        <input class="form-control" type="text" name="practice_name" placeholder="Practice name" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="practice_markdown">Markdown text</label>
+                        <textarea class="form-control" rows="4" type="text" name="practice_markdown" placeholder="Markdown text" autofocus=""></textarea>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <select name="linked_tools" id="linked_tools" aria-label="Add tools relationships" class="selectpicker" data-live-search="true" multiple>
+                            {% for resource_dropdown in resource_dropdown %}
+                                {% if resource_dropdown['type'] == 'tool' %}
+                                    <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="linked_books">Add books relationship(s) (hold Ctrl to select multiple options)</label>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <select name="linked_books" id="linked_books" aria-label="Add books relationships" class="selectpicker" data-live-search="true" multiple>
+                            {% for resource_dropdown in resource_dropdown %}
+                                {% if resource_dropdown['type'] == 'book' %}
+                                    <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div id="resource_type_book" class="resource_type_input" style="display: none;">
+                    <div class="mb-3 mt-3">
+                        <label for="book_name">Book name</label>
+                        <input class="form-control" type="text" name="book_name" placeholder="Book name" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" rows="4" type="text" name="description" placeholder="Book description" autofocus=""></textarea>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="author">Author</label>
+                        <input class="form-control" type="text" name="author" placeholder="Author" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="year">Publication year</label>
+                        <input class="form-control" type="text" name="year" placeholder="Publication year" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="typology">Typology category</label>
+                        <input class="form-control" type="text" name="typology" placeholder="Typology category" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="bookUrl">URL</label>
+                        <input class="form-control" type="text" name="bookUrl" placeholder="URL" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="isbn">ISBN</label>
+                        <input class="form-control" type="text" name="isbn" placeholder="ISBN" autofocus="">
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <select name="linked_tools" id="linked_tools" aria-label="Add tools relationships" class="selectpicker" data-live-search="true" multiple>
+                            {% for resource_dropdown in resource_dropdown %}
+                                {% if resource_dropdown['type'] == 'tool' %}
+                                    <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <label for="linked_practices">Add practices relationship(s) (hold Ctrl to select multiple options)</label>
+                    </div>
+                    <div class="mb-3 mt-3">
+                        <select name="linked_practices" id="linked_practices" aria-label="Add practices relationships" class="selectpicker" data-live-search="true" multiple>
+                            {% for resource_dropdown in resource_dropdown %}
+                                {% if resource_dropdown['type'] == 'practice' %}
+                                    <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <script
+            src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>  
+</div>
 {% endblock %}

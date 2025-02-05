@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{% block title %} Login {% endblock %}</h1>
-        <form method="POST" action="/login">
-            <div class="mb-3 mt-3">
-                <input class="form-control" type="email" name="email" placeholder="Your Email" autofocus="">
-            </div>
+<div class="input-form">
+    <h1>{% block title %} Login {% endblock %}</h1>
+            <form method="POST" action="/login">
+                <div class="mb-3 mt-3">
+                    <input class="form-control" type="email" name="email" placeholder="Your Email" autofocus="">
+                </div>
 
-            <div class="mb-3 mt-3">
-                <input class="form-control" type="password" name="password" placeholder="Your Password">
-            </div>
-            <div class="mb-3 mt-3">
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Remember me
-                </label>
-            </div>
-            <button class="btn btn-default">Login</button>
-        </form>
+                <div class="mb-3 mt-3">
+                    <input class="form-control" type="password" name="password" placeholder="Your Password">
+                </div>
+                <div class="mb-3 mt-3">
+                    <label class="checkbox">
+                        <input type="checkbox">
+                        Remember me
+                    </label>
+                </div>
+                <button class="btn btn-default">Login</button>
+            </form>
+</div>
 {% endblock %}

@@ -1702,7 +1702,7 @@ input.form-control[type=text] {
 
 textarea.form-control {
   width: 100%;
-  padding: 35px 20px;
+  padding: 1rem 1rem;
   margin: 8px 0;
   box-sizing: border-box;
   border: 2px solid black;
@@ -1765,4 +1765,8 @@ div#embedded-video iframe {
   right: 0;
   height: 480px;
   width: 100%;
+}
+
+.input-form {
+  padding: 1.5rem 2.5rem;
 }

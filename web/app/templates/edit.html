@@ -2,293 +2,312 @@
 
 {% block content %}
 
-<h1>{% block title %} Edit "{{ resource['name'] }}" {% endblock %}</h1>
+<div class="input-form">
 
-<form method="post">
-    <div class="mb-3 mt-3">
-        <label for="name">Name</label>
-        <input type="text" name="name" placeholder="Name"
-               class="form-control"
-               value="{{ request.form['name'] or resource['name'] }}">
-        </input>
-    </div>
+  <h1>{% block title %} Edit "{{ resource['name'] }}" {% endblock %}</h1>
 
-    {% if resource['type'] == 'tool' %}
-    <div class="mb-3 mt-3">
-      <label for="description">Description</label>
-      <textarea name="description" placeholder="Description"
-                class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
-    </div>
+  <form method="post">
+      <div class="mb-3 mt-3">
+          <label for="name">Name</label>
+          <input type="text" name="name" placeholder="Name"
+                class="form-control"
+                value="{{ request.form['name'] or resource['name'] }}">
+          </input>
+      </div>
 
-    <div class="mb-3 mt-3">
-        <label for="developer">Developer</label>
-        <input type="text" name="developer" placeholder="Developer"
-               class="form-control"
-               value="{{ request.form['developer'] or resource['developer'] }}">
+      {% if resource['type'] == 'tool' %}
+      <div class="mb-3 mt-3">
+        <label for="description">Description</label>
+        <textarea name="description" placeholder="Description"
+                  class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
+      </div>
+
+      <div class="mb-3 mt-3">
+          <label for="developer">Developer</label>
+          <input type="text" name="developer" placeholder="Developer"
+                class="form-control"
+                value="{{ request.form['developer'] or resource['developer'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="developerUrl">Developer URL</label>
+          <input type="text" name="developerUrl" placeholder="Developer URL"
+                class="form-control"
+                value="{{ request.form['developerUrl'] or resource['developerUrl'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="projectUrl">Project URL</label>
+          <input type="text" name="projectUrl" placeholder="Project URL"
+                class="form-control"
+                value="{{ request.form['projectUrl'] or resource['projectUrl'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="repositoryUrl">Repository URL</label>
+          <input type="text" name="repositoryUrl" placeholder="Repository URL"
+                class="form-control"
+                value="{{ request.form['repositoryUrl'] or resource['repositoryUrl'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="license">Software license</label>
+          <input type="text" name="license" placeholder="Software license"
+                class="form-control"
+                value="{{ request.form['license'] or resource['license'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="scriptingLanguage">Software language(s)</label>
+          <input type="text" name="scriptingLanguage" placeholder="Software language(s)"
+                class="form-control"
+                value="{{ request.form['scriptingLanguage'] or resource['scriptingLanguage'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="expertiseToUse">Expertise required to use</label>
+          <input type="text" name="expertiseToUse" placeholder="Expertise required to use"
+                class="form-control"
+                value="{{ request.form['expertiseToUse'] or resource['expertiseToUse'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="expertiseToHost">Expertise required to host</label>
+          <input type="text" name="expertiseToHost" placeholder="Expertise required to host"
+                class="form-control"
+                value="{{ request.form['expertiseToHost'] or resource['expertiseToHost'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="dependencies">Technical dependencies</label>
+          <input type="text" name="dependencies" placeholder="Technical dependencies"
+                class="form-control"
+                value="{{ request.form['dependencies'] or resource['dependencies'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="ingestFormats">Import / ingest formats</label>
+          <input type="text" name="ingestFormats" placeholder="Import / ingest formats"
+                class="form-control"
+                value="{{ request.form['ingestFormats'] or resource['ingestFormats'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="outputFormats">Output formats</label>
+          <input type="text" name="outputFormats" placeholder="Output formats"
+                class="form-control"
+                value="{{ request.form['outputFormats'] or resource['outputFormats'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="videoUrl">Accompanying video</label>
+        <input type="text" name="videoUrl" placeholder="URL for accompanying video"
+              class="form-control"
+              value="{{ request.form['videoUrl'] or resource['videoUrl'] }}">
         </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="developerUrl">Developer URL</label>
-        <input type="text" name="developerUrl" placeholder="Developer URL"
-               class="form-control"
-               value="{{ request.form['developerUrl'] or resource['developerUrl'] }}">
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="status">Platform status</label>
+          <input type="text" name="status" placeholder="Platform status"
+                class="form-control"
+                value="{{ request.form['status'] or resource['status'] }}">
+          </input>
+      </div>
+      <div class="mb-3 mt-3">
+          <label for="linked_practices">Add practices relationship(s) (hold Ctrl to select multiple options)</label>
+      </div>
+      <div class="mb-3 mt-3">
+          <select name="linked_practices" id="linked_practices" aria-label="Add practices relationships" class="selectpicker" data-live-search="true" multiple>
+            {% for resource_dropdown in resource_dropdown %}
+              {% if resource_dropdown['type'] == 'practice' %}
+                {% if relationships and resource_dropdown in relationships %}
+                  <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+                {% else %}
+                  <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </select>
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="linked_books">Add books relationship(s) (hold Ctrl to select multiple options)</label>
+      </div>
+      <div class="mb-3 mt-3">
+          <select name="linked_books" id="linked_books" aria-label="Add books relationships" class="selectpicker" data-live-search="true" multiple>
+            {% for resource_dropdown in resource_dropdown %}
+              {% if resource_dropdown['type'] == 'book' %}
+                {% if relationships and resource_dropdown in relationships %}
+                  <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+                {% else %}
+                  <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </select>
+      </div>
+
+      {% elif resource['type'] == 'practice' %}
+      <div class="mb-3 mt-3">
+        <label for="practice_markdown">Markdown text</label>
+        <textarea name="practice_markdown" placeholder="Markdown text"
+                  class="form-control">{{ request.form['practice_markdown'] or practice_markdown }}</textarea>
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
+      </div>
+      <div class="mb-3 mt-3">
+          <select name="linked_tools" id="linked_tools" aria-label="Add tools relationships" class="selectpicker" data-live-search="true" multiple>
+            {% for resource_dropdown in resource_dropdown %}
+              {% if resource_dropdown['type'] == 'tool' %}
+                {% if relationships and resource_dropdown in relationships %}
+                  <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+                {% else %}
+                  <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </select>
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="linked_books">Add books relationship(s) (hold Ctrl to select multiple options)</label>
+      </div>
+      <div class="mb-3 mt-3">
+          <select name="linked_books" id="linked_books" aria-label="Add books relationships" class="selectpicker" data-live-search="true" multiple>
+            {% for resource_dropdown in resource_dropdown %}
+              {% if resource_dropdown['type'] == 'book' %}
+                {% if relationships and resource_dropdown in relationships %}
+                  <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+                {% else %}
+                  <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </select>
+      </div>
+
+      {% elif resource['type'] == 'book' %}
+      <div class="mb-3 mt-3">
+        <label for="description">Description</label>
+        <textarea name="description" placeholder="Description"
+                  class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
+      </div>
+
+      <div class="mb-3 mt-3">
+        <label for="author">Author</label>
+        <input type="text" name="author" placeholder="Author"
+              class="form-control"
+              value="{{ request.form['author'] or resource['author'] }}">
         </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="projectUrl">Project URL</label>
-        <input type="text" name="projectUrl" placeholder="Project URL"
-               class="form-control"
-               value="{{ request.form['projectUrl'] or resource['projectUrl'] }}">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="year">Publication year</label>
+        <input type="text" name="year" placeholder="Publication year"
+              class="form-control"
+              value="{{ request.form['year'] or resource['year'] }}">
         </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="repositoryUrl">Repository URL</label>
-        <input type="text" name="repositoryUrl" placeholder="Repository URL"
-               class="form-control"
-               value="{{ request.form['repositoryUrl'] or resource['repositoryUrl'] }}">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="typology">Typology category</label>
+        <input type="text" name="typology" placeholder="Typology category"
+              class="form-control"
+              value="{{ request.form['typology'] or resource['typology'] }}">
         </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="license">Software license</label>
-        <input type="text" name="license" placeholder="Software license"
-               class="form-control"
-               value="{{ request.form['license'] or resource['license'] }}">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="bookUrl">URL</label>
+        <input type="text" name="bookUrl" placeholder="URL"
+              class="form-control"
+              value="{{ request.form['bookUrl'] or resource['bookUrl'] }}">
         </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="scriptingLanguage">Software language(s)</label>
-        <input type="text" name="scriptingLanguage" placeholder="Software language(s)"
-               class="form-control"
-               value="{{ request.form['scriptingLanguage'] or resource['scriptingLanguage'] }}">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="isbn">ISBN</label>
+        <input type="text" name="isbn" placeholder="ISBN"
+              class="form-control"
+              value="{{ request.form['isbn'] or resource['isbn'] }}">
         </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="expertiseToUse">Expertise required to use</label>
-        <input type="text" name="expertiseToUse" placeholder="Expertise required to use"
-               class="form-control"
-               value="{{ request.form['expertiseToUse'] or resource['expertiseToUse'] }}">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="videoUrl">Accompanying video</label>
+        <input type="text" name="videoUrl" placeholder="URL for accompanying video"
+              class="form-control"
+              value="{{ request.form['videoUrl'] or resource['videoUrl'] }}">
         </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="expertiseToHost">Expertise required to host</label>
-        <input type="text" name="expertiseToHost" placeholder="Expertise required to host"
-               class="form-control"
-               value="{{ request.form['expertiseToHost'] or resource['expertiseToHost'] }}">
-        </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="dependencies">Technical dependencies</label>
-        <input type="text" name="dependencies" placeholder="Technical dependencies"
-               class="form-control"
-               value="{{ request.form['dependencies'] or resource['dependencies'] }}">
-        </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="ingestFormats">Import / ingest formats</label>
-        <input type="text" name="ingestFormats" placeholder="Import / ingest formats"
-               class="form-control"
-               value="{{ request.form['ingestFormats'] or resource['ingestFormats'] }}">
-        </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="outputFormats">Output formats</label>
-        <input type="text" name="outputFormats" placeholder="Output formats"
-               class="form-control"
-               value="{{ request.form['outputFormats'] or resource['outputFormats'] }}">
-        </input>
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="status">Platform status</label>
-        <input type="text" name="status" placeholder="Platform status"
-               class="form-control"
-               value="{{ request.form['status'] or resource['status'] }}">
-        </input>
-    </div>
-    <div class="mb-3 mt-3">
+      </div>
+      <div class="mb-3 mt-3">
+        <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
+      </div>
+      <div class="mb-3 mt-3">
+          <select name="linked_tools" id="linked_tools" aria-label="Add tools relationships" class="selectpicker" data-live-search="true" multiple>
+            {% for resource_dropdown in resource_dropdown %}
+              {% if resource_dropdown['type'] == 'tool' %}
+                {% if relationships and resource_dropdown in relationships %}
+                  <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+                {% else %}
+                  <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </select>
+      </div>
+      <div class="mb-3 mt-3">
         <label for="linked_practices">Add practices relationship(s) (hold Ctrl to select multiple options)</label>
-    </div>
-    <div class="mb-3 mt-3">
-        <select name="linked_practices" id="linked_practices" aria-label="Add practices relationships" class="selectpicker" data-live-search="true" multiple>
-          {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] == 'practice' %}
-              {% if relationships and resource_dropdown in relationships %}
-                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
-              {% else %}
-                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+      </div>
+      <div class="mb-3 mt-3">
+          <select name="linked_practices" id="linked_practices" aria-label="Add practices relationships" class="selectpicker" data-live-search="true" multiple>
+            {% for resource_dropdown in resource_dropdown %}
+              {% if resource_dropdown['type'] == 'practice' %}
+                {% if relationships and resource_dropdown in relationships %}
+                  <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
+                {% else %}
+                  <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
+                {% endif %}
               {% endif %}
-            {% endif %}
-          {% endfor %}
-        </select>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="linked_books">Add books relationship(s) (hold Ctrl to select multiple options)</label>
-    </div>
-    <div class="mb-3 mt-3">
-        <select name="linked_books" id="linked_books" aria-label="Add books relationships" class="selectpicker" data-live-search="true" multiple>
-          {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] == 'book' %}
-              {% if relationships and resource_dropdown in relationships %}
-                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
-              {% else %}
-                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </select>
-    </div>
+            {% endfor %}
+          </select>
+      </div>
+      {% endif %}
 
-    {% elif resource['type'] == 'practice' %}
-    <div class="mb-3 mt-3">
-      <label for="practice_markdown">Markdown text</label>
-      <textarea name="practice_markdown" placeholder="Markdown text"
-                class="form-control">{{ request.form['practice_markdown'] or practice_markdown }}</textarea>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
-    </div>
-    <div class="mb-3 mt-3">
-        <select name="linked_tools" id="linked_tools" aria-label="Add tools relationships" class="selectpicker" data-live-search="true" multiple>
-          {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] == 'tool' %}
-              {% if relationships and resource_dropdown in relationships %}
-                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
-              {% else %}
-                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </select>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="linked_books">Add books relationship(s) (hold Ctrl to select multiple options)</label>
-    </div>
-    <div class="mb-3 mt-3">
-        <select name="linked_books" id="linked_books" aria-label="Add books relationships" class="selectpicker" data-live-search="true" multiple>
-          {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] == 'book' %}
-              {% if relationships and resource_dropdown in relationships %}
-                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
-              {% else %}
-                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </select>
-    </div>
+      {% if relationships %}
+      <div class="mb-3 mt-3">
+          <label for="linked_practice_id">Remove relationship(s)</label>
+      </div>
+      <div class="mb-3 mt-3">
+          <select name="remove_linked_resources" id="remove_linked_resources" aria-label="Remove link" class="selectpicker" data-live-search="true" multiple>
+            {% for relationship in relationships %}
+              <option value="{{ relationship['id'] }}">{{ relationship['name'] }}</option>
+            {% endfor %}
+          </select>
+      </div>
+      {% endif %}
 
-    {% elif resource['type'] == 'book' %}
-    <div class="mb-3 mt-3">
-      <label for="description">Description</label>
-      <textarea name="description" placeholder="Description"
-                class="form-control">{{ request.form['description'] or resource['description'] }}</textarea>
-    </div>
+      <div class="mb-3 mt-3">
+          <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+  </form>
 
-    <div class="mb-3 mt-3">
-      <label for="author">Author</label>
-      <input type="text" name="author" placeholder="Author"
-             class="form-control"
-             value="{{ request.form['author'] or resource['author'] }}">
-      </input>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="year">Publication year</label>
-      <input type="text" name="year" placeholder="Publication year"
-             class="form-control"
-             value="{{ request.form['year'] or resource['year'] }}">
-      </input>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="typology">Typology category</label>
-      <input type="text" name="typology" placeholder="Typology category"
-             class="form-control"
-             value="{{ request.form['typology'] or resource['typology'] }}">
-      </input>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="bookUrl">URL</label>
-      <input type="text" name="bookUrl" placeholder="URL"
-             class="form-control"
-             value="{{ request.form['bookUrl'] or resource['bookUrl'] }}">
-      </input>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="isbn">ISBN</label>
-      <input type="text" name="isbn" placeholder="ISBN"
-             class="form-control"
-             value="{{ request.form['isbn'] or resource['isbn'] }}">
-      </input>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="linked_tools">Add tools relationship(s) (hold Ctrl to select multiple options)</label>
-    </div>
-    <div class="mb-3 mt-3">
-        <select name="linked_tools" id="linked_tools" aria-label="Add tools relationships" class="selectpicker" data-live-search="true" multiple>
-          {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] == 'tool' %}
-              {% if relationships and resource_dropdown in relationships %}
-                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
-              {% else %}
-                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </select>
-    </div>
-    <div class="mb-3 mt-3">
-      <label for="linked_practices">Add practices relationship(s) (hold Ctrl to select multiple options)</label>
-    </div>
-    <div class="mb-3 mt-3">
-        <select name="linked_practices" id="linked_practices" aria-label="Add practices relationships" class="selectpicker" data-live-search="true" multiple>
-          {% for resource_dropdown in resource_dropdown %}
-            {% if resource_dropdown['type'] == 'practice' %}
-              {% if relationships and resource_dropdown in relationships %}
-                <option value="{{ resource_dropdown['id'] }}" selected>{{ resource_dropdown['name'] }}</option>
-              {% else %}
-                <option value="{{ resource_dropdown['id'] }}">{{ resource_dropdown['name'] }}</option>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </select>
-    </div>
-    {% endif %}
+  {% if resource['type'] == 'tool' %}
+  <form action="{{ url_for('tool.delete_tool', tool_id=resource['id']) }}" method="POST">
+      <input type="submit" value="Delete"
+              class="btn btn-danger btn-sm"
+              onclick="return confirm('Are you sure you want to delete this tool?')">
+  </form>
+  {% endif %}
+  {% if resource['type'] == 'practice' %}
+  <form action="{{ url_for('practice.delete_practice', practice_id=resource['id']) }}" method="POST">
+      <input type="submit" value="Delete"
+              class="btn btn-danger btn-sm"
+              onclick="return confirm('Are you sure you want to delete this practice?')">
+  </form>
+  {% endif %}
+  {% if resource['type'] == 'book' %}
+  <form action="{{ url_for('book.delete_book', book_id=resource['id']) }}" method="POST">
+      <input type="submit" value="Delete"
+              class="btn btn-danger btn-sm"
+              onclick="return confirm('Are you sure you want to delete this book?')">
+  </form>
+  {% endif %}
 
-    {% if relationships %}
-    <div class="mb-3 mt-3">
-        <label for="linked_practice_id">Remove relationship(s)</label>
-    </div>
-    <div class="mb-3 mt-3">
-        <select name="remove_linked_resources" id="remove_linked_resources" aria-label="Remove link" class="selectpicker" data-live-search="true" multiple>
-          {% for relationship in relationships %}
-            <option value="{{ relationship['id'] }}">{{ relationship['name'] }}</option>
-          {% endfor %}
-        </select>
-    </div>
-    {% endif %}
+</div>
 
-    <div class="mb-3 mt-3">
-        <button type="submit" class="btn btn-default">Submit</button>
-    </div>
-</form>
-
-{% if resource['type'] == 'tool' %}
-<form action="{{ url_for('tool.delete_tool', tool_id=resource['id']) }}" method="POST">
-    <input type="submit" value="Delete"
-            class="btn btn-danger btn-sm"
-            onclick="return confirm('Are you sure you want to delete this tool?')">
-</form>
-{% endif %}
-{% if resource['type'] == 'practice' %}
-<form action="{{ url_for('practice.delete_practice', practice_id=resource['id']) }}" method="POST">
-    <input type="submit" value="Delete"
-            class="btn btn-danger btn-sm"
-            onclick="return confirm('Are you sure you want to delete this practice?')">
-</form>
-{% endif %}
-{% if resource['type'] == 'book' %}
-<form action="{{ url_for('book.delete_book', book_id=resource['id']) }}" method="POST">
-    <input type="submit" value="Delete"
-            class="btn btn-danger btn-sm"
-            onclick="return confirm('Are you sure you want to delete this book?')">
-</form>
-{% endif %}
 {% endblock %}
