@@ -42,7 +42,6 @@ def get_practices():
         not_(or_(
             Resource.id==52,
             Resource.id==55,
-            Resource.id==58,
             Resource.id==183
         )))
 

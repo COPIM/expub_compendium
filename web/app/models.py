@@ -45,10 +45,10 @@ class Resource(db.Model):
     outputFormats = db.Column(db.Text)
     status = db.Column(db.Text)
     # practices
-    #longDescription = db.Column(db.Text)
-    #experimental = db.Column(db.Text)
-    #considerations = db.Column(db.Text)
-    #references = db.Column(db.Text)
+    longDescription = db.Column(db.Text)
+    experimental = db.Column(db.Text)
+    considerations = db.Column(db.Text)
+    references = db.Column(db.Text)
     # books
     author = db.Column(db.Text)
     year = db.Column(db.Text)
