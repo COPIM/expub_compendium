@@ -129,47 +129,45 @@
 {% endmacro %}
 
 {% macro relationships_links(resource) %}
+    {% if resource.tools %}
+    <div class="">
+        <div class="px-4 mt-16 lg:mt-0">
+            Tools
+        </div>
+        {% for tool in resource.tools %}
+        <div class="cell">
+            {{ resource_lead(tool,size=2) }}
+        </div>
+        {% endfor %}
 
-{% if resource.tools %}
-<div class="">
-    <div class="px-4 mt-16 lg:mt-0">
-        Tools
     </div>
-    {% for tool in resource.tools %}
-    <div class="cell">
-        {{ resource_lead(tool,size=2) }}
-    </div>
-    {% endfor %}
+    {% endif %}
+    {% if resource.books %}
+    <div class="">
+        <div class="px-4 mt-16 lg:mt-0">
+            Books
+        </div>
 
-</div>
-{% endif %}
-{% if resource.books %}
-<div class="">
-    <div class="px-4 mt-16 lg:mt-0">
-        Books
+        {% for book in resource.books %}
+        <div class="cell">
+            {{ resource_lead(book,size=2) }}
+        </div>
+        {% endfor %}
     </div>
+    {% endif %}
+    {% if resource.practices %}
+    <div class="">
+        <div class="px-4 mt-16 lg:mt-0">
+            Practices
+        </div>
 
-    {% for book in resource.books %}
-    <div class="cell">
-        {{ resource_lead(book,size=2) }}
+        {% for practice in resource.practices %}
+        <div class="cell">
+            {{ resource_lead(practice,size=2) }}
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endif %}
-{% if resource.practices %}
-<div class="">
-    <div class="px-4 mt-16 lg:mt-0">
-        Practices
-    </div>
-
-    {% for practice in resource.practices %}
-    <div class="cell">
-        {{ resource_lead(practice,size=2) }}
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
-
+    {% endif %}
 {% endmacro %}
 
 {% macro resource_list(resource, loop, show_number=true) %}

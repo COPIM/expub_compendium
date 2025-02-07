@@ -11,6 +11,7 @@ from flask_login import login_required, current_user
 from .models import Resource
 from .resources import *
 from .relationships import *
+from .practice_markdown import *
 from . import db
 import os
 import re

@@ -8,6 +8,7 @@
 from .models import Resource
 from .models import Relationship
 from . import db
+from .practice_markdown import get_practice_markdown, extract_first_paragraph
 import markdown
 
 # function to retrieve linked resources
@@ -46,8 +47,13 @@ def append_relationships(resource):
                 else:
                     resource.__dict__['tools'].append(relationship)
             elif relationship.type == 'practice':
-                # render Markdown as HTML
-                relationship.description = markdown.markdown(relationship.description)
+                if not relationship.description:
+                    # fill the description field with the first paragraph of the associated practice Markdown file
+                    practice_markdown = get_practice_markdown(relationship.name, 'markdown')
+                    if practice_markdown:
+                        description = extract_first_paragraph(practice_markdown)
+                        relationship.description = description
+
                 if 'practices' not in resource.__dict__.keys():
                     resource.__dict__['practices'] = []
                     resource.__dict__['practices'].append(relationship)
