@@ -1,10 +1,10 @@
-## Version 2.0 (2023)
+## Version 2.1 (2025)
 
-Version 2.0 has been curated by Janneke Adema, Julien McHardy, and Simon Bowie. Future versions will be overseen, curated, and maintained by an Editorial Board (members TBC).
+The Experimental Publishing Compendium is curated by an Editorial Oversight Group comprised of Janneke Adema, Simon Bowie, Julien McHardy, Whitney Trettien, and Simon Worthington. This group is advised by an Advisory Community. 
 
 Back-end coding by [Simon Bowie](https://simonxix.com), front-end coding by [Joel Galvez](https://www.joelgalvez.com/), design by Joel Galvez & Martina Vanini.
 
-Special thanks to Gary Hall, Rebekka Kiesewetter, Marcell Mars, Toby Steiner, and Samuel Moore, and everyone who has provided feedback on our research or shared suggestions of examples to feature, including the participants of COPIM’s experimental publishing workshop, and Nicolás Arata, Dominique Babini, Maria Fernanda Pampin, Sebastian Nordhoff, Abel Packer, and Armanda Ramalho, and Agatha Morka.
+Special thanks to Gary Hall, Rebekka Kiesewetter, Marcell Mars, Toby Steiner, and Samuel Moore, and everyone who provided feedback on our research or shared suggestions of examples to feature, including the participants of COPIM’s experimental publishing workshop, and Nicolás Arata, Dominique Babini, Maria Fernanda Pampin, Sebastian Nordhoff, Abel Packer, and Armanda Ramalho, and Agatha Morka.
 
 Our appreciation also goes out to the [Next Generation Library Publishing Project](https://educopia.org/next-generation-library-publishing/) for sharing an early catalogue-in-progress version of SComCat with us which formed one of the inspirations behind the Compendium.
 ___
