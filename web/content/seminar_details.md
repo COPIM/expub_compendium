@@ -27,3 +27,15 @@ Time: 17:00 CET / 16:00 GMT / 11:00 EST
 Location: Online using kMeet
 
 Speakers: Stephany RunningHawk Johnson (Local Contexts) & Darcy Cullen (UBC Press)
+
+## Seminar 04: Publicación Experimental en Práctica
+
+Date: Wednesday 10th September 2025
+
+Time: 10:00 UTC-3 / 14:00 BST
+
+Location: Online using Zoom
+
+Speakers: Simon Bowie & Whitney Trettien (Experimental Publishing Compendium), Amanda Ramalho (Thoth Open Metadata), Gimena del Río Riande (HD Lab at IIBICRIT-CONICET), and Patricio Pantaleo (Paideia Editorial)
+
+Register at [https://paideiastudio.net/inscripciones/](https://paideiastudio.net/inscripciones/).

@@ -2,9 +2,10 @@
 
 The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/experimental-publishing-group) and the Centre for Postdigital Cultures’ [Post-Publishing](https://postpublishing.postdigitalcultures.org) research strand are pleased to present a seminar series for for those interested in experimental scholarly book publishing throughout 2024 and 2025. Each seminar will bring together authors and publishers with software and tool providers. 
 
-Our next seminar scheduled for Thursday 20th March 2025 has unfortunately been cancelled. We will share further details about rescheduling on this page when we have more information. 
+Our next seminar will be Wednesday 10th September 2025 at 10:00 UTC-3 / 14:00 BST. 'Publicación Experimental en Práctica: Herramientas Colaborativas y Digitales (Experimental Publishing in Practice: Collaborative and Digital Tools)' will bring together speakers from the [Experimental Publishing Compendium](https://compendium.copim.ac.uk/), [Thoth Open Metadata](https://thoth.pub/), the [digital humanities laboratory (HD LAB) at IIBICRIT-CONICET](https://hdlab.space/), and [Paideia Editorial](https://paideiaeditorial.net/) to discuss digital humanities and experimental publishing. Presentations will be in Spanish or English depending on the presenter’s preference, and can be subtitled using Zoom tools.
 
-Every seminar in this series will take place online using [kMeet](https://www.infomaniak.com/en/kmeet), the open source privacy-focused videoconferencing software from Infomaniak. kMeet is compatible with all modern browsers.
+More information and registration at [https://paideiastudio.net/inscripciones/](https://paideiastudio.net/inscripciones/).
+
 
 
 ![logos for Open Book Futures Experimental Publishing Group and the Centre for Postdigital Cultures](/static/images/seminar_logos.png)
