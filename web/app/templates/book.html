@@ -110,6 +110,12 @@
                         </div>
                     </div>
                     {% endif %}
+                    {% if resource['updated'] %}
+                    <div class="">
+                        <h3>Entry last updated</h3>
+                        {{ resource['updated'].strftime('%Y-%m-%d')|safe }}
+                    </div>
+                    {% endif %}
                     {% if resource['desc'] %}
                     <div class="lg:col-span-2">
                         <h3>Publisher's description</h3>

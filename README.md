@@ -34,7 +34,7 @@ To deploy this environment, first copy env.template to a new file, env.dev. Fill
 
 In the command line, navigate to the directory where this repository is stored on your local machine and run:
 
-`docker-compose up -d --build`
+`docker compose up -d --build`
 
 Docker should build the application environment comprising a Python container running Flask and a database container running MariaDB.
 
@@ -42,13 +42,13 @@ The website should then be available in the browser at 'localhost:5000'.
 
 To take down the environment, run:
 
-`docker-compose down`
+`docker compose down`
 
 ### populating the database
 
 To intially create the database and a database user:
 
-`docker-compose exec -it db mariadb -u root -p`
+`docker compose exec -it db mariadb -u root -p`
 
 Enter your root password as defined in .env.dev.
 
@@ -58,8 +58,8 @@ Enter your root password as defined in .env.dev.
 
 Restart the containers to allow Flask to build the database tables:
 
-`docker-compose down`
-`docker-compose up -d --build`
+`docker compose down`
+`docker compose up -d --build`
 
 You can then use database_functions.sh and an SQL file to populate the database e.g.
 

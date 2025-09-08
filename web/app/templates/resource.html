@@ -95,6 +95,12 @@
                         {% endif %}
                     </div>
                     {% endif %}
+                    {% if resource['updated'] %}
+                    <div class="">
+                        <h3>Entry last updated</h3>
+                        {{ resource['updated'].strftime('%Y-%m-%d')|safe }}
+                    </div>
+                    {% endif %}
                 {% elif resource.type == 'practice' %}
                     {{ practice_markdown | safe }}
                 {% endif %}
