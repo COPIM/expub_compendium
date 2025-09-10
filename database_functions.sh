@@ -6,6 +6,7 @@
 # @purpose: Runs database functions for the Experimental Publishing Compendium
 # @acknowledgements:
 # https://www.redhat.com/sysadmin/arguments-options-bash-scripts
+# https://askubuntu.com/questions/1389904/read-from-env-file-and-set-as-bash-variables
 
 ############################################################
 # subprograms                                              #
