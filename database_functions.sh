@@ -2,7 +2,7 @@
 # @name: database_functions.sh
 # @creation_date: 2022-11-02
 # @license: The MIT License <https://opensource.org/licenses/MIT>
-# @author: Simon Bowie <ad7588@coventry.ac.uk>
+# @author: Simon Bowie <simonxix@simonxix.com>
 # @purpose: Runs database functions for the Experimental Publishing Compendium
 # @acknowledgements:
 # https://www.redhat.com/sysadmin/arguments-options-bash-scripts
@@ -12,7 +12,7 @@
 ############################################################
 License()
 {
-  echo 'Copyright 2022 Simon Bowie <ad7588@coventry.ac.uk>'
+  echo 'Copyright 2022-2025 Simon Bowie <simonxix@simonxix.com>'
   echo
   echo 'Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:'
   echo
@@ -35,6 +35,7 @@ Help()
    echo "c     Export single table as tab-delimited txt."
    echo "v     Import tab-delimited txt file to table."
    echo "d     Drop table."
+   echo "b     Backup database to remote storage."
    echo
 }
 
@@ -64,6 +65,13 @@ Drop_table()
 {
   docker exec -i $CONTAINER bash -c "mariadb -u $USERNAME -p$PASSWORD $DATABASE -e 'DROP TABLE IF EXISTS $TABLE;'"
 }
+
+Backup()
+{
+  docker exec -it $CONTAINER mariadb-dump --single-transaction -u $USERNAME -p$PASSWORD $DATABASE > $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql
+
+  scp $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql $STORAGE_USERNAME@$STORAGE_SERVER:$STORAGE_DIRECTORY
+}
 ############################################################
 ############################################################
 # main program                                             #
@@ -78,6 +86,10 @@ PASSWORD=xxxxxxxx
 EXPORT_DIRECTORY="./db_exports"
 EXPORT_SQL_FILENAME=compendium_db_
 EXPORT_TXT_FILENAME=$2`date +"%Y%m%d"`
+BACKUP_SQL_FILENAME=compendium_backup
+STORAGE_USERNAME=xxxxxxxx
+STORAGE_SERVER=xxxxxxxx
+STORAGE_DIRECTORY=xxxxxxxx
 
 # error message for no flags
 if (( $# == 0 )); then
@@ -86,7 +98,7 @@ if (( $# == 0 )); then
 fi
 
 # get the options
-while getopts ":hleicvd" flag; do
+while getopts ":hleicvdb" flag; do
    case $flag in
       l) # display License
         License
@@ -142,6 +154,9 @@ while getopts ":hleicvd" flag; do
         Drop_table
         exit 1
       fi;;
+      b) # backup database to secure storage
+        Backup
+        exit;;
       \?) # Invalid option
         Help
         exit;;
