@@ -41,34 +41,34 @@ Help()
 
 Export()
 {
-  docker exec -it $CONTAINER mariadb-dump --single-transaction -u $USERNAME -p$PASSWORD $DATABASE > $EXPORT_DIRECTORY/$EXPORT_SQL_FILENAME`date +"%Y%m%d"`.sql
+  docker exec -it $DATABASE_CONTAINER mariadb-dump --single-transaction -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE > $EXPORT_DIRECTORY/$EXPORT_SQL_FILENAME`date +"%Y%m%d"`.sql
 }
 
 Import()
 {
-  docker exec -i $CONTAINER mariadb -u $USERNAME -p$PASSWORD $DATABASE < $IMPORT_SQL_FILE
+  docker exec -i $DATABASE_CONTAINER mariadb -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE < $IMPORT_SQL_FILE
 }
 
 Table_export()
 {
-  docker exec -it $CONTAINER bash -c "mariadb -u $USERNAME -p$PASSWORD $DATABASE --batch -e 'SELECT * FROM $TABLE'" > $EXPORT_TXT_DIRECTORY/$EXPORT_TXT_FILENAME.txt
+  docker exec -it $DATABASE_CONTAINER bash -c "mariadb -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE --batch -e 'SELECT * FROM $TABLE'" > $EXPORT_TXT_DIRECTORY/$EXPORT_TXT_FILENAME.txt
 }
 
 Table_import()
 {
-  docker cp $IMPORT_TXT_FILE $CONTAINER:/tmp/import_file
+  docker cp $IMPORT_TXT_FILE $DATABASE_CONTAINER:/tmp/import_file
 
-  docker exec -i $CONTAINER bash -c "mariadb -u $USERNAME -p$PASSWORD $DATABASE -e 'LOAD DATA LOCAL INFILE '\''/tmp/import_file'\'' REPLACE INTO TABLE $TABLE FIELDS TERMINATED BY '\''\t'\'' LINES TERMINATED BY '\''\r'\'' IGNORE 1 ROWS;'"
+  docker exec -i $DATABASE_CONTAINER bash -c "mariadb -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE -e 'LOAD DATA LOCAL INFILE '\''/tmp/import_file'\'' REPLACE INTO TABLE $TABLE FIELDS TERMINATED BY '\''\t'\'' LINES TERMINATED BY '\''\r'\'' IGNORE 1 ROWS;'"
 }
 
 Drop_table()
 {
-  docker exec -i $CONTAINER bash -c "mariadb -u $USERNAME -p$PASSWORD $DATABASE -e 'DROP TABLE IF EXISTS $TABLE;'"
+  docker exec -i $DATABASE_CONTAINER bash -c "mariadb -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE -e 'DROP TABLE IF EXISTS $TABLE;'"
 }
 
 Backup()
 {
-  docker exec -it $CONTAINER mariadb-dump --single-transaction -u $USERNAME -p$PASSWORD $DATABASE > $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql
+  docker exec -it $DATABASE_CONTAINER mariadb-dump --single-transaction -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE > $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql
 
   scp $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql $STORAGE_USERNAME@$STORAGE_SERVER:$STORAGE_DIRECTORY
 }
@@ -78,18 +78,8 @@ Backup()
 ############################################################
 ############################################################
 
-# set variables
-CONTAINER=mariadb
-DATABASE=compendium
-USERNAME=xxxxxxxx
-PASSWORD=xxxxxxxx
-EXPORT_DIRECTORY="./db_exports"
-EXPORT_SQL_FILENAME=compendium_db_
-EXPORT_TXT_FILENAME=$2`date +"%Y%m%d"`
-BACKUP_SQL_FILENAME=compendium_backup
-STORAGE_USERNAME=xxxxxxxx
-STORAGE_SERVER=xxxxxxxx
-STORAGE_DIRECTORY=xxxxxxxx
+# retrieve variables from .env file (see .env.template for template)
+source .env.dev
 
 # error message for no flags
 if (( $# == 0 )); then
