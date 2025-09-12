@@ -2,27 +2,30 @@
 
 The Open Book Futures [Experimental Publishing Group](https://copim.pubpub.org/experimental-publishing-group) and the Centre for Postdigital Cultures’ [Post-Publishing](https://postpublishing.postdigitalcultures.org) research strand are pleased to present a seminar series for for those interested in experimental scholarly book publishing throughout 2024 and 2025. Each seminar will bring together authors and publishers with software and tool providers. 
 
-Our next seminar will be Wednesday 10th September 2025 at 10:00 UTC-3 / 14:00 BST. 'Publicación Experimental en Práctica: Herramientas Colaborativas y Digitales (Experimental Publishing in Practice: Collaborative and Digital Tools)' will bring together speakers from the [Experimental Publishing Compendium](https://compendium.copim.ac.uk/), [Thoth Open Metadata](https://thoth.pub/), the [digital humanities laboratory (HD LAB) at IIBICRIT-CONICET](https://hdlab.space/), and [Paideia Editorial](https://paideiaeditorial.net/) to discuss digital humanities and experimental publishing. Presentations will be in Spanish or English depending on the presenter’s preference, and can be subtitled using Zoom tools.
-
-More information and registration at [https://paideiastudio.net/inscripciones/](https://paideiastudio.net/inscripciones/).
-
+Our most recent seminar was Wednesday 10th September 2025 at 10:00 UTC-3 / 14:00 BST. 'Publicación Experimental en Práctica: Herramientas Colaborativas y Digitales (Experimental Publishing in Practice: Collaborative and Digital Tools)' brought together speakers from the [Experimental Publishing Compendium](https://compendium.copim.ac.uk/), [Thoth Open Metadata](https://thoth.pub/), the [digital humanities laboratory (HD LAB) at IIBICRIT-CONICET](https://hdlab.space/), and [Paideia Editorial](https://paideiaeditorial.net/) to discuss digital humanities and experimental publishing. 
 
 
 ![logos for Open Book Futures Experimental Publishing Group and the Centre for Postdigital Cultures](/static/images/seminar_logos.png)
 
 ## Seminar recordings
 
-### Sesson 01: Manifold
+### Manifold
 
 <br><div id="embedded-video"><iframe src="https://archive.org/embed/Experimental_Publishing_Seminar_01" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe></div><br>
 
 View the [whole recording on the Internet Archive](https://archive.org/details/Experimental_Publishing_Seminar_01).
 
-### Sesson 02: Hypothes.is
+### Hypothes.is
 
 <br><div id="embedded-video"><iframe src="https://archive.org/embed/Experimental_Publishing_Seminar_02" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe></div><br>
 
 View the [whole recording on the Internet Archive](https://archive.org/details/Experimental_Publishing_Seminar_02).
+
+### Publicación Experimental en Práctica: Herramientas Colaborativas y Digitales (Experimental Publishing in Practice: Collaborative and Digital Tools)
+
+<br><div id="embedded-video"><iframe src="https://archive.org/embed/Experimental_Publishing_Seminar_04" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe></div><br>
+
+View the [whole recording on the Internet Archive](https://archive.org/details/Experimental_Publishing_Seminar_04).
 
 <br>
 
