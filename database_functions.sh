@@ -42,7 +42,7 @@ Help()
 
 Export()
 {
-  docker exec -it $DATABASE_CONTAINER mariadb-dump --single-transaction -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE > $EXPORT_DIRECTORY/$EXPORT_SQL_FILENAME`date +"%Y%m%d"`.sql
+  docker exec -i $DATABASE_CONTAINER mariadb-dump --single-transaction -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE > $EXPORT_DIRECTORY/$EXPORT_SQL_FILENAME`date +"%Y%m%d"`.sql
 }
 
 Import()
@@ -52,7 +52,7 @@ Import()
 
 Table_export()
 {
-  docker exec -it $DATABASE_CONTAINER bash -c "mariadb -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE --batch -e 'SELECT * FROM $TABLE'" > $EXPORT_TXT_DIRECTORY/$EXPORT_TXT_FILENAME.txt
+  docker exec -i $DATABASE_CONTAINER bash -c "mariadb -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE --batch -e 'SELECT * FROM $TABLE'" > $EXPORT_TXT_DIRECTORY/$EXPORT_TXT_FILENAME.txt
 }
 
 Table_import()
@@ -69,7 +69,7 @@ Drop_table()
 
 Backup()
 {
-  docker exec -it $DATABASE_CONTAINER mariadb-dump --single-transaction -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE > $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql
+  docker exec -i $DATABASE_CONTAINER mariadb-dump --single-transaction -u $DATABASE_USERNAME -p$DATABASE_PASSWORD $MYSQL_DATABASE > $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql
 
   scp $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql $STORAGE_USERNAME@$STORAGE_SERVER:$STORAGE_DIRECTORY
 }
