@@ -28,9 +28,11 @@ The API is relatively open and is available at ./api
 
 ### environment files
 
-To deploy this environment, first copy env.template to a new file, env.dev. Fill in the appropriate environment variables.
+To deploy this environment, first copy .env.template to a new file, .env. Fill in the appropriate environment variables.
 
 ### Docker Compose
+
+Copy the appropriate Docker Compose file to docker-compose.yml based on whether you want to run Nginx from the same Docker Compose file or not.
 
 In the command line, navigate to the directory where this repository is stored on your local machine and run:
 
