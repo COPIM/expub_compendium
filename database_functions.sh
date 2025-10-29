@@ -11,6 +11,7 @@
 ############################################################
 # subprograms                                              #
 ############################################################
+
 License()
 {
   echo 'Copyright 2022-2025 Simon Bowie <simonxix@simonxix.com>'
@@ -27,7 +28,7 @@ Help()
    # Display Help
    echo "This script performs database functions for the Experimental Publishing Compendium"
    echo
-   echo "Syntax: database_functions.sh [-l|h|e|i|c|v|d]"
+   echo "Syntax: database_functions.sh [-l|h|e|i|c|v|d|b]"
    echo "options:"
    echo "l     Print the MIT License notification."
    echo "h     Print this Help."
@@ -73,6 +74,7 @@ Backup()
 
   scp $EXPORT_DIRECTORY/$BACKUP_SQL_FILENAME.sql $STORAGE_USERNAME@$STORAGE_SERVER:$STORAGE_DIRECTORY
 }
+
 ############################################################
 ############################################################
 # main program                                             #
@@ -148,7 +150,7 @@ while getopts ":hleicvdb" flag; do
       b) # backup database to secure storage
         Backup
         exit;;
-      \?) # Invalid option
+      \?) # invalid option
         Help
         exit;;
    esac
