@@ -1,9 +1,11 @@
 web/app/__pycache__/
 .env.prod
 .env.dev
+.env
 .DS_Store
 database_functions_live.sh
 old_database_schema
 db_exports
 db_imports
 node_modules
+docker-compose.yml

@@ -1,7 +1,7 @@
 services:
   web:
     build: ./web
-    container_name: python
+    container_name: compendium
     restart: unless-stopped
     expose:
       - 5000
@@ -15,7 +15,7 @@ services:
 
   db:
     image: mariadb:latest
-    container_name: mariadb
+    container_name: compendium_mariadb
     restart: unless-stopped
     env_file:
       - ./.env.nginx
