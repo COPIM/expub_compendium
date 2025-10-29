@@ -82,7 +82,7 @@ Backup()
 ############################################################
 
 # retrieve variables from .env file (see .env.template for template)
-source .env.dev
+source .env
 
 # error message for no flags
 if (( $# == 0 )); then
