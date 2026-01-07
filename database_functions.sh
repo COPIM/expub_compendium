@@ -82,7 +82,9 @@ Backup()
 ############################################################
 
 # retrieve variables from .env file (see .env.template for template)
-source .env
+# source the .env file from the script's directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/.env"
 
 # error message for no flags
 if (( $# == 0 )); then
