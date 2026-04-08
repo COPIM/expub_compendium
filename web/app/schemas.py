@@ -20,8 +20,23 @@ class UserSchema(ma.Schema):
 
 # schema for JSON transformation of Resource table via Marshmallow
 class ToolSchema(ma.Schema):
+    id = fields.Int()
+    name = fields.Str()
+    description = fields.Str()
+    developer = fields.Str()
+    developerUrl = fields.Str()
+    projectUrl = fields.Str()
+    repositoryUrl = fields.Str()
+    license = fields.Str()
+    scriptingLanguage = fields.Str()
+    expertiseToUse = fields.Str()
+    expertiseToHost = fields.Str()
+    dependencies = fields.Str()
+    ingestFormats = fields.Str()
+    outputFormats = fields.Str()
+    videoUrl = fields.Str()
+    status = fields.Str()
     class Meta:
-        fields = ('id', 'name', 'description', 'developer', 'developerUrl', 'projectUrl', 'repositoryUrl', 'license', 'scriptingLanguage', 'expertiseToUse', 'expertiseToHost', 'dependencies', 'ingestFormats', 'outputFormats', 'videoUrl', 'status')
         ordered = True
 
 class PracticeSchema(ma.Schema):
@@ -46,8 +61,15 @@ class PracticeSchema(ma.Schema):
         return data
 
 class BookSchema(ma.Schema):
+    id = fields.Int()
+    name = fields.Str()
+    description = fields.Str()
+    author = fields.Str()
+    year = fields.Str()
+    bookUrl = fields.Str()
+    videoUrl = fields.Str()
+    isbn = fields.Str()
     class Meta:
-        fields = ('id', 'name', 'description', 'author', 'year', 'bookUrl', 'videoUrl', 'isbn')
         ordered = True
 
 # subschemas for nested fields
