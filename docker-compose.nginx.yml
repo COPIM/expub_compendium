@@ -14,7 +14,7 @@ services:
     command: gunicorn --workers=3 --bind 0.0.0.0:5000 "app:create_app()"
 
   db:
-    image: mariadb:latest
+    image: mariadb:12.2.2
     container_name: compendium_mariadb
     restart: unless-stopped
     env_file:

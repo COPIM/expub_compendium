@@ -13,7 +13,7 @@ services:
       - db
       
   db:
-    image: mariadb:latest
+    image: mariadb:12.2.2
     container_name: compendium_mariadb
     restart: unless-stopped
     env_file:
