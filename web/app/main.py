@@ -53,12 +53,20 @@ def about():
     # get last updated date
     last_updated = get_last_date()
     with open('content/about.md', 'r') as f:
-        main_text = f.read()
-        main_text = markdown.markdown(main_text)
+        about_text = f.read()
+        about_text = markdown.markdown(about_text)
     with open('content/colophon.md', 'r') as f:
         sidebar_text = f.read()
         sidebar_text = markdown.markdown(sidebar_text)
-    return render_template('about.html', main_text=main_text, sidebar_text=sidebar_text, last_updated=last_updated)
+    return render_template('about.html', about_text=about_text, sidebar_text=sidebar_text, last_updated=last_updated)
+
+# route for governance modal page
+@main.route('/governance')
+def governance():
+    with open('content/governance.md', 'r') as f:
+        governance_text = f.read()
+        governance_text = markdown.markdown(governance_text)
+    return render_template('governance.html', governance_text=governance_text)
 
 # route for events page
 @main.route('/practice_seminars')
