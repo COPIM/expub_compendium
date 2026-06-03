@@ -9,7 +9,7 @@ Special thanks to Gary Hall, Rebekka Kiesewetter, Marcell Mars, Toby Steiner, an
 Our appreciation also goes out to the [Next Generation Library Publishing Project](https://educopia.org/next-generation-library-publishing/) for sharing an early catalogue-in-progress version of SComCat with us which formed one of the inspirations behind the Compendium.
 ___
 
-Copyright © 2023–2025 [COPIM](https://copim.ac.uk/).
+Copyright © 2023–2026 [COPIM](https://copim.ac.uk/).
 
 Design © 2023 [Joel Galvez](https://joelgalvez.com/selected).
 
@@ -26,4 +26,4 @@ Adema, J., Moore, S., and T. Steiner (2021) *Promoting and Nurturing Interaction
 
 ___
 
-COPIM and the Experimental Publishing Compendium are supported by the [Research England Development (RED) Fund](https://re.ukri.org/funding/our-funds-overview/research-england-development-red-fund/) and by [Arcadia](https://www.arcadiafund.org.uk), a charitable fund of Lisbet Rausing and Peter Baldwin.
+COPIM and the Experimental Publishing Compendium were supported by the [Research England Development (RED) Fund](https://re.ukri.org/funding/our-funds-overview/research-england-development-red-fund/) and by [Arcadia](https://www.arcadiafund.org.uk), a charitable fund of Lisbet Rausing and Peter Baldwin.
