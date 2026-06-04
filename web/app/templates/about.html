@@ -3,7 +3,15 @@
 {% block content %}
 
 <div class="grid lg:grid-cols-[2fr,1fr] gap-4 container">
+
     <div class="cell-margin text max-w-[65ch] lg:m-16 text-lg lg:text-xl">
+        <a href="/introduction"
+            hx-target="#modal-content"
+            hx-select="main"
+            hx-swap="innerHTML"
+            @click="openModal()">
+            Introduction
+        </a>
         <a href="/governance"
             hx-target="#modal-content"
             hx-select="main"
@@ -11,7 +19,6 @@
             @click="openModal()">
             Governance
         </a>
-        {{ about_text|safe }}
     </div>
 
     <div id="colophon" class="cell-margin text lg:my-16">
