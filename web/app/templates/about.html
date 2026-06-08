@@ -3,8 +3,26 @@
 {% block content %}
 
 <div class="grid lg:grid-cols-[2fr,1fr] gap-4 container">
-    <div class="cell-margin text max-w-[65ch] lg:m-16 text-lg lg:text-xl">
-        {{ main_text|safe }}
+
+    <div class="cell-margin text lg:m-16 flex flex-col items-center gap-8">
+        <div class="introduction_headings huge-title">
+            <a href="/introduction"
+                hx-target="#modal-content"
+                hx-select="main"
+                hx-swap="innerHTML"
+                @click="openModal()">
+                Introduction
+            </a>
+        </div>
+        <div class="introduction_headings huge-title">
+            <a href="/governance"
+                hx-target="#modal-content"
+                hx-select="main"
+                hx-swap="innerHTML"
+                @click="openModal()">
+                Governance
+            </a>
+        </div>
     </div>
 
     <div id="colophon" class="cell-margin text lg:my-16">
