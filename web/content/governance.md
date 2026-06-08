@@ -1,4 +1,4 @@
-**Our Governance**
+## Governance
 
 The Experimental Publishing Compendium is a community-led, not-for-profit, and values-driven resource that developed out of the [COPIM](https://copim.pub/projects/copim-2019-2023/) and [Open Book Futures](https://copim.pub/projects/open-book-futures-2023-2026/) projects. The Compendium is curated and maintained by an *Editorial Oversight Group *(EOG). The EOG consists of: 
 
