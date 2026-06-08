@@ -44,7 +44,7 @@
                     <div class="">
                         <h3>Developer</h3>
                         {% if resource['developerUrl'] %}
-                        <a href="{{ resource['developerUrl'] }}">{{ resource['developer'] }}</a>
+                        <a target="_blank" rel="noopener noreferrer" href="{{ resource['developerUrl'] }}">{{ resource['developer'] }}</a>
                         {% else %}
                         {{ resource['developer'] }}
                         {% endif %}
@@ -65,13 +65,13 @@
                     {% if resource['projectUrl'] %}
                     <div class="">
                         <h3>Project page</h3>
-                        <a href="{{ resource['projectUrl'] }}">{{ resource['projectUrl'] }}</a>
+                        <a target="_blank" rel="noopener noreferrer" href="{{ resource['projectUrl'] }}">{{ resource['projectUrl'] }}</a>
                     </div>
                     {% endif %}
                     {% if resource['repositoryUrl'] %}
                     <div class="">
                         <h3>Code repository</h3>
-                        <a href="{{ resource['repositoryUrl'] }}">{{ resource['repositoryUrl'] }}</a>
+                        <a target="_blank" rel="noopener noreferrer" href="{{ resource['repositoryUrl'] }}">{{ resource['repositoryUrl'] }}</a>
                     </div>
                     {% endif %}
                     {% if resource['ingestFormats'] %}
@@ -91,7 +91,7 @@
                         <h3>Platform status</h3>
                         {{ resource['status'] }}
                         {% if resource['commitDate'] %}
-                            : last <a href="{{ resource['repositoryUrl'] }}">GitHub commit</a> on {{ resource['commitDate']}}
+                            : last <a target="_blank" rel="noopener noreferrer" href="{{ resource['repositoryUrl'] }}">GitHub commit</a> on {{ resource['commitDate']}}
                         {% endif %}
                     </div>
                     {% endif %}
