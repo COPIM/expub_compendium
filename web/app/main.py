@@ -86,4 +86,4 @@ def events():
     with open('content/seminar_details.md', 'r') as f:
         sidebar_text = f.read()
         sidebar_text = markdown.markdown(sidebar_text)
-    return render_template('about.html', main_text=main_text, sidebar_text=sidebar_text)
+    return render_template('seminars.html', main_text=main_text, sidebar_text=sidebar_text)
