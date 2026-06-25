@@ -93,7 +93,7 @@ def events():
 @login_required
 def review():
     # DATABASE QUERY
-    resources_query = Resource.query.filter_by(published=True)
+    resources_query = Resource.query
     # finalise the query
     resources = resources_query.order_by(Resource.id)
 

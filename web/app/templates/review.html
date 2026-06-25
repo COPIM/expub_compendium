@@ -4,7 +4,16 @@
 
   {% for resource in resources %}
     <div class="border-b-2 border-black">
-        <div class="">
+        <div class="flex items-center gap-4 py-2">
+              {% if resource.published %}
+                  <span style="background-color: #d1e7dd; color: #0f5132; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">
+                      Published
+                  </span>
+              {% else %}
+                  <span style="background-color: #e2e3e5; color: #41464b; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem;">
+                      Draft
+                  </span>
+              {% endif %}
               {% if resource['type'] == 'tool' %}
                 <a href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" target="_blank" rel="noopener noreferrer">
                     View
@@ -31,10 +40,10 @@
                     Edit
                 </a>
               {% endif %}
-            <span class="{{ resource.type }} lg:text-xl pr-4">
+            <span class="{{ resource.type }} lg:text-xl">
                 {{ resource.id }}
             </span>
-            <span class="{{ resource.type }} lg:text-xl pr-4">
+            <span class="{{ resource.type }} lg:text-xl">
                 {{ resource.name }}
             </span>
         </div>
