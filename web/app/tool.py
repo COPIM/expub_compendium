@@ -91,6 +91,7 @@ def edit_tool(tool_id):
         else:
             tool = Resource.query.get(tool_id)
             tool.name = request.form['name']
+            tool.published = request.form.get('published') == 'true'
             tool.description = request.form['description']
             tool.developer = request.form['developer']
             tool.developerUrl = request.form['developerUrl']

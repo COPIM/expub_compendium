@@ -15,6 +15,17 @@
           </input>
       </div>
 
+      <div class="mb-3 mt-3">
+          <label for="published">Public</label>
+          <input type="checkbox" 
+                id="published"
+                name="published"
+                class="form-check-input"
+                value="true"
+                {{ 'checked' if resource.published else '' }}
+                >
+      </div>
+
       {% if resource['type'] == 'tool' %}
       <div class="mb-3 mt-3">
         <label for="description">Description</label>

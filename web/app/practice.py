@@ -90,6 +90,7 @@ def edit_practice(practice_id):
         else:
             practice = Resource.query.get(practice_id)
             practice.name = request.form['name']
+            practice.published = request.form.get('published') == 'true'
             db.session.commit()
 
             write_practice_markdown(request.form['name'], request.form['practice_markdown'])

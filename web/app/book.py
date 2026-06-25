@@ -97,6 +97,7 @@ def edit_book(book_id):
             book.typology = request.form['typology']
             book.videoUrl = request.form['videoUrl']
             book.references = request.form['references']
+            book.published = request.form.get('published') == 'true'
             db.session.commit()
             linked_resources = request.form.getlist('linked_tools') + request.form.getlist('linked_practices')
             remove_linked_resources = request.form.getlist('remove_linked_resources')
