@@ -81,6 +81,11 @@
         >
         Add resource
     </a>
+    <a href="{{ url_for('main.review') }}"
+        class="menuitem {{ 'active' if request.path == url_for('main.review') }} {% if type=='top' %} hidden lg:block {% else %} block {% endif %} "
+        >
+        Review resources
+    </a>
     <a href="{{ url_for('auth.logout') }}"
         class="menuitem  {% if type=='top' %} hidden lg:block {% else %} block {% endif %} "
         >
