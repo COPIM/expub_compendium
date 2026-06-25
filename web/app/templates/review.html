@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% for resource in resources %}
+    <div class="border-b-2 border-black">
+        <div class="">
+              {% if resource['type'] == 'tool' %}
+                <a href="{{ url_for('tool.show_tool', tool_id=resource['id']) }}" target="_blank" rel="noopener noreferrer">
+                    View
+                </a>
+                {% elif resource['type'] == 'practice' %}
+                <a href="{{ url_for('practice.show_practice', practice_id=resource['id']) }}" target="_blank" rel="noopener noreferrer">
+                    View
+                </a>
+                {% elif resource['type'] == 'book' %}
+                <a href="{{ url_for('book.show_book', book_id=resource['id']) }}" target="_blank" rel="noopener noreferrer">
+                    View
+                </a>
+              {% endif %}
+              {% if resource['type'] == 'tool' %}
+                <a href="{{ url_for('tool.edit_tool', tool_id=resource['id']) }}" target="_blank" rel="noopener noreferrer">
+                    Edit
+                </a>
+                {% elif resource['type'] == 'practice' %}
+                <a href="{{ url_for('practice.edit_practice', practice_id=resource['id']) }}" target="_blank" rel="noopener noreferrer">
+                    Edit
+                </a>
+                {% elif resource['type'] == 'book' %}
+                <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}" target="_blank" rel="noopener noreferrer">
+                    Edit
+                </a>
+              {% endif %}
+            <span class="{{ resource.type }} lg:text-xl pr-4">
+                {{ resource.id }}
+            </span>
+            <span class="{{ resource.type }} lg:text-xl pr-4">
+                {{ resource.name }}
+            </span>
+        </div>
+    </div>
+  {% endfor %}
+
+{% endblock %}

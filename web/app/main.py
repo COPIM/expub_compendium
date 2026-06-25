@@ -87,3 +87,14 @@ def events():
         sidebar_text = f.read()
         sidebar_text = markdown.markdown(sidebar_text)
     return render_template('seminars.html', main_text=main_text, sidebar_text=sidebar_text)
+
+# route for review page
+@main.route('/review')
+@login_required
+def review():
+    # DATABASE QUERY
+    resources_query = Resource.query.filter_by(published=True)
+    # finalise the query
+    resources = resources_query.order_by(Resource.id)
+
+    return render_template('review.html', resources=resources)
