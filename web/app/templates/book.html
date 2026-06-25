@@ -42,7 +42,7 @@
             <div class="">
                 {% if current_user.is_authenticated %}
                 <div class="">
-                    <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}">
+                    <a href="{{ url_for('book.edit_book', book_id=resource['id']) }}" target="_blank" rel="noopener noreferrer">
                         <span class="badge bg-dark">Edit</span>
                     </a>
                 </div>
