@@ -228,6 +228,13 @@
         </input>
       </div>
       <div class="mb-3 mt-3">
+        <label for="references">Cover URL</label>
+        <input type="text" name="references"
+              class="form-control"
+              value="{{ request.form['references'] or resource['references'] }}">
+        </input>
+      </div>
+      <div class="mb-3 mt-3">
         <label for="videoUrl">Accompanying video</label>
         <input type="text" name="videoUrl" placeholder="URL for accompanying video"
               class="form-control"
