@@ -32,7 +32,7 @@ def get_full_resource(resource_id):
     resource = append_relationships(resource)
     if resource.type == 'book':
         # render Markdown as HTML
-        resource.description = markdown.markdown(resource.description)
+        resource.rendered_description = markdown.markdown(resource.description)
         # get additional book metadata
         book_data = get_book_data(resource.isbn)
         if book_data:

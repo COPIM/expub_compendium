@@ -26,7 +26,7 @@ class Resource(db.Model):
     # all resource types
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
     created = db.Column(db.DateTime, default=datetime.utcnow)
-    updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     published = db.Column(db.Boolean)
     type = db.Column(db.Text)
     name = db.Column(db.Text)
