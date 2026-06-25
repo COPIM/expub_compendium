@@ -108,11 +108,19 @@ def get_commit_date(repositoryUrl):
     api_url = repositoryUrl.replace("https://github.com", "https://api.github.com/repos")
     # get default branch name
     r = requests.get(api_url)
-    r = json.loads(r.content)
-    branch = r['default_branch']
+    if r.status_code != 200:
+        raise ValueError(f"GitHub API error {r.status_code} for {api_url}: {r.json().get('message', 'Unknown error')}")
+    repo_data = r.json()
+    
+    if 'default_branch' not in repo_data:
+        raise KeyError(f"'default_branch' not found in response for {api_url}. Keys present: {list(repo_data.keys())}")
+    
+    branch = repo_data['default_branch']
     # get date of last commit on default branch
     api_url = api_url + "/branches/" + branch  
     r = requests.get(api_url)
-    r = json.loads(r.content)
-    date = r['commit']['commit']['author']['date'][0:10]
+    if r.status_code != 200:
+        raise ValueError(f"GitHub API error {r.status_code} for branch {branch}: {r.json().get('message', 'Unknown error')}")
+    branch_data = r.json()
+    date = branch_data['commit']['commit']['author']['date'][0:10]
     return date
