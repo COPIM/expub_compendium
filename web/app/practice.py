@@ -99,7 +99,7 @@ def edit_practice(practice_id):
 
             edit_relationships(practice_id, linked_resources, remove_linked_resources, existing_relationships)
 
-            return redirect(url_for('practice.get_practices',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
+            return redirect(url_for('practice.show_practice', practice_id=practice_id, _external=True, _scheme=os.environ.get('SSL_SCHEME')))
 
     return render_template('edit.html', resource=practice, practice_markdown=practice_markdown, resource_dropdown=resource_dropdown, relationships=existing_relationships)
 

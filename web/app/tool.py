@@ -111,7 +111,7 @@ def edit_tool(tool_id):
 
             edit_relationships(tool_id, linked_resources, remove_linked_resources, existing_relationships)
             
-            return redirect(url_for('tool.get_tools',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
+            return redirect(url_for('tools.show_tool', tool_id=tool_id, _external=True, _scheme=os.environ.get('SSL_SCHEME')))
 
     return render_template('edit.html', resource=tool, resource_dropdown=resource_dropdown, relationships=existing_relationships)
 

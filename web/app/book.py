@@ -103,7 +103,7 @@ def edit_book(book_id):
 
             edit_relationships(book_id, linked_resources, remove_linked_resources, existing_relationships)
 
-            return redirect(url_for('book.get_books',_external=True,_scheme=os.environ.get('SSL_SCHEME')))
+            return redirect(url_for('book.show_book', book_id=book_id, _external=True, _scheme=os.environ.get('SSL_SCHEME')))
 
     return render_template('edit.html', resource=book, resource_dropdown=resource_dropdown, relationships=existing_relationships)
 
