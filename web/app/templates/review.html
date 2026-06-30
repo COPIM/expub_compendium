@@ -43,6 +43,9 @@
             <span class="{{ resource.type }} lg:text-xl">
                 {{ resource.id }}
             </span>
+            <span class="lg:text-xl">
+                {{ resource.updated.strftime('%Y-%m-%d')|safe }}
+            </span>
             <span class="{{ resource.type }} lg:text-xl">
                 {{ resource.name }}
             </span>
