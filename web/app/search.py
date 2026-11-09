@@ -18,7 +18,7 @@ search = Blueprint('search', __name__)
 def basic_search():
     if request.args.get('query') is not None:
         query = request.args.get('query')
-        results = Resource.query.filter(
+        results = Resource.query.filter_by(published=True).filter(
             or_(
                 Resource.name.ilike('%' + query + '%'),
                 Resource.description.ilike('%' + query + '%'),
